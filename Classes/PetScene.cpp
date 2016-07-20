@@ -14,6 +14,7 @@
 #include "PackageModel.h"
 #include "PackageDialog.h"
 #include "PreStagePetSlot.h"
+#include "MyPurchase.h"
 
 USING_NS_CC;
 using namespace std;
@@ -187,6 +188,7 @@ void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 	{
 		auto dialog = PackageDialog::create(kPackageDiamond);
 		MainScene::theScene()->showDialog(dialog);
+		MyPurchase::sharedPurchase()->showToast("×êÊ¯²»×ã");
 	}
 }
 

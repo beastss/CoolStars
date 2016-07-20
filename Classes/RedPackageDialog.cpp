@@ -3,8 +3,8 @@
 #include "ThiefModel.h"
 #include "DataManager.h"
 #include "GoodsMgr.h"
-#include "GoodsView.h"
 #include "SoundMgr.h"
+#include "CommonUtil.h"
 USING_NS_CC;
 using namespace std;
 RedPackageDialog *RedPackageDialog::create()
@@ -36,6 +36,10 @@ void RedPackageDialog::initLayout()
 {
 	CCMenuItem *btn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(7)));
 	btn->setTarget(this, menu_selector(RedPackageDialog::onConfirmBtnClicked));
+
+	CCLabelAtlas *diamonds = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(8));
+	auto data = DataManagerSelf->getRewardsConfig().redPackage;
+	diamonds->setString(CommonUtil::intToStr(data.amount));
 }
 
 void RedPackageDialog::onConfirmBtnClicked(cocos2d::CCObject* pSender)
@@ -43,13 +47,5 @@ void RedPackageDialog::onConfirmBtnClicked(cocos2d::CCObject* pSender)
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	auto rewards = DataManagerSelf->getRewardsConfig().redPackage;
 	GoodsMgr::theMgr()->addGoods(rewards);
-
-	auto goodsView = GoodsView::create(rewards);
-	auto size = getContentSize();
-	goodsView->setPosition(ccp(size.width * 0.5f, size.height));
-	addChild(goodsView);
-	goodsView->runMoveAction([=]()
-	{
-		removeFromParent();
-	});
+	removeFromParent();
 }
