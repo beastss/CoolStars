@@ -75,6 +75,7 @@ void MainScene::addUiPanel(BasePanel *panel, bool closeBehind)
 		panel->setAnchorPoint(ccp(0.5f, 0.5f));
 		panel->setPosition(ccpMult(winSize, 0.5f));
 		m_uiLayer->addChild(panel);
+		m_curPanel = panel;
 	}
 }
 
@@ -155,6 +156,7 @@ void MainScene::showDialog(ScaleDialog *dialog)
 	dialog->setAnchorPoint(ccp(0.5f, 0.5f));
 	dialog->setPosition(ccpMult(winSize, 0.5f));
 	m_dialogLayer->addChild(dialog);
+	m_curDialog = dialog;
 }
 
 void MainScene::showGuideView(int guideId)

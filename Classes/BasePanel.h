@@ -1,6 +1,7 @@
 #ifndef __BASEPANEL_H__
 #define __BASEPANEL_H__
 #include "cocos2d.h"
+#include "KeyPadWatcher.h"
 
 class BasePanel
 	: public cocos2d::CCNode

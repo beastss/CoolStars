@@ -199,8 +199,19 @@ void StageUiLayer::refreshRedPackage()
 		auto node = m_bottomUi->getChildById(15);
 		if (!node->isVisible())
 		{
+			m_noTouchLayer->setCanTouch(false);
+			auto targetPos = node->getPosition();
+			auto sourcePos = ccpMult(getContentSize(), 0.5f);
+			node->setPosition(sourcePos);
+			auto spawn = CCSpawn::create(CCFadeIn::create(1.0f), CCScaleTo::create(1.0f, 1.5f), NULL);
+			auto move = CCEaseExponentialInOut::create(CCMoveTo::create(0.4f, targetPos));
+			auto toNoraml = CCScaleTo::create(0.3f, 1.0f);
+			auto func = CCFunctionAction::create([=]()
+			{
+				m_noTouchLayer->setCanTouch(true);
+			});
 			node->setVisible(true);
-			node->runAction(CCFadeIn::create(1.0f));
+			node->runAction(CCSequence::create(spawn, move, toNoraml, func, NULL));
 		}
 	}
 }
