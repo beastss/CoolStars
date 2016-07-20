@@ -108,8 +108,8 @@ void GuideView::initFinger()
 		m_layout->getChildById(3)->setVisible(false);
 		auto size = m_layout->getChildById(4)->getContentSize();
 		auto pos = m_targetRect.origin;
-		pos.x += size.width * 1.10f;
-		pos.y += size.height * 0.8f;
+		pos.x += size.width * 0.34f;
+		pos.y += size.height * 0.25f;
 		m_layout->getChildById(4)->setPosition(pos);
 		break;
 	}
