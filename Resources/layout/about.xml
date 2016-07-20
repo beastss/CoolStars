@@ -10,8 +10,8 @@
 	</image>
 	<image>
 		<id>2</id>
-		<x>164.62</x>
-		<y>162.72</y>
+		<x>173.70</x>
+		<y>183.82</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -19,8 +19,8 @@
 	</image>
 	<button>
 		<id>3</id>
-		<x>169.68</x>
-		<y>80.83</y>
+		<x>175.59</x>
+		<y>58.88</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -28,5 +28,23 @@
 		<selected>about/gy_anniu.png</selected>
 		<disabled>about/gy_anniu.png</disabled>
 	</button>
+	<label>
+		<id>4</id>
+		<x>150.90</x>
+		<y>139.08</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<text>类型：休闲消除游戏。</text>
+	</label>
+	<label>
+		<id>5</id>
+		<x>181.71</x>
+		<y>108.90</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<text>客服电话：020-38023548</text>
+	</label>
 </layout>
 

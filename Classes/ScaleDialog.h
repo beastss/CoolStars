@@ -1,6 +1,7 @@
 #ifndef __SCALEDIALOG_H__
 #define __SCALEDIALOG_H__
 #include "cocos2d.h"
+#include "KeyPadWatcher.h"
 
 class ScaleDialog
 	: public cocos2d::CCNode

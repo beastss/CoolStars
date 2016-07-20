@@ -20,6 +20,7 @@ public:
 
 	void showPanel(int panelId, int usage = 0, bool closeBehind = true);
 	void showDialog(ScaleDialog *dialog);
+	void removeDialog(ScaleDialog *dialog){}
 	void showGuideView(int guideId);
 	void removeGuideView();
 	void backPanel();
@@ -44,6 +45,8 @@ private:
 	cocos2d::CCNode *m_dialogLayer;
 	cocos2d::CCNode *m_guideLayer;
 
+	BasePanel *m_curPanel;//ÓÃ²»Îª¿Õ
+	ScaleDialog *m_curDialog;
 };
 
 #endif
