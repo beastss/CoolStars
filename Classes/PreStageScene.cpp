@@ -14,6 +14,8 @@
 #include "GuideMgr.h"
 #include "StageDataMgr.h"
 #include "ThiefModel.h"
+#include "PackageDialog.h"
+#include "PackageModel.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -101,6 +103,11 @@ void PreStageScene::toStartGame(cocos2d::CCObject* pSender)
 		PreStageModel::theModel()->confirmCurPets();
 		MainScene::theScene()->showPanel(kStageView);
 		MainScene::theScene()->clearPanelRecord();
+	}
+	else
+	{
+		auto dialog = PackageDialog::create(kPackageStrength);
+		MainScene::theScene()->showDialog(dialog);
 	}
 }
 

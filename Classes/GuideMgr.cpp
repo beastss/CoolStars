@@ -110,7 +110,7 @@ void GuideMgr::onSave()
 
 	sprintf(str, "replace into save_guide values(1, \"%s\", %d);", parseIntsToStr(m_finishedGuides).c_str(), m_guideEnable ? 1 : 0);
 
-	//helper.executeSql(str);
+	helper.executeSql(str);
 	helper.closeDB();
 }
 
