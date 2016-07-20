@@ -91,11 +91,25 @@ void PetEntity::getThisNewPet()
 	PetSavingHelper::setPetState(m_data);
 }
 
-void PetEntity::upgrade()
+bool PetEntity::canUpgrade()
 {
+	if (isMaxLevel()) return false;
+
 	int foodNum = UserInfo::theInfo()->getFood();
 	int diamondNum = UserInfo::theInfo()->getDiamond();
-	if (isMaxLevel()) return;
+
+	int foodCost = m_data.foodToUpgrade;
+	int diamondCost = foodCost / (DataManagerSelf->getSystemConfig().foodsByOneDiamond);
+
+	return foodNum >= foodCost || diamondNum >= diamondCost;
+}
+
+void PetEntity::upgrade()
+{
+	if (!canUpgrade()) return;
+
+	int foodNum = UserInfo::theInfo()->getFood();
+	int diamondNum = UserInfo::theInfo()->getDiamond();
 
 	int foodCost = m_data.foodToUpgrade;
 	int diamondCost = foodCost / (DataManagerSelf->getSystemConfig().foodsByOneDiamond);
@@ -103,14 +117,11 @@ void PetEntity::upgrade()
 	{
 		UserInfo::theInfo()->setFood(foodNum - foodCost);
 	}
-	else if (diamondNum >= diamondCost)
+	else
 	{
 		UserInfo::theInfo()->setDiamond(diamondNum - diamondCost);
 	}
-	else
-	{
-		return;
-	}
+
 	m_data.level++;
 	refreshPetData();
 	PetSavingHelper::setPetState(m_data);

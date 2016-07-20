@@ -61,6 +61,7 @@ public:
 	void setLevel(int level){ m_data.level = level; }
 
 	bool isMaxLevel();
+	bool canUpgrade();
 	void upgrade();
 	void getThisNewPet();
 	

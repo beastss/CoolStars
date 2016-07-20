@@ -178,8 +178,16 @@ void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	int petId = m_colorPets[s_curPetColor][m_curColorPetIndex];
 	auto pet = PetManager::petMgr()->getPetById(petId);
-	pet->upgrade();
-	refreshUi();
+	if (pet->canUpgrade())
+	{
+		pet->upgrade();
+		refreshUi();
+	}
+	else if (!pet->isMaxLevel())
+	{
+		auto dialog = PackageDialog::create(kPackageDiamond);
+		MainScene::theScene()->showDialog(dialog);
+	}
 }
 
 void PetScene::onPetPackageBtnClicked(cocos2d::CCObject* pSender)
