@@ -43,6 +43,7 @@ public:
 	void buyItem(int id, std::function<void()> callback);
 
 	static void onPayResult(int ret);
+	void showToast(const char * hint);
 private:
 	MyPurchase();
 	bool checkBuyType(int type);

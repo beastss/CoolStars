@@ -73,3 +73,32 @@ bool MyPurchase::checkBuyType(int type)
 {
 	return type >= BuyType_Diamond_200 && type <= BuyType_Pet_Recommend;
 }
+
+void MyPurchase::showToast(const char * hint)
+{
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+	const char* funstr = "org/cocos2dx/lib/PayAndroidApi";
+	CCLOG("%d", 1);
+	JniMethodInfo minfo;
+	bool isHave = JniHelper::getStaticMethodInfo(minfo, 
+		funstr,
+		"rtnActivity",  
+		"()Ljava/lang/Object;");
+	jobject jobj; 
+	if (isHave) { 
+		CCLOG("%d", 2);
+		jobj = minfo.env->CallStaticObjectMethod(minfo.classID, minfo.methodID); 
+	}
+
+	CCLOG("%d", 3);
+	isHave = JniHelper::getMethodInfo(minfo, 
+		funstr,
+		"showToast",
+		"(Ljava/lang/String;)V");  
+	if (isHave) {
+		CCLOG("%d", 4);
+		jstring stringArg = minfo.env->NewStringUTF(hint);
+		minfo.env->CallVoidMethod(jobj, minfo.methodID, stringArg);
+	}
+#endif
+}

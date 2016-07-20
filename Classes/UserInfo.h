@@ -10,6 +10,7 @@ struct IUserInfoView
 	virtual void onStrengthChanged(){}
 	virtual void onRuneStoneChanged(){}
 	virtual void onKeyChanged(){}
+	virtual void onStrengthChanged(int leftSecs){}
 };
 class UserInfo
 {

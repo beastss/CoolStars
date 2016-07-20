@@ -34,21 +34,30 @@
 		<y>18.78</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
-		<scale>0.70</scale>
-		<amount>10</amount>
-		<num>12</num>
-		<path>stage/yxjm_shuzi1.png</path>
+		<scale>0.80</scale>
+		<amount>12</amount>
+		<num>15</num>
+		<path>num/ty_ziti2.png</path>
 	</imageNum>
 	<imageNum>
 		<id>7</id>
-		<x>286.60</x>
+		<x>254.52</x>
 		<y>19.83</y>
 		<anchorPtX>1.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
-		<scale>0.70</scale>
+		<scale>0.50</scale>
 		<amount>10</amount>
-		<num>12</num>
-		<path>stage/yxjm_shuzi1.png</path>
+		<num>15</num>
+		<path>num/ty_ziti1.png</path>
 	</imageNum>
+	<image>
+		<id>8</id>
+		<x>266.76</x>
+		<y>32.08</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>shop/ty_yuan.png</path>
+	</image>
 </layout>
 

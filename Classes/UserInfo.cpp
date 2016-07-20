@@ -57,6 +57,9 @@ void UserInfo::onTick(float dt)
 	{
 		setStrength(m_strength + strengthAdd);
 	}
+	
+	int secsLeft = secsInOneStrength - ((curTime - m_lastSaveStrengthTime) % secsInOneStrength);
+	NOTIFY_VIEWS(onStrengthChanged, secsLeft);
 }
 
 void UserInfo::setDiamond(int value)

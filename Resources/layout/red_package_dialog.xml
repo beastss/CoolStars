@@ -15,7 +15,7 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>guide/xszt_zi2.png</path>
+		<path>stage/ui/red_package_text.png</path>
 	</image>
 	<animation>
 		<id>6</id>
@@ -38,5 +38,16 @@
 		<selected>about/gy_anniu.png</selected>
 		<disabled>about/gy_anniu.png</disabled>
 	</button>
+	<imageNum>
+		<id>8</id>
+		<x>169.47</x>
+		<y>180.24</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>0.70</scale>
+		<amount>12</amount>
+		<num>10</num>
+		<path>num/ty_ziti2.png</path>
+	</imageNum>
 </layout>
 
