@@ -1,0 +1,32 @@
+<layout width="87.000000" height="87.000000">
+	<image>
+		<id>1</id>
+		<x>43.91</x>
+		<y>43.85</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/yxjm_daojuquan.png</path>
+	</image>
+	<image>
+		<id>3</id>
+		<x>44.96</x>
+		<y>44.11</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/yxjm_daoju3.png</path>
+	</image>
+	<imageNum>
+		<id>2</id>
+		<x>64.38</x>
+		<y>28.06</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>0.70</scale>
+		<amount>12</amount>
+		<num>;10</num>
+		<path>num/ty_ziti6.png</path>
+	</imageNum>
+</layout>
+

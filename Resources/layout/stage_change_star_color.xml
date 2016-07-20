@@ -1,0 +1,35 @@
+<layout width="350.000000" height="100.000000">
+	<emptyBox>
+		<id>1</id>
+		<x>22.79</x>
+		<y>24.66</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<emptyBox>
+		<id>2</id>
+		<x>105.43</x>
+		<y>26.35</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<emptyBox>
+		<id>3</id>
+		<x>184.15</x>
+		<y>27.20</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<emptyBox>
+		<id>4</id>
+		<x>262.01</x>
+		<y>26.57</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+</layout>
+

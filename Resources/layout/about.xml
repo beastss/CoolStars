@@ -1,0 +1,32 @@
+<layout width="348.000000" height="233.000000">
+	<image>
+		<id>1</id>
+		<x>173.69</x>
+		<y>114.81</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>about/gy_diban.png</path>
+	</image>
+	<image>
+		<id>2</id>
+		<x>164.62</x>
+		<y>162.72</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>about/gy_logo.png</path>
+	</image>
+	<button>
+		<id>3</id>
+		<x>169.68</x>
+		<y>80.83</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>about/gy_anniu.png</normal>
+		<selected>about/gy_anniu.png</selected>
+		<disabled>about/gy_anniu.png</disabled>
+	</button>
+</layout>
+

@@ -1,0 +1,23 @@
+<layout width="80.000000" height="100.000000">
+	<image>
+		<id>1</id>
+		<x>39.24</x>
+		<y>72.08</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>common/title_diamond.png</path>
+	</image>
+	<imageNum>
+		<id>2</id>
+		<x>38.17</x>
+		<y>34.51</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<amount>10</amount>
+		<num>10</num>
+		<path>num/ty_ziti9.png</path>
+	</imageNum>
+</layout>
+

@@ -1,0 +1,44 @@
+<layout width="480.000000" height="800.000000">
+	<image>
+		<id>0</id>
+		<x>0</x>
+		<y>0</y>
+		<path>loginBg.png</path>
+	</image>
+	<label>
+		<id>0</id>
+		<x>0</x>
+		<y>0</y>
+		<text>hello hey</text>
+	</label>
+
+	<button>
+		<id>0</id>
+		<x>0</x>
+		<y>0</y>
+		<normal>menu_money.png</normal>
+		<selected>menu_money.png</selected>
+		<disabled>menu_money.png</disabled>
+	</button>
+    <emptyBox>
+        <id>0</id>
+        <x>0</x>
+        <y>0</y>
+    </emptyBox>
+	<imageNum>
+        <id>0</id>
+        <x>0</x>
+        <y>0</y>
+		<num>1234</num>
+		<path>numbers.png</path>
+		<amount>10</amount>
+    </imageNum>
+	<animation>
+		<id>0</id>
+		<x>0</x>
+		<y>0</y>
+		<path>Cowboy.ExportJson</path>
+		<movement></movement>
+	</animation>
+</layout>
+

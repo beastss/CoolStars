@@ -1,0 +1,678 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shop">
+      <UniqueIdentifier>{f2b8ae14-fbc0-4fd4-a3c5-fea68f3e9c3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{9178bfb2-84f6-4fe8-b143-698d73f69de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameModel">
+      <UniqueIdentifier>{75e98067-82e3-40b2-9570-f9e1cac82477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainMenu">
+      <UniqueIdentifier>{62cc3003-b2f0-43b7-a04c-dea89143ea89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameStage">
+      <UniqueIdentifier>{7b8e9456-b054-44d5-994e-4fc03674f7ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameStage\StageModel">
+      <UniqueIdentifier>{1f7d331a-7c86-481e-b94d-4600f195d77a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameStage\StageUi">
+      <UniqueIdentifier>{95b1fa82-2a6c-49fa-8096-93390779d637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pet">
+      <UniqueIdentifier>{33764a91-2c63-4597-a015-e7cdfb3bb1a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prop">
+      <UniqueIdentifier>{24fbae7e-22b7-4713-8edf-2e5a058a8122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\rapidxml">
+      <UniqueIdentifier>{7b44a8f5-aa8e-453a-a084-f8948fa47d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\ui">
+      <UniqueIdentifier>{ebd14380-496e-4bd8-a030-7efd3a3f28a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\sqlite">
+      <UniqueIdentifier>{027dd256-d2b0-4393-aa17-f2571a06ce46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ranking">
+      <UniqueIdentifier>{a5f4a296-213a-4040-bde4-811856abb004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Package">
+      <UniqueIdentifier>{2079a368-394a-498c-8091-cfc47a1e131d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lottery">
+      <UniqueIdentifier>{b4bc3fc6-99bb-4e25-aa8c-8089144a181b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Guide">
+      <UniqueIdentifier>{16e499d2-f6a1-4a73-a623-de20db9e7aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\guide">
+      <UniqueIdentifier>{b9b8ac4e-49d7-46e2-9203-4300be4f16c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Goods">
+      <UniqueIdentifier>{28c473c1-fe33-4781-b3c7-de41b6013619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thief">
+      <UniqueIdentifier>{652e61ab-1900-493b-b10d-abb7c97dee0f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CCUserDefaultEx.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MyPurchase.cpp">
+      <Filter>Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SoundMgr.cpp">
+      <Filter>GameModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataManager.cpp">
+      <Filter>GameModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameData.cpp">
+      <Filter>GameModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UserInfo.cpp">
+      <Filter>GameModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageScene.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageUiLayer.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarsLayer.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarViewNode.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarNode.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataCheck.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PetEntity.cpp">
+      <Filter>Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PetManager.cpp">
+      <Filter>Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PetSkill.cpp">
+      <Filter>Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PropManager.cpp">
+      <Filter>Prop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageOperator.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageTarget.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PetScene.cpp">
+      <Filter>Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameDataPreLoader.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PetView.cpp">
+      <Filter>Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageSavingHelper.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PetSavingHelper.cpp">
+      <Filter>Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CommonUtil.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameResultLayer.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PropItemView.cpp">
+      <Filter>Prop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageLayersMgr.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EmptyBox.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ScaleDialog.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TouchNode.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UiLayout.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\VisibleRect.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TestScene.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\sqlite3.c">
+      <Filter>Utils\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SqliteHelper.cpp">
+      <Filter>Utils\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RankingScene.cpp">
+      <Filter>Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ShopScene.cpp">
+      <Filter>Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitlePanel.cpp">
+      <Filter>MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CCFunctionAction.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BackgroundLayer.cpp">
+      <Filter>MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SettingBtnsHelper.cpp">
+      <Filter>MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelpPanel.cpp">
+      <Filter>MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PreStageScene.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StagePetNode.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StagePanelUtil.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ListView.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LotteryScene.cpp">
+      <Filter>Lottery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PreStagePetSlot.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ListSlideView.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ListPetView.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PreStageModel.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BasePanel.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageSceneState.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LogicGridUtil.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RankingPanelUtil.cpp">
+      <Filter>Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LotteryModel.cpp">
+      <Filter>Lottery</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarsLoader.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageTargetView.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GuideMgr.cpp">
+      <Filter>Guide</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GuideDelegate.cpp">
+      <Filter>Guide</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GuideDialog.cpp">
+      <Filter>Guide</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GuideView.cpp">
+      <Filter>Guide</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GuideEditLayer.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PetSceneMoveHelper.cpp">
+      <Filter>Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RankingOpponent.cpp">
+      <Filter>Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RankingModel.cpp">
+      <Filter>Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MyPurchase_old.cpp">
+      <Filter>Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GoodsMgr.cpp">
+      <Filter>Goods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PauseDialog.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarsBehavior.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageMaskLayer.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarsController.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageDataMgr.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StagePetSkillIconProgress.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RedPackageModule.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TimeUtil.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GoodsView.cpp">
+      <Filter>Goods</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PackageModel.cpp">
+      <Filter>Package</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ShopModel.cpp">
+      <Filter>Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ThiefModel.cpp">
+      <Filter>Thief</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ThiefDialog.cpp">
+      <Filter>Thief</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MsgNotifier.cpp">
+      <Filter>GameModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RedPackageDialog.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameClock.cpp">
+      <Filter>GameModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarsEraseModule.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionRunner.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageTargetPanel.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\KeyPadWatcher.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NoTouchLayer.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageBonusView.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PackageDialog.cpp">
+      <Filter>Package</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppMacros.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CCUserDefaultEx.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ConfData.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MyPurchase.h">
+      <Filter>Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SoundMgr.h">
+      <Filter>GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataManager.h">
+      <Filter>GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameData.h">
+      <Filter>GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UserInfo.h">
+      <Filter>GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageScene.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageUiLayer.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsLayer.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PanelMacros.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarViewNode.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarNode.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataCheck.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PetManager.h">
+      <Filter>Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PetEntity.h">
+      <Filter>Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PetSkill.h">
+      <Filter>Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PropManager.h">
+      <Filter>Prop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageOperator.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageTarget.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PetScene.h">
+      <Filter>Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameDataPreLoader.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CommonMacros.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PetView.h">
+      <Filter>Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageSavingHelper.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PetSavingHelper.h">
+      <Filter>Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CommonUtil.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameResultLayer.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataConfig.h">
+      <Filter>GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PropItemView.h">
+      <Filter>Prop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageLayersMgr.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\rapidxml\rapidxml_print.hpp">
+      <Filter>Utils\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\rapidxml\rapidxml_utils.hpp">
+      <Filter>Utils\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\rapidxml\rapidxml.hpp">
+      <Filter>Utils\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\rapidxml\rapidxml_iterators.hpp">
+      <Filter>Utils\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EmptyBox.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ScaleDialog.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TouchNode.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UiLayout.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\VisibleRect.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TestScene.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SqliteHelper.h">
+      <Filter>Utils\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\sqlite3.h">
+      <Filter>Utils\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RankingScene.h">
+      <Filter>Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShopScene.h">
+      <Filter>Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitlePanel.h">
+      <Filter>MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CCFunctionAction.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BackgroundLayer.h">
+      <Filter>MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SettingBtnsHelper.h">
+      <Filter>MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelpPanel.h">
+      <Filter>MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PreStageScene.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StagePetNode.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StagePanelUtil.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ListView.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LotteryScene.h">
+      <Filter>Lottery</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PreStagePetSlot.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ListSlideView.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ListPetView.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PreStageModel.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BasePanel.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageSceneState.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LogicGridUtil.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TimeUtil.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RankingPanelUtil.h">
+      <Filter>Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LotteryModel.h">
+      <Filter>Lottery</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsLoader.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageTargetView.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GuideMacros.h">
+      <Filter>Guide</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GuideMgr.h">
+      <Filter>Guide</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GuideDelegate.h">
+      <Filter>Guide</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GuideView.h">
+      <Filter>Guide</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GuideDialog.h">
+      <Filter>Guide</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GuideEditLayer.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PetSceneMoveHelper.h">
+      <Filter>Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RankingOpponent.h">
+      <Filter>Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RankingModel.h">
+      <Filter>Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MyPurchase_old.h">
+      <Filter>Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoodsMgr.h">
+      <Filter>Goods</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PauseDialog.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsBehavior.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageMaskLayer.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsController.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageDataMgr.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StagePetSkillIconProgress.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RedPackageModule.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoodsView.h">
+      <Filter>Goods</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PackageModel.h">
+      <Filter>Package</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShopModel.h">
+      <Filter>Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ThiefModel.h">
+      <Filter>Thief</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ThiefDialog.h">
+      <Filter>Thief</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MsgNotifier.h">
+      <Filter>GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RedPackageDialog.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameClock.h">
+      <Filter>GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsEraseModule.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionRunner.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Action.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageTargetPanel.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\KeyPadWatcher.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NoTouchLayer.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageBonusView.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PackageDialog.h">
+      <Filter>Package</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

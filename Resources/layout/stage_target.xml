@@ -1,0 +1,41 @@
+<layout width="50.000000" height="50.000000">
+	<image>
+		<id>1</id>
+		<x>24.93</x>
+		<y>24.87</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/stars/yxjm_fangkuai1.png</path>
+	</image>
+		<image>
+		<id>2</id>
+		<x>23.85</x>
+		<y>24.90</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/stars/dead_vine.png</path>
+	</image>
+	<emptyBox>
+		<id>3</id>
+		<x>-1.06</x>
+		<y>0.84</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<imageNum>
+		<id>4</id>
+		<x>18.98</x>
+		<y>-5.11</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+		<amount>12</amount>
+		<num>5</num>
+		<path>num/ty_ziti6.png</path>
+	</imageNum>
+
+</layout>
+

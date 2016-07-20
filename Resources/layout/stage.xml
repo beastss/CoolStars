@@ -1,0 +1,20 @@
+<layout width="480.000000" height="864.000000">
+	<image>
+		<id>5</id>
+		<x>241.67</x>
+		<y>345.87</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/yxjm_di1.png</path>
+	</image>
+	<emptyBox>
+		<id>1</id>
+		<x>25.41</x>
+		<y>128.83</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+</layout>
+

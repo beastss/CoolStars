@@ -1,0 +1,39 @@
+<layout width="480.000000" height="800.000000">
+	<image>
+		<id>1</id>
+		<x>238.62</x>
+		<y>398.39</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>background/beij_di.png</path>
+	</image>
+	<image>
+		<id>2</id>
+		<x>71.90</x>
+		<y>451.15</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>background/beij_yun1.png</path>
+	</image>
+	<image>
+		<id>3</id>
+		<x>411.25</x>
+		<y>713.90</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>background/beij_yun2.png</path>
+	</image>
+	<image>
+		<id>4</id>
+		<x>314.17</x>
+		<y>79.71</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>background/beij_yun2.png</path>
+	</image>
+</layout>
+
