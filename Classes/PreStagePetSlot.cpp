@@ -79,7 +79,7 @@ bool PreStagePetSlotNode::init()
 	else
 	{
 		petImg->initWithFile("pet_img/zbjm_jianying.png");
-		iconBox->setNode(CCSprite::create("pet_skill_icon/jntb_mask.png"));
+		iconBox->setNode(CCSprite::create("pet_skill_icon/zbjm_quan.png"));
 	}
 	return true;
 }

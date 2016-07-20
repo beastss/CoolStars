@@ -44,9 +44,11 @@ private:
 	virtual void onFoodChanged();
 	virtual void onStrengthChanged();
 	virtual void onThiefShowUp();
+	virtual void onStrengthChanged(int leftSecs);
 	virtual void onThiefDisappear();
 	cocos2d::CCAction *getScaleAction();
 private:
+	
 	UiLayout *m_topLayout;
 	UiLayout *m_bottomLayout;
 	int m_touchPriority;

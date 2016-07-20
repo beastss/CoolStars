@@ -135,5 +135,14 @@
 		<scale>0.10</scale>
 		<path>thief/youxijiemian_sentou1.png</path>
 	</image>
+	<label>
+		<id>20</id>
+		<x>76.82</x>
+		<y>165.67</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<text>11:11</text>
+	</label>
 </layout>
 

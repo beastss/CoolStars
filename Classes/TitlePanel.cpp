@@ -84,6 +84,9 @@ void TitlePanel::initTopLayout()
 	
 	m_topLayout->getChildById(19)->setVisible(false);
 
+	CCLabelTTF *leftTime = dynamic_cast<CCLabelTTF *>(m_topLayout->getChildById(20));
+	leftTime->setVisible(false);
+	leftTime->setColor(ccc3(0, 0, 0));
 }
 
 void TitlePanel::initBottomLayout()
@@ -164,6 +167,17 @@ void TitlePanel::onStrengthChanged()
 	CCLabelAtlas *strengthNum = dynamic_cast<CCLabelAtlas *>(m_topLayout->getChildById(16));
 	strengthNum->setString(intToStr(UserInfo::theInfo()->getStrength()));
 	strengthNum->runAction(getScaleAction());
+}
+
+void TitlePanel::onStrengthChanged(int leftSecs)
+{
+	int mins = leftSecs / 60;
+	int secs = leftSecs % 60;
+	CCLabelTTF *leftTime = dynamic_cast<CCLabelTTF *>(m_topLayout->getChildById(20));
+	leftTime->setVisible(true);
+	char str[100] = { 0 };
+	sprintf(str, "%02d : %02d", mins, secs);
+	leftTime->setString(str);
 }
 
 CCAction *TitlePanel::getScaleAction()
