@@ -169,15 +169,24 @@ void TitlePanel::onStrengthChanged()
 	strengthNum->runAction(getScaleAction());
 }
 
-void TitlePanel::onStrengthChanged(int leftSecs)
+void TitlePanel::onStrengthLeftTimeChanged(int leftSecs)
 {
-	int mins = leftSecs / 60;
-	int secs = leftSecs % 60;
 	CCLabelTTF *leftTime = dynamic_cast<CCLabelTTF *>(m_topLayout->getChildById(20));
-	leftTime->setVisible(true);
-	char str[100] = { 0 };
-	sprintf(str, "%02d : %02d", mins, secs);
-	leftTime->setString(str);
+
+	if (leftSecs > 0)
+	{
+		int mins = leftSecs / 60;
+		int secs = leftSecs % 60;
+		leftTime->setVisible(true);
+		char str[100] = { 0 };
+		sprintf(str, "%02d : %02d", mins, secs);
+		leftTime->setString(str);
+	}
+	else
+	{
+		leftTime->setVisible(false);
+	}
+	
 }
 
 CCAction *TitlePanel::getScaleAction()

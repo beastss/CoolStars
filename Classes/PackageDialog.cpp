@@ -10,6 +10,9 @@
 #include "MyPurchase.h"
 #include "PackageModel.h"
 #include "SoundMgr.h"
+#include "ThiefDialog.h"
+#include "MainScene.h"
+#include "MsgNotifier.h"
 
 USING_NS_CC;
 using namespace std;
@@ -70,4 +73,71 @@ void PackageDialog::onBuyBtnClicked(cocos2d::CCObject* pSender)
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	PackageModel::theModel()->buyPackage(m_type, m_confirmHandle);
 }
+////////////////////////////////////////////////////////////////////
+void PackageScene::onEnter()
+{
+	BasePanel::onEnter();
+	MsgNotifier::theModel()->addView(this);
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kDialogTouchPriority - 1, true);
+}
 
+void PackageScene::onExit()
+{
+	BasePanel::onExit();
+	MsgNotifier::theModel()->removeView(this);
+	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+}
+
+bool PackageScene::init()
+{
+	setPanelId(kPackagePanel);
+
+	auto winSize = CCDirector::sharedDirector()->getWinSize();
+	setContentSize(winSize);
+
+	auto dialog = PackageDialog::create(kPackageProps);
+	addChild(dialog);
+	dialog->setAnchorPoint(ccp(0.5f, 0.5f));
+	dialog->setPosition(ccpMult(winSize, 0.5f));
+	dialog->setCancelHandle([=]()
+	{
+		removeFromParent();
+	});
+	m_thief = CCSprite::create("thief/youxijiemian_sentou1.png");
+	m_thief->setScale(0.1f);
+	addChild(m_thief);
+	auto size = dialog->getContentSize();
+	m_thief->setPosition(ccp(size.width * 0.5, size.height *0.2f));
+
+	onThiefShowUp();
+	return true;
+}
+
+bool PackageScene::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+	auto pos = m_thief->getParent()->convertToNodeSpace(pTouch->getLocation());
+	bool isInPanel = ThiefModel::theModel()->isThisPanel(kThiefPackagePanel);
+
+	if (isInPanel && m_thief->boundingBox().containsPoint(pos))
+	{
+		SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+		m_thief->initWithFile("thief/youxijiemian_sentou2.png");
+
+		auto dailog = ThiefDialog::create();
+		MainScene::theScene()->showDialog(dailog);
+
+		return true;
+	}
+	return false;
+}
+
+void PackageScene::onThiefShowUp()
+{
+	bool isInPanel = ThiefModel::theModel()->isThisPanel(kThiefPackagePanel);
+	m_thief->setVisible(isInPanel);
+}
+
+void PackageScene::onThiefDisappear()
+{
+	m_thief->setVisible(false);
+}

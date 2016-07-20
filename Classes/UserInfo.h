@@ -10,7 +10,7 @@ struct IUserInfoView
 	virtual void onStrengthChanged(){}
 	virtual void onRuneStoneChanged(){}
 	virtual void onKeyChanged(){}
-	virtual void onStrengthChanged(int leftSecs){}
+	virtual void onStrengthLeftTimeChanged(int leftSecs){}
 };
 class UserInfo
 {
@@ -34,6 +34,7 @@ public:
 	void setStrength(int value);
 	int getStrength(){ return m_strength; }
 	int getMaxStrength();
+	bool isFullStrength();
 	int getOneRoundStrength();
 	bool consumeStrength();//进入关卡使用体力
 

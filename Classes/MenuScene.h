@@ -42,6 +42,8 @@ private:
 	UiLayout *m_mainLayout;
 	UiLayout *m_bottomLayout;
 	SettingBtnsHelper m_settingBtnsHelper;
+
+	const int kTagThief = 103;
 };
 
 #endif

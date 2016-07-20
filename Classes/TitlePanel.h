@@ -44,7 +44,7 @@ private:
 	virtual void onFoodChanged();
 	virtual void onStrengthChanged();
 	virtual void onThiefShowUp();
-	virtual void onStrengthChanged(int leftSecs);
+	virtual void onStrengthLeftTimeChanged(int leftSecs);
 	virtual void onThiefDisappear();
 	cocos2d::CCAction *getScaleAction();
 private:

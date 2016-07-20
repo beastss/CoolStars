@@ -4,6 +4,7 @@
 #include "BasePanel.h"
 #include "ScaleDialog.h"
 #include <functional>
+#include "MsgNotifier.h"
 
 class UiLayout;
 
@@ -26,5 +27,24 @@ private:
 	std::function<void()> m_confirmHandle;
 	std::function<void()> m_cancelHandle;
 	int m_type;
+};
+
+class PackageScene
+	: public BasePanel
+	, public cocos2d::CCTouchDelegate
+	, public IMsgWatcherView
+{
+public:
+	CREATE_FUNC(PackageScene);
+private:
+	virtual void onEnter();
+	virtual void onExit();
+	virtual bool init();
+	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+
+	virtual void onThiefShowUp();
+	virtual void onThiefDisappear();
+private:	
+	cocos2d::CCSprite *m_thief;
 };
 #endif

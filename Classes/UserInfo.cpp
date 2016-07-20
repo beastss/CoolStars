@@ -57,9 +57,12 @@ void UserInfo::onTick(float dt)
 	{
 		setStrength(m_strength + strengthAdd);
 	}
-	
-	int secsLeft = secsInOneStrength - ((curTime - m_lastSaveStrengthTime) % secsInOneStrength);
-	NOTIFY_VIEWS(onStrengthChanged, secsLeft);
+	int secsLeft = 0;
+	if (!isFullStrength())
+	{
+		secsLeft = secsInOneStrength - ((curTime - m_lastSaveStrengthTime) % secsInOneStrength);
+	}
+	NOTIFY_VIEWS(onStrengthLeftTimeChanged, secsLeft);
 }
 
 void UserInfo::setDiamond(int value)
@@ -116,6 +119,11 @@ void UserInfo::setStrength(int value)
 int UserInfo::getMaxStrength()
 {
 	return DataManagerSelf->getSystemConfig().strengthMax;
+}
+
+bool UserInfo::isFullStrength()
+{
+	return m_strength >= getMaxStrength();
 }
 
 int UserInfo::getOneRoundStrength()
