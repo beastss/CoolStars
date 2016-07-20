@@ -27,11 +27,14 @@ import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import android.os.Bundle;
+import org.cocos2dx.lib.PayAndroidApi;
 
 public class CoolStars extends Cocos2dxActivity{
 	
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);	
+		
+		new PayAndroidApi(this);
 	}
 
     public Cocos2dxGLSurfaceView onCreateView() {
@@ -41,7 +44,6 @@ public class CoolStars extends Cocos2dxActivity{
     	
     	return glSurfaceView;
     }
-
     static {
         System.loadLibrary("cocos2dcpp");
     }     
