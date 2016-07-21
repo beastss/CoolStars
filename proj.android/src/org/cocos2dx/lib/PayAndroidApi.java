@@ -103,6 +103,16 @@ public class PayAndroidApi {
 		}
 	}
 	
+	static boolean isForBusiness;
+	static public void setIsForBusiness(boolean forBusiness)
+	{
+		isForBusiness = forBusiness;
+	}
+	
+	public boolean isForBusiness()
+	{
+		return isForBusiness;
+	}
 	public String getVerName() {
 		String version = "V1.0.0";
 		try {

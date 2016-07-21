@@ -35,7 +35,7 @@ void GameBackEndState::recordStageStart()
 
 	isHave = JniHelper::getMethodInfo(minfo,
 		funstr,
-		"stageStart",
+		"startStage",
 		"(I)V");
 	if (isHave) {
 		minfo.env->CallVoidMethod(jobj, minfo.methodID, stage);
@@ -60,7 +60,7 @@ void GameBackEndState::recordStageEnd(bool win)
 
 	isHave = JniHelper::getMethodInfo(minfo,
 		funstr,
-		"stageEnd",
+		"endStage",
 		"(ZI)V");
 	if (isHave) {
 		minfo.env->CallVoidMethod(jobj, minfo.methodID, win, stage);
