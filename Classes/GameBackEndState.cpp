@@ -21,3 +21,8 @@ void GameBackEndState::recordStageStart()
 void GameBackEndState::recordStageEnd(bool win)
 {
 }
+
+void GameBackEndState::init()
+{
+
+}

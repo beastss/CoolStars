@@ -9,7 +9,9 @@ public:
 	bool isBusinessMode(){ return m_isBusinessMode; }
 
 	void recordStageStart();
-	void recordStageEnd(bool win);
+	void recordStageEnd(bool win);	
+
+	void init();
 private:
 	GameBackEndState();
 private:

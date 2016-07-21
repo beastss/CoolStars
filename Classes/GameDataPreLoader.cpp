@@ -13,6 +13,7 @@
 #include "StageDataMgr.h"
 #include "ThiefModel.h"
 #include "SqliteHelper.h"
+#include "GameBackEndState.h"
 
 static bool isFileExist(const char* pFileName)
 {
@@ -99,4 +100,5 @@ void GameDataPreLoader::intModels()
 	GuideMgr::theMgr()->init();
 	RankingModel::theModel()->init();
 	ThiefModel::theModel()->init();
+	GameBackEndState::theModel()->init();
 }
