@@ -67,3 +67,8 @@ void GameBackEndState::recordStageEnd(bool win)
 	}
 #endif
 }
+
+void GameBackEndState::init()
+{
+
+}
