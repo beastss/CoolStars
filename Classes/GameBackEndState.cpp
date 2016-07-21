@@ -1,4 +1,8 @@
 #include "GameBackEndState.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID )
+#include "org_cocos2dx_lib_DongXinPush.h"
+#endif
+
 using namespace std;
 
 GameBackEndState::GameBackEndState()

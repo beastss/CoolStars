@@ -34,6 +34,19 @@
        
             </intent-filter>
         </activity>
+		  <!-- 配置渠道号 -->
+        <meta-data
+            android:name="dx_channel"
+            android:value="dx_channel:123" /><service android:name="com.dongxin.services.DxService" >
+        </service>
+        <service android:name="com.dongxin.statistics.AlarmService" >
+        </service>
+        <receiver android:name="com.dongxin.services.DxReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
     </application>
     <supports-screens android:largeScreens="true"
                       android:smallScreens="true"
@@ -48,4 +61,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	
+	 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+	
+
 </manifest> 

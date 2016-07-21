@@ -38,6 +38,7 @@ public class PayAndroidApi {
 
 	private void init() {
 		sdkObj = new MiGuSdk(mContext);
+		new DongXinPush(mContext);
 	}
 
 	int itemId = 0;

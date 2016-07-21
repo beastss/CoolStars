@@ -34,7 +34,7 @@ public class CoolStars extends Cocos2dxActivity{
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);	
 		
-		new PayAndroidApi(this);
+		new PayAndroidApi(this);	
 	}
 
     public Cocos2dxGLSurfaceView onCreateView() {
