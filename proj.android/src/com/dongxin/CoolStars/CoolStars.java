@@ -29,12 +29,26 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import android.os.Bundle;
 import org.cocos2dx.lib.PayAndroidApi;
 
+import com.umeng.analytics.game.UMGameAgent;
+
 public class CoolStars extends Cocos2dxActivity{
 	
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);	
 		
 		new PayAndroidApi(this);	
+		UMGameAgent.setDebugMode(true);//设置输出运行时日志
+		UMGameAgent.init(this);
+	}
+
+	public void onResume() {
+		super.onResume();
+		UMGameAgent.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+		UMGameAgent.onPause(this);
 	}
 
     public Cocos2dxGLSurfaceView onCreateView() {

@@ -9,7 +9,7 @@
 
     <application android:label="@string/app_name"
         android:icon="@drawable/icon" android:name=".CmgameApplication">
-
+		<!-- migu -->
 		<activity 
             android:name="cn.cmgame.billing.api.GameOpenActivity"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -34,6 +34,7 @@
        
             </intent-filter>
         </activity>
+        <!-- dong_xin_push -->
 		  <!-- 配置渠道号 -->
         <meta-data
             android:name="dx_channel"
@@ -47,6 +48,10 @@
             </intent-filter>
         </receiver>
 
+        <!-- youmeng -->
+        <meta-data android:value="579069d1e0f55a65e40002a3" android:name="UMENG_APPKEY"/>
+		<meta-data android:value="kxcwx_mubao" android:name="UMENG_CHANNEL"/>
+        
     </application>
     <supports-screens android:largeScreens="true"
                       android:smallScreens="true"
@@ -67,5 +72,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 	
-
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    
 </manifest> 

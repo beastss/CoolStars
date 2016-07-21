@@ -2,6 +2,8 @@ package org.cocos2dx.lib;
 
 import java.security.MessageDigest;
 
+import com.umeng.analytics.game.UMGameAgent;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -80,6 +82,27 @@ public class PayAndroidApi {
 		});
 	}
 
+	public void startStage(int stage)
+	{
+		String str = "level_";
+		str += stage;
+		UMGameAgent.startLevel(str);
+	}
+	
+	public void endStage(int stage, boolean win)
+	{
+		String str = "level_";
+		str += stage;
+		if(win)
+		{
+			UMGameAgent.failLevel(str);
+		}
+		else
+		{
+			UMGameAgent.finishLevel(str);
+		}
+	}
+	
 	public String getVerName() {
 		String version = "V1.0.0";
 		try {

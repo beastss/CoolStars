@@ -1,5 +1,7 @@
 package org.cocos2dx.lib;
 
+import com.umeng.analytics.game.UMGameAgent;
+
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -12,6 +14,19 @@ public class MiGuSdk implements ExternSdkInterface{
 	private static final int PAY_RESULT_CANCEL = 2;
 	private static final int PAY_RESULT_TIMEOUT = 3;
 	
+	String[] itemName =
+		{
+			"200钻石",
+			"960钻石",
+			"2250钻石",
+			"3600钻石",
+			"6000钻石",
+			"道具礼包",
+			"接着玩",
+			"新手宠物包",
+			"推荐宠物包"
+		};
+		
 	String[] toastText = 
 		{"钻石不足",
 		"饲料不足",
@@ -23,6 +38,7 @@ public class MiGuSdk implements ExternSdkInterface{
 		mContext = context;
 	}
 
+	//itemId 是从1开始
 	public void purchase(int itemId) {
 		// 计费结果的监听处理，合作方通常需要在收到SDK返回的onResult时，告知用户的购买结果
 		final GameInterface.IPayCallback payCallback = new GameInterface.IPayCallback() {
@@ -39,8 +55,12 @@ public class MiGuSdk implements ExternSdkInterface{
 					} else {
 						result = "购买道具：[" + billingIndex + "] 成功！";
 						payResult = PAY_RESULT_SUCCESS;
+						int itemId = getItemIndex(billingIndex);
+						if(itemId > 0 && itemId <= itemName.length)
+						{
+							UMGameAgent.pay(10,itemName[itemId], 1, 1, 5);
+						}		
 					}
-
 					break;
 				case BillingResult.FAILED:
 					result = "购买道具：[" + billingIndex + "] 失败！";
@@ -67,6 +87,11 @@ public class MiGuSdk implements ExternSdkInterface{
 		} else {
 			return "0" + (++i);
 		}
+	}
+	private int getItemIndex(String billingIndex)
+	{
+		int index = Integer.parseInt(billingIndex);
+		return index;
 	}
 
 	public void startGame()
