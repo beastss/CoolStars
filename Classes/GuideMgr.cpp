@@ -88,7 +88,7 @@ void GuideMgr::finishGuide()
 	m_curGuideId = kNotTriggerGuide;
 
 	MainScene::theScene()->removeGuideView();
-	//onSave();
+	onSave();
 }
 
 void GuideMgr::init()
