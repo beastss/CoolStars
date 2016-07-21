@@ -84,6 +84,7 @@ public class PayAndroidApi {
 
 	public void startStage(int stage)
 	{
+		Log.d(LOG_TAG, "startStage....");
 		String str = "level_";
 		str += stage;
 		UMGameAgent.startLevel(str);
@@ -91,6 +92,7 @@ public class PayAndroidApi {
 	
 	public void endStage(int stage, boolean win)
 	{
+		Log.d(LOG_TAG, "startStage...d");
 		String str = "level_";
 		str += stage;
 		if(win)
@@ -103,15 +105,15 @@ public class PayAndroidApi {
 		}
 	}
 	
-	static boolean isForBusiness;
+	static boolean siIsForBusiness;
 	static public void setIsForBusiness(boolean forBusiness)
 	{
-		isForBusiness = forBusiness;
+		siIsForBusiness = forBusiness;
 	}
 	
 	public boolean isForBusiness()
 	{
-		return isForBusiness;
+		return siIsForBusiness;
 	}
 	public String getVerName() {
 		String version = "V1.0.0";
