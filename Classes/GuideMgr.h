@@ -14,12 +14,14 @@ public:
 	void endGuide(int endAction, int param = 0);
 
 	void setGuideEnable(bool enable);
-private:
+	void pauseGuide(bool pause){ m_pauseGuide = pause; }//用于运行在对引导的屏蔽
 	void finishGuide();
+private:
 	void onSave();
 public:
 	std::vector<int> m_finishedGuides;
 	int m_curGuideId;
 	bool m_guideEnable;
+	bool m_pauseGuide;
 };
 #endif

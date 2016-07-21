@@ -3,6 +3,7 @@
 #include "StageSavingHelper.h"
 #include "CommonUtil.h"
 #include <algorithm>
+#include "GuideMgr.h"
 
 StageDataMgr::StageDataMgr()
 {
@@ -46,6 +47,7 @@ void StageDataMgr::reset(int gameType)
 	{
 		m_curStage = CommonUtil::getRandomValue(1, m_topStage - 1);
 	}
+	GuideMgr::theMgr()->pauseGuide(gameType != kNormalType);
 }
 
 void StageDataMgr::init()

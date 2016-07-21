@@ -90,7 +90,7 @@ void GameResultLayer::initLayout()
 void GameResultLayer::initRewardData()
 {
 	m_reward = StageDataMgr::theMgr()->getResultBonus();
-	StageDataMgr::theMgr()->reset();
+	StageDataMgr::theMgr()->resetResultBonus();
 
 	auto stageTarget = StarsController::theModel()->getStageTarget();
 	m_reward.diamond += stageTarget->getErasedStarAmount(kDiamond);
