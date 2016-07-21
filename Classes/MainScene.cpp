@@ -18,6 +18,7 @@
 #include "UserInfo.h"
 #include "RankingPanelUtil.h"
 #include "KeyPadWatcher.h"
+#include "PackageDialog.h"
 
 USING_NS_CC;
 using namespace std;
@@ -126,6 +127,9 @@ void MainScene::showPanel(int panelId, int usage, bool closeBehind)
 		break;
 	case kLotteryPanel:
 		panel = LotteryScene::create(usage);
+		break;
+	case kPackagePanel:
+		panel = PackageScene::create();
 		break;
 	case kRankingPanel:
 		panel = RankingScene::create();

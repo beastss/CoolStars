@@ -197,8 +197,7 @@ void MenuScene::toRankPanel(cocos2d::CCObject* pSender)
 void MenuScene::toPackagePanel(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	auto dailog = PackageDialog::create(kPackageProps);
-	MainScene::theScene()->showDialog(dailog);
+	MainScene::theScene()->showPanel(kPackagePanel, 0, false);
 }
 
 void MenuScene::toShopPanel(cocos2d::CCObject* pSender)
@@ -247,8 +246,9 @@ void MenuScene::refreshThiefTips()
 		auto leftTop = ccpAdd(node->getPosition(), ccpMult(size, 0.5f));
 		auto worldPos = node->getParent()->convertToWorldSpace(leftTop);
 		auto pos = convertToNodeSpace(worldPos);
+		
 		auto tips = CCSprite::create("thief/tips.png");
-		addChild(tips);
+		addChild(tips, 1, kTagThief);
 		tips->runAction(CCFadeIn::create(1.0f));
 		tips->setPosition(pos);
 	}
@@ -261,5 +261,9 @@ void MenuScene::onThiefShowUp()
 
 void MenuScene::onThiefDisappear()
 {
-	refreshThiefTips();
+	auto tips = getChildByTag(kTagThief);
+	if (tips)
+	{
+		tips->removeFromParent();
+	}
 }

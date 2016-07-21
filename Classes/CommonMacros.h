@@ -48,6 +48,7 @@ enum PanelId
 	kPetPanel,
 	kShopPanel,
 	kLotteryPanel,
+	kPackagePanel,
 	kRankingPanel,
 	kPreStagePanel, 
 	kStageView,

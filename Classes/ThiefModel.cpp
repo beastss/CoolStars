@@ -34,6 +34,7 @@ void ThiefModel::update(float delta)
 	if (m_curPanelType == kThiefEmpty)
 	{
 		int curTime = time_util::getCurTime();
+		kTriggerDuration = 5;
 		if (curTime - m_lastTriggerTime >= kTriggerDuration)
 		{
 			auto configs = DataManagerSelf->getThiefConfigs();
