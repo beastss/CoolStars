@@ -53,7 +53,7 @@ StarAttr StarsLoader::genStarRandomByConfig(const LogicGrid &grid)
 	int popFrontNum = 0;
 	for (auto iter = m_loaderDatas.begin(); iter != m_loaderDatas.end(); ++iter)
 	{
-		auto data = m_loaderDatas.front();
+		auto data = *iter;
 		//当前得分大于data分数才开始算百分比出现
 		if (data.score > curScore)
 		{

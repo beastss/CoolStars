@@ -7,6 +7,7 @@
 #include "UserInfo.h"
 #include <algorithm>
 #include "StageOperator.h"
+#include "GuideMgr.h"
 USING_NS_CC;
 using namespace std;
 StarsController::StarsController()
@@ -178,6 +179,7 @@ void StarsController::removeStarNode(StarNode *node)
 
 void StarsController::gameOver(bool isWon)
 {
+	GuideMgr::theMgr()->pauseGuide(false);
 	int value = UserInfo::theInfo()->getRuneStone();
 	UserInfo::theInfo()->setRuneStone(value + 1);
 	if (isWon)
@@ -302,6 +304,8 @@ void StarsController::checkGameOver()
 {
 	if (m_target.isGameOver())
 	{
+		GuideMgr::theMgr()->finishGuide();
+		GuideMgr::theMgr()->pauseGuide(true);
 		if (m_target.isReachTarget())
 		{
 			NOTIFY_VIEWS(onGameWin);

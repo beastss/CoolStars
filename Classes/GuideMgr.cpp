@@ -20,12 +20,13 @@ GuideMgr *GuideMgr::theMgr()
 GuideMgr::GuideMgr()
 : m_curGuideId(kNotTriggerGuide)
 , m_guideEnable(true)
+, m_pauseGuide(false)
 {
 }
 
 void GuideMgr::startGuide(int startAction, std::function<void()> callback)
 {
-	if (!m_guideEnable) return;
+	if (!m_guideEnable || m_pauseGuide) return;
 
 	int topStage = StageDataMgr::theMgr()->getTopStage();
 
@@ -87,7 +88,7 @@ void GuideMgr::finishGuide()
 	m_curGuideId = kNotTriggerGuide;
 
 	MainScene::theScene()->removeGuideView();
-	onSave();
+	//onSave();
 }
 
 void GuideMgr::init()

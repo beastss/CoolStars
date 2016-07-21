@@ -1,6 +1,7 @@
 #include "BasePanel.h"
 #include "UiLayout.h"
 #include "CommonMacros.h"
+#include "GuideMgr.h"
 USING_NS_CC;
 using namespace std;
 
