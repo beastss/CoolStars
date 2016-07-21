@@ -15,10 +15,6 @@ import android.widget.Toast;
 
 public class PayAndroidApi {
 	private static final String LOG_TAG = "PayAndroidApi";
-	String[] toastText = 
-		{"钻石不足",
-		"饲料不足",
-		"体力不足"};  
 
 	public static PayAndroidApi actInstance = null;// 定义单例
 	public static Context mContext = null;// 定义单例
@@ -29,7 +25,7 @@ public class PayAndroidApi {
 		return actInstance;
 	}
 
-	MiGuSdk migu;
+	ExternSdkInterface sdkObj;
 
 	public PayAndroidApi(Context context) {
 		mContext = context;
@@ -41,24 +37,28 @@ public class PayAndroidApi {
 	}
 
 	private void init() {
-		migu = new MiGuSdk(mContext);
+		sdkObj = new MiGuSdk(mContext);
 	}
 
 	int itemId = 0;
-
 	public void Purchase(int id) {
 		itemId = id;
 		runOnMainThread(new Runnable() {
 			@Override
 			public void run() {
-				migu.purchase(itemId);
+				sdkObj.purchase(itemId);
 			}
 		});
 
 	}
 
-	private void exitGame() {
-		migu.exitGame();
+	public void exitGame() {
+		sdkObj.exitGame();
+	}
+	
+	public void startGame()
+	{
+		sdkObj.startGame();
 	}
 
 	public static void runOnMainThread(Runnable r) {
@@ -73,7 +73,8 @@ public class PayAndroidApi {
 		runOnMainThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(mContext, toastText[toastIndex], Toast.LENGTH_LONG).show();
+				String text = sdkObj.getTextByIndex(toastIndex);
+				Toast.makeText(mContext, text, Toast.LENGTH_LONG).show();
 			}
 		});
 	}

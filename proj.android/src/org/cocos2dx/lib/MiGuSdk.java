@@ -6,11 +6,16 @@ import android.widget.Toast;
 import cn.cmgame.billing.api.BillingResult;
 import cn.cmgame.billing.api.GameInterface;
 
-public class MiGuSdk {
+public class MiGuSdk implements ExternSdkInterface{
 	private static final int PAY_RESULT_SUCCESS = 0;
 	private static final int PAY_RESULT_FAILED = 1;
 	private static final int PAY_RESULT_CANCEL = 2;
 	private static final int PAY_RESULT_TIMEOUT = 3;
+	
+	String[] toastText = 
+		{"钻石不足",
+		"饲料不足",
+		"体力不足"};  
 	
 	public static Context mContext = null;
 
@@ -64,6 +69,11 @@ public class MiGuSdk {
 		}
 	}
 
+	public void startGame()
+	{
+		
+	}
+	
 	public void exitGame() {
 		GameInterface.exit(mContext, new GameInterface.GameExitCallback() {
 			@Override
@@ -80,5 +90,18 @@ public class MiGuSdk {
 		});
 	}
 
+	public String getTextByIndex(int index)
+	{
+		if(index < toastText.length)
+		{
+			return toastText[index];
+		}
+		else
+		{
+			return "";
+		}
+		
+	}
+	
 	public native void onPurchase(int ret);
 }
