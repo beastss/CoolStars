@@ -16,6 +16,7 @@
 #include "ThiefModel.h"
 #include "PackageDialog.h"
 #include "PackageModel.h"
+#include "GameBackEndState.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -103,6 +104,7 @@ void PreStageScene::toStartGame(cocos2d::CCObject* pSender)
 		PreStageModel::theModel()->confirmCurPets();
 		MainScene::theScene()->showPanel(kStageView);
 		MainScene::theScene()->clearPanelRecord();
+		GameBackEndState::theModel()->recordStageStart();
 	}
 	else
 	{
