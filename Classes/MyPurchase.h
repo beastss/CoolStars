@@ -29,6 +29,13 @@ enum ReturnCode
 	kReturnCodeFail,
 	kReturnCodeCanceled, 
 };
+
+enum ToastText
+{
+	kToastTextNotEnoughDiamond,
+	kToastTextNotEnoughFood,
+	kToastTextNotEnoughStrengh,
+};
 class MyPurchaseResult
 {
 public:
@@ -43,7 +50,7 @@ public:
 	void buyItem(int id, std::function<void()> callback);
 
 	static void onPayResult(int ret);
-	void showToast(const char * hint);
+	void showToast(int index);
 private:
 	MyPurchase();
 	bool checkBuyType(int type);

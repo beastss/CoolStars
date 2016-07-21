@@ -188,7 +188,7 @@ void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 	{
 		auto dialog = PackageDialog::create(kPackageDiamond);
 		MainScene::theScene()->showDialog(dialog);
-		MyPurchase::sharedPurchase()->showToast("×êÊ¯²»×ã");
+		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
 	}
 }
 
