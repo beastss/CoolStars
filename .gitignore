@@ -21,3 +21,4 @@ proj.wp8
 /proj.android/libs/armeabi
 .DS_Store
 .svn
+Resources/data/saving.db
