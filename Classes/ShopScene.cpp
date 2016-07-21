@@ -11,6 +11,7 @@
 #include "ThiefModel.h"
 #include <algorithm>
 #include "SoundMgr.h"
+#include "MainScene.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -91,4 +92,10 @@ void ShopScene::initPanel()
 	{
 		shopList->addNode(ShopNode::create(configs[i]));
 	}
+}
+
+void ShopScene::onBackKeyTouched()
+{
+	MainScene::theScene()->clearPanelRecord();
+	MainScene::theScene()->showPanel(kMainMenu);
 }

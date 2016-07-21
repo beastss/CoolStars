@@ -40,6 +40,8 @@ private:
 	void onBluePetBtnClicked(cocos2d::CCObject* pSender);
 	void onYellowPetBtnClicked(cocos2d::CCObject* pSender);
 	void handleColorBtnClicked(int color);
+
+	virtual void onBackKeyTouched();
 private:
 	virtual void onNewPetAdd();
 private:

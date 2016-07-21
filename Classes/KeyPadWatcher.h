@@ -7,11 +7,11 @@ class KeyPadWatcher
 {
 public:
 	CREATE_FUNC(KeyPadWatcher);
+	static void exitGame();
 private:
 	virtual bool init();
 	virtual void  keyBackClicked();
 	virtual void  keyMenuClicked();
-	void exitGame();
 private:
 };
 #endif

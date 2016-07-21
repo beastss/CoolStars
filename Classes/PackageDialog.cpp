@@ -148,3 +148,9 @@ void PackageScene::onThiefDisappear()
 {
 	m_thief->setVisible(false);
 }
+
+void PackageScene::onBackKeyTouched()
+{
+	MainScene::theScene()->clearPanelRecord();
+	MainScene::theScene()->showPanel(kMainMenu);
+}

@@ -31,6 +31,7 @@ private:
 	ShopScene(){}
 	~ShopScene(){}
 	void initPanel();
+	virtual void onBackKeyTouched();
 private:
 	UiLayout *m_layout;
 

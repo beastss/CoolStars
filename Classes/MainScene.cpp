@@ -51,6 +51,12 @@ bool MainScene::init()
 	return true;
 }
 
+MainScene::MainScene()
+: m_curPanel(NULL)
+{
+
+}
+
 MainScene* MainScene::theScene()
 {
 	if (!s_scene)
@@ -156,11 +162,12 @@ void MainScene::showPanel(int panelId, int usage, bool closeBehind)
 
 void MainScene::showDialog(ScaleDialog *dialog)
 {
+	m_dialogLayer->removeAllChildren();
+
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	dialog->setAnchorPoint(ccp(0.5f, 0.5f));
 	dialog->setPosition(ccpMult(winSize, 0.5f));
 	m_dialogLayer->addChild(dialog);
-	m_curDialog = dialog;
 }
 
 void MainScene::showGuideView(int guideId)
@@ -205,5 +212,13 @@ void MainScene::showInitialUi()
 	{
 		auto dialog = RankingOpponentUpgradePanel::create();
 		showDialog(dialog);
+	}
+}
+
+void MainScene::handleKeyBackTouch()
+{
+	if (m_curPanel)
+	{
+		m_curPanel->onBackKeyTouched();
 	}
 }

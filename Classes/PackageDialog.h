@@ -44,6 +44,7 @@ private:
 
 	virtual void onThiefShowUp();
 	virtual void onThiefDisappear();
+	virtual void onBackKeyTouched();
 private:	
 	cocos2d::CCSprite *m_thief;
 };

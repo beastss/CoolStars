@@ -35,6 +35,7 @@ private:
 	void refreshThiefTips();
 	virtual void onEnter();
 	virtual void onExit();
+	virtual void onBackKeyTouched();
 private:
 	virtual void onThiefShowUp();
 	virtual void onThiefDisappear();

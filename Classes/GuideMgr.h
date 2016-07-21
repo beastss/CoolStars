@@ -16,6 +16,7 @@ public:
 	void setGuideEnable(bool enable);
 	void pauseGuide(bool pause){ m_pauseGuide = pause; }//用于运行在对引导的屏蔽
 	void finishGuide();
+	bool isRunning(){ return m_isRunning; }
 private:
 	void onSave();
 public:
@@ -23,5 +24,6 @@ public:
 	int m_curGuideId;
 	bool m_guideEnable;
 	bool m_pauseGuide;
+	bool m_isRunning;//是否正在执行引导
 };
 #endif

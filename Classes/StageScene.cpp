@@ -6,6 +6,8 @@
 #include "BackgroundLayer.h"
 #include "StageMaskLayer.h"
 #include "GuideMgr.h"
+#include "PauseDialog.h"
+#include "MainScene.h"
 using namespace cocos2d;
 
 StageScene *StageScene::s_scene = NULL;
@@ -63,3 +65,4 @@ bool StageScene::init()
 	GuideMgr::theMgr()->endGuide(kGuideEnd_stage_in);
 	return true;
 }
+
