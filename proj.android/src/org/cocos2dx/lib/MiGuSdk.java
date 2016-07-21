@@ -7,6 +7,11 @@ import cn.cmgame.billing.api.BillingResult;
 import cn.cmgame.billing.api.GameInterface;
 
 public class MiGuSdk {
+	private static final int PAY_RESULT_SUCCESS = 0;
+	private static final int PAY_RESULT_FAILED = 1;
+	private static final int PAY_RESULT_CANCEL = 2;
+	private static final int PAY_RESULT_TIMEOUT = 3;
+	
 	public static Context mContext = null;
 
 	MiGuSdk(Context context) {
@@ -19,25 +24,30 @@ public class MiGuSdk {
 			@Override
 			public void onResult(int resultCode, String billingIndex, Object obj) {
 				String result = "";
+				int payResult = PAY_RESULT_SUCCESS;
 				switch (resultCode) {
 				case BillingResult.SUCCESS:
 					if ((BillingResult.EXTRA_SENDSMS_TIMEOUT + "").equals(obj
 							.toString())) {
 						result = "短信计费超时";
+						payResult = PAY_RESULT_TIMEOUT;
 					} else {
 						result = "购买道具：[" + billingIndex + "] 成功！";
+						payResult = PAY_RESULT_SUCCESS;
 					}
 
 					break;
 				case BillingResult.FAILED:
 					result = "购买道具：[" + billingIndex + "] 失败！";
+					payResult = PAY_RESULT_FAILED;
 					break;
 				default:
 					result = "购买道具：[" + billingIndex + "] 取消！";
+					payResult = PAY_RESULT_CANCEL;
 					break;
 				}
 				Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
-				onPurchase(resultCode);
+				onPurchase(payResult);
 			}
 		};
 

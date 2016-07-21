@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 public class PayAndroidApi {
 	private static final String LOG_TAG = "PayAndroidApi";
-	private static final int PAY_RESULT_SUCCESS = 0;
-	private static final int PAY_RESULT_FAILED = 1;
-	private static final int PAY_RESULT_CANCEL = 2;
-	private static final int PAY_RESULT_TIMEOUT = 3;
+	String[] toastText = 
+		{"钻石不足",
+		"饲料不足",
+		"体力不足"};  
 
 	public static PayAndroidApi actInstance = null;// 定义单例
 	public static Context mContext = null;// 定义单例
@@ -66,9 +66,16 @@ public class PayAndroidApi {
 			return;
 		sMainThreadHandler.post(r);
 	}
-
-	public void showToast(String hint) {
-		Toast.makeText(mContext, hint, Toast.LENGTH_LONG).show();
+	
+	int toastIndex = 0;
+	public void showToast(int index) {
+		toastIndex = index;
+		runOnMainThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(mContext, toastText[toastIndex], Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 
 	public String getVerName() {
