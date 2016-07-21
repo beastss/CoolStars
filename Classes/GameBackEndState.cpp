@@ -1,0 +1,15 @@
+#include "GameBackEndState.h"
+using namespace std;
+
+GameBackEndState::GameBackEndState()
+: m_isBusinessMode(false)
+{
+
+}
+
+GameBackEndState *GameBackEndState::theModel()
+{
+	static GameBackEndState model;
+	return &model;
+}
+

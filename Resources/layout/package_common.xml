@@ -29,8 +29,8 @@
 	</animation>
 	<button>
 		<id>4</id>
-		<x>194.79</x>
-		<y>62.68</y>
+		<x>81.04</x>
+		<y>62.89</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -40,14 +40,36 @@
 	</button>
 	<button>
 		<id>5</id>
-		<x>77.87</x>
-		<y>61.84</y>
+		<x>202.60</x>
+		<y>65.01</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
 		<normal>package/buy_check.png</normal>
 		<selected>package/buy_check.png</selected>
 		<disabled>package/buy_check.png</disabled>
+	</button>
+	<button>
+		<id>7</id>
+		<x>81.04</x>
+		<y>66.06</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>package/lb_anni9.png</normal>
+		<selected>package/lb_anni9.png</selected>
+		<disabled>package/lb_anni9.png</disabled>
+	</button>
+	<button>
+		<id>8</id>
+		<x>202.60</x>
+		<y>67.12</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>package/lb_anni10.png</normal>
+		<selected>package/lb_anni10.png</selected>
+		<disabled>package/lb_anni10.png</disabled>
 	</button>
 </layout>
 
