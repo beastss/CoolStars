@@ -3,7 +3,6 @@
 #include "TestScene.h"
 #include "MainScene.h"
 #include "SimpleAudioEngine.h"
-#include "GreenGameScene.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -47,8 +46,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #ifdef TEST_SCENE
 	CCScene *pScene = TestScene::scene();
 #else
-	//CCScene *pScene = MainScene::theScene();
-	CCScene *pScene = GreenGameScene::create(); 
+	CCScene *pScene = MainScene::theScene();
 #endif	
 
     // run
