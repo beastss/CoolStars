@@ -115,3 +115,9 @@ void PreStageScene::hideHomeBackBtn()
 {
 	m_titlePanel->setUiVisible(kTitlePanelBackHome, false);
 }
+
+void PreStageScene::onBackKeyTouched()
+{
+	MainScene::theScene()->clearPanelRecord();
+	MainScene::theScene()->showPanel(kMainMenu);
+}

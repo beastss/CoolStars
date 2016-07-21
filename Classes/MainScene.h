@@ -25,8 +25,9 @@ public:
 	void removeGuideView();
 	void backPanel();
 	void clearPanelRecord(){ m_panelRecord.clear(); }
+	void handleKeyBackTouch();
 private:
-	MainScene(){}
+	MainScene();
 	~MainScene(){}
 	void addUiPanel(BasePanel *panel, bool closeBehind);
 	void recordPanel(int panelId, int usage);
@@ -46,7 +47,6 @@ private:
 	cocos2d::CCNode *m_guideLayer;
 
 	BasePanel *m_curPanel;//ÓÃ²»Îª¿Õ
-	ScaleDialog *m_curDialog;
 };
 
 #endif

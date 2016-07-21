@@ -4,6 +4,9 @@
 #include <jni.h> 
 #include "platform/android/jni/JniHelper.h" 
 #endif 
+#include "MainScene.h"
+#include "GuideMgr.h"
+#include "SoundMgr.h"
 
 USING_NS_CC;
 using namespace std;
@@ -16,7 +19,12 @@ bool KeyPadWatcher::init()
 
 void KeyPadWatcher::keyBackClicked()
 {
-	
+	if (!GuideMgr::theMgr()->isRunning())
+	{
+		SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+		MainScene::theScene()->handleKeyBackTouch();
+	}
+
 }
 
 void KeyPadWatcher::exitGame()

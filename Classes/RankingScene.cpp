@@ -10,6 +10,7 @@
 #include "ThiefModel.h"
 #include "GuideMgr.h"
 #include "SoundMgr.h"
+#include "MainScene.h"
 
 USING_NS_CC;
 using namespace std;
@@ -73,3 +74,8 @@ void RankingScene::onGetReward(cocos2d::CCObject* pSender)
 
 }
 
+void RankingScene::onBackKeyTouched()
+{
+	MainScene::theScene()->clearPanelRecord();
+	MainScene::theScene()->showPanel(kMainMenu);
+}

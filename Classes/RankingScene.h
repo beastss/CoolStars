@@ -18,6 +18,7 @@ private:
 	void initLayout();
 	void initBottomLayout();
 	void onGetReward(cocos2d::CCObject* pSender);
+	virtual void onBackKeyTouched();
 private:
 	UiLayout *m_layout;
 	UiLayout *m_bottomlayout;

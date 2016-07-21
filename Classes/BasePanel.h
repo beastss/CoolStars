@@ -11,6 +11,7 @@ public:
 	virtual ~BasePanel(){}
 	int getPanelId(){ return m_panelId; }
 	int getUsage(){ return m_usage; }
+	virtual void onBackKeyTouched(){}
 protected:
 	BasePanel();
 	virtual void onEnter();

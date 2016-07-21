@@ -356,3 +356,8 @@ void PetScene::onNewPetAdd()
 	initColorPets();
 	refreshUi();
 }
+
+void PetScene::onBackKeyTouched()
+{
+	MainScene::theScene()->backPanel();
+}

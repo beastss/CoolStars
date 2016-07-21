@@ -19,6 +19,7 @@
 #include "ThiefModel.h"
 #include "GoodsView.h"
 #include "PackageModel.h"
+#include "KeyPadWatcher.h"
 
 USING_NS_CC;
 using namespace std;
@@ -266,4 +267,9 @@ void MenuScene::onThiefDisappear()
 	{
 		tips->removeFromParent();
 	}
+}
+
+void MenuScene::onBackKeyTouched()
+{
+	KeyPadWatcher::exitGame();
 }

@@ -21,6 +21,7 @@ GuideMgr::GuideMgr()
 : m_curGuideId(kNotTriggerGuide)
 , m_guideEnable(true)
 , m_pauseGuide(false)
+, m_isRunning(false)
 {
 }
 
@@ -50,6 +51,7 @@ void GuideMgr::startGuide(int startAction, std::function<void()> callback)
 	if (iter != configs.end())
 	{
 		m_curGuideId = iter->id;
+		m_isRunning = true;
 
 		if (callback)
 		{
@@ -86,6 +88,7 @@ void GuideMgr::finishGuide()
 
 	m_finishedGuides.push_back(m_curGuideId);
 	m_curGuideId = kNotTriggerGuide;
+	m_isRunning = false;
 
 	MainScene::theScene()->removeGuideView();
 	onSave();

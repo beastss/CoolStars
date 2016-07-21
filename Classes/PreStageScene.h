@@ -17,6 +17,7 @@ private:
 	void initBottomLayout();
 	void toStartGame(cocos2d::CCObject* pSender);
 	void hideHomeBackBtn();
+	virtual void onBackKeyTouched();
 private:
 	TitlePanel *m_titlePanel;
 	UiLayout *m_mainLayout;
