@@ -228,6 +228,10 @@ void GameWinLayer::initPanel()
 			animation->getAnimation()->play("move", -1, -1, 1);
 		}
 	}
+
+	CCLabelAtlas *stageNum = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(26));
+	int curStage = StageDataMgr::theMgr()->getCurStage();
+	stageNum->setString(CommonUtil::intToStr(curStage - 1));
 }
 
 void GameWinLayer::addGameResultReward()

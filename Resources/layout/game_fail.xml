@@ -109,7 +109,7 @@
 	</image>
 	<image>
 		<id>13</id>
-		<x>52.97</x>
+		<x>62.89</x>
 		<y>468.95</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
@@ -118,8 +118,8 @@
 	</image>
 	<image>
 		<id>14</id>
-		<x>139.92</x>
-		<y>471.05</y>
+		<x>176.85</x>
+		<y>469.99</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -127,8 +127,8 @@
 	</image>
 	<image>
 		<id>15</id>
-		<x>234.47</x>
-		<y>471.90</y>
+		<x>295.25</x>
+		<y>470.84</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -136,8 +136,8 @@
 	</image>
 	<image>
 		<id>16</id>
-		<x>325.43</x>
-		<y>472.74</y>
+		<x>413.01</x>
+		<y>471.90</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -156,8 +156,8 @@
 	</button>
 	<button>
 		<id>19</id>
-		<x>423.18</x>
-		<y>491.29</y>
+		<x>430.14</x>
+		<y>535.19</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
