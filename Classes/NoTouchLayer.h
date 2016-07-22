@@ -8,7 +8,7 @@ class NoTouchLayer
 {
 public:
 	CREATE_FUNC(NoTouchLayer);
-	void setCanTouch(bool canTouch){ m_canTouch = canTouch; }
+	void setCanTouch(bool canTouch, int tag = 0);
 protected:
 	virtual void onEnter();
 	virtual void onExit();
@@ -18,5 +18,6 @@ private:
 private:
 	int m_touchPriority;
 	bool m_canTouch;
+	std::vector<int> m_tags;
 };
 #endif

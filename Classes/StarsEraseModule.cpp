@@ -2,6 +2,7 @@
 #include "StarsController.h"
 #include "ActionRunner.h"
 #include "SoundMgr.h"
+#include "StageLayersMgr.h"
 using namespace std;
 USING_NS_CC;
 
@@ -33,12 +34,14 @@ void StarsEraseModule::handleClick(const LogicGrid &grid)
 		size_t count = connectedNodes.size();
 		if (count >= CONNECT_COUNT)
 		{
+			StageLayersMgr::theMgr()->eraseStarsStart();
 			for (size_t j = 0; j < count; ++j)
 			{
 				auto node = connectedNodes[j];
 				node->removeNeighbours();
 				node->doRemove();
 			}
+			StageLayersMgr::theMgr()->eraseStarsEnd();
 			StarsController::theModel()->moveOneStep();
 			StarsController::theModel()->genNewStars();
 			SoundMgr::theMgr()->playEffect(kEffectStarErase);
@@ -77,6 +80,7 @@ void StarsEraseModule::scaleErase(const LogicGrid &center, int xRadius, int yRad
 void StarsEraseModule::runScaleErase(const LogicGrid &center, int xRadius, int yRadius)
 {
 	int rounds = max(xRadius, yRadius) + 1;
+	StageLayersMgr::theMgr()->eraseStarsStart();
 	for (int i = 0; i < rounds; ++i)
 	{
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
@@ -102,6 +106,7 @@ void StarsEraseModule::runScaleErase(const LogicGrid &center, int xRadius, int y
 
 	m_runner->queueAction(CallFuncAction::withFunctor([=]()
 	{
+		StageLayersMgr::theMgr()->eraseStarsEnd();
 		StarsController::theModel()->moveOneStep(false);
 		StarsController::theModel()->genNewStars();
 	}));

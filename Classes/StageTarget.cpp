@@ -83,6 +83,7 @@ void StageTarget::reset()
 	m_targetGrid.y = 0;
 
 	m_starsLeft.clear();
+	m_record.clear();
 }
 
 bool StageTarget::isGameOver()

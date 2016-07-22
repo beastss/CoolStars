@@ -29,7 +29,7 @@ struct DesignatedStar
 class StarsLoader
 {
 public:
-	StarsLoader() : m_mode(kStarLoadRandomByConfig){}
+	StarsLoader() : m_mode(kStarLoadRandomByConfig), m_designatedStarRounds(0){}
 	StarAttr genNewStars(const LogicGrid &grid);
 	void init();
 	void designateStar(int starType, int color, int rounds);

@@ -526,3 +526,17 @@ void StageUiLayer::onTouchEnable(bool canTouch)
 {
 	m_noTouchLayer->setCanTouch(canTouch);
 }
+
+void StageUiLayer::onEraseStarsStart()
+{
+	m_noTouchLayer->setCanTouch(false, 1);
+}
+
+void StageUiLayer::onEraseStarsEnd()
+{
+	auto func = CCFunctionAction::create([=]()
+	{
+		m_noTouchLayer->setCanTouch(true, 1);
+	});
+	runAction(CCSequence::create(CCDelayTime::create(0.5f), func, NULL));
+}

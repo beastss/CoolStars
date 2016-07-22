@@ -98,6 +98,9 @@ void StarsLoader::init()
 	{
 		return data1.score < data2.score;
 	});
+
+	m_designatedStarRounds = 0;
+	m_mode = kStarLoadRandomByConfig;
 }
 
 void StarsLoader::onOneRoundEnd()

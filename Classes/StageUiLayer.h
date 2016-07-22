@@ -46,6 +46,8 @@ public:
 	virtual void onGameWin();
 	virtual void onScoreBouble();
 	virtual void onTouchEnable(bool canTouch);
+	virtual void onEraseStarsStart();
+	virtual void onEraseStarsEnd();
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:
