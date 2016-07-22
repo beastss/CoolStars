@@ -5,6 +5,7 @@
 #include "SoundMgr.h"
 #include "PackageModel.h"
 #include "PackageDialog.h"
+#include "GameBackEndState.h"
 
 USING_NS_CC;
 using namespace std;
@@ -74,6 +75,7 @@ void PauseDialog::onBackHome(CCObject* pSender)
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	removeFromParent();
 	MainScene::theScene()->showPanel(kMainMenu);
+	GameBackEndState::theModel()->recordStageEnd(false);
 }
 
 void PauseDialog::onPurchase(CCObject* pSender)
