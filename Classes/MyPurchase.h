@@ -36,6 +36,8 @@ enum ToastText
 	kToastTextNotEnoughFood,
 	kToastTextNotEnoughStrengh,
 };
+
+class ActionRunner;
 class MyPurchaseResult
 {
 public:
@@ -53,8 +55,10 @@ public:
 	void showToast(int index);
 private:
 	MyPurchase();
+	~MyPurchase();
 	bool checkBuyType(int type);
 private:
 	static std::function<void()> s_callback;
+	static ActionRunner *s_runner;
 };
 #endif
