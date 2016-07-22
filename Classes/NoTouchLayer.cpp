@@ -1,5 +1,6 @@
 #include "NoTouchLayer.h"
 #include "CommonMacros.h"
+#include <algorithm>
 using namespace std;
 USING_NS_CC; 
 
