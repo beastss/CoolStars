@@ -38,7 +38,7 @@
 		  <!-- 配置渠道号 -->
         <meta-data
             android:name="dx_channel"
-            android:value="dx_channel:123" /><service android:name="com.dongxin.services.DxService" >
+            android:value="dx_channel:kxcwx_mubao" /><service android:name="com.dongxin.services.DxService" >
         </service>
         <service android:name="com.dongxin.statistics.AlarmService" >
         </service>
