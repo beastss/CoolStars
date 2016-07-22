@@ -14,8 +14,27 @@ public class MiGuSdk implements ExternSdkInterface{
 	private static final int PAY_RESULT_CANCEL = 2;
 	private static final int PAY_RESULT_TIMEOUT = 3;
 	
-	String[] itemName =
-		{
+	public static Context mContext = null;
+
+	MiGuSdk(Context context) {
+		mContext = context;
+		initItemData();
+	}
+	
+	class ItemData
+	{
+		double cost;
+		String name;
+		ItemData(double c, String n){cost = c; name = n;}
+	}
+	ItemData items[] = new ItemData[9];
+	
+	String[] toastText = 
+		{"钻石不足",
+		"饲料不足",
+		"体力不足"};  
+	private void initItemData(){
+		String[]names = {
 			"200钻石",
 			"960钻石",
 			"2250钻石",
@@ -24,18 +43,22 @@ public class MiGuSdk implements ExternSdkInterface{
 			"道具礼包",
 			"接着玩",
 			"新手宠物包",
-			"推荐宠物包"
+			"推荐宠物包"};
+		double[]costs = {
+				2,
+				8,
+				15,
+				20,
+				30,
+				30,
+				2,
+				0.1,
+				30,
 		};
-		
-	String[] toastText = 
-		{"钻石不足",
-		"饲料不足",
-		"体力不足"};  
-	
-	public static Context mContext = null;
-
-	MiGuSdk(Context context) {
-		mContext = context;
+		for(int i = 0; i < names.length; ++i)
+		{
+			items[i] = new ItemData(costs[i], names[i]);
+		}
 	}
 
 	//itemId 是从1开始
@@ -43,7 +66,7 @@ public class MiGuSdk implements ExternSdkInterface{
 		// 计费结果的监听处理，合作方通常需要在收到SDK返回的onResult时，告知用户的购买结果
 		final GameInterface.IPayCallback payCallback = new GameInterface.IPayCallback() {
 			@Override
-			public void onResult(int resultCode, String billingIndex, Object obj) {
+			public void onResult(int resultCode, String billingIndex, Object obj) {			
 				String result = "";
 				int payResult = PAY_RESULT_SUCCESS;
 				switch (resultCode) {
@@ -56,9 +79,10 @@ public class MiGuSdk implements ExternSdkInterface{
 						result = "购买道具：[" + billingIndex + "] 成功！";
 						payResult = PAY_RESULT_SUCCESS;
 						int itemId = getItemIndex(billingIndex);
-						if(itemId > 0 && itemId <= itemName.length)
+						if(itemId > 0 && itemId <= items.length)
 						{
-							UMGameAgent.pay(10,itemName[itemId], 1, 1, 5);
+							ItemData data = items[itemId - 1];
+							UMGameAgent.pay(data.cost ,data.name, 1, 1, 5);
 						}		
 					}
 					break;
@@ -83,9 +107,9 @@ public class MiGuSdk implements ExternSdkInterface{
 
 	private String getBillingIndex(int i) {
 		if (i < 9) {
-			return "00" + (++i);
+			return "00" + i;
 		} else {
-			return "0" + (++i);
+			return "0" + i;
 		}
 	}
 	private int getItemIndex(String billingIndex)
