@@ -2,14 +2,23 @@
 #if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID )
 #include "org_cocos2dx_lib_MiGuSdk.h"
 #endif
+#include "ActionRunner.h"
 using namespace cocos2d;
 using namespace std;
 
 function<void()> MyPurchase::s_callback = function<void()>();
+ActionRunner* MyPurchase::s_runner = NULL;
 
 MyPurchase::MyPurchase()
 {
+	s_runner = ActionRunner::create();
+	s_runner->retain();
+}
 
+MyPurchase::~MyPurchase()
+{
+	s_runner->clear();
+	s_runner->release();
 }
 
 MyPurchase* MyPurchase::sharedPurchase()
@@ -49,24 +58,32 @@ void MyPurchase::buyItem(int id, std::function<void()> callback)
 
 void MyPurchase::onPayResult(int ret)
 {
-	CCLOG("payResult:   ", ret);
+	CCLOG("payResult:   %d", ret);
 	switch (ret)
 	{
 	case kReturnCodeSucceed:
+		//ÑÓÊ±0.5f SdkºóÌ¨
 		if (s_callback)
 		{
-			s_callback();
+			s_runner->queueAction(DelayAction::withDelay(0.5f));
+			s_runner->queueAction(CallFuncAction::withFunctor([=]()
+			{
+				s_callback();
+			}));
 		}
 		break;
 	case kReturnCodeFail:
+		s_callback = function<void()>();
 		break;
 	case kReturnCodeCanceled:
+		s_callback = function<void()>();
 		break;
 	default:
+		s_callback = function<void()>();
+
 		break;
 	}
 	
-	s_callback = function<void()>();
 }
 
 bool MyPurchase::checkBuyType(int type)
