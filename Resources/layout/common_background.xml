@@ -8,32 +8,35 @@
 		<scale>1.00</scale>
 		<path>background/beij_di.png</path>
 	</image>
-	<image>
-		<id>2</id>
-		<x>71.90</x>
-		<y>451.15</y>
+	<animation>
+		<id>5</id>
+		<x>65.84</x>
+		<y>472.06</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>background/beij_yun1.png</path>
-	</image>
-	<image>
-		<id>3</id>
-		<x>411.25</x>
-		<y>713.90</y>
+		<path>background/yun1/yun1.ExportJson</path>
+		<movement>0</movement>
+	</animation>
+	<animation>
+		<id>6</id>
+		<x>300.18</x>
+		<y>696.72</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>background/beij_yun2.png</path>
-	</image>
-	<image>
-		<id>4</id>
-		<x>314.17</x>
-		<y>79.71</y>
+		<path>background/yun/yun.ExportJson</path>
+		<movement>0</movement>
+	</animation>
+	<animation>
+		<id>7</id>
+		<x>418.29</x>
+		<y>156.74</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>background/beij_yun2.png</path>
-	</image>
+		<path>background/yun1/yun1.ExportJson</path>
+		<movement>0</movement>
+	</animation>
 </layout>
 
