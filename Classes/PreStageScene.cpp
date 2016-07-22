@@ -17,6 +17,7 @@
 #include "PackageDialog.h"
 #include "PackageModel.h"
 #include "GameBackEndState.h"
+#include "MyPurchase.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -108,6 +109,7 @@ void PreStageScene::toStartGame(cocos2d::CCObject* pSender)
 	}
 	else
 	{
+		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughStrengh);
 		auto dialog = PackageDialog::create(kPackageStrength);
 		MainScene::theScene()->showDialog(dialog);
 	}

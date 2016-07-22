@@ -49,6 +49,7 @@ void SoundMgr::playEffect(int effectType)
 
 void SoundMgr::setMute( bool mute )
 {
+	/*
 	if (mute == m_isMute) return;
 	if (mute)
 	{
@@ -57,6 +58,17 @@ void SoundMgr::setMute( bool mute )
 	else
 	{
 		playBackground();
+	}
+	*/
+	if (mute)
+	{
+		SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+		SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	}
+	else
+	{
+		SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+		SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 	}
 
 	m_isMute = mute;
@@ -83,6 +95,7 @@ void SoundMgr::loadLastSetting()
 	auto data = result[0];
 
 	bool isMute = atoi(data[2]) == 1;
+	playBackground();
 	setMute(isMute);
 }
 

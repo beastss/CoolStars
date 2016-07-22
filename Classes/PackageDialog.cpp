@@ -108,7 +108,8 @@ bool PackageScene::init()
 	dialog->setPosition(ccpMult(winSize, 0.5f));
 	dialog->setCancelHandle([=]()
 	{
-		removeFromParent();
+		MainScene::theScene()->clearPanelRecord();
+		MainScene::theScene()->showPanel(kMainMenu);;
 	});
 	m_thief = CCSprite::create("thief/youxijiemian_sentou1.png");
 	m_thief->setScale(0.1f);
