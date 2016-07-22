@@ -61,3 +61,13 @@ void StageLayersMgr::touchEnable(bool canTouch)
 {
 	NOTIFY_LAYERSS(onTouchEnable, canTouch);
 }
+
+void StageLayersMgr::eraseStarsStart()
+{
+	NOTIFY_LAYERSS(onEraseStarsStart);
+}
+
+void StageLayersMgr::eraseStarsEnd()
+{
+	NOTIFY_LAYERSS(onEraseStarsEnd);
+}

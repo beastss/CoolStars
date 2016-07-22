@@ -92,6 +92,7 @@ void StarRectMaskOperator::onHighLightRectStars(int x, int y, int width, int hei
 		for (int j = y; j < y + height; ++j)
 		{
 			auto node = StarsController::theModel()->getStarNode(LogicGrid(i, j));
+			if (!node) continue;
 			auto view = node->getView();
 			auto resPath = node->getResPath();
 			auto pos = view->getParent()->convertToWorldSpace(view->getPosition());

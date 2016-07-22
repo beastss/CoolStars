@@ -11,6 +11,8 @@ struct IStageLayer
 	virtual void onHighLightRectStars(int x, int y, int width, int height){}
 	virtual void onScoreBouble(){}
 	virtual void onTouchEnable(bool canTouch){}
+	virtual void onEraseStarsStart(){}
+	virtual void onEraseStarsEnd(){}
 };
 
 #define NOTIFY_LAYERSS(_FUNC_ ,...)						 \
@@ -36,6 +38,8 @@ public:
 	void colorStarErased(cocos2d::CCPoint pos, int starType, int color);
 	void doubleScore();
 	void touchEnable(bool canTouch);
+	void eraseStarsStart();
+	void eraseStarsEnd();
 private:
 	StageLayersMgr(){}
 private:
