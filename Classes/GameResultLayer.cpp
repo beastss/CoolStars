@@ -217,6 +217,7 @@ void GameWinLayer::initPanel()
 		if (i < petIds.size())
 		{
 			auto pet = PetManager::petMgr()->getPetById(petIds[i]);
+			assert(pet);
 			string path = pet->getPetData().petAnimationRes;
 			CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(path.c_str());
 

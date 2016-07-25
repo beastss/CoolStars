@@ -73,6 +73,7 @@ void LotteryNode::handleTouch()
 	if (data.type == kLotteryPet)
 	{
 		auto pet = PetManager::petMgr()->getPetById(data.param);
+		assert(pet && "this pet is not opening");
 		resPath = pet->getPetData().petImgRes;
 		goodsNum = 1;
 	}

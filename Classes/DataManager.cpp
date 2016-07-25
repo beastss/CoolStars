@@ -133,8 +133,24 @@ void DataManager::loadPetResConfig()
 
 const PetResConfig &DataManager::getPetResConfig(int petId)
 {
-	assert(petId > 0 && petId <= PETS_AMOUNT);
-	return m_petResConfig[petId - 1];
+	auto openingPets = m_systemConfig.openingPets;
+	auto iter = find(openingPets.begin(), openingPets.end(), petId);
+	assert(iter != openingPets.end());
+
+	if (iter != openingPets.end())
+	{
+		auto resIter = find_if(m_petResConfig.begin(), m_petResConfig.end(), [=](PetResConfig config)->bool
+		{
+			return config.id == petId;
+		});
+		assert(resIter != m_petResConfig.end());
+		if (resIter != m_petResConfig.end())
+		{
+			return *resIter;
+		}
+	}
+	//失败则返回第一个宠物
+	return m_petResConfig[0];
 }
 
 void DataManager::loadPetColorConfig()
@@ -270,6 +286,7 @@ void DataManager::loadSystemConfig()
 	m_systemConfig.diamondsForOneKey = atoi(data[7]);
 	m_systemConfig.foodsByOneDiamond = atoi(data[8]);
 	m_systemConfig.packagePetStage = atoi(data[9]);
+	m_systemConfig.openingPets = CommonUtil::parseStrToInts(data[10]);;
 }
 
 const SystemConfig &DataManager::getSystemConfig()

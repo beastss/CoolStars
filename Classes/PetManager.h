@@ -20,6 +20,7 @@ public:
 	PetEntity *getPetById(int id);
 	std::vector<int> getOwnedPetIds();
 	std::vector<int> getNotOwnedPetIds();
+	int getMaxPetsAmount(){ return m_pets.size(); }
 	bool ownedThisPet(int id);
 	void addNewPet(int petId);
 

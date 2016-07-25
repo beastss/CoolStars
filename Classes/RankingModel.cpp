@@ -127,7 +127,8 @@ void RankingModel::initFirstOpenRanking(string myName)
 	//根据 最高得分 和 宠物拥有比 计算排名。对手的排名在玩家之前
 	int topStage = StageDataMgr::theMgr()->getTopStage();
 	int ownPetNum = PetManager::petMgr()->getOwnedPetIds().size();
-	int ownPetPercent = int((float)ownPetNum / PETS_AMOUNT * 100);
+	int petsAmount = PetManager::petMgr()->getMaxPetsAmount();
+	int ownPetPercent = int((float)ownPetNum / petsAmount * 100);
 	auto iter = find_if(datas.begin(), datas.end(), [=](RankingConfig data)->bool
 	{
 		if (topStage == data.stage)
@@ -189,7 +190,8 @@ RankingData RankingModel::getMyRankingData()
 {
 	int stage = StageDataMgr::theMgr()->getTopStage();
 	int ownPetNum = PetManager::petMgr()->getOwnedPetIds().size();
-	int ownPetPercent = int((float)ownPetNum / PETS_AMOUNT * 100);
+	int petsAmount = PetManager::petMgr()->getMaxPetsAmount();
+	int ownPetPercent = int((float)ownPetNum / petsAmount * 100);
 
 	RankingData data;
 	data.name = m_myName;
