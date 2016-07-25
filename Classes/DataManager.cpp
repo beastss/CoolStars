@@ -123,6 +123,7 @@ void DataManager::loadPetResConfig()
 		config.skillRes = data[4];
 		config.petAnimationRes = data[5];
 		config.petNameRes = data[6];
+		config.isOpening = atoi(data[7]) == 1;
 		m_petResConfig.push_back(config);
 	}
 	sort(m_petResConfig.begin(), m_petResConfig.end(), [=](PetResConfig config1, PetResConfig config2)->bool
@@ -131,10 +132,39 @@ void DataManager::loadPetResConfig()
 	});
 }
 
+vector<int> DataManager::getOpeningPetIds()
+{
+	vector<int> petsId;
+	for (auto iter = m_petResConfig.begin(); iter != m_petResConfig.end(); ++iter)
+	{
+		if (iter->isOpening)
+		{
+			petsId.push_back(iter->id);
+		}
+	}
+	return petsId;
+}
+
 const PetResConfig &DataManager::getPetResConfig(int petId)
 {
-	assert(petId > 0 && petId <= PETS_AMOUNT);
-	return m_petResConfig[petId - 1];
+	auto openingPets = getOpeningPetIds();
+	auto iter = find(openingPets.begin(), openingPets.end(), petId);
+	assert(iter != openingPets.end());
+
+	if (iter != openingPets.end())
+	{
+		auto resIter = find_if(m_petResConfig.begin(), m_petResConfig.end(), [=](PetResConfig config)->bool
+		{
+			return config.id == petId;
+		});
+		assert(resIter != m_petResConfig.end());
+		if (resIter != m_petResConfig.end())
+		{
+			return *resIter;
+		}
+	}
+	//失败则返回第一个宠物
+	return m_petResConfig[0];
 }
 
 void DataManager::loadPetColorConfig()

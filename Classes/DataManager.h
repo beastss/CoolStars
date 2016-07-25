@@ -46,6 +46,7 @@ public:
 
 	void loadPetResConfig();
 	const PetResConfig &getPetResConfig(int petId);
+	vector<int> getOpeningPetIds();
 
 	void loadPetColorConfig();
 	const PetColorConfig &getPetColorConfig(int color);

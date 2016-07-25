@@ -6,6 +6,7 @@
 #include "CommonMacros.h"
 #include "RankingModel.h"
 #include "StarsController.h"
+#include "PetManager.h"
 using namespace std;
 using namespace CommonUtil;
 USING_NS_CC;
@@ -82,7 +83,8 @@ void RankingOpponent::update()
 	{
 		m_stage += getRandomValue(1, 5);
 		m_stage = min(StarsController::theModel()->getStageAmount(), m_stage);
-		m_ownPetPercent += (int)((float)getRandomValue(0, 3) / PETS_AMOUNT * 100);
+		int petsAmount = PetManager::petMgr()->getMaxPetsAmount();
+		m_ownPetPercent += (int)((float)getRandomValue(0, 3) / petsAmount * 100);
 		m_ownPetPercent = min(m_ownPetPercent, 100);
 	}
 	m_lastDays = curdays;

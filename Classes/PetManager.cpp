@@ -21,8 +21,10 @@ PetManager *PetManager::petMgr()
 
 void PetManager::init()
 {
-	for (int petId = 1; petId <= PETS_AMOUNT; ++petId)
+	auto openingPets = DataManagerSelf->getOpeningPetIds();
+	for (size_t i = 0; i < openingPets.size(); ++i)
 	{
+		int petId = openingPets[i];
 		m_pets[petId] = PetEntity::PetFactory(petId);
 	}
 
@@ -70,12 +72,16 @@ bool PetManager::ownedThisPet(int id)
 
 void PetManager::addNewPet(int petId)
 {
-	if (!ownedThisPet(petId))
+	auto pet = getPetById(petId);
+	assert(pet);
+	if (pet)
 	{
-		auto pet = getPetById(petId);
-		pet->getThisNewPet();
+		if (!ownedThisPet(petId))
+		{
+			pet->getThisNewPet();
+			NOTIFY_VIEWS(onNewPetAdd);
+		}
 	}
-	NOTIFY_VIEWS(onNewPetAdd);
 }
 
 PetEntity *PetManager::getPetById(int id)

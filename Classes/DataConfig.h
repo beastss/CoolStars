@@ -41,6 +41,7 @@ struct PetResConfig
 	string skillRes;
 	string petAnimationRes;
 	string petNameRes;
+	bool isOpening;
 };
 
 struct PetColorConfig
