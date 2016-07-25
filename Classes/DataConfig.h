@@ -41,6 +41,7 @@ struct PetResConfig
 	string skillRes;
 	string petAnimationRes;
 	string petNameRes;
+	bool isOpening;
 };
 
 struct PetColorConfig
@@ -88,7 +89,6 @@ struct SystemConfig
 	int diamondsForOneKey;
 	int foodsByOneDiamond;
 	int packagePetStage;//新手宠物礼包里 宠物在某关后出现
-	std::vector<int> openingPets;
 };
 
 struct StarsColorConfig

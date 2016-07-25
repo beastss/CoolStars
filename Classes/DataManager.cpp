@@ -123,6 +123,7 @@ void DataManager::loadPetResConfig()
 		config.skillRes = data[4];
 		config.petAnimationRes = data[5];
 		config.petNameRes = data[6];
+		config.isOpening = atoi(data[7]) == 1;
 		m_petResConfig.push_back(config);
 	}
 	sort(m_petResConfig.begin(), m_petResConfig.end(), [=](PetResConfig config1, PetResConfig config2)->bool
@@ -131,9 +132,22 @@ void DataManager::loadPetResConfig()
 	});
 }
 
+vector<int> DataManager::getOpeningPetIds()
+{
+	vector<int> petsId;
+	for (auto iter = m_petResConfig.begin(); iter != m_petResConfig.end(); ++iter)
+	{
+		if (iter->isOpening)
+		{
+			petsId.push_back(iter->id);
+		}
+	}
+	return petsId;
+}
+
 const PetResConfig &DataManager::getPetResConfig(int petId)
 {
-	auto openingPets = m_systemConfig.openingPets;
+	auto openingPets = getOpeningPetIds();
 	auto iter = find(openingPets.begin(), openingPets.end(), petId);
 	assert(iter != openingPets.end());
 
@@ -286,7 +300,6 @@ void DataManager::loadSystemConfig()
 	m_systemConfig.diamondsForOneKey = atoi(data[7]);
 	m_systemConfig.foodsByOneDiamond = atoi(data[8]);
 	m_systemConfig.packagePetStage = atoi(data[9]);
-	m_systemConfig.openingPets = CommonUtil::parseStrToInts(data[10]);;
 }
 
 const SystemConfig &DataManager::getSystemConfig()

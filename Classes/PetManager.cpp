@@ -21,7 +21,7 @@ PetManager *PetManager::petMgr()
 
 void PetManager::init()
 {
-	auto openingPets = DataManagerSelf->getSystemConfig().openingPets;
+	auto openingPets = DataManagerSelf->getOpeningPetIds();
 	for (size_t i = 0; i < openingPets.size(); ++i)
 	{
 		int petId = openingPets[i];
