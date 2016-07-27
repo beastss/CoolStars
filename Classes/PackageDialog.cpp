@@ -78,7 +78,14 @@ void PackageDialog::onCancelBtnClicked(cocos2d::CCObject* pSender)
 void PackageDialog::onBuyBtnClicked(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	PackageModel::theModel()->buyPackage(m_type, m_confirmHandle);
+	PackageModel::theModel()->buyPackage(m_type, [=]()
+	{
+		if (m_confirmHandle)
+		{
+			m_confirmHandle();
+		}
+		removeFromParent();
+	});
 }
 ////////////////////////////////////////////////////////////////////
 void PackageScene::onEnter()
