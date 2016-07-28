@@ -358,6 +358,33 @@ void StageUiLayer::removeExplosionAnimation(cocos2d::extension::CCArmature *anim
 	animation->removeFromParent();
 }
 
+void StageUiLayer::onInitStarsDone()
+{
+	for (int row = 0; row < ROWS_SIZE; ++row)
+	{
+		for (int col = 0; col < COlUMNS_SIZE; ++col)
+		{
+			auto node = StarsController::theModel()->getStarNode(LogicGrid(col, row));
+			if (!node) continue;
+			auto view = node->getView();
+			auto pos = view->getParent()->convertToWorldSpace(view->getPosition());
+			int index = row * COlUMNS_SIZE + col;
+			m_starsPos[index] = (convertToNodeSpace(pos));
+		}
+	}
+}
+
+const cocos2d::CCPoint &StageUiLayer::getStarPos(const LogicGrid &grid)
+{
+	int index = grid.y * COlUMNS_SIZE + grid.x;
+	return m_starsPos[index];
+}
+
+void StageUiLayer::onExplodeGrid(const LogicGrid &grid)
+{
+	playExplosionAction(getStarPos(grid));
+}
+
 void StageUiLayer::onNormalStarErased(cocos2d::CCPoint pos, int starType, int color)
 {
 	if (starType == kColorStar)
@@ -393,7 +420,7 @@ void StageUiLayer::onNormalStarErased(cocos2d::CCPoint pos, int starType, int co
 		}
 	}
 	
-	playExplosionAction(pos);
+	//playExplosionAction(pos);
 }
 
 void StageUiLayer::onHighLightPets(const std::vector<int> &petIds)

@@ -63,7 +63,14 @@ PropManager *PropManager::propMgr()
 
 void PropManager::usePropBomb(int starType, const LogicGrid &grid)
 {
-	StarsEraseModule::theModel()->scaleErase(grid, 1, 1);
+	if (starType == kBomb)
+	{
+		StarsEraseModule::theModel()->scaleErase(grid, COlUMNS_SIZE, ROWS_SIZE);
+	}
+	else
+	{
+		StarsEraseModule::theModel()->scaleErase(grid, 1, 1);
+	}
 	usePropItem(kPropBomb);
 }
 

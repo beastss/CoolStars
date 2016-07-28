@@ -5,6 +5,22 @@
 #include "LogicGridUtil.h"
 
 class ActionRunner;
+class ScaleEarseRunner
+{
+public:
+	ScaleEarseRunner(const LogicGrid &center, int xRadius, int yRadius);
+	~ScaleEarseRunner();
+private:
+	void runErase();
+	void eraseStars(std::vector<LogicGrid> grids, bool isCenter);
+	bool isBomb(const LogicGrid &grid);
+private:
+	ActionRunner *m_runner;
+	LogicGrid m_center;
+	int m_xRadius;
+	int m_yRadius;
+};
+
 class StarsEraseModule
 {
 public:
@@ -12,14 +28,13 @@ public:
 	static StarsEraseModule *theModel();
 	void handleClick(const LogicGrid &grid);
 	void scaleErase(const LogicGrid &center, int xRadius, int yRadius);
-	void removeStar(const LogicGrid &grid);
+	void removeStar(const LogicGrid &grid);//直接消除 没有爆炸
+	void reset();
+	void onScaleEraseDone(ScaleEarseRunner *runner);
 private:
 	StarsEraseModule();
-	void eraseStars(std::vector<LogicGrid> grids);
-	void runScaleErase(const LogicGrid &center, int xRadius, int yRadius);
-	bool isBomb(const LogicGrid &grid);
 private:
-	ActionRunner *m_runner;
-
+	std::vector<ScaleEarseRunner *>m_runners;
 };
+
 #endif

@@ -27,6 +27,11 @@ void StageLayersMgr::removeLayer(IStageLayer *layer)
 	}
 }
 
+void StageLayersMgr::initStarDone()
+{
+	NOTIFY_LAYERSS(onInitStarsDone);
+}
+
 void StageLayersMgr::highLightStars(int color)
 {
 	NOTIFY_LAYERSS(onHighLightStars, color);
@@ -70,4 +75,9 @@ void StageLayersMgr::eraseStarsStart()
 void StageLayersMgr::eraseStarsEnd()
 {
 	NOTIFY_LAYERSS(onEraseStarsEnd);
+}
+
+void StageLayersMgr::explodeGrid(const LogicGrid &grid)
+{
+	NOTIFY_LAYERSS(onExplodeGrid, grid);
 }

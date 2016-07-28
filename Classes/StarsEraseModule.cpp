@@ -8,14 +8,11 @@ USING_NS_CC;
 
 StarsEraseModule::StarsEraseModule()
 {
-	m_runner = ActionRunner::create();
-	m_runner->retain();
+	reset();
 }
 
 StarsEraseModule::~StarsEraseModule()
 {
-	m_runner->clear();
-	m_runner->release();
 }
 
 StarsEraseModule *StarsEraseModule::theModel()
@@ -39,6 +36,7 @@ void StarsEraseModule::handleClick(const LogicGrid &grid)
 			{
 				auto node = connectedNodes[j];
 				node->removeNeighbours();
+				StageLayersMgr::theMgr()->explodeGrid(node->getAttr().grid);
 				node->doRemove();
 			}
 			StageLayersMgr::theMgr()->eraseStarsEnd();
@@ -49,83 +47,32 @@ void StarsEraseModule::handleClick(const LogicGrid &grid)
 	}
 }
 
-bool StarsEraseModule::isBomb(const LogicGrid &grid)
-{
-	auto node = StarsController::theModel()->getStarNode(grid);
-	return node->getAttr().type == kBomb;
-}
-
 void StarsEraseModule::scaleErase(const LogicGrid &center, int xRadius, int yRadius)
 {
-	if (isBomb(center))
+	if (m_runners.empty())
 	{
-		runScaleErase(center, COlUMNS_SIZE, ROWS_SIZE);//全屏消除
-		return;
-	}
-	
-	auto grids = getRectGrids(center, xRadius, yRadius);
-	for (size_t i = 0; i < grids.size(); ++i)
-	{
-		if (isBomb(grids[i]))
-		{
-			runScaleErase(grids[i], COlUMNS_SIZE, ROWS_SIZE);//全屏消除
-			return;
-		}
+		StageLayersMgr::theMgr()->eraseStarsStart();
 	}
 
-	runScaleErase(center, xRadius, yRadius);
+	auto runner = new ScaleEarseRunner(center, xRadius, yRadius);
+	m_runners.push_back(runner);
 }
 
-//口字型消除
-void StarsEraseModule::runScaleErase(const LogicGrid &center, int xRadius, int yRadius)
+
+void StarsEraseModule::onScaleEraseDone(ScaleEarseRunner *runner)
 {
-	int rounds = max(xRadius, yRadius) + 1;
-	StageLayersMgr::theMgr()->eraseStarsStart();
-	for (int i = 0; i < rounds; ++i)
+	auto iter = find(m_runners.begin(), m_runners.end(), runner);
+	if (iter != m_runners.end())
 	{
-		m_runner->queueAction(CallFuncAction::withFunctor([=]()
-		{
-			auto roundGrids = getSquareRoundGrids(center, i);
-			vector<LogicGrid> grids;
-			int minX = center.x - xRadius;
-			int maxX = center.x + xRadius;
-			int minY = center.y - yRadius;
-			int maxY = center.y + yRadius;
-			for (size_t i = 0; i < roundGrids.size(); ++i)
-			{
-				auto grid = roundGrids[i];
-				if (grid.x >= minX && grid.x <= maxX && grid.y >= minY && grid.y <= maxY)
-				{
-					grids.push_back(grid);
-				}
-			}
-			eraseStars(grids);
-		}));
-		m_runner->queueAction(DelayAction::withDelay(0.4f));
+		delete *iter;
+		m_runners.erase(iter);
 	}
 
-	m_runner->queueAction(CallFuncAction::withFunctor([=]()
+	if (m_runners.empty())
 	{
 		StageLayersMgr::theMgr()->eraseStarsEnd();
 		StarsController::theModel()->moveOneStep(false);
 		StarsController::theModel()->genNewStars();
-	}));
-}
-
-void StarsEraseModule::eraseStars(vector<LogicGrid> grids)
-{
-	if (!grids.empty())
-	{
-		SoundMgr::theMgr()->playEffect(kEffectMusicBomb);
-	}
-
-	for (size_t i = 0; i < grids.size(); ++i)
-	{
-		auto node = StarsController::theModel()->getStarNode(grids[i]);
-		if (node && node->canBeRemoved())
-		{
-			node->doRemove();
-		}
 	}
 }
 
@@ -137,4 +84,95 @@ void StarsEraseModule::removeStar(const LogicGrid &grid)
 		node->doRemove(false);
 	}
 }
+
+void StarsEraseModule::reset()
+{
+	for (size_t i = 0; i < m_runners.size(); ++i)
+	{
+		delete m_runners[i];
+	}
+	m_runners.clear();
+}
+
+//////////////////////////////////////////////////////////////////
+ScaleEarseRunner::ScaleEarseRunner(const LogicGrid &center, int xRadius, int yRadius)
+: m_center(center)
+, m_xRadius(xRadius)
+, m_yRadius(yRadius)
+{
+	m_runner = ActionRunner::create();
+	m_runner->retain();
+	runErase();
+}
+
+ScaleEarseRunner::~ScaleEarseRunner()
+{
+	m_runner->clear();
+	m_runner->release();
+}
+
+//口字型消除
+void ScaleEarseRunner::runErase()
+{
+	int rounds = max(m_xRadius, m_yRadius) + 1;
+	for (int i = 0; i < rounds; ++i)
+	{
+		bool isCenter = i == 0;
+		m_runner->queueAction(CallFuncAction::withFunctor([=]()
+		{
+			//获取一环的方格（方形）
+			auto roundGrids = getSquareRoundGrids(m_center, i);
+			vector<LogicGrid> grids;
+			int minX = m_center.x - m_xRadius;
+			int maxX = m_center.x + m_xRadius;
+			int minY = m_center.y - m_yRadius;
+			int maxY = m_center.y + m_yRadius;
+			//将方格裁剪成需要的矩形
+			for (size_t i = 0; i < roundGrids.size(); ++i)
+			{
+				auto grid = roundGrids[i];
+				if (grid.x >= minX && grid.x <= maxX && grid.y >= minY && grid.y <= maxY)
+				{
+					grids.push_back(grid);
+				}
+			}
+			eraseStars(grids, isCenter);
+		}));
+		m_runner->queueAction(DelayAction::withDelay(0.4f));
+	}
+
+	m_runner->queueAction(CallFuncAction::withFunctor(bind(&StarsEraseModule::onScaleEraseDone, StarsEraseModule::theModel(), this)));
+}
+
+bool ScaleEarseRunner::isBomb(const LogicGrid &grid)
+{
+	auto node = StarsController::theModel()->getStarNode(grid);
+	return node && node->getAttr().type == kBomb;
+}
+
+void ScaleEarseRunner::eraseStars(vector<LogicGrid> grids, bool isCenter)
+{
+	if (!grids.empty())
+	{
+		SoundMgr::theMgr()->playEffect(kEffectMusicBomb);
+	}
+
+	for (size_t i = 0; i < grids.size(); ++i)
+	{
+		auto node = StarsController::theModel()->getStarNode(grids[i]);
+		if (node && node->canBeRemoved())
+		{
+			if (!isCenter && isBomb(grids[i]))
+			{
+				StarsEraseModule::theModel()->scaleErase(grids[i], COlUMNS_SIZE, ROWS_SIZE);//全屏消除
+			}
+
+			node->doRemove();
+		}
+		StageLayersMgr::theMgr()->explodeGrid(grids[i]);
+	}
+}
+
+
+
 
