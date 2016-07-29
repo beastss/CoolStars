@@ -63,3 +63,20 @@ bool PackageModel::canBuyPetPackage()
 	return !ownThisPet && minStage <= topStage;
 
 }
+
+int PackageModel::getPackageCost(int id)
+{
+	//调用计费sdk
+	auto config = DataManagerSelf->getPackageConfig(id);
+	int consumeType = config.cost[0];
+	int param = config.cost[1];
+	if (consumeType == kConsumeDiamond)
+	{
+		return param;
+	}
+	else
+	{
+		auto purchaseConfig = DataManagerSelf->getPurchaseConfig(param);
+		return purchaseConfig.moneyCost;
+	}
+}
