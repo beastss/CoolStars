@@ -49,19 +49,20 @@ bool LotteryNode::init()
 
 bool LotteryNode::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 {
-	int key = UserInfo::theInfo()->getKey();
-	int cost = DataManagerSelf->getSystemConfig().diamondsForOneKey;
-	if (key <= 0 && !UserInfo::theInfo()->hasEnoughDiamond(cost))
-	{
-		MainScene::theScene()->showDialog(PackageDialog::create(kPackageDiamond));
-		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
-		return false;
-	}
-
 	if (isInside && !m_isOpened)
 	{
-		m_isOpened = true;
-		handleTouch();
+		int key = UserInfo::theInfo()->getKey();
+		int cost = DataManagerSelf->getSystemConfig().diamondsForOneKey;
+		if (key <= 0 && !UserInfo::theInfo()->hasEnoughDiamond(cost))
+		{
+			MainScene::theScene()->showDialog(PackageDialog::create(kPackageDiamond));
+			MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
+		}
+		else
+		{
+			m_isOpened = true;
+			handleTouch();
+		}
 	}
 	return isInside;
 }
