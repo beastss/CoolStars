@@ -19,7 +19,7 @@ class PackageModel
 {
 public:
 	static PackageModel *theModel();
-	void buyPackage(int id, std::function<void ()> callback);
+	bool buyPackage(int id, std::function<void ()> callback);
 
 	//新手宠物礼包只能购买一次 要保存状态
 	int getPetPacakagePetId();//新手宠物礼包的宠物id
