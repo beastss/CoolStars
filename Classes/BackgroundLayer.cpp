@@ -43,20 +43,20 @@ void BackgroundLayer::initLayout()
 	sourcePos = ccp(winSize.width * 1.3f, clound1->getPositionY());
 	targetPos = ccp(winSize.width * -0.3f, clound1->getPositionY());
 	speed = (int)(CCRANDOM_0_1() * 100) + 50;
-	clound1->getAnimation()->setSpeedScale(speed / 100);
+	clound1->getAnimation()->setSpeedScale(speed / 500);
 	doMoveAction(clound1, speed, sourcePos, targetPos);
 
 	auto clound2 = dynamic_cast<CCArmature *>(m_bkLayout->getChildById(6));
 	sourcePos = ccp(winSize.width * -0.3f, clound2->getPositionY());
 	targetPos = ccp(winSize.width * 1.3f, clound2->getPositionY());
 	speed = (int)(CCRANDOM_0_1() * 100) + 50;
-	clound2->getAnimation()->setSpeedScale(speed / 100);
+	clound2->getAnimation()->setSpeedScale(speed / 500);
 	doMoveAction(clound2, speed, sourcePos, targetPos);
 
 	auto clound3 = dynamic_cast<CCArmature *>(m_bkLayout->getChildById(7));
 	sourcePos = ccp(winSize.width * -0.3f, clound3->getPositionY());
 	targetPos = ccp(winSize.width * 1.3f, clound3->getPositionY());
 	speed = (int)(CCRANDOM_0_1() * 100) + 50;
-	clound3->getAnimation()->setSpeedScale(speed / 100);
+	clound3->getAnimation()->setSpeedScale(speed / 500);
 	doMoveAction(clound3, speed, sourcePos, targetPos);
 }
