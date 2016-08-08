@@ -78,7 +78,7 @@ void PackageDialog::onCancelBtnClicked(cocos2d::CCObject* pSender)
 void PackageDialog::onBuyBtnClicked(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	PackageModel::theModel()->buyPackage(m_type, [=]()
+	bool success = PackageModel::theModel()->buyPackage(m_type, [=]()
 	{
 		if (m_confirmHandle)
 		{
@@ -86,6 +86,12 @@ void PackageDialog::onBuyBtnClicked(cocos2d::CCObject* pSender)
 		}
 		removeFromParent();
 	});
+	//只用于钻石扣费
+	if (!success)
+	{
+		MainScene::theScene()->showDialog(PackageDialog::create(kPackageDiamond));
+		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
+	}
 }
 ////////////////////////////////////////////////////////////////////
 void PackageScene::onEnter()

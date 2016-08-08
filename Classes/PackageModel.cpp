@@ -16,7 +16,7 @@ PackageModel *PackageModel::theModel()
 	return &model;
 }
 
-void PackageModel::buyPackage(int id, function<void()> callback)
+bool PackageModel::buyPackage(int id, function<void()> callback)
 {
 	//调用计费sdk
 	auto config = DataManagerSelf->getPackageConfig(id);
@@ -25,7 +25,7 @@ void PackageModel::buyPackage(int id, function<void()> callback)
 	if (consumeType == kConsumeDiamond)
 	{
 		bool succeed = UserInfo::theInfo()->consumeDiamond(param);//param为消耗的钻石数
-		if (!succeed) return;
+		if (!succeed) return false;
 		onBuyPackageSucceed(config.goods, callback);
 	}
 	else
@@ -36,6 +36,7 @@ void PackageModel::buyPackage(int id, function<void()> callback)
 			onBuyPackageSucceed(config.goods, callback);
 		});
 	}
+	return true;
 }
 
 void PackageModel::onBuyPackageSucceed(std::vector<GoodsData> goods, function<void()> callback)
@@ -61,4 +62,21 @@ bool PackageModel::canBuyPetPackage()
 	int topStage = StageDataMgr::theMgr()->getTopStage();
 	return !ownThisPet && minStage <= topStage;
 
+}
+
+int PackageModel::getPackageCost(int id)
+{
+	//调用计费sdk
+	auto config = DataManagerSelf->getPackageConfig(id);
+	int consumeType = config.cost[0];
+	int param = config.cost[1];
+	if (consumeType == kConsumeDiamond)
+	{
+		return param;
+	}
+	else
+	{
+		auto purchaseConfig = DataManagerSelf->getPurchaseConfig(param);
+		return purchaseConfig.moneyCost;
+	}
 }
