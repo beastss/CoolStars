@@ -37,11 +37,11 @@ void StageTargetView::onExit()
 bool StageTargetView::init()
 {
 	m_layout = UiLayout::create("layout/stage_target.xml");
-	setContentSize(m_layout->getContentSize());
+	m_layout->setScale(0.8f);
+	setContentSize(m_layout->boundingBox().size);
 	addChild(m_layout);
 	initLayout();
 
-	setScale(0.8f);
 	return true;
 }
 
@@ -69,6 +69,12 @@ void StageTargetView::initLayout()
 	img->setVisible(!hasExtraRes);
 
 	refreshNum();
+	showBk(false);
+}
+
+void StageTargetView::showBk(bool show)
+{
+	m_layout->getChildById(5)->setVisible(show);
 }
 
 void StageTargetView::showBornAnimation(string path)

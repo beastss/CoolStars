@@ -106,11 +106,17 @@ void StageUiLayer::initTopUi()
 	for (size_t i = 0; i < leftTarget.size(); ++i)
 	{
 		StageTargetView *view = StageTargetView::create(leftTarget[i]);
+		view->setScale(0.7f);
+		view->showBk(true);
 		auto node = dynamic_cast<EmptyBox *>(m_topUi->getChildById(targetBoxIds[i]));
 		node->setNode(view);
 	}
 	
-	m_scoreProgress = CCProgressTimer::create(CCSprite::create("stage/ui/yxjm_fenshucao2.png"));
+	auto curStageLabel = dynamic_cast<CCLabelAtlas *>(m_topUi->getChildById(30));
+	int curStageNum = StageDataMgr::theMgr()->getCurStage();
+	curStageLabel->setString(CommonUtil::intToStr(curStageNum));
+
+	m_scoreProgress = CCProgressTimer::create(CCSprite::create("stage/ui/game_slider_2.png"));
 	m_scoreProgress->setType(kCCProgressTimerTypeBar);
 	m_scoreProgress->setMidpoint(ccp(0, 1));
 	m_scoreProgress->setBarChangeRate(ccp(1, 0));
@@ -234,7 +240,7 @@ void StageUiLayer::onScoreChanged()
 	CCLabelAtlas * curScoreLabel = dynamic_cast<CCLabelAtlas *>(m_topUi->getChildById(15));
 	curScore = min(curScore, targetScore);
 	string str = intToStr(curScore);
-	str += ";";
+	str += ":";
 	str += intToStr(targetScore);
 	curScoreLabel->setString(str.c_str());
 	refreshRedPackage();

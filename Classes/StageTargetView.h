@@ -13,6 +13,7 @@ class StageTargetView
 {
 public:
 	static StageTargetView *create(const EraseStarsData &data);
+	void showBk(bool show);
 private:
 	StageTargetView(const EraseStarsData &data);
 	virtual bool init();
