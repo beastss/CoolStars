@@ -90,6 +90,7 @@ void PackageDialog::onBuyBtnClicked(cocos2d::CCObject* pSender)
 	if (!success)
 	{
 		MainScene::theScene()->showDialog(PackageDialog::create(kPackageDiamond));
+		CCLOG("not enough diamond");
 		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
 	}
 }

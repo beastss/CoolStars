@@ -34,7 +34,7 @@ enum ToastText
 {
 	kToastTextNotEnoughDiamond,
 	kToastTextNotEnoughFood,
-	kToastTextNotEnoughStrengh,
+	kToastTextNotEnoughStrength,
 };
 
 class ActionRunner;

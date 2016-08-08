@@ -26,6 +26,7 @@ public:
 	void setUiVisible(int who, bool isVisible);
 	void setTopThief(int type);
 	void setBottomThief(int type);
+	cocos2d::CCPoint getWidgetPos(int type);
 private:
 	virtual void onEnter();
 	virtual void onExit();
