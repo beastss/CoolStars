@@ -11,6 +11,7 @@ public:
 	static ListSlideView *create(const cocos2d::CCSize &size);
 	void setTouchHanedle(std::function<void(int index)> handle = NULL){ m_handle = handle; }
 	int getCurNodeIndex(){ return m_curIndex; }
+	void toNode(int index, bool withAction = false);
 private:
 	ListSlideView(const cocos2d::CCSize &size);
 	void update(float dt);

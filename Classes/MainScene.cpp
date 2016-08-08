@@ -208,11 +208,14 @@ void MainScene::onGuideBtnClicked(cocos2d::CCObject* pSender)
 
 void MainScene::showInitialUi()
 {
+	/*
+	//·ÏÆú¹¦ÄÜ
 	if(RankingOpponent::theOpponent()->needUpdate())
 	{
 		auto dialog = RankingOpponentUpgradePanel::create();
 		showDialog(dialog);
 	}
+	*/
 }
 
 void MainScene::handleKeyBackTouch()
