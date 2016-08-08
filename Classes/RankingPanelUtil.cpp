@@ -40,7 +40,8 @@ void RankingNameInputPanel::initEditBox()
 	m_editBox->setAnchorPoint(ccp(0, 0));
 	m_editBox->setPosition(m_layout->getChildById(6)->getPosition());
 	m_editBox->setTouchPriority(m_touchPriority - 1);
-	m_editBox->setPlaceHolder("your name");
+	string name = RankingModel::theModel()->getRandomName();
+	refreshName(name);
 	m_editBox->setMaxLength(4);
 	addChild(m_editBox);
 }
