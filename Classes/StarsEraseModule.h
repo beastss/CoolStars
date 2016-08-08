@@ -28,6 +28,7 @@ public:
 	static StarsEraseModule *theModel();
 	void handleClick(const LogicGrid &grid);
 	void scaleErase(const LogicGrid &center, int xRadius, int yRadius);
+	void randomErase(int num);
 	void removeStar(const LogicGrid &grid);//直接消除 没有爆炸
 	void reset();
 	void onScaleEraseDone(ScaleEarseRunner *runner);

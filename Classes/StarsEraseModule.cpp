@@ -76,6 +76,47 @@ void StarsEraseModule::onScaleEraseDone(ScaleEarseRunner *runner)
 	}
 }
 
+void StarsEraseModule::randomErase(int num)
+{
+	vector<LogicGrid> grids;
+	for (size_t i = 0; i < ROWS_SIZE; ++i)
+	{
+		for (int j = 0; j < COlUMNS_SIZE; ++j)
+		{
+			grids.push_back(LogicGrid(j, i));
+		}
+	}
+
+	auto targetGrids = getRandomGrids(grids, num);
+	
+	bool hasBomb = false;
+	StageLayersMgr::theMgr()->eraseStarsStart();
+
+	for (size_t i = 0; i < targetGrids.size(); ++i)
+	{
+		auto node = StarsController::theModel()->getStarNode(targetGrids[i]);
+		if (node && node->canBeRemoved())
+		{
+			if (node->getAttr().type == kBomb)
+			{
+				hasBomb = true;
+				scaleErase(targetGrids[i], COlUMNS_SIZE, ROWS_SIZE);
+			}
+			else
+			{
+				node->doRemove();
+			}
+		}
+	}
+
+	if (!hasBomb)
+	{
+		StageLayersMgr::theMgr()->eraseStarsEnd();
+		StarsController::theModel()->moveOneStep(false);
+		StarsController::theModel()->genNewStars();
+	}
+}
+
 void StarsEraseModule::removeStar(const LogicGrid &grid)
 {
 	auto node = StarsController::theModel()->getStarNode(grid);

@@ -223,8 +223,7 @@ void PetHorse::noTargetSkill()
 
 void PetGoat::noTargetSkill()
 {
-	StageOp->randomErase(m_data.skillPower);
-	StarsController::theModel()->moveOneStep(false);
+	StarsEraseModule::theModel()->randomErase(m_data.skillPower);
 }
 //////////////////////////////////////////////////////////////////////////////
 void PetMonkey::skillInit()
