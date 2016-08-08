@@ -32,19 +32,13 @@ private:
 	void toShopPanel(cocos2d::CCObject* pSender);
 private:
 	void justShowNormalGameBtn();
-	void refreshThiefTips();
 	virtual void onEnter();
 	virtual void onExit();
 	virtual void onBackKeyTouched();
 private:
-	virtual void onThiefShowUp();
-	virtual void onThiefDisappear();
-private:
 	UiLayout *m_mainLayout;
 	UiLayout *m_bottomLayout;
 	SettingBtnsHelper m_settingBtnsHelper;
-
-	const int kTagThief = 103;
 };
 
 #endif
