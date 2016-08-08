@@ -171,7 +171,7 @@ bool LotteryScene::init()
 	initLayout();
 
 	m_titlePanel = TitlePanel::create(m_touchPriority);
-	m_titlePanel->setBottomThief(kThiefLotteryPanel);
+	m_titlePanel->setTopThief(kThiefLotteryPanel);
 	addChild(m_titlePanel);
 
 	m_bottomLayout = UiLayout::create("layout/pre_stage_bottom.xml");
