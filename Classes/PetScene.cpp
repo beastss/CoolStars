@@ -78,6 +78,9 @@ bool PetScene::init()
 			s_curPetColor = kColorRed;
 		}
 	}
+
+	m_redPointLayer = CCNode::create();
+	addChild(m_redPointLayer);
 	handleColorBtnClicked(s_curPetColor);
 
 	GuideMgr::theMgr()->startGuide(kGuideStart_pet_in);
@@ -254,7 +257,6 @@ void PetScene::onBackBtnClicked(cocos2d::CCObject* pSender)
 void PetScene::initColorPets()
 {
 	auto petMgr = PetManager::petMgr();
-	//auto petIds = petMgr->getOwnedPetIds();
 	auto petIds = DataManagerSelf->getOpeningPetIds();
 	for (size_t i = 0; i < petIds.size(); ++i)
 	{
@@ -324,10 +326,11 @@ void PetScene::refreshUi()
 	}
 
 	refreshArrows();
-	refreshUpgrdeCost();
+	refreshPetCost();
+	refrshRedPoint();
 }
 
-void PetScene::refreshUpgrdeCost()
+void PetScene::refreshPetCost()
 {
 	if (m_colorPets[s_curPetColor].empty()) return;
 
@@ -432,4 +435,66 @@ int PetScene::parsePetType(int petId)
 	}
 
 	return kPetForDiamondPurchase;
+}
+
+void PetScene::addRedPoint(CCNode *target)
+{
+	auto redPoint = CCSprite::create("pet/tips.png");
+	redPoint->setScale(0.5f);
+	m_redPointLayer->addChild(redPoint);
+	auto pos = convertToNodeSpace(target->getParent()->convertToWorldSpace(target->getPosition()));
+	pos = ccpAdd(pos, ccpMult(target->getContentSize(), 0.5f));
+	redPoint->setPosition(pos);
+}
+
+void PetScene::refrshRedPoint()
+{
+	m_redPointLayer->removeAllChildren();
+	for (int color = kColorRed; color <= kColorPurple; ++color)
+	{
+		int size = m_colorPets[color].size();
+		//当前颜色的宠物
+		if (s_curPetColor == color)
+		{
+			//左箭头对应的宠物
+			for (int i = 0; i < m_curColorPetIndex; ++i)
+			{
+				auto pet = PetManager::petMgr()->getPetById(m_colorPets[color][i]);
+				if (pet->canUpgrade())
+				{
+					addRedPoint(m_mainLayout->getChildById(6));
+					break;
+				}
+			}
+			//右箭头对应的宠物
+			for (int i = m_curColorPetIndex + 1; i < size; ++i)
+			{
+				auto pet = PetManager::petMgr()->getPetById(m_colorPets[color][i]);
+				if (pet->canUpgrade())
+				{
+					addRedPoint(m_mainLayout->getChildById(5));
+					break;
+				}
+			}
+			//当前宠物
+			auto pet = PetManager::petMgr()->getPetById(m_colorPets[color][m_curColorPetIndex]);
+			if (pet->canUpgrade())
+			{
+				addRedPoint(m_mainLayout->getChildById(8));
+			}
+		}
+		else //其他颜色的宠物
+		{
+			int btnIds[5] = { 5, 4, 3, 2, 6 };
+			for (int i = 0; i < size; ++i)
+			{
+				auto pet = PetManager::petMgr()->getPetById(m_colorPets[color][i]);
+				if (pet->canUpgrade())
+				{
+					addRedPoint(m_bottomLayout->getChildById(btnIds[color - 1]));
+					break;
+				}
+			}
+		}
+	}
 }

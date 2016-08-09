@@ -23,10 +23,12 @@ private:
 	void initBottomLayout();
 	void initColorPets();
 	void refreshUi();
-	void refreshUpgrdeCost();
+	void refreshPetCost();
 	void refreshArrows();
 	void changePetsColor(int color);
 	int parsePetType(int petId);
+	void refrshRedPoint();
+	void addRedPoint(cocos2d::CCNode *target);
 private:
 	void onLeftPetBtnClicked(cocos2d::CCObject* pSender);
 	void onRigthPetBtnClicked(cocos2d::CCObject* pSender);
@@ -61,5 +63,6 @@ private:
 	std::unordered_map<int, std::vector<int>>m_colorPets;
 	static int s_curPetColor;
 	int m_curColorPetIndex;
+	cocos2d::CCNode *m_redPointLayer;
 };
 #endif

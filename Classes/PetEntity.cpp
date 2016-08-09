@@ -96,7 +96,7 @@ void PetEntity::getThisNewPet()
 
 bool PetEntity::canUpgrade()
 {
-	if (isMaxLevel()) return false;
+	if (!m_data.isOwned || isMaxLevel()) return false;
 
 	int foodNum = UserInfo::theInfo()->getFood();
 	int diamondNum = UserInfo::theInfo()->getDiamond();
