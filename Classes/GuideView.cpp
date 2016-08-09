@@ -137,16 +137,21 @@ void GuideView::initTextDialog()
 void GuideView::adjustTextDialogPos()
 {
 	auto size = getContentSize();
-	CCRect rect(0, 0, size.width, size.height * 0.5f);
-	if (rect.intersectsRect(m_targetRect))
+
+	float rectTopY = m_targetRect.getMaxY();
+	float rectBottomY = m_targetRect.getMinY();
+	float offset = 30;
+	if (abs(rectTopY - size.height * 0.5f) > abs(rectBottomY - size.height * 0.5f))
 	{
+		//m_targetRect偏向上方
 		m_textDialog->setAnchorPoint(ccp(0, 1));
-		m_textDialog->setPosition(ccp(0, size.height));
+		m_textDialog->setPosition(ccp(0, rectBottomY - offset));
 	}
 	else
 	{
+		//m_targetRect偏向下方
 		m_textDialog->setAnchorPoint(ccp(0, 0));
-		m_textDialog->setPosition(ccp(0, 0));
+		m_textDialog->setPosition(ccp(0, rectTopY + offset));
 	}
 }
 

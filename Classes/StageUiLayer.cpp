@@ -215,7 +215,14 @@ void StageUiLayer::refreshRedPackage()
 			auto func = CCFunctionAction::create([=]()
 			{
 				m_noTouchLayer->setCanTouch(true);
+				auto scaleLarge = CCScaleTo::create(0.5f, 1.3f);
+				auto scaleSmall = CCScaleTo::create(0.6f, 0.8f);
+				auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
+				auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
+				node->runAction(scale);
 			});
+			
+
 			node->setVisible(true);
 			node->runAction(CCSequence::create(spawn, move, toNoraml, func, NULL));
 		}
