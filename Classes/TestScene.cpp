@@ -28,7 +28,7 @@ bool TestScene::init()
 	}
 	initPanel();
 	//test();
-	progressTest();
+	blinkAction();
 	return true;
 }
 
@@ -36,6 +36,15 @@ void TestScene::test()
 {
 	int curTime = time_util::getCurTime();
 	auto date = time_util::getDate(curTime);
+}
+
+void TestScene::blinkAction()
+{
+	auto spr = CCSprite::create("pet_skill_icon/jntb_hou4.png");
+	spr->setPosition(ccp(200, 200));
+	addChild(spr);
+
+	spr->runAction(CCRepeatForever::create(CCBlink::create(0.5f, 2)));
 }
 
 void TestScene::progressTest()

@@ -20,6 +20,7 @@ private:
 	void listViewTest();
 	void printDBInfos();
 	void progressTest();
+	void blinkAction();
 	void test();
 private:
 	cocos2d::CCClippingNode *m_clippingNode;
