@@ -25,6 +25,7 @@ void DataManager::LoadData()
 	loadPetCommonConfig();
 	loadPetResConfig();
 	loadPetColorConfig();
+	loadPetPurchaseConfig();
 	loadPropsConfig();
 	loadRankingConfig();
 	loadShopConfig();
@@ -190,6 +191,22 @@ const PetColorConfig &DataManager::getPetColorConfig(int color)
 {
 	assert(color >= kColorRed && color <= kColorPurple);
 	return m_petColorConfig[color - 1];
+}
+
+void DataManager::loadPetPurchaseConfig()
+{
+	SqliteHelper helper(DB_CONFIG);
+	auto result = helper.readRecord("select * from pets_purchase");
+
+	auto data = result[0];
+	m_petPurchaseConfig.guidePets = parseStrToInts(data[1]);
+	m_petPurchaseConfig.petDiamondCost = atoi(data[2]);
+	m_petPurchaseConfig.packagePet = atoi(data[3]);
+}
+
+const PetPurchaseConfig &DataManager::getPetPurchaseConfig()
+{
+	return m_petPurchaseConfig;
 }
 
 void DataManager::loadStageConfig()
@@ -600,7 +617,7 @@ void DataManager::loadPurchase()
 		auto data = result[i];
 		PurchaseConfig config;
 		config.id = atoi(data[0]);
-		config.moneyCost = atoi(data[1]);
+		config.moneyCost = atof(data[1]);
 		m_purchaseConfig.push_back(config);
 	}
 }

@@ -51,6 +51,9 @@ public:
 	void loadPetColorConfig();
 	const PetColorConfig &getPetColorConfig(int color);
 
+	void loadPetPurchaseConfig();
+	const PetPurchaseConfig &getPetPurchaseConfig();
+
 	void loadSystemConfig();
 	const SystemConfig &getSystemConfig();
 
@@ -99,6 +102,7 @@ private:
 	vector<PetCommonConfig> m_petCommonConfig;
 	vector<PetResConfig> m_petResConfig;
 	vector<PetColorConfig> m_petColorConfig;
+	PetPurchaseConfig m_petPurchaseConfig;
 	vector<StarsColorConfig> m_starsColorConfig;
 	SystemConfig m_systemConfig;
 	vector<PropsConfig> m_propsConfig;

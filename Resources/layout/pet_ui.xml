@@ -58,6 +58,17 @@
 		<selected>pet/cwjm_anniu7.png</selected>
 		<disabled>pet/cwjm_anniu7.png</disabled>
 	</button>
+	<button>
+		<id>25</id>
+		<x>238.82</x>
+		<y>187.59</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>2.00</scale>
+		<normal>shop/sd_goumai.png</normal>
+		<selected>shop/sd_goumai.png</selected>
+		<disabled>shop/sd_goumai.png</disabled>
+	</button>
 	<image>
 		<id>13</id>
 		<x>192.61</x>
@@ -123,17 +134,6 @@
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
-	<button>
-		<id>21</id>
-		<x>58.66</x>
-		<y>677.85</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<normal>pet_img/hou_zhi.png</normal>
-		<selected>pet_img/hou_zhi.png</selected>
-		<disabled>pet_img/hou_zhi.png</disabled>
-	</button>
 	<image>
 		<id>22</id>
 		<x>164.61</x>
@@ -162,5 +162,14 @@
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
+	<image>
+		<id>27</id>
+		<x>234.12</x>
+		<y>125.02</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>common/title_food.png</path>
+	</image>
 </layout>
 

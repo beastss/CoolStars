@@ -25,13 +25,13 @@ private:
 	void refreshUi();
 	void refreshUpgrdeCost();
 	void refreshArrows();
-	void refreshPetPackage();
 	void changePetsColor(int color);
+	int parsePetType(int petId);
 private:
 	void onLeftPetBtnClicked(cocos2d::CCObject* pSender);
 	void onRigthPetBtnClicked(cocos2d::CCObject* pSender);
 	void onUpgradeBtnClicked(cocos2d::CCObject* pSender);
-	void onPetPackageBtnClicked(cocos2d::CCObject* pSender);
+	void onBuyBtnClicked(cocos2d::CCObject* pSender);
 
 	void onBackBtnClicked(cocos2d::CCObject* pSender);
 	void onGreenPetBtnClicked(cocos2d::CCObject* pSender);
@@ -44,6 +44,14 @@ private:
 	virtual void onBackKeyTouched();
 private:
 	virtual void onNewPetAdd();
+private:
+	enum
+	{
+		kPetForGuide,
+		kPetForDiamondPurchase,
+		kPetAlreadyOwned,
+		kPetForRmbPurchase,
+	};
 private:
 	UiLayout *m_bottomLayout;
 	UiLayout *m_mainLayout;

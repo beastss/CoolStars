@@ -64,7 +64,7 @@ bool PackageModel::canBuyPetPackage()
 
 }
 
-int PackageModel::getPackageCost(int id)
+float PackageModel::getPackageCost(int id)
 {
 	//调用计费sdk
 	auto config = DataManagerSelf->getPackageConfig(id);

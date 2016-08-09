@@ -67,7 +67,7 @@ bool PetManager::ownedThisPet(int id)
 {
 	auto pet = getPetById(id);
 	if (!pet) return false;
-	return pet->getPetData().level > 0; //大于0级，玩家才拥有该宠物
+	return pet->getPetData().isOwned;
 }
 
 void PetManager::addNewPet(int petId)

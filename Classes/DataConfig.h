@@ -53,6 +53,13 @@ struct PetColorConfig
 	string numRes;
 };
 
+struct PetPurchaseConfig
+{
+	std::vector<int> guidePets;
+	int petDiamondCost;
+	int packagePet;
+};
+
 struct StageConfig
 {
 	int id;
@@ -196,7 +203,7 @@ struct ThiefConfig
 struct PurchaseConfig
 {
 	int id;
-	int moneyCost;
+	float moneyCost;
 };
 
 struct SoundConfig

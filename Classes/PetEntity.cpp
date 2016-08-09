@@ -14,7 +14,7 @@ PetEntity::PetEntity(int petId)
 {
 	//上次保存的宠物数据
 	m_data = PetSavingHelper::getPetState(petId);
-
+	m_data.isOwned = m_data.level != 0;
 	refreshPetData();
 }
 
@@ -33,10 +33,12 @@ void PetEntity::refreshPetData()
 	m_data.petNameRes = petRes.petNameRes;
 
 	auto commonData = DataManagerSelf->getPetCommonConfig(m_data.commonid);
+	m_data.level = max(m_data.level, 1);//默认最低为1级
 	int level = m_data.level;
-	m_data.maxEnergy = (level > 0 ? commonData.maxEnergy[level - 1] : 0);
-	m_data.skillPower = (level > 0 ? commonData.skillPower[level - 1] : 0);
-	m_data.foodToUpgrade = (level > 0 ? commonData.foodToUpgrade[level - 1] : 0);
+	
+	m_data.maxEnergy = commonData.maxEnergy[level - 1];
+	m_data.skillPower = commonData.skillPower[level - 1];
+	m_data.foodToUpgrade = commonData.foodToUpgrade[level - 1];
 	m_data.skillTarget = commonData.skillTarget;
 	m_data.maxLevel = commonData.maxLevel;
 	m_data.skillDescRes = commonData.skillDescRes;
@@ -87,6 +89,7 @@ bool PetEntity::isMaxLevel()
 void PetEntity::getThisNewPet()
 {
 	m_data.level = 1;
+	m_data.isOwned = true;
 	refreshPetData();
 	PetSavingHelper::setPetState(m_data);
 }

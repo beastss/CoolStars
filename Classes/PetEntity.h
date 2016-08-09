@@ -25,6 +25,7 @@ struct PetData
 	//可变
 	int level;
 	int energy;
+	bool isOwned;//已经被拥有
 };
 
 enum PetType
