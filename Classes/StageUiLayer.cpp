@@ -110,6 +110,7 @@ void StageUiLayer::initTopUi()
 		view->showBk(true);
 		auto node = dynamic_cast<EmptyBox *>(m_topUi->getChildById(targetBoxIds[i]));
 		node->setNode(view);
+		node->setVisible(false);
 	}
 	
 	auto curStageLabel = dynamic_cast<CCLabelAtlas *>(m_topUi->getChildById(30));
@@ -126,6 +127,8 @@ void StageUiLayer::initTopUi()
 
 	onStepsChanged();
 	onScoreChanged();
+	CCLabelAtlas * curScoreLabel = dynamic_cast<CCLabelAtlas *>(m_topUi->getChildById(15));
+	curScoreLabel->setString("0:0");
 }
 
 void StageUiLayer::initPets()
@@ -164,6 +167,9 @@ void StageUiLayer::initBottomUi()
 void StageUiLayer::showTargetPanel()
 {
 	vector<CCPoint> targetsPos;
+	auto scorePos = m_topUi->getChildById(15)->getPosition();
+	targetsPos.push_back(m_topUi->convertToWorldSpace(scorePos));
+
 	for (int i = 0; i < 3; ++i)
 	{
 		auto node = m_topUi->getChildById(18 + i);
@@ -385,6 +391,16 @@ void StageUiLayer::onInitStarsDone()
 			m_starsPos[index] = (convertToNodeSpace(pos));
 		}
 	}
+}
+
+void StageUiLayer::onTargetPanelDone()
+{
+	int targetBoxIds[] = { 18, 19, 20 };
+	for (int i = 0; i < 3; ++i)
+	{
+		m_topUi->getChildById(targetBoxIds[i])->setVisible(true);
+	}
+	onScoreChanged();
 }
 
 const cocos2d::CCPoint &StageUiLayer::getStarPos(const LogicGrid &grid)

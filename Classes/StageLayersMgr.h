@@ -5,6 +5,7 @@
 struct IStageLayer
 {
 	virtual void onInitStarsDone(){}
+	virtual void onTargetPanelDone(){}
 	virtual void onHighLightStars(int color){}
 	virtual void onToNormalState(){}
 	virtual void onNormalStarErased(cocos2d::CCPoint pos, int starType, int color){}
@@ -34,6 +35,7 @@ public:
 	void removeLayer(IStageLayer *layer);
 public:
 	void initStarDone();
+	void targetPanelDone();
 	void highLightStars(int color);
 	void highLightPets(const std::vector<int> &petIds);
 	void highLightRectStars(int x, int y, int width, int height);

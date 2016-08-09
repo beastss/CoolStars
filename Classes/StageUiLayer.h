@@ -36,6 +36,7 @@ public:
 	void gameOverSpreadStars(const GoodsData &data, const LogicGrid &targetGrid, std::function<void()> callback);
 public:
 	virtual void onInitStarsDone();
+	virtual void onTargetPanelDone();
 	virtual void onStepsChanged();
 	virtual void onScoreChanged();
 	virtual void onCoinsChanged();

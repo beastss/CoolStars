@@ -32,6 +32,11 @@ void StageLayersMgr::initStarDone()
 	NOTIFY_LAYERSS(onInitStarsDone);
 }
 
+void StageLayersMgr::targetPanelDone()
+{
+	NOTIFY_LAYERSS(onTargetPanelDone);
+}
+
 void StageLayersMgr::highLightStars(int color)
 {
 	NOTIFY_LAYERSS(onHighLightStars, color);
