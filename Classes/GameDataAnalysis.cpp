@@ -1,6 +1,10 @@
 #include "GameDataAnalysis.h"
 #include "DataManager.h"
 #include "PropManager.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+#include <jni.h> 
+#include "platform/android/jni/JniHelper.h" 
+#endif 
 USING_NS_CC;
 using namespace std;
 GameDataAnalysis *GameDataAnalysis::theModel()
