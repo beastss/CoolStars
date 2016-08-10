@@ -64,10 +64,10 @@
 		<y>187.59</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>2.00</scale>
-		<normal>shop/sd_goumai.png</normal>
-		<selected>shop/sd_goumai.png</selected>
-		<disabled>shop/sd_goumai.png</disabled>
+		<scale>1.00</scale>
+		<normal>pet/sljm_annniu2.png</normal>
+		<selected>pet/sljm_annniu2.png</selected>
+		<disabled>pet/sljm_annniu2.png</disabled>
 	</button>
 	<image>
 		<id>13</id>
