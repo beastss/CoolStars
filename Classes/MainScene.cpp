@@ -19,6 +19,7 @@
 #include "RankingPanelUtil.h"
 #include "KeyPadWatcher.h"
 #include "PackageDialog.h"
+#include "PackageModel.h"
 
 USING_NS_CC;
 using namespace std;
@@ -208,6 +209,8 @@ void MainScene::onGuideBtnClicked(cocos2d::CCObject* pSender)
 
 void MainScene::showInitialUi()
 {
+	auto dialog = PackageDialog::create(kPackageDiamond);
+	showDialog(dialog);
 	/*
 	//·ÏÆú¹¦ÄÜ
 	if(RankingOpponent::theOpponent()->needUpdate())

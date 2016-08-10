@@ -277,7 +277,16 @@ void StageUiLayer::onShowGameResult(int isWon)
 	CCNode *node = NULL;
 	if (isWon)
 	{
-		MainScene::theScene()->showPanel(kStageWinPanel);
+		auto dialog = PackageDialog::create(kPackageProps);
+		dialog->setConfirmHandle([=]()
+		{
+			MainScene::theScene()->showPanel(kStageWinPanel);
+		});
+		dialog->setCancelHandle([=]()
+		{
+			MainScene::theScene()->showPanel(kStageWinPanel);
+		});
+		MainScene::theScene()->showDialog(dialog);
 	}
 	else
 	{
