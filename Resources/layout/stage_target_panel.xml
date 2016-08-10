@@ -61,12 +61,12 @@
 	</emptyBox>
 	<image>
 		<id>8</id>
-		<x>150.69</x>
-		<y>176.86</y>
+		<x>148.79</x>
+		<y>175.80</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>1.30</scale>
-		<path>stage/ui/game_picture_2.png</path>
+		<scale>1.00</scale>
+		<path>stage/ui/game_picture_3.png</path>
 	</image>
 	<imageNum>
 		<id>10</id>
