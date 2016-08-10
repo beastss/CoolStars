@@ -141,7 +141,7 @@ void GuideView::adjustTextDialogPos()
 	float rectTopY = m_targetRect.getMaxY();
 	float rectBottomY = m_targetRect.getMinY();
 	float offset = 30;
-	if (abs(rectTopY - size.height * 0.5f) > abs(rectBottomY - size.height * 0.5f))
+	if (fabs(rectTopY - size.height * 0.5f) > fabs(rectBottomY - size.height * 0.5f))
 	{
 		//m_targetRectÆ«ÏòÉÏ·½
 		m_textDialog->setAnchorPoint(ccp(0, 1));

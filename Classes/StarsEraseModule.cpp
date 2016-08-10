@@ -3,6 +3,7 @@
 #include "ActionRunner.h"
 #include "SoundMgr.h"
 #include "StageLayersMgr.h"
+#include <algorithm>
 using namespace std;
 USING_NS_CC;
 
