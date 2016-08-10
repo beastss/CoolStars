@@ -134,8 +134,11 @@ void RankingScene::initWaitingLayer()
 	mask->setPosition(ccp(size.width * 0.5f, size.height * 0.5f));
 	m_waitingLayer->addChild(mask);
 
-	auto icon = CCSprite::create("pet_skill_icon/jntb_hou1.png");
+	auto layout = UiLayout::create("layout/ranking_wait.xml");
+	layout->setAnchorPoint(ccp(0.5f, 0.5f));
+	layout->setPosition(ccpMult(size, 0.5f));
+	m_waitingLayer->addChild(layout);
+
+	auto icon = layout->getChildById(1);
 	icon->runAction(CCRepeatForever::create(CCRotateBy::create(0.5f, 90)));
-	m_waitingLayer->addChild(icon);
-	icon->setPosition(ccpMult(size, 0.5f));
 }
