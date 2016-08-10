@@ -105,6 +105,16 @@ public class PayAndroidApi {
 		}
 	}
 	
+	public void buyItemByDiamond(String name, int cost)
+	{
+		Log.d("analysis", String.format("buyItemByDiamond name: %s cost: %d", name, cost));
+	}
+	
+	public void useItem(String name)
+	{
+		Log.d("analysis", name);
+	}
+	
 	static boolean siIsForBusiness;
 	static public void setIsForBusiness(boolean forBusiness)
 	{
