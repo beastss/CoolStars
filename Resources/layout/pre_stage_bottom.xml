@@ -1,10 +1,10 @@
-<layout width="480.000000" height="59.000000">
+<layout width="480.000000" height="90.000000">
 	<button>
 		<id>1</id>
-		<x>425.27</x>
-		<y>29.93</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
+		<x>482.04</x>
+		<y>-2.99</y>
+		<anchorPtX>1.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 		<normal>pre_stage/zbjm_anniu1.png</normal>
 		<selected>pre_stage/zbjm_anniu1.png</selected>
