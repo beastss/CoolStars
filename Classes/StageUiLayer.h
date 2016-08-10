@@ -41,7 +41,7 @@ public:
 	virtual void onScoreChanged();
 	virtual void onCoinsChanged();
 	virtual void onShowGameResult(int isWon);
-	virtual void onNormalStarErased(cocos2d::CCPoint pos, int starType, int color);
+	virtual void onStarErased(cocos2d::CCPoint pos, int starType, int color);
 	virtual void onHighLightPets(const std::vector<int> &petIds);
 	virtual void onToNormalState();
 	virtual void onRunOutSteps();

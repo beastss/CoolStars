@@ -142,6 +142,7 @@ struct GoodsData
 	int goodsId;
 	int amount;
 	GoodsData(){}
+	GoodsData(int iType, int iGoodsId, int iAmount): type(iType), goodsId(iGoodsId), amount(iAmount){}
 	GoodsData(std::vector<int> datas): type(datas[0]), goodsId(datas[1]), amount(datas[2]){}
 };
 

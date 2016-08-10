@@ -417,7 +417,7 @@ void StageUiLayer::onExplodeGrid(const LogicGrid &grid)
 	playExplosionAction(getStarPos(grid));
 }
 
-void StageUiLayer::onNormalStarErased(cocos2d::CCPoint pos, int starType, int color)
+void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 {
 	if (starType == kColorStar)
 	{
@@ -451,7 +451,26 @@ void StageUiLayer::onNormalStarErased(cocos2d::CCPoint pos, int starType, int co
 			}
 		}
 	}
-	
+	else if (starType == kDiamond)
+	{
+		GoodsData data(kGoodsDiamond, 0, 1);
+		auto view = StageBonusView::create(data);
+		view->setAnchorPoint(ccp(0.5f, 0.5f));
+		view->scaleAndFadeOut();
+		auto newPos = ccpAdd(pos, ccpMult(view->getContentSize(), 0.4f));
+		view->setPosition(newPos);
+		addChild(view);
+	}
+	else if (starType == kKey)
+	{
+		GoodsData data(kGoodsKey, 0, 1);
+		auto view = StageBonusView::create(data);
+		view->setAnchorPoint(ccp(0.5f, 0.5f));
+		view->scaleAndFadeOut();
+		auto newPos = ccpAdd(pos, ccpMult(view->getContentSize(), 0.4f));
+		view->setPosition(newPos);
+		addChild(view);
+	}
 	//playExplosionAction(pos);
 }
 

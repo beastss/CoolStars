@@ -80,7 +80,7 @@
 	<image>
 		<id>32</id>
 		<x>104.05</x>
-		<y>214.64</y>
+		<y>214.41</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -89,7 +89,7 @@
 	<image>
 		<id>33</id>
 		<x>150.69</x>
-		<y>213.57</y>
+		<y>214.41</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -97,8 +97,8 @@
 	</image>
 	<emptyBox>
 		<id>18</id>
-		<x>39.04</x>
-		<y>196.90</y>
+		<x>39.54</x>
+		<y>195.22</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
@@ -114,7 +114,7 @@
 	<emptyBox>
 		<id>20</id>
 		<x>134.00</x>
-		<y>195.84</y>
+		<y>195.22</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>

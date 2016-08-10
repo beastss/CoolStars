@@ -13,7 +13,7 @@ StageBonusView::StageBonusView(const GoodsData &data)
 	m_goodsRes[kGoodsDiamond] = "common/title_diamond.png";
 	m_goodsRes[kGoodsFood] = "common/title_food.png";
 	m_goodsRes[kGoodsStrength] = "common/title_strength.png";
-	m_goodsRes[kGoodsKey] = "common/title_strength.png";
+	m_goodsRes[kGoodsKey] = "stage/stars/key.png";
 }
 
 StageBonusView *StageBonusView::create(const GoodsData &data)

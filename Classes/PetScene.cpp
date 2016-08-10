@@ -376,6 +376,18 @@ void PetScene::refreshPetCost()
 
 			 CCLabelAtlas *costNum = dynamic_cast<CCLabelAtlas *>(m_mainLayout->getChildById(17));
 			 costNum->setString(CommonUtil::intToStr(cost));
+			 
+			 auto buyBtn = m_mainLayout->getChildById(8);
+			 buyBtn->stopAllActions();
+			 //饲料足够时 播放动画
+			 if (isFoodEnough)
+			 {
+				 auto scaleLarge = CCScaleTo::create(0.5f, 1.06f);
+				 auto scaleSmall = CCScaleTo::create(0.6f, 0.93f);
+				 auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
+				 auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
+				 buyBtn->runAction(scale);
+			 }
 		 }
 		 break;
 	}
@@ -440,10 +452,10 @@ int PetScene::parsePetType(int petId)
 void PetScene::addRedPoint(CCNode *target)
 {
 	auto redPoint = CCSprite::create("pet/tips.png");
-	redPoint->setScale(0.5f);
+	redPoint->setScale(0.7f);
 	m_redPointLayer->addChild(redPoint);
 	auto pos = convertToNodeSpace(target->getParent()->convertToWorldSpace(target->getPosition()));
-	pos = ccpAdd(pos, ccpMult(target->getContentSize(), 0.5f));
+	pos = ccpAdd(pos, ccpMult(target->getContentSize(), 0.4f));
 	redPoint->setPosition(pos);
 }
 

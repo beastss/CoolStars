@@ -57,9 +57,9 @@ void StageLayersMgr::toNormalState()
 	NOTIFY_LAYERSS(onToNormalState);
 }
 
-void StageLayersMgr::colorStarErased(cocos2d::CCPoint pos, int starType, int color)
+void StageLayersMgr::starErased(cocos2d::CCPoint pos, int starType, int color)
 {
-	NOTIFY_LAYERSS(onNormalStarErased, pos, starType, color);
+	NOTIFY_LAYERSS(onStarErased, pos, starType, color);
 }
 
 void StageLayersMgr::doubleScore()
