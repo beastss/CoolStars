@@ -91,10 +91,10 @@
 		<y>658.84</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>2.00</scale>
+		<scale>1.00</scale>
 		<amount>10</amount>
 		<num>5</num>
-		<path>num/ty_ziti7.png</path>
+		<path>num/ty_unmber_2.png</path>
 	</imageNum>
 	<imageNum>
 		<id>17</id>

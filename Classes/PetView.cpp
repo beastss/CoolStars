@@ -43,5 +43,5 @@ void PetView::initLayout()
 
 	pet->init(armatureName.c_str());
 	pet->getAnimation()->play("standby");
-
+	//pet->getAnimation()->play("move");
 }

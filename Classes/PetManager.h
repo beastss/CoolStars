@@ -31,6 +31,7 @@ public:
 	void addPetEnergy(int petId, int value);
 	void petEnergyChanged(int petId, int oldEnergy, int newEnergy);
 	void newStageInit();
+	bool hasPetToUpgrade();
 public:
 	void addView(IPetView *view);
 	void removeView(IPetView *view);
