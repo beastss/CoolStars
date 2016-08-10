@@ -68,26 +68,53 @@
 		<num>100:1000</num>
 		<path>num/ty_unmber_1.png</path>
 	</imageNum>
+	<image>
+		<id>31</id>
+		<x>57.82</x>
+		<y>214.41</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_frame_1.png</path>
+	</image>
+	<image>
+		<id>32</id>
+		<x>104.05</x>
+		<y>214.64</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_frame_1.png</path>
+	</image>
+	<image>
+		<id>33</id>
+		<x>150.69</x>
+		<y>213.57</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_frame_1.png</path>
+	</image>
 	<emptyBox>
 		<id>18</id>
-		<x>36.09</x>
-		<y>201.54</y>
+		<x>39.04</x>
+		<y>196.90</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>19</id>
-		<x>79.56</x>
-		<y>201.13</y>
+		<x>86.52</x>
+		<y>195.22</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>20</id>
-		<x>123.03</x>
-		<y>200.91</y>
+		<x>134.00</x>
+		<y>195.84</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>

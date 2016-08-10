@@ -99,6 +99,10 @@ bool StageUiLayer::init()
 
 void StageUiLayer::initTopUi()
 {
+	for (int i = 0; i < 3; ++i)
+	{
+		m_topUi->getChildById(31 + i)->setVisible(false);
+	}
 	int targetBoxIds[] = { 18, 19, 20 };
 	auto target = StarsController::theModel()->getStageTarget();
 	auto leftTarget = target->getEraseStarsLeft();
@@ -106,11 +110,10 @@ void StageUiLayer::initTopUi()
 	for (size_t i = 0; i < leftTarget.size(); ++i)
 	{
 		StageTargetView *view = StageTargetView::create(leftTarget[i]);
-		view->setScale(0.7f);
-		view->showBk(true);
 		auto node = dynamic_cast<EmptyBox *>(m_topUi->getChildById(targetBoxIds[i]));
 		node->setNode(view);
 		node->setVisible(false);
+		m_topUi->getChildById(31 + i)->setVisible(true);
 	}
 	
 	auto curStageLabel = dynamic_cast<CCLabelAtlas *>(m_topUi->getChildById(30));
