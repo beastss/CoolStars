@@ -22,6 +22,7 @@ enum GuideStartAction
 
 	kGuideStart_pet_in = 80,
 	kGuideStart_pet_color_select,
+	kGuideStart_pet_upgrade,
 
 	kGuideStart_guide_in = 90,
 };

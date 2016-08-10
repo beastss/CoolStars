@@ -313,10 +313,10 @@ void StageUiLayer::onGameWin()
 		StageOp->gameOverRandomReplace();
 	});
 	spr->setScale(0.8f);
-	auto scaleLarge = CCScaleTo::create(0.3f, 1.4f);
-	auto scaleNormal = CCScaleTo::create(0.3f, 1.0f);
-	auto delay1 = CCDelayTime::create(0.4f);
-	auto fadeOut = CCFadeOut::create(0.7f);
+	auto scaleLarge = CCScaleTo::create(2.0f, 1.6f);
+	auto scaleNormal = CCScaleTo::create(1.0f, 1.0f);
+	auto delay1 = CCDelayTime::create(0.5f);
+	auto fadeOut = CCFadeOut::create(2.0f);
 	auto delay2 = CCDelayTime::create(0.5f);
 	spr->runAction(CCSequence::create(scaleLarge, scaleNormal, delay1, fadeOut, delay2, func, NULL));
 	addChild(spr);

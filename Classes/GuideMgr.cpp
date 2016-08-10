@@ -83,6 +83,8 @@ void GuideMgr::endGuide(int endAction, int param)
 
 void GuideMgr::finishGuide()
 {
+	if (m_curGuideId == kNotTriggerGuide) return;
+
 	auto iter = find(m_finishedGuides.begin(), m_finishedGuides.end(), m_curGuideId);
 	if (iter != m_finishedGuides.end()) return;
 

@@ -180,6 +180,7 @@ void PetScene::onRigthPetBtnClicked(cocos2d::CCObject* pSender)
 void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 {
 	GuideMgr::theMgr()->endGuide(kGuideEnd_pet_upgrade);
+	GuideMgr::theMgr()->startGuide(kGuideStart_pet_upgrade);
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	int petId = m_colorPets[s_curPetColor][m_curColorPetIndex];
 	auto pet = PetManager::petMgr()->getPetById(petId);

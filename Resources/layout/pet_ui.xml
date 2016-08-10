@@ -169,7 +169,7 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>common/title_food.png</path>
+		<path>pet/pet_package_cost.png</path>
 	</image>
 </layout>
 
