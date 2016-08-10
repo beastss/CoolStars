@@ -276,28 +276,28 @@
 		<y>530.93</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>0.15</scale>
-		<path>pet_animation/niu_hong/niu_hong.ExportJson</path>
+		<scale>0.60</scale>
+		<path>pet_animation/su_hong/su_hong.ExportJson</path>
 		<movement>0</movement>
 	</animation>
 	<animation>
 		<id>42</id>
-		<x>183.40</x>
-		<y>522.06</y>
+		<x>185.51</x>
+		<y>518.05</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>0.15</scale>
-		<path>pet_animation/niu_hong/niu_hong.ExportJson</path>
+		<scale>0.60</scale>
+		<path>pet_animation/su_hong/su_hong.ExportJson</path>
 		<movement>0</movement>
 	</animation>
 	<animation>
 		<id>43</id>
 		<x>303.50</x>
-		<y>519.11</y>
+		<y>520.17</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>0.15</scale>
-		<path>pet_animation/niu_hong/niu_hong.ExportJson</path>
+		<scale>0.60</scale>
+		<path>pet_animation/su_hong/su_hong.ExportJson</path>
 		<movement>0</movement>
 	</animation>
 	<animation>
@@ -306,8 +306,8 @@
 		<y>531.77</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>0.15</scale>
-		<path>pet_animation/niu_hong/niu_hong.ExportJson</path>
+		<scale>0.60</scale>
+		<path>pet_animation/su_hong/su_hong.ExportJson</path>
 		<movement>0</movement>
 	</animation>
 </layout>

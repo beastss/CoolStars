@@ -5,7 +5,7 @@
 		<y>91.58</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>0.15</scale>
+		<scale>0.70</scale>
 		<path>pet_animation/su_hong/su_hong.ExportJson</path>
 		<movement>0</movement>
 	</animation>
