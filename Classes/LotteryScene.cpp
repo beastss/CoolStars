@@ -210,6 +210,8 @@ void LotteryScene::initBottomLayout()
 {
 	CCMenuItem *startGameBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(1)));
 	startGameBtn->setTarget(this, menu_selector(LotteryScene::onStartBtnClicked));
+
+	m_bottomLayout->getChildById(2)->setVisible(false);
 }
 
 void LotteryScene::refreshUi()

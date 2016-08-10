@@ -16,6 +16,7 @@
 #include "PreStagePetSlot.h"
 #include "MyPurchase.h"
 #include <algorithm>
+#include "GameDataAnalysis.h"
 
 USING_NS_CC;
 using namespace std;
@@ -213,6 +214,7 @@ void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
 		if (UserInfo::theInfo()->consumeDiamond(cost))
 		{
 			PetManager::petMgr()->addNewPet(petId);
+			GameDataAnalysis::theModel()->consumeDiamond(kDiamondConsumeBuyPet, petId, cost);
 		}
 		else
 		{

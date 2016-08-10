@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "GuideMgr.h"
 #include "StarsEraseModule.h"
+#include "GameDataAnalysis.h"
 PetEntity::PetEntity(int petId)
 {
 	//上次保存的宠物数据
@@ -112,7 +113,6 @@ void PetEntity::upgrade()
 	if (!canUpgrade()) return;
 
 	int foodNum = UserInfo::theInfo()->getFood();
-	int diamondNum = UserInfo::theInfo()->getDiamond();
 
 	int foodCost = m_data.foodToUpgrade;
 	int diamondCost = foodCost / (DataManagerSelf->getSystemConfig().foodsByOneDiamond);
@@ -122,7 +122,8 @@ void PetEntity::upgrade()
 	}
 	else
 	{
-		UserInfo::theInfo()->setDiamond(diamondNum - diamondCost);
+		UserInfo::theInfo()->consumeDiamond(diamondCost);
+		GameDataAnalysis::theModel()->consumeDiamond(kDiamondConsumePetUpgrade, m_data.petId, diamondCost);
 	}
 
 	m_data.level++;

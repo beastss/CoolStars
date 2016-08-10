@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "StarsEraseModule.h"
 #include "StarsController.h"
+#include "GameDataAnalysis.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -96,6 +97,7 @@ void PropManager::usePropItem(int propType)
 	int amount = getPropItemAmount(propType);
 	setPropItemAmount(propType, amount - 1);
 	NOTIFY_VIEWS(onPropItemChanged);
+	GameDataAnalysis::theModel()->consumeProps(propType);
 }
 
 void PropManager::addView(IPropView *view)

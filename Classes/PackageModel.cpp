@@ -7,6 +7,7 @@
 #include "SqliteHelper.h"
 #include "StageDataMgr.h"
 #include "PetManager.h"
+#include "GameDataAnalysis.h"
 USING_NS_CC;
 using namespace std;
 
@@ -26,6 +27,7 @@ bool PackageModel::buyPackage(int id, function<void()> callback)
 	{
 		bool succeed = UserInfo::theInfo()->consumeDiamond(param);//param为消耗的钻石数
 		if (!succeed) return false;
+		GameDataAnalysis::theModel()->consumeDiamond(kDiamondConsumePackage, 0, param);
 		onBuyPackageSucceed(config.goods, callback);
 	}
 	else

@@ -145,6 +145,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\GameBackEndState.cpp" />
     <ClCompile Include="..\Classes\GameClock.cpp" />
     <ClCompile Include="..\Classes\GameData.cpp" />
+    <ClCompile Include="..\Classes\GameDataAnalysis.cpp" />
     <ClCompile Include="..\Classes\GameDataPreLoader.cpp" />
     <ClCompile Include="..\Classes\GameResultLayer.cpp" />
     <ClCompile Include="..\Classes\GoodsMgr.cpp" />
@@ -249,6 +250,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\GameBackEndState.h" />
     <ClInclude Include="..\Classes\GameClock.h" />
     <ClInclude Include="..\Classes\GameData.h" />
+    <ClInclude Include="..\Classes\GameDataAnalysis.h" />
     <ClInclude Include="..\Classes\GameDataPreLoader.h" />
     <ClInclude Include="..\Classes\GameResultLayer.h" />
     <ClInclude Include="..\Classes\GoodsMgr.h" />

@@ -125,6 +125,7 @@ void DataManager::loadPetResConfig()
 		config.petAnimationRes = data[5];
 		config.petNameRes = data[6];
 		config.isOpening = atoi(data[7]) == 1;
+		config.name = data[8];
 		m_petResConfig.push_back(config);
 	}
 	sort(m_petResConfig.begin(), m_petResConfig.end(), [=](PetResConfig config1, PetResConfig config2)->bool
