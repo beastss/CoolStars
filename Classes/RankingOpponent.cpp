@@ -39,6 +39,8 @@ void RankingOpponent::loadLastSavedData()
 	auto config = DataManagerSelf->getRankingConfig(m_opponentId);
 	m_stage = atoi(data[3]);
 	m_ownPetPercent = atoi(data[4]);
+
+	update();
 }
 
 void RankingOpponent::firstInitData(int rankId)
@@ -95,6 +97,8 @@ bool RankingOpponent::needUpdate()
 {
 	//没开启过排行榜时，对手信息不需要update
 	if (!RankingModel::theModel()->alreadyOpenRanking()) return false;
+	//第一名就不需要update
+	if (RankingModel::theModel()->getOpponetRank() == 1) return false;
 
 	int days = UserInfo::theInfo()->getDaysFromFirstPlay();
 	return m_lastDays < days;

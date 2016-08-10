@@ -73,8 +73,8 @@
 	</image>
 	<image>
 		<id>9</id>
-		<x>256.63</x>
-		<y>421.25</y>
+		<x>238.69</x>
+		<y>419.14</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -145,8 +145,8 @@
 	</image>
 	<button>
 		<id>40</id>
-		<x>223.80</x>
-		<y>100.92</y>
+		<x>237.95</x>
+		<y>100.08</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>

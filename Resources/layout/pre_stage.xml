@@ -87,14 +87,14 @@
 	</image>
 	<imageNum>
 		<id>15</id>
-		<x>276.68</x>
-		<y>643.01</y>
-		<anchorPtX>0.00</anchorPtX>
-		<anchorPtY>0.00</anchorPtY>
-		<scale>1.00</scale>
+		<x>322.27</x>
+		<y>658.84</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>2.00</scale>
 		<amount>10</amount>
 		<num>5</num>
-		<path>stage/yxjm_shuzi1.png</path>
+		<path>num/ty_ziti7.png</path>
 	</imageNum>
 	<imageNum>
 		<id>17</id>

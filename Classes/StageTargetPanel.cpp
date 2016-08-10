@@ -6,6 +6,8 @@
 #include "EmptyBox.h"
 #include "CCFunctionAction.h"
 #include "GuideMgr.h"
+#include "StageLayersMgr.h"
+#include "CommonUtil.h"
 USING_NS_CC;
 
 void StageTargetPanel::onEnter()
@@ -40,6 +42,10 @@ void StageTargetPanel::initPanel()
 	m_layout->addChild(mask, -1);
 
 	auto target = StarsController::theModel()->getStageTarget();
+
+	CCLabelAtlas *score = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(10));
+	score->setString(CommonUtil::intToStr(target->getTargetScore()));
+
 	auto leftTarget = target->getEraseStarsLeft();
 	assert(leftTarget.size() <= 3);
 	for (int i = 0; i < 3; ++i)
@@ -68,19 +74,21 @@ void StageTargetPanel::runBeganAction()
 	m_layout->setPosition(ccp(winSize.width, 0));
 	auto moveTo = CCMoveTo::create(0.5f, ccp(0, 0));
 	auto func = CCFunctionAction::create(bind(&StageTargetPanel::runActionSeq, this));
-	m_layout->runAction(CCSequence::create(CCEaseBackInOut::create(moveTo), CCDelayTime::create(1.5f), func, NULL));
+	m_layout->runAction(CCSequence::create(CCDelayTime::create(1.0), CCEaseBackInOut::create(moveTo), CCDelayTime::create(2.0f), func, NULL));
 }
 
 void StageTargetPanel::runActionSeq()
 {
-	for (size_t i = 0; i < 3; ++i)
+	int widgetIds[] = { 10, 5, 6, 7 };
+	for (size_t i = 0; i < 4; ++i)
 	{
 		auto targetPos = convertToNodeSpace(m_pos[i]);
-		m_layout->getChildById(5 + i)->runAction(CCEaseExponentialInOut::create(CCMoveTo::create(1.0f, targetPos)));
+		m_layout->getChildById(widgetIds[i])->runAction(CCEaseExponentialInOut::create(CCMoveTo::create(1.0f, targetPos)));
 	}
 
 	auto func = CCFunctionAction::create([=]()
 	{
+		StageLayersMgr::theMgr()->targetPanelDone();
 		GuideMgr::theMgr()->startGuide(kGuideStart_stage_showTargetFinished);
 		removeFromParent();
 	});

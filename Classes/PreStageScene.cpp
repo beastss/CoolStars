@@ -18,6 +18,8 @@
 #include "PackageModel.h"
 #include "GameBackEndState.h"
 #include "MyPurchase.h"
+#include "CCFunctionAction.h"
+#include "NoTouchLayer.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -97,19 +99,39 @@ void PreStageScene::initBottomLayout()
 	startGameBtn->setTarget(this, menu_selector(PreStageScene::toStartGame));
 }
 
-void PreStageScene::toStartGame(cocos2d::CCObject* pSender)
+void PreStageScene::runStartGameAction()
 {
-	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	if (UserInfo::theInfo()->consumeStrength())
+	auto noTouchLayer = NoTouchLayer::create();
+	noTouchLayer->setCanTouch(false);
+	addChild(noTouchLayer);
+
+	auto sourcePos = m_titlePanel->getWidgetPos(kTitlePanelStrength);
+	auto targetPos = m_bottomLayout->convertToWorldSpace(m_bottomLayout->getChildById(2)->getPosition());
+	auto spr = CCSprite::create("common/title_strength.png");
+	spr->setPosition(convertToNodeSpace(sourcePos));
+	auto move = CCEaseExponentialInOut::create(CCMoveTo::create(1.0f, convertToNodeSpace(targetPos)));
+	auto func = CCFunctionAction::create([=]()
 	{
 		PreStageModel::theModel()->confirmCurPets();
 		MainScene::theScene()->showPanel(kStageView);
 		MainScene::theScene()->clearPanelRecord();
 		GameBackEndState::theModel()->recordStageStart();
+	});
+	spr->runAction(CCSequence::create(move, func, NULL));
+	addChild(spr);
+}
+
+void PreStageScene::toStartGame(cocos2d::CCObject* pSender)
+{
+	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+	if (UserInfo::theInfo()->consumeStrength())
+	{
+		runStartGameAction();
 	}
 	else
 	{
-		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughStrengh);
+		CCLOG("not enough strength");
+		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughStrength);
 		auto dialog = PackageDialog::create(kPackageStrength);
 		MainScene::theScene()->showDialog(dialog);
 	}

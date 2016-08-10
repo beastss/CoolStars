@@ -7,13 +7,13 @@
 			<key>se_zhi/se_yan1.png</key>
 			<dict>
 				<key>width</key>
-				<integer>49</integer>
+				<integer>12</integer>
 				<key>height</key>
-				<integer>67</integer>
+				<integer>16</integer>
 				<key>originalWidth</key>
-				<integer>49</integer>
+				<integer>12</integer>
 				<key>originalHeight</key>
-				<integer>67</integer>
+				<integer>17</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
@@ -21,20 +21,20 @@
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>
-				<real>0</real>
+				<real>0.5</real>
 			</dict>
 			<key>se_zhi/se_yan2.png</key>
 			<dict>
 				<key>width</key>
-				<integer>31</integer>
+				<integer>8</integer>
 				<key>height</key>
-				<integer>26</integer>
+				<integer>7</integer>
 				<key>originalWidth</key>
-				<integer>31</integer>
+				<integer>8</integer>
 				<key>originalHeight</key>
-				<integer>26</integer>
+				<integer>7</integer>
 				<key>x</key>
-				<integer>51</integer>
+				<integer>14</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -45,15 +45,15 @@
 			<key>se_zhi/se_tou1.png</key>
 			<dict>
 				<key>width</key>
-				<integer>367</integer>
+				<integer>92</integer>
 				<key>height</key>
-				<integer>241</integer>
+				<integer>60</integer>
 				<key>originalWidth</key>
-				<integer>367</integer>
+				<integer>92</integer>
 				<key>originalHeight</key>
-				<integer>241</integer>
+				<integer>60</integer>
 				<key>x</key>
-				<integer>84</integer>
+				<integer>24</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -64,17 +64,17 @@
 			<key>se_zhi/se_setou.png</key>
 			<dict>
 				<key>width</key>
-				<integer>64</integer>
+				<integer>16</integer>
 				<key>height</key>
-				<integer>85</integer>
+				<integer>21</integer>
 				<key>originalWidth</key>
-				<integer>64</integer>
+				<integer>16</integer>
 				<key>originalHeight</key>
-				<integer>85</integer>
+				<integer>21</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
-				<integer>69</integer>
+				<integer>18</integer>
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>
@@ -83,17 +83,17 @@
 			<key>se_zhi/se_tou2.png</key>
 			<dict>
 				<key>width</key>
-				<integer>287</integer>
+				<integer>72</integer>
 				<key>height</key>
-				<integer>142</integer>
+				<integer>36</integer>
 				<key>originalWidth</key>
-				<integer>287</integer>
+				<integer>72</integer>
 				<key>originalHeight</key>
-				<integer>142</integer>
+				<integer>36</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
-				<integer>243</integer>
+				<integer>62</integer>
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>
@@ -102,15 +102,15 @@
 			<key>se_zhi/se_shen1.png</key>
 			<dict>
 				<key>width</key>
-				<integer>299</integer>
+				<integer>75</integer>
 				<key>height</key>
-				<integer>446</integer>
+				<integer>112</integer>
 				<key>originalWidth</key>
-				<integer>299</integer>
+				<integer>75</integer>
 				<key>originalHeight</key>
-				<integer>446</integer>
+				<integer>112</integer>
 				<key>x</key>
-				<integer>453</integer>
+				<integer>118</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -121,74 +121,36 @@
 			<key>se_zhi/se_shen2.png</key>
 			<dict>
 				<key>width</key>
-				<integer>484</integer>
+				<integer>122</integer>
 				<key>height</key>
-				<integer>252</integer>
+				<integer>64</integer>
 				<key>originalWidth</key>
-				<integer>503</integer>
+				<integer>126</integer>
 				<key>originalHeight</key>
-				<integer>256</integer>
+				<integer>64</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
-				<integer>448</integer>
+				<integer>114</integer>
 				<key>offsetX</key>
-				<real>-6.5</real>
-				<key>offsetY</key>
-				<real>0</real>
-			</dict>
-			<key>se_shen2-2.png</key>
-			<dict>
-				<key>width</key>
-				<integer>481</integer>
-				<key>height</key>
-				<integer>252</integer>
-				<key>originalWidth</key>
-				<integer>503</integer>
-				<key>originalHeight</key>
-				<integer>256</integer>
-				<key>x</key>
-				<integer>0</integer>
-				<key>y</key>
-				<integer>702</integer>
-				<key>offsetX</key>
-				<real>-8</real>
-				<key>offsetY</key>
-				<real>0</real>
-			</dict>
-			<key>se_shen2-3.png</key>
-			<dict>
-				<key>width</key>
-				<integer>499</integer>
-				<key>height</key>
-				<integer>252</integer>
-				<key>originalWidth</key>
-				<integer>503</integer>
-				<key>originalHeight</key>
-				<integer>256</integer>
-				<key>x</key>
-				<integer>486</integer>
-				<key>y</key>
-				<integer>448</integer>
-				<key>offsetX</key>
-				<real>1</real>
+				<real>-2</real>
 				<key>offsetY</key>
 				<real>0</real>
 			</dict>
 			<key>se_zhi/xx.png</key>
 			<dict>
 				<key>width</key>
-				<integer>64</integer>
+				<integer>16</integer>
 				<key>height</key>
-				<integer>85</integer>
+				<integer>21</integer>
 				<key>originalWidth</key>
-				<integer>64</integer>
+				<integer>16</integer>
 				<key>originalHeight</key>
-				<integer>85</integer>
+				<integer>21</integer>
 				<key>x</key>
-				<integer>0</integer>
+				<integer>74</integer>
 				<key>y</key>
-				<integer>156</integer>
+				<integer>62</integer>
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>

@@ -49,10 +49,10 @@ public:
 	RankingData getDataByRank(int rank);
 	int getOpponetRank();
 	int getMyRank();
+	std::vector<RankingData> getCurRanking();
 private:
 	RankingModel();
 	void loadData();
-	std::vector<RankingData> getCurRanking();
 private:
 	static const int kMaxLength = 4;
 	bool m_alreadyOpenRanking;

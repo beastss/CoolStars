@@ -9,6 +9,7 @@
 #include "StageOperator.h"
 #include "GuideMgr.h"
 #include "GameBackEndState.h"
+#include "StarsEraseModule.h"
 USING_NS_CC;
 using namespace std;
 StarsController::StarsController()
@@ -57,9 +58,11 @@ void StarsController::resetStage(int gameType)
 		delete(*iter);
 	}
 	StageDataMgr::theMgr()->reset(gameType);
+	StarsEraseModule::theModel()->reset();
 	m_starNodes.clear();
 	m_target.init();
 	m_starsLoader.init();
+	
 }
 
 StarNode *StarsController::getStarNode(const LogicGrid &grid)

@@ -7,6 +7,7 @@
 #include "UserInfo.h"
 #include "PackageModel.h"
 #include <algorithm>
+#include "GameDataAnalysis.h"
 using namespace std;
 using namespace CommonUtil;
 
@@ -100,6 +101,7 @@ void LotteryModel::doLottery(const LotteryData &data)
 	{
 		int cost = DataManagerSelf->getSystemConfig().diamondsForOneKey;
 		UserInfo::theInfo()->consumeDiamond(cost);
+		GameDataAnalysis::theModel()->consumeDiamond(kDiamondConsumeLottery, 0, cost);
 	}
 }
 

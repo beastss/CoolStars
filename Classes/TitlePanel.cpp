@@ -267,3 +267,26 @@ void TitlePanel::onThiefDisappear()
 	}
 
 }
+
+cocos2d::CCPoint TitlePanel::getWidgetPos(int type)
+{
+	CCNode *node = NULL;
+	switch (type)
+	{
+	case kTitlePanelStrength:
+		node = m_topLayout->getChildById(8);
+		break;
+	case kTitlePanelFood:
+		node = m_topLayout->getChildById(2);
+		break;
+	case kTitlePanelDiamond:
+		node = m_topLayout->getChildById(5);
+		break;
+	case kTitlePanelBackHome:
+		node = m_bottomLayout->getChildById(2);
+		break;
+	}
+	
+	CCPoint pt = node->getParent()->convertToWorldSpace(node->getPosition());
+	return pt;
+}

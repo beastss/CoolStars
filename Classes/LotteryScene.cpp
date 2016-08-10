@@ -22,16 +22,17 @@
 USING_NS_CC;
 using namespace std;
 
-LotteryNode::LotteryNode(int touchPriority)
+LotteryNode::LotteryNode(int touchPriority, LotteryScene *panel)
 : TouchNode(touchPriority)
+, m_panel(panel)
 , m_isOpened(false)
 {
 	m_handle = function<void()>();
 }
 
-LotteryNode *LotteryNode::create(int touchPriority)
+LotteryNode *LotteryNode::create(int touchPriority, LotteryScene *panel)
 {
-	auto node = new LotteryNode(touchPriority);
+	auto node = new LotteryNode(touchPriority, panel);
 	node->init();
 	node->autorelease();
 	return node;
@@ -68,6 +69,14 @@ bool LotteryNode::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 }
 
 void LotteryNode::handleTouch()
+{
+	auto pos = getParent()->convertToWorldSpace(getPosition());
+	auto size = getContentSize();
+	pos = ccpAdd(pos, ccpMult(size, 0.5f));
+	m_panel->runKeyMoveAction(pos, bind(&LotteryNode::openReward, this));
+}
+
+void LotteryNode::openReward()
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	m_layout->getChildById(1)->setVisible(false);
@@ -162,7 +171,7 @@ bool LotteryScene::init()
 	initLayout();
 
 	m_titlePanel = TitlePanel::create(m_touchPriority);
-	m_titlePanel->setBottomThief(kThiefLotteryPanel);
+	m_titlePanel->setTopThief(kThiefLotteryPanel);
 	addChild(m_titlePanel);
 
 	m_bottomLayout = UiLayout::create("layout/pre_stage_bottom.xml");
@@ -185,7 +194,7 @@ void LotteryScene::initLayout()
 	for (int i = 0; i < 9; ++i)
 	{
 		EmptyBox *box = dynamic_cast<EmptyBox *>((m_layout->getChildById(boxIds[i])));
-		auto node = LotteryNode::create(m_touchPriority);
+		auto node = LotteryNode::create(m_touchPriority, this);
 		node->setHandle(bind(&LotteryScene::onOpenReward, this));
 		box->setNode(node);
 	}
@@ -201,6 +210,8 @@ void LotteryScene::initBottomLayout()
 {
 	CCMenuItem *startGameBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(1)));
 	startGameBtn->setTarget(this, menu_selector(LotteryScene::onStartBtnClicked));
+
+	m_bottomLayout->getChildById(2)->setVisible(false);
 }
 
 void LotteryScene::refreshUi()
@@ -280,4 +291,21 @@ void LotteryScene::hideBottomBtns()
 	m_layout->getChildById(16)->setVisible(false);
 	m_titlePanel->setUiVisible(kTitlePanelBackHome, false);
 	m_bottomLayout->getChildById(1)->setVisible(false);
+}
+
+void LotteryScene::runKeyMoveAction(cocos2d::CCPoint target, std::function<void()>callback)
+{
+	auto sourcePos = convertToNodeSpace(m_layout->convertToWorldSpace(m_layout->getChildById(4)->getPosition()));
+	auto targetPos = convertToNodeSpace(target);
+	auto spr = CCSprite::create("lottery/cjjm_yaoshi.png");
+	addChild(spr);
+	spr->setPosition(sourcePos);
+	auto move = CCEaseExponentialInOut::create(CCMoveTo::create(0.3f, targetPos));
+	auto func = CCFunctionAction::create([=]()
+	{
+		spr->removeFromParent();
+		callback();
+	});
+	spr->runAction(CCSequence::create(move, func, NULL));
+
 }

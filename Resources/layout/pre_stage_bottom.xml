@@ -1,4 +1,13 @@
 <layout width="480.000000" height="90.000000">
+	<image>
+		<id>2</id>
+		<x>437.08</x>
+		<y>20.89</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>common/title_strength.png</path>
+	</image>
 	<button>
 		<id>1</id>
 		<x>482.04</x>
@@ -10,5 +19,6 @@
 		<selected>pre_stage/zbjm_anniu1.png</selected>
 		<disabled>pre_stage/zbjm_anniu1.png</disabled>
 	</button>
+
 </layout>
 

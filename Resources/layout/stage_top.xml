@@ -1,23 +1,5 @@
 <layout width="480.000000" height="250.000000">
 	<image>
-		<id>4</id>
-		<x>289.42</x>
-		<y>225.73</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>stage/ui/yxjm_fenshucao.png</path>
-	</image>
-	<image>
-		<id>7</id>
-		<x>444.63</x>
-		<y>219.20</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>stage/ui/yxjm_bushukuan.png</path>
-	</image>
-	<image>
 		<id>9</id>
 		<x>239.54</x>
 		<y>65.22</y>
@@ -25,6 +7,15 @@
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
 		<path>stage/ui/yxjm_taizi.png</path>
+	</image>
+	<image>
+		<id>26</id>
+		<x>176.85</x>
+		<y>216.96</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_panel_3.png</path>
 	</image>
 	<emptyBox>
 		<id>14</id>
@@ -36,8 +27,8 @@
 	</emptyBox>
 	<emptyBox>
 		<id>10</id>
-		<x>81.89</x>
-		<y>107.59</y>
+		<x>81.67</x>
+		<y>104.64</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
@@ -66,69 +57,142 @@
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
-	<emptyBox>
-		<id>22</id>
-		<x>173.69</x>
-		<y>210.41</y>
-		<anchorPtX>0.00</anchorPtX>
-		<anchorPtY>0.00</anchorPtY>
-		<scale>1.00</scale>
-	</emptyBox>
 	<imageNum>
 		<id>15</id>
-		<x>291.23</x>
-		<y>222.66</y>
+		<x>284.90</x>
+		<y>228.78</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>0.50</scale>
+		<scale>0.80</scale>
 		<amount>12</amount>
-		<num>100;1000</num>
-		<path>num/ty_ziti2.png</path>
-	</imageNum>
-	<imageNum>
-		<id>17</id>
-		<x>442.14</x>
-		<y>205.35</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>0.70</scale>
-		<amount>10</amount>
-		<num>10</num>
-		<path>stage/yxjm_shuzi1.png</path>
+		<num>100:1000</num>
+		<path>num/ty_unmber_1.png</path>
 	</imageNum>
 	<image>
-		<id>21</id>
-		<x>12.03</x>
-		<y>226.66</y>
+		<id>31</id>
+		<x>57.82</x>
+		<y>214.41</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>stage/ui/yxjm_mubiao.png</path>
+		<path>stage/ui/game_frame_1.png</path>
+	</image>
+	<image>
+		<id>32</id>
+		<x>104.05</x>
+		<y>214.41</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_frame_1.png</path>
+	</image>
+	<image>
+		<id>33</id>
+		<x>150.69</x>
+		<y>214.41</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_frame_1.png</path>
 	</image>
 	<emptyBox>
 		<id>18</id>
-		<x>24.06</x>
-		<y>203.45</y>
+		<x>39.54</x>
+		<y>195.22</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>19</id>
-		<x>71.33</x>
-		<y>203.03</y>
+		<x>86.52</x>
+		<y>195.22</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>20</id>
-		<x>118.40</x>
-		<y>202.81</y>
+		<x>134.00</x>
+		<y>195.22</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
-	
+	<image>
+		<id>23</id>
+		<x>20.06</x>
+		<y>216.96</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_picture_1.png</path>
+	</image>
+	<image>
+		<id>24</id>
+		<x>391.29</x>
+		<y>217.80</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_panel_1.png</path>
+	</image>
+	<image>
+		<id>25</id>
+		<x>451.21</x>
+		<y>216.75</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_panel_2.png</path>
+	</image>
+	<image>
+		<id>27</id>
+		<x>197.75</x>
+		<y>229.83</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_picture_2.png</path>
+	</image>
+	<image>
+		<id>28</id>
+		<x>254.52</x>
+		<y>206.61</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_slider_1.png</path>
+	</image>
+	<emptyBox>
+		<id>22</id>
+		<x>174.11</x>
+		<y>201.13</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<imageNum>
+		<id>17</id>
+		<x>449.10</x>
+		<y>201.34</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<amount>12</amount>
+		<num>10</num>
+		<path>num/ty_unmber_1.png</path>
+	</imageNum>
+	<imageNum>
+		<id>30</id>
+		<x>387.90</x>
+		<y>200.28</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<amount>12</amount>
+		<num>10</num>
+		<path>num/ty_unmber_1.png</path>
+	</imageNum>
 </layout>
 

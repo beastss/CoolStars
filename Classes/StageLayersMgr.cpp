@@ -27,6 +27,16 @@ void StageLayersMgr::removeLayer(IStageLayer *layer)
 	}
 }
 
+void StageLayersMgr::initStarDone()
+{
+	NOTIFY_LAYERSS(onInitStarsDone);
+}
+
+void StageLayersMgr::targetPanelDone()
+{
+	NOTIFY_LAYERSS(onTargetPanelDone);
+}
+
 void StageLayersMgr::highLightStars(int color)
 {
 	NOTIFY_LAYERSS(onHighLightStars, color);
@@ -47,9 +57,9 @@ void StageLayersMgr::toNormalState()
 	NOTIFY_LAYERSS(onToNormalState);
 }
 
-void StageLayersMgr::colorStarErased(cocos2d::CCPoint pos, int starType, int color)
+void StageLayersMgr::starErased(cocos2d::CCPoint pos, int starType, int color)
 {
-	NOTIFY_LAYERSS(onNormalStarErased, pos, starType, color);
+	NOTIFY_LAYERSS(onStarErased, pos, starType, color);
 }
 
 void StageLayersMgr::doubleScore()
@@ -70,4 +80,9 @@ void StageLayersMgr::eraseStarsStart()
 void StageLayersMgr::eraseStarsEnd()
 {
 	NOTIFY_LAYERSS(onEraseStarsEnd);
+}
+
+void StageLayersMgr::explodeGrid(const LogicGrid &grid)
+{
+	NOTIFY_LAYERSS(onExplodeGrid, grid);
 }

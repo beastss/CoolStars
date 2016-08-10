@@ -8,7 +8,7 @@
 		<scale>1.00</scale>
 		<path>stage/stars/yxjm_fangkuai1.png</path>
 	</image>
-		<image>
+	<image>
 		<id>2</id>
 		<x>23.85</x>
 		<y>24.90</y>
@@ -36,6 +36,14 @@
 		<num>5</num>
 		<path>num/ty_ziti6.png</path>
 	</imageNum>
-
+	<image>
+		<id>5</id>
+		<x>35.88</x>
+		<y>8.02</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/yxjm_gou.png</path>
+	</image>
 </layout>
 

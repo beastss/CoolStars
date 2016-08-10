@@ -35,11 +35,13 @@ public:
 	void showPetSpreadStarsAction(int petId, const StarAttr &attr, std::function<void()> callback);
 	void gameOverSpreadStars(const GoodsData &data, const LogicGrid &targetGrid, std::function<void()> callback);
 public:
+	virtual void onInitStarsDone();
+	virtual void onTargetPanelDone();
 	virtual void onStepsChanged();
 	virtual void onScoreChanged();
 	virtual void onCoinsChanged();
 	virtual void onShowGameResult(int isWon);
-	virtual void onNormalStarErased(cocos2d::CCPoint pos, int starType, int color);
+	virtual void onStarErased(cocos2d::CCPoint pos, int starType, int color);
 	virtual void onHighLightPets(const std::vector<int> &petIds);
 	virtual void onToNormalState();
 	virtual void onRunOutSteps();
@@ -48,6 +50,7 @@ public:
 	virtual void onTouchEnable(bool canTouch);
 	virtual void onEraseStarsStart();
 	virtual void onEraseStarsEnd();
+	virtual void onExplodeGrid(const LogicGrid &grid);
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:
@@ -63,6 +66,7 @@ private:
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	void playExplosionAction(cocos2d::CCPoint pos);
 	void removeExplosionAnimation(cocos2d::extension::CCArmature *, cocos2d::extension::MovementEventType, const char *);
+	const cocos2d::CCPoint &getStarPos(const LogicGrid &grid);
 private:
 
 private:
@@ -75,5 +79,6 @@ private:
 	std::unordered_map<int , StagePetNode *>m_petViews;
 	RedPackageModule m_redPackage;
 	NoTouchLayer *m_noTouchLayer;
+	unordered_map<int, cocos2d::CCPoint> m_starsPos; //用于保存stars的位置
 };
 #endif // __PANELLLAYER_H__

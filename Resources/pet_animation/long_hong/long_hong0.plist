@@ -7,13 +7,13 @@
 			<key>long_hong/long_xu1.png</key>
 			<dict>
 				<key>width</key>
-				<integer>173</integer>
+				<integer>43</integer>
 				<key>height</key>
-				<integer>100</integer>
+				<integer>25</integer>
 				<key>originalWidth</key>
-				<integer>173</integer>
+				<integer>43</integer>
 				<key>originalHeight</key>
-				<integer>100</integer>
+				<integer>25</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
@@ -26,15 +26,15 @@
 			<key>long_hong/long_zuojiao.png</key>
 			<dict>
 				<key>width</key>
-				<integer>147</integer>
+				<integer>37</integer>
 				<key>height</key>
-				<integer>156</integer>
+				<integer>39</integer>
 				<key>originalWidth</key>
-				<integer>147</integer>
+				<integer>37</integer>
 				<key>originalHeight</key>
-				<integer>156</integer>
+				<integer>39</integer>
 				<key>x</key>
-				<integer>175</integer>
+				<integer>45</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -45,17 +45,17 @@
 			<key>long_hong/long_yang1.png</key>
 			<dict>
 				<key>width</key>
-				<integer>130</integer>
+				<integer>33</integer>
 				<key>height</key>
-				<integer>40</integer>
+				<integer>10</integer>
 				<key>originalWidth</key>
-				<integer>130</integer>
+				<integer>33</integer>
 				<key>originalHeight</key>
-				<integer>40</integer>
+				<integer>10</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
-				<integer>102</integer>
+				<integer>27</integer>
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>
@@ -64,17 +64,17 @@
 			<key>long_hong/long_yang2.png</key>
 			<dict>
 				<key>width</key>
-				<integer>130</integer>
+				<integer>33</integer>
 				<key>height</key>
-				<integer>28</integer>
+				<integer>7</integer>
 				<key>originalWidth</key>
-				<integer>130</integer>
+				<integer>33</integer>
 				<key>originalHeight</key>
-				<integer>28</integer>
+				<integer>7</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
-				<integer>144</integer>
+				<integer>39</integer>
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>
@@ -83,17 +83,17 @@
 			<key>long_hong/long_xiaba.png</key>
 			<dict>
 				<key>width</key>
-				<integer>222</integer>
+				<integer>56</integer>
 				<key>height</key>
-				<integer>199</integer>
+				<integer>50</integer>
 				<key>originalWidth</key>
-				<integer>222</integer>
+				<integer>56</integer>
 				<key>originalHeight</key>
-				<integer>199</integer>
+				<integer>50</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
-				<integer>174</integer>
+				<integer>48</integer>
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>
@@ -102,15 +102,15 @@
 			<key>long_hong/long_tou.png</key>
 			<dict>
 				<key>width</key>
-				<integer>357</integer>
+				<integer>89</integer>
 				<key>height</key>
-				<integer>402</integer>
+				<integer>101</integer>
 				<key>originalWidth</key>
-				<integer>357</integer>
+				<integer>89</integer>
 				<key>originalHeight</key>
-				<integer>402</integer>
+				<integer>101</integer>
 				<key>x</key>
-				<integer>324</integer>
+				<integer>84</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -121,15 +121,15 @@
 			<key>long_hong/long_shou1.png</key>
 			<dict>
 				<key>width</key>
-				<integer>250</integer>
+				<integer>63</integer>
 				<key>height</key>
-				<integer>165</integer>
+				<integer>41</integer>
 				<key>originalWidth</key>
-				<integer>250</integer>
+				<integer>63</integer>
 				<key>originalHeight</key>
-				<integer>165</integer>
+				<integer>41</integer>
 				<key>x</key>
-				<integer>683</integer>
+				<integer>175</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -140,17 +140,17 @@
 			<key>long_hong/long_wei.png</key>
 			<dict>
 				<key>width</key>
-				<integer>423</integer>
+				<integer>106</integer>
 				<key>height</key>
-				<integer>287</integer>
+				<integer>72</integer>
 				<key>originalWidth</key>
-				<integer>423</integer>
+				<integer>106</integer>
 				<key>originalHeight</key>
-				<integer>287</integer>
+				<integer>72</integer>
 				<key>x</key>
 				<integer>0</integer>
 				<key>y</key>
-				<integer>404</integer>
+				<integer>103</integer>
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>
@@ -159,17 +159,17 @@
 			<key>long_hong/long_shen.png</key>
 			<dict>
 				<key>width</key>
-				<integer>404</integer>
+				<integer>101</integer>
 				<key>height</key>
-				<integer>727</integer>
+				<integer>182</integer>
 				<key>originalWidth</key>
-				<integer>404</integer>
+				<integer>101</integer>
 				<key>originalHeight</key>
-				<integer>727</integer>
+				<integer>182</integer>
 				<key>x</key>
-				<integer>0</integer>
+				<integer>175</integer>
 				<key>y</key>
-				<integer>693</integer>
+				<integer>43</integer>
 				<key>offsetX</key>
 				<real>0</real>
 				<key>offsetY</key>

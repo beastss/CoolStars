@@ -8,17 +8,18 @@
 
 class UiLayout;
 class TitlePanel;
-
+class LotteryScene;
 class LotteryNode
 	: public TouchNode
 {
 public:
-	static LotteryNode *create(int touchPriority);
+	static LotteryNode *create(int touchPriority, LotteryScene *panel);
 	void setHandle(std::function<void()> handle){ m_handle = handle; }
 	bool isOpened();
 private:
 	virtual bool init();
-	LotteryNode(int touchPriority);
+	LotteryNode(int touchPriority, LotteryScene *panel);
+	void openReward();
 	void handleTouch();
 	virtual bool onTouchBegan(cocos2d::CCPoint pt, bool isInside);
 	cocos2d::CCAction *getRewardOutAction(int num);
@@ -27,6 +28,7 @@ private:
 	UiLayout *m_goodsLayout;
 	std::function<void()> m_handle;
 	bool m_isOpened;
+	LotteryScene *m_panel;
 };
 
 enum LotterySceneUsage
@@ -42,6 +44,7 @@ class LotteryScene
 public:
 	static LotteryScene *create(int usage);
 	virtual bool init();
+	void runKeyMoveAction(cocos2d::CCPoint target, std::function<void()>callback);
 private:
 	virtual void onEnter();
 	virtual void onExit();

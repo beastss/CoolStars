@@ -161,6 +161,7 @@ void StarsLayer::starInitDone()
 	{
 		m_starsSprite[i]->showBornAnimation();
 	}
+	StageLayersMgr::theMgr()->initStarDone();
 	StarsController::theModel()->onOneRoundBegan();
 }
 

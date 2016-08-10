@@ -42,6 +42,7 @@ struct PetResConfig
 	string petAnimationRes;
 	string petNameRes;
 	bool isOpening;
+	string name;
 };
 
 struct PetColorConfig
@@ -51,6 +52,13 @@ struct PetColorConfig
 	string skillTitle;
 	string skillLvLabel;
 	string numRes;
+};
+
+struct PetPurchaseConfig
+{
+	std::vector<int> guidePets;
+	int petDiamondCost;
+	int packagePet;
 };
 
 struct StageConfig
@@ -135,6 +143,7 @@ struct GoodsData
 	int goodsId;
 	int amount;
 	GoodsData(){}
+	GoodsData(int iType, int iGoodsId, int iAmount): type(iType), goodsId(iGoodsId), amount(iAmount){}
 	GoodsData(std::vector<int> datas): type(datas[0]), goodsId(datas[1]), amount(datas[2]){}
 };
 
@@ -196,7 +205,7 @@ struct ThiefConfig
 struct PurchaseConfig
 {
 	int id;
-	int moneyCost;
+	float moneyCost;
 };
 
 struct SoundConfig

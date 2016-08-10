@@ -99,6 +99,10 @@ bool StageUiLayer::init()
 
 void StageUiLayer::initTopUi()
 {
+	for (int i = 0; i < 3; ++i)
+	{
+		m_topUi->getChildById(31 + i)->setVisible(false);
+	}
 	int targetBoxIds[] = { 18, 19, 20 };
 	auto target = StarsController::theModel()->getStageTarget();
 	auto leftTarget = target->getEraseStarsLeft();
@@ -108,9 +112,15 @@ void StageUiLayer::initTopUi()
 		StageTargetView *view = StageTargetView::create(leftTarget[i]);
 		auto node = dynamic_cast<EmptyBox *>(m_topUi->getChildById(targetBoxIds[i]));
 		node->setNode(view);
+		node->setVisible(false);
+		m_topUi->getChildById(31 + i)->setVisible(true);
 	}
 	
-	m_scoreProgress = CCProgressTimer::create(CCSprite::create("stage/ui/yxjm_fenshucao2.png"));
+	auto curStageLabel = dynamic_cast<CCLabelAtlas *>(m_topUi->getChildById(30));
+	int curStageNum = StageDataMgr::theMgr()->getCurStage();
+	curStageLabel->setString(CommonUtil::intToStr(curStageNum));
+
+	m_scoreProgress = CCProgressTimer::create(CCSprite::create("stage/ui/game_slider_2.png"));
 	m_scoreProgress->setType(kCCProgressTimerTypeBar);
 	m_scoreProgress->setMidpoint(ccp(0, 1));
 	m_scoreProgress->setBarChangeRate(ccp(1, 0));
@@ -120,6 +130,8 @@ void StageUiLayer::initTopUi()
 
 	onStepsChanged();
 	onScoreChanged();
+	CCLabelAtlas * curScoreLabel = dynamic_cast<CCLabelAtlas *>(m_topUi->getChildById(15));
+	curScoreLabel->setString("0:0");
 }
 
 void StageUiLayer::initPets()
@@ -158,6 +170,9 @@ void StageUiLayer::initBottomUi()
 void StageUiLayer::showTargetPanel()
 {
 	vector<CCPoint> targetsPos;
+	auto scorePos = m_topUi->getChildById(15)->getPosition();
+	targetsPos.push_back(m_topUi->convertToWorldSpace(scorePos));
+
 	for (int i = 0; i < 3; ++i)
 	{
 		auto node = m_topUi->getChildById(18 + i);
@@ -209,7 +224,14 @@ void StageUiLayer::refreshRedPackage()
 			auto func = CCFunctionAction::create([=]()
 			{
 				m_noTouchLayer->setCanTouch(true);
+				auto scaleLarge = CCScaleTo::create(0.5f, 1.3f);
+				auto scaleSmall = CCScaleTo::create(0.6f, 0.8f);
+				auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
+				auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
+				node->runAction(scale);
 			});
+			
+
 			node->setVisible(true);
 			node->runAction(CCSequence::create(spawn, move, toNoraml, func, NULL));
 		}
@@ -234,7 +256,7 @@ void StageUiLayer::onScoreChanged()
 	CCLabelAtlas * curScoreLabel = dynamic_cast<CCLabelAtlas *>(m_topUi->getChildById(15));
 	curScore = min(curScore, targetScore);
 	string str = intToStr(curScore);
-	str += ";";
+	str += ":";
 	str += intToStr(targetScore);
 	curScoreLabel->setString(str.c_str());
 	refreshRedPackage();
@@ -291,10 +313,10 @@ void StageUiLayer::onGameWin()
 		StageOp->gameOverRandomReplace();
 	});
 	spr->setScale(0.8f);
-	auto scaleLarge = CCScaleTo::create(0.3f, 1.4f);
-	auto scaleNormal = CCScaleTo::create(0.3f, 1.0f);
-	auto delay1 = CCDelayTime::create(0.4f);
-	auto fadeOut = CCFadeOut::create(0.7f);
+	auto scaleLarge = CCScaleTo::create(2.0f, 1.6f);
+	auto scaleNormal = CCScaleTo::create(1.0f, 1.0f);
+	auto delay1 = CCDelayTime::create(0.5f);
+	auto fadeOut = CCFadeOut::create(2.0f);
 	auto delay2 = CCDelayTime::create(0.5f);
 	spr->runAction(CCSequence::create(scaleLarge, scaleNormal, delay1, fadeOut, delay2, func, NULL));
 	addChild(spr);
@@ -358,7 +380,44 @@ void StageUiLayer::removeExplosionAnimation(cocos2d::extension::CCArmature *anim
 	animation->removeFromParent();
 }
 
-void StageUiLayer::onNormalStarErased(cocos2d::CCPoint pos, int starType, int color)
+void StageUiLayer::onInitStarsDone()
+{
+	for (int row = 0; row < ROWS_SIZE; ++row)
+	{
+		for (int col = 0; col < COlUMNS_SIZE; ++col)
+		{
+			auto node = StarsController::theModel()->getStarNode(LogicGrid(col, row));
+			if (!node) continue;
+			auto view = node->getView();
+			auto pos = view->getParent()->convertToWorldSpace(view->getPosition());
+			int index = row * COlUMNS_SIZE + col;
+			m_starsPos[index] = (convertToNodeSpace(pos));
+		}
+	}
+}
+
+void StageUiLayer::onTargetPanelDone()
+{
+	int targetBoxIds[] = { 18, 19, 20 };
+	for (int i = 0; i < 3; ++i)
+	{
+		m_topUi->getChildById(targetBoxIds[i])->setVisible(true);
+	}
+	onScoreChanged();
+}
+
+const cocos2d::CCPoint &StageUiLayer::getStarPos(const LogicGrid &grid)
+{
+	int index = grid.y * COlUMNS_SIZE + grid.x;
+	return m_starsPos[index];
+}
+
+void StageUiLayer::onExplodeGrid(const LogicGrid &grid)
+{
+	playExplosionAction(getStarPos(grid));
+}
+
+void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 {
 	if (starType == kColorStar)
 	{
@@ -392,8 +451,27 @@ void StageUiLayer::onNormalStarErased(cocos2d::CCPoint pos, int starType, int co
 			}
 		}
 	}
-	
-	playExplosionAction(pos);
+	else if (starType == kDiamond)
+	{
+		GoodsData data(kGoodsDiamond, 0, 1);
+		auto view = StageBonusView::create(data);
+		view->setAnchorPoint(ccp(0.5f, 0.5f));
+		view->scaleAndFadeOut();
+		auto newPos = ccpAdd(pos, ccpMult(view->getContentSize(), 0.4f));
+		view->setPosition(newPos);
+		addChild(view);
+	}
+	else if (starType == kKey)
+	{
+		GoodsData data(kGoodsKey, 0, 1);
+		auto view = StageBonusView::create(data);
+		view->setAnchorPoint(ccp(0.5f, 0.5f));
+		view->scaleAndFadeOut();
+		auto newPos = ccpAdd(pos, ccpMult(view->getContentSize(), 0.4f));
+		view->setPosition(newPos);
+		addChild(view);
+	}
+	//playExplosionAction(pos);
 }
 
 void StageUiLayer::onHighLightPets(const std::vector<int> &petIds)

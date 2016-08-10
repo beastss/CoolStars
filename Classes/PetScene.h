@@ -23,15 +23,17 @@ private:
 	void initBottomLayout();
 	void initColorPets();
 	void refreshUi();
-	void refreshUpgrdeCost();
+	void refreshPetCost();
 	void refreshArrows();
-	void refreshPetPackage();
 	void changePetsColor(int color);
+	int parsePetType(int petId);
+	void refrshRedPoint();
+	void addRedPoint(cocos2d::CCNode *target);
 private:
 	void onLeftPetBtnClicked(cocos2d::CCObject* pSender);
 	void onRigthPetBtnClicked(cocos2d::CCObject* pSender);
 	void onUpgradeBtnClicked(cocos2d::CCObject* pSender);
-	void onPetPackageBtnClicked(cocos2d::CCObject* pSender);
+	void onBuyBtnClicked(cocos2d::CCObject* pSender);
 
 	void onBackBtnClicked(cocos2d::CCObject* pSender);
 	void onGreenPetBtnClicked(cocos2d::CCObject* pSender);
@@ -45,6 +47,14 @@ private:
 private:
 	virtual void onNewPetAdd();
 private:
+	enum
+	{
+		kPetForGuide,
+		kPetForDiamondPurchase,
+		kPetAlreadyOwned,
+		kPetForRmbPurchase,
+	};
+private:
 	UiLayout *m_bottomLayout;
 	UiLayout *m_mainLayout;
 	UiLayout *m_emptyPetLayout;
@@ -53,5 +63,6 @@ private:
 	std::unordered_map<int, std::vector<int>>m_colorPets;
 	static int s_curPetColor;
 	int m_curColorPetIndex;
+	cocos2d::CCNode *m_redPointLayer;
 };
 #endif

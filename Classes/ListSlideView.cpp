@@ -93,3 +93,39 @@ void ListSlideView::onTouchEnded(cocos2d::CCTouch *pTouch)
 		}
 	}
 }
+
+void ListSlideView::toNode(int index, bool withAction)
+{
+	auto node = getNode(index);
+	if (!node) return;
+	float posY = m_size.height - node->getPosition().y - node->getContentSize().height;
+	
+	auto containerSize = m_container->getContentSize();
+
+	float maxY = 0;
+	float minY = 0;
+	if (containerSize.height <= m_size.height)
+	{
+		maxY = m_size.height - containerSize.height;
+		minY = maxY;
+	}
+	else
+	{
+		minY = m_size.height - containerSize.height;
+		maxY = 0;
+	}
+	float newY = min(max(posY, minY), maxY);
+	if (withAction)
+	{
+		float duration = (count() - index) * 0.01f;
+		CCPoint targetPos = m_container->getPosition();
+		targetPos.y = newY;
+		auto move = CCMoveTo::create(duration, targetPos);
+		m_container->runAction(move);
+	}
+	else
+	{
+		m_container->setPositionY(newY);
+	}
+
+}

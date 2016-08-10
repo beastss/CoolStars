@@ -56,7 +56,6 @@ bool MenuScene::init()
 
 	initMainLayout();
 	initBottomLayout();
-	refreshThiefTips();
 
 	GuideMgr::theMgr()->startGuide(kGuideStart_mainMenu_in, bind(&MenuScene::justShowNormalGameBtn, this));
 
@@ -214,59 +213,6 @@ void MenuScene::justShowNormalGameBtn()
 	m_mainLayout->getChildById(7)->setVisible(false);
 	m_mainLayout->getChildById(8)->setVisible(false);
 	m_mainLayout->getChildById(9)->setVisible(false);
-}
-
-void MenuScene::refreshThiefTips()
-{
-	int panelType = ThiefModel::theModel()->whichPanel();
-	CCNode *node = NULL;
-	switch (panelType)
-	{
-	case kThiefPreStagePanel:
-		node = m_mainLayout->getChildById(6);
-		break;
-	case kThiefPetPanel:
-		node = m_mainLayout->getChildById(9);
-		break;
-	case kThiefLotteryPanel:
-		node = m_mainLayout->getChildById(8);
-		break;
-	case kThiefRankingPanel:
-		node = m_bottomLayout->getChildById(4);
-		break;
-	case kThiefShopPanel:
-		node = m_bottomLayout->getChildById(6);
-		break;
-	case kThiefPackagePanel:
-		node = m_bottomLayout->getChildById(5);
-		break;
-	}
-	if (node)
-	{
-		auto size = node->getContentSize();
-		auto leftTop = ccpAdd(node->getPosition(), ccpMult(size, 0.5f));
-		auto worldPos = node->getParent()->convertToWorldSpace(leftTop);
-		auto pos = convertToNodeSpace(worldPos);
-		
-		auto tips = CCSprite::create("thief/tips.png");
-		addChild(tips, 1, kTagThief);
-		tips->runAction(CCFadeIn::create(1.0f));
-		tips->setPosition(pos);
-	}
-}
-
-void MenuScene::onThiefShowUp()
-{
-	refreshThiefTips();
-}
-
-void MenuScene::onThiefDisappear()
-{
-	auto tips = getChildByTag(kTagThief);
-	if (tips)
-	{
-		tips->removeFromParent();
-	}
 }
 
 void MenuScene::onBackKeyTouched()

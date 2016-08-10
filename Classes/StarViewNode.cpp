@@ -74,7 +74,7 @@ void StarViewNode::doEraseAction()
 {
 	auto attr = m_model->getAttr();
 	auto pos = getParent()->convertToWorldSpace(getPosition());
-	StageLayersMgr::theMgr()->colorStarErased(pos, attr.type, attr.color);
+	StageLayersMgr::theMgr()->starErased(pos, attr.type, attr.color);
 	
 	playParticle();
 }

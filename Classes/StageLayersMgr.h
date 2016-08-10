@@ -1,18 +1,21 @@
 #ifndef __STAGELAYERSMGR_H__
 #define __STAGELAYERSMGR_H__
 #include "cocos2d.h"
+#include "LogicGridUtil.h"
 struct IStageLayer
 {
-	virtual void initStarsDone(){}
+	virtual void onInitStarsDone(){}
+	virtual void onTargetPanelDone(){}
 	virtual void onHighLightStars(int color){}
 	virtual void onToNormalState(){}
-	virtual void onNormalStarErased(cocos2d::CCPoint pos, int starType, int color){}
+	virtual void onStarErased(cocos2d::CCPoint pos, int starType, int color){}
 	virtual void onHighLightPets(const std::vector<int> &petIds){}
 	virtual void onHighLightRectStars(int x, int y, int width, int height){}
 	virtual void onScoreBouble(){}
 	virtual void onTouchEnable(bool canTouch){}
 	virtual void onEraseStarsStart(){}
 	virtual void onEraseStarsEnd(){}
+	virtual void onExplodeGrid(const LogicGrid &grid){}
 };
 
 #define NOTIFY_LAYERSS(_FUNC_ ,...)						 \
@@ -31,15 +34,18 @@ public:
 	void addLayer(IStageLayer *layer);
 	void removeLayer(IStageLayer *layer);
 public:
+	void initStarDone();
+	void targetPanelDone();
 	void highLightStars(int color);
 	void highLightPets(const std::vector<int> &petIds);
 	void highLightRectStars(int x, int y, int width, int height);
 	void toNormalState();
-	void colorStarErased(cocos2d::CCPoint pos, int starType, int color);
+	void starErased(cocos2d::CCPoint pos, int starType, int color);
 	void doubleScore();
 	void touchEnable(bool canTouch);
 	void eraseStarsStart();
 	void eraseStarsEnd();
+	void explodeGrid(const LogicGrid &grid);
 private:
 	StageLayersMgr(){}
 private:

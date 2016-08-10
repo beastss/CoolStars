@@ -15,6 +15,8 @@
 #include "PackageDialog.h"
 #include "PreStagePetSlot.h"
 #include "MyPurchase.h"
+#include <algorithm>
+#include "GameDataAnalysis.h"
 
 USING_NS_CC;
 using namespace std;
@@ -77,6 +79,9 @@ bool PetScene::init()
 			s_curPetColor = kColorRed;
 		}
 	}
+
+	m_redPointLayer = CCNode::create();
+	addChild(m_redPointLayer);
 	handleColorBtnClicked(s_curPetColor);
 
 	GuideMgr::theMgr()->startGuide(kGuideStart_pet_in);
@@ -94,9 +99,9 @@ void PetScene::initMainLayout()
 	CCMenuItem *upgradeBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(8)));
 	upgradeBtn->setTarget(this, menu_selector(PetScene::onUpgradeBtnClicked));
 
-	CCMenuItem *petPackageBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(21)));
-	petPackageBtn->setTarget(this, menu_selector(PetScene::onPetPackageBtnClicked));
-	
+	CCMenuItem *buyBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(25)));
+	buyBtn->setTarget(this, menu_selector(PetScene::onBuyBtnClicked));
+
 	CCPoint leftmost = m_mainLayout->getChildById(19)->getPosition();
 	CCPoint center = m_mainLayout->getChildById(10)->getPosition();
 	CCPoint rightmost = m_mainLayout->getChildById(20)->getPosition();
@@ -176,6 +181,7 @@ void PetScene::onRigthPetBtnClicked(cocos2d::CCObject* pSender)
 void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 {
 	GuideMgr::theMgr()->endGuide(kGuideEnd_pet_upgrade);
+	GuideMgr::theMgr()->startGuide(kGuideStart_pet_upgrade);
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	int petId = m_colorPets[s_curPetColor][m_curColorPetIndex];
 	auto pet = PetManager::petMgr()->getPetById(petId);
@@ -192,11 +198,32 @@ void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 	}
 }
 
-void PetScene::onPetPackageBtnClicked(cocos2d::CCObject* pSender)
+void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
 {
-	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	auto dialog = PackageDialog::create(kPackagePetFirstGet);
-	MainScene::theScene()->showDialog(dialog);
+	int petId = m_colorPets[s_curPetColor][m_curColorPetIndex];
+	int petType = parsePetType(petId);
+	if (petType == kPetForRmbPurchase)
+	{
+		SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+		auto dialog = PackageDialog::create(kPackagePetFirstGet);
+		MainScene::theScene()->showDialog(dialog);
+	}
+	else if (petType == kPetForDiamondPurchase)
+	{
+		int cost = DataManagerSelf->getPetPurchaseConfig().petDiamondCost;
+		if (UserInfo::theInfo()->consumeDiamond(cost))
+		{
+			PetManager::petMgr()->addNewPet(petId);
+			GameDataAnalysis::theModel()->consumeDiamond(kDiamondConsumeBuyPet, petId, cost);
+		}
+		else
+		{
+			auto dialog = PackageDialog::create(kPackageDiamond);
+			MainScene::theScene()->showDialog(dialog);
+			MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
+		}
+	}
+	refreshUi();
 }
 
 void PetScene::onGreenPetBtnClicked(cocos2d::CCObject* pSender)
@@ -233,7 +260,7 @@ void PetScene::onBackBtnClicked(cocos2d::CCObject* pSender)
 void PetScene::initColorPets()
 {
 	auto petMgr = PetManager::petMgr();
-	auto petIds = petMgr->getOwnedPetIds();
+	auto petIds = DataManagerSelf->getOpeningPetIds();
 	for (size_t i = 0; i < petIds.size(); ++i)
 	{
 		auto data = petMgr->getPetById(petIds[i])->getPetData();
@@ -302,11 +329,11 @@ void PetScene::refreshUi()
 	}
 
 	refreshArrows();
-	refreshUpgrdeCost();
-	refreshPetPackage();
+	refreshPetCost();
+	refrshRedPoint();
 }
 
-void PetScene::refreshUpgrdeCost()
+void PetScene::refreshPetCost()
 {
 	if (m_colorPets[s_curPetColor].empty()) return;
 
@@ -314,28 +341,73 @@ void PetScene::refreshUpgrdeCost()
 	int diamondNum = UserInfo::theInfo()->getDiamond();
 	int petId = m_colorPets[s_curPetColor][m_curColorPetIndex];
 	auto pet = PetManager::petMgr()->getPetById(petId);
-	if (pet->isMaxLevel())//宠物已经满级
-	{
-		m_mainLayout->getChildById(9)->setVisible(false);
-		m_mainLayout->getChildById(18)->setVisible(false);
-		m_mainLayout->getChildById(17)->setVisible(false);
-		m_mainLayout->getChildById(8)->setVisible(false);
-	}
-	else
-	{
-		int foodCost = pet->getPetData().foodToUpgrade;
-		int diamondCost = foodCost / (DataManagerSelf->getSystemConfig().foodsByOneDiamond);
-		bool isFoodEnough = foodNum >= foodCost;
-		int cost = isFoodEnough ? foodCost : diamondCost;
+	int petType = parsePetType(petId);
 
-		m_mainLayout->getChildById(9)->setVisible(!isFoodEnough);
-		m_mainLayout->getChildById(18)->setVisible(isFoodEnough);
+	m_mainLayout->getChildById(8)->setVisible(false);
+	m_mainLayout->getChildById(9)->setVisible(false);
+	m_mainLayout->getChildById(17)->setVisible(false);
+	m_mainLayout->getChildById(18)->setVisible(false);
+	m_mainLayout->getChildById(25)->setVisible(false);
+	m_mainLayout->getChildById(27)->setVisible(false);
+	switch (petType)
+	{
+	case kPetForGuide:
+		break;
+	case kPetForDiamondPurchase:
+	{
+		m_mainLayout->getChildById(9)->setVisible(true);
 		m_mainLayout->getChildById(17)->setVisible(true);
-		m_mainLayout->getChildById(8)->setVisible(true);
-
+		m_mainLayout->getChildById(25)->setVisible(true);
 		CCLabelAtlas *costNum = dynamic_cast<CCLabelAtlas *>(m_mainLayout->getChildById(17));
+		int cost = DataManagerSelf->getPetPurchaseConfig().petDiamondCost;
 		costNum->setString(CommonUtil::intToStr(cost));
+		break;
 	}
+	case kPetAlreadyOwned:
+	{
+		 if (!pet->isMaxLevel())//宠物没有满级
+		 {
+			 int foodCost = pet->getPetData().foodToUpgrade;
+			 int diamondCost = foodCost / (DataManagerSelf->getSystemConfig().foodsByOneDiamond);
+			 bool isFoodEnough = foodNum >= foodCost;
+			 int cost = isFoodEnough ? foodCost : diamondCost;
+
+			 m_mainLayout->getChildById(9)->setVisible(!isFoodEnough);
+			 m_mainLayout->getChildById(18)->setVisible(isFoodEnough);
+			 m_mainLayout->getChildById(17)->setVisible(true);
+			 m_mainLayout->getChildById(8)->setVisible(true);
+
+			 CCLabelAtlas *costNum = dynamic_cast<CCLabelAtlas *>(m_mainLayout->getChildById(17));
+			 costNum->setString(CommonUtil::intToStr(cost));
+			 
+			 auto buyBtn = m_mainLayout->getChildById(8);
+			 buyBtn->stopAllActions();
+			 //饲料足够时 播放动画
+			 if (isFoodEnough)
+			 {
+				 auto scaleLarge = CCScaleTo::create(0.5f, 1.06f);
+				 auto scaleSmall = CCScaleTo::create(0.6f, 0.93f);
+				 auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
+				 auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
+				 buyBtn->runAction(scale);
+			 }
+		 }
+		 break;
+	}
+	case kPetForRmbPurchase:
+	{
+		bool canBuy = PackageModel::theModel()->canBuyPetPackage();
+		if (canBuy)
+		{
+			m_mainLayout->getChildById(25)->setVisible(true);
+			m_mainLayout->getChildById(27)->setVisible(true);
+		}
+		break;
+	}
+	default:
+		break;
+	}
+	
 }
 
 void PetScene::refreshArrows()
@@ -343,12 +415,6 @@ void PetScene::refreshArrows()
 	int size = m_colorPets[s_curPetColor].size();
 	m_mainLayout->getChildById(6)->setVisible(m_curColorPetIndex > 0);
 	m_mainLayout->getChildById(5)->setVisible(m_curColorPetIndex < size - 1);
-}
-
-void PetScene::refreshPetPackage()
-{
-	bool canBuy = PackageModel::theModel()->canBuyPetPackage();
-	m_mainLayout->getChildById(21)->setVisible(canBuy);
 }
 
 void PetScene::onNewPetAdd()
@@ -360,4 +426,90 @@ void PetScene::onNewPetAdd()
 void PetScene::onBackKeyTouched()
 {
 	MainScene::theScene()->backPanel();
+}
+
+int PetScene::parsePetType(int petId)
+{
+	auto petMgr = PetManager::petMgr();
+	auto ownedPets = petMgr->getOwnedPetIds();
+	if (find(ownedPets.begin(), ownedPets.end(), petId) != ownedPets.end())
+	{
+		return kPetAlreadyOwned;
+	}
+
+	auto guidePets = DataManagerSelf->getPetPurchaseConfig().guidePets;
+	if (find(guidePets.begin(), guidePets.end(), petId) != guidePets.end())
+	{
+		return kPetForGuide;
+	}
+
+	auto packagePet = DataManagerSelf->getPetPurchaseConfig().packagePet;
+	if (packagePet == petId)
+	{
+		return kPetForRmbPurchase;
+	}
+
+	return kPetForDiamondPurchase;
+}
+
+void PetScene::addRedPoint(CCNode *target)
+{
+	auto redPoint = CCSprite::create("pet/tips.png");
+	redPoint->setScale(0.7f);
+	m_redPointLayer->addChild(redPoint);
+	auto pos = convertToNodeSpace(target->getParent()->convertToWorldSpace(target->getPosition()));
+	pos = ccpAdd(pos, ccpMult(target->getContentSize(), 0.4f));
+	redPoint->setPosition(pos);
+}
+
+void PetScene::refrshRedPoint()
+{
+	m_redPointLayer->removeAllChildren();
+	for (int color = kColorRed; color <= kColorPurple; ++color)
+	{
+		int size = m_colorPets[color].size();
+		//当前颜色的宠物
+		if (s_curPetColor == color)
+		{
+			//左箭头对应的宠物
+			for (int i = 0; i < m_curColorPetIndex; ++i)
+			{
+				auto pet = PetManager::petMgr()->getPetById(m_colorPets[color][i]);
+				if (pet->canUpgrade())
+				{
+					addRedPoint(m_mainLayout->getChildById(6));
+					break;
+				}
+			}
+			//右箭头对应的宠物
+			for (int i = m_curColorPetIndex + 1; i < size; ++i)
+			{
+				auto pet = PetManager::petMgr()->getPetById(m_colorPets[color][i]);
+				if (pet->canUpgrade())
+				{
+					addRedPoint(m_mainLayout->getChildById(5));
+					break;
+				}
+			}
+			//当前宠物
+			auto pet = PetManager::petMgr()->getPetById(m_colorPets[color][m_curColorPetIndex]);
+			if (pet->canUpgrade())
+			{
+				addRedPoint(m_mainLayout->getChildById(8));
+			}
+		}
+		else //其他颜色的宠物
+		{
+			int btnIds[5] = { 5, 4, 3, 2, 6 };
+			for (int i = 0; i < size; ++i)
+			{
+				auto pet = PetManager::petMgr()->getPetById(m_colorPets[color][i]);
+				if (pet->canUpgrade())
+				{
+					addRedPoint(m_bottomLayout->getChildById(btnIds[color - 1]));
+					break;
+				}
+			}
+		}
+	}
 }
