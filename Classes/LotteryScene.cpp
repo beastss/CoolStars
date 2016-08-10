@@ -203,6 +203,10 @@ void LotteryScene::initLayout()
 	CCLabelAtlas *costDiamond = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(19));
 	costDiamond->setString(CommonUtil::intToStr(cost));
 
+	bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
+	m_layout->getChildById(20)->setZOrder(2);
+	m_layout->getChildById(20)->setVisible(hasPetToUpgrade);
+
 	onKeyChanged();
 }
 

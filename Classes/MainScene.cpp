@@ -96,7 +96,7 @@ void MainScene::backPanel()
 	if (!m_panelRecord.empty())
 	{
 		auto record = m_panelRecord.back();
-		showPanel(record.panelId);
+		showPanel(record.panelId, record.usage);
 	}
 }
 

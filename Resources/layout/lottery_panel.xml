@@ -140,5 +140,14 @@
 		<num>15</num>
 		<path>num/ty_ziti14.png</path>
 	</imageNum>
+	<image>
+		<id>20</id>
+		<x>104.06</x>
+		<y>673.83</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>pet/tips.png</path>
+	</image>
 </layout>
 

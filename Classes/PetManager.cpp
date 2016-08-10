@@ -145,3 +145,17 @@ void PetManager::removeView(IPetView *view)
 		m_views.erase(iter);
 	}
 }
+
+bool PetManager::hasPetToUpgrade()
+{
+	auto ids = getOwnedPetIds();
+	for (size_t i = 0; i < ids.size(); ++i)
+	{
+		auto pet = getPetById(ids[i]);
+		if (pet && pet->canUpgrade())
+		{
+			return true;
+		}
+	}
+	return false;
+}

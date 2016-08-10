@@ -32,6 +32,7 @@ private:
 	void toShopPanel(cocos2d::CCObject* pSender);
 private:
 	void justShowNormalGameBtn();
+	void refreshPetTips();
 	virtual void onEnter();
 	virtual void onExit();
 	virtual void onBackKeyTouched();

@@ -56,7 +56,7 @@ bool MenuScene::init()
 
 	initMainLayout();
 	initBottomLayout();
-
+	refreshPetTips();
 	GuideMgr::theMgr()->startGuide(kGuideStart_mainMenu_in, bind(&MenuScene::justShowNormalGameBtn, this));
 
 	return true;
@@ -213,6 +213,14 @@ void MenuScene::justShowNormalGameBtn()
 	m_mainLayout->getChildById(7)->setVisible(false);
 	m_mainLayout->getChildById(8)->setVisible(false);
 	m_mainLayout->getChildById(9)->setVisible(false);
+}
+
+void MenuScene::refreshPetTips()
+{
+	bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
+	m_mainLayout->getChildById(10)->setVisible(hasPetToUpgrade);
+	m_mainLayout->getChildById(10)->setZOrder(2);
+
 }
 
 void MenuScene::onBackKeyTouched()
