@@ -3,6 +3,9 @@
 #include "UiLayout.h"
 #include "EmptyBox.h"
 #include "SoundMgr.h"
+#include "MainScene.h"
+#include "LotteryScene.h"
+#include "PetScene.h"
 USING_NS_CC;
 using namespace std;
 
@@ -124,4 +127,57 @@ bool ChangeStarColorPanel::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 	}
 	removeFromParent();
 	return true;
+}
+
+/////////////////////////////////////////////////////////////
+bool FailHitDialog::init()
+{
+	auto layout = UiLayout::create("layout/fail_hint.xml");
+	setContentSize(layout->getContentSize());
+	addChild(layout);
+
+	addMaskLayer();
+	CCMenuItem *closeBtn = dynamic_cast<CCMenuItem *>((layout->getChildById(4)));
+	closeBtn->setTarget(this, menu_selector(FailHitDialog::onCloseBtnClicked));
+	return true;
+}
+
+void FailHitDialog::onCloseBtnClicked(cocos2d::CCObject* pSender)
+{
+	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+	if (m_handle)
+	{
+		m_handle();
+	}
+	removeFromParent();
+
+}
+
+/////////////////////////////////////////////////////////////
+bool FailToUpgradePetDialog::init()
+{
+	auto layout = UiLayout::create("layout/fail_to_upgrade_pet.xml");
+	setContentSize(layout->getContentSize());
+	addChild(layout);
+
+	addMaskLayer();
+	CCMenuItem *cancelBtn = dynamic_cast<CCMenuItem *>((layout->getChildById(4)));
+	cancelBtn->setTarget(this, menu_selector(FailToUpgradePetDialog::onCancel));
+	CCMenuItem *toPetSceneBtn = dynamic_cast<CCMenuItem *>((layout->getChildById(5)));
+	toPetSceneBtn->setTarget(this, menu_selector(FailToUpgradePetDialog::onToPetScene));
+	return true;
+}
+
+void FailToUpgradePetDialog::onCancel(cocos2d::CCObject* pSender)
+{
+	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+	MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+	removeFromParent();
+}
+
+void FailToUpgradePetDialog::onToPetScene(cocos2d::CCObject* pSender)
+{
+	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromStageScene);
+	removeFromParent();
 }

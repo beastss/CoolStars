@@ -185,6 +185,7 @@ void StarsController::gameOver(bool isWon)
 {
 	GuideMgr::theMgr()->pauseGuide(false);
 	GameBackEndState::theModel()->recordStageEnd(isWon);
+	StageDataMgr::theMgr()->recordFailState(isWon);
 
 	int value = UserInfo::theInfo()->getRuneStone();
 	UserInfo::theInfo()->setRuneStone(value + 1);

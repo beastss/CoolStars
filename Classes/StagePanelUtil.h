@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "TouchNode.h"
 #include <functional>
+#include "ScaleDialog.h"
 
 class UiLayout;
 class StagePetSkillPanel: public TouchNode
@@ -17,7 +18,7 @@ public:
 private:
 	UiLayout *m_layout;
 };
-
+/////////////////////////////////////////////
 class ChangeStarColorPanel:public TouchNode
 {
 public:
@@ -35,4 +36,27 @@ private:
 
 };
 
+/////////////////////////////////////////////
+class FailHitDialog : public ScaleDialog
+{
+public:
+	CREATE_FUNC(FailHitDialog);
+	void setHandle(std::function<void()>handle){ m_handle = handle; }
+private:
+	virtual bool init();
+	void onCloseBtnClicked(cocos2d::CCObject* pSender);
+private:
+	std::function<void()> m_handle;
+};
+//////////////////////////////////////////////
+class FailToUpgradePetDialog : public ScaleDialog
+{
+public:
+	CREATE_FUNC(FailToUpgradePetDialog);
+private:
+	virtual bool init();
+	void onCancel(cocos2d::CCObject* pSender);
+	void onToPetScene(cocos2d::CCObject* pSender);
+private:
+};
 #endif

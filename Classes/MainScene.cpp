@@ -20,6 +20,8 @@
 #include "KeyPadWatcher.h"
 #include "PackageDialog.h"
 #include "PackageModel.h"
+#include "ViewUtil.h"
+#include "AnnouncementLayer.h"
 
 USING_NS_CC;
 using namespace std;
@@ -36,10 +38,12 @@ bool MainScene::init()
 	m_uiLayer = CCNode::create();
 	m_dialogLayer = CCNode::create();
 	m_guideLayer = CCNode::create();
+	m_announcementLayer = AnnouncementLayer::create();
 	addChild(m_bkLayer);
 	addChild(m_uiLayer);
 	addChild(m_dialogLayer);
 	addChild(m_guideLayer);
+	addChild(m_announcementLayer);
 
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	setContentSize(winSize);
@@ -99,6 +103,10 @@ void MainScene::backPanel()
 		auto record = m_panelRecord.back();
 		showPanel(record.panelId, record.usage);
 	}
+	else
+	{
+		MainScene::theScene()->showPanel(kMainMenu);
+	}
 }
 
 void MainScene::recordPanel(int panelId, int usage)
@@ -127,7 +135,7 @@ void MainScene::showPanel(int panelId, int usage, bool closeBehind)
 		panel = MenuScene::create();
 		break;
 	case kPetPanel:
-		panel = PetScene::create();
+		panel = PetScene::create(usage);
 		break;
 	case kShopPanel:
 		panel = ShopScene::create();
@@ -157,7 +165,6 @@ void MainScene::showPanel(int panelId, int usage, bool closeBehind)
 		assert(false && "no this panelId");
 		break;
 	}
-
 	addUiPanel(panel, closeBehind);
 }
 
@@ -227,4 +234,14 @@ void MainScene::handleKeyBackTouch()
 	{
 		m_curPanel->onBackKeyTouched();
 	}
+}
+
+void MainScene::showTips(const char *str)
+{
+	m_announcementLayer->showTips(str);
+}
+
+void MainScene::addAnnouncement(const char *picPath)
+{
+	m_announcementLayer->addAnnouncement(picPath);
 }

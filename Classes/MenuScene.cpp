@@ -67,8 +67,8 @@ void MenuScene::initMainLayout()
 	CCMenuItem * normalBtn= dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(6)));
 	normalBtn->setTarget(this, menu_selector(MenuScene::toNormalGame));
 
-	CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
-	treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
+	//CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
+	//treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
 
 	CCMenuItem *drawLotteryBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(8)));
 	drawLotteryBtn->setTarget(this, menu_selector(MenuScene::drawLottery));
@@ -120,15 +120,13 @@ void MenuScene::initBottomLayout()
 void MenuScene::toNormalGame(CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	StarsController::theModel()->resetStage(kNormalType);
 	MainScene::theScene()->showPanel(kPreStagePanel);
 }
 
 void MenuScene::toTreasureGame(CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	StarsController::theModel()->resetStage(kTreasureType);
-	MainScene::theScene()->showPanel(kPreStagePanel);;
+	MainScene::theScene()->showPanel(kPreStagePanel, kTreasureType);
 }
 
 void MenuScene::drawLottery(cocos2d::CCObject* pSender)
@@ -140,7 +138,7 @@ void MenuScene::drawLottery(cocos2d::CCObject* pSender)
 void MenuScene::toPetPanel(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->showPanel(kPetPanel);
+	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromMenuScene);
 }
 
 void MenuScene::toSetting(cocos2d::CCObject* pSender)
@@ -209,8 +207,8 @@ void MenuScene::toShopPanel(cocos2d::CCObject* pSender)
 void MenuScene::justShowNormalGameBtn()
 {
 	m_bottomLayout->setVisible(false);
-	m_mainLayout->getChildById(6)->setPosition(m_mainLayout->getChildById(7)->getPosition());
-	m_mainLayout->getChildById(7)->setVisible(false);
+	//m_mainLayout->getChildById(6)->setPosition(m_mainLayout->getChildById(7)->getPosition());
+	//m_mainLayout->getChildById(7)->setVisible(false);
 	m_mainLayout->getChildById(8)->setVisible(false);
 	m_mainLayout->getChildById(9)->setVisible(false);
 }

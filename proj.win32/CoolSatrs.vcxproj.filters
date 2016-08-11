@@ -363,6 +363,15 @@
     <ClCompile Include="..\Classes\GameDataAnalysis.cpp">
       <Filter>GameModel</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ViewUtil.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnnouncementLayer.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FailStateRecord.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -691,6 +700,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameDataAnalysis.h">
       <Filter>GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ViewUtil.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnnouncementLayer.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FailStateRecord.h">
+      <Filter>GameStage\StageModel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

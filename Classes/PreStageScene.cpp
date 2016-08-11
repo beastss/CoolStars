@@ -27,6 +27,7 @@ using namespace CommonUtil;
 bool PreStageScene::init()
 {
 	PreStageModel::theModel()->init();
+	StarsController::theModel()->resetStage(m_usage);
 
 	setPanelId(kPreStagePanel);
 

@@ -90,11 +90,28 @@ bool StageUiLayer::init()
 	initTopUi();
 	initPets();
 	initBottomUi();
-	showTargetPanel();
-
+	initGameStart();
 	m_noTouchLayer = NoTouchLayer::create();
 	addChild(m_noTouchLayer);
+
+	m_clock.setTickHandle(bind(&StageUiLayer::onTick, this, placeholders::_1));
     return true;
+}
+
+
+void StageUiLayer::initGameStart()
+{
+	if (StageDataMgr::theMgr()->isFirstFail())
+	{
+		//如果上次是第一次失败，弹出提示框
+		auto dialog = FailHitDialog::create();
+		dialog->setHandle(bind(&StageUiLayer::showTargetPanel, this));
+		MainScene::theScene()->showDialog(dialog);
+	}
+	else
+	{
+		showTargetPanel();
+	}
 }
 
 void StageUiLayer::initTopUi()
@@ -165,6 +182,33 @@ void StageUiLayer::initBottomUi()
 	}
 
 	m_bottomUi->getChildById(15)->setVisible(false);
+}
+
+void StageUiLayer::onTick(float dt)
+{
+	const int beginSec = 2;
+	int curSec = m_clock.getSecs();
+	if (curSec > beginSec)
+	{
+		int index = (curSec - beginSec - 1) % 3;
+
+		auto scaleLarge = CCScaleTo::create(0.2f, 1.2f);
+		auto scaleSmall = CCScaleTo::create(0.4f, 0.9f);
+		auto scaleNormal = CCScaleTo::create(0.2f, 1.0f);
+		auto scale = CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL);
+		m_bottomUi->getChildById(12 + index)->runAction(scale);
+	}
+	
+}
+
+void StageUiLayer::onOneRoundBegan()
+{
+	m_clock.reset();
+}
+
+void StageUiLayer::onOneRoundEnd()
+{
+
 }
 
 void StageUiLayer::showTargetPanel()

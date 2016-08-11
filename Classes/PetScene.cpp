@@ -17,12 +17,26 @@
 #include "MyPurchase.h"
 #include <algorithm>
 #include "GameDataAnalysis.h"
+#include "LotteryScene.h"
 
 USING_NS_CC;
 using namespace std;
 
 const float PetScene::kBtnSelectedScale = 1.3f;
 int PetScene::s_curPetColor = kColorRandom;
+
+PetScene *PetScene::create(int usage)
+{
+	PetScene *scene = new PetScene(usage);
+	scene->init();
+	scene->autorelease();
+	return scene;
+}
+
+PetScene::PetScene(int usage)
+{
+	setUsage(usage);
+}
 
 void PetScene::onEnter()
 {
@@ -254,7 +268,21 @@ void PetScene::onYellowPetBtnClicked(cocos2d::CCObject* pSender)
 void PetScene::onBackBtnClicked(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->backPanel();
+
+	switch (m_usage)
+	{
+	case kPetSceneFromMenuScene:
+		MainScene::theScene()->showPanel(kMainMenu);
+		break;
+	case kPetSceneFromLotteryScene:
+		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+		break;
+	case kPetSceneFromStageScene:
+		MainScene::theScene()->showPanel(kPreStagePanel);
+		break;
+	default:
+		break;
+	}
 }
 
 void PetScene::initColorPets()
@@ -382,15 +410,11 @@ void PetScene::refreshPetCost()
 			 
 			 auto buyBtn = m_mainLayout->getChildById(8);
 			 buyBtn->stopAllActions();
-			 //饲料足够时 播放动画
-			 if (isFoodEnough)
-			 {
-				 auto scaleLarge = CCScaleTo::create(0.5f, 1.06f);
-				 auto scaleSmall = CCScaleTo::create(0.6f, 0.93f);
-				 auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
-				 auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
-				 buyBtn->runAction(scale);
-			 }
+			 auto scaleLarge = CCScaleTo::create(0.5f, 1.06f);
+			 auto scaleSmall = CCScaleTo::create(0.6f, 0.93f);
+			 auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
+			 auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
+			 buyBtn->runAction(scale);
 		 }
 		 break;
 	}
@@ -425,7 +449,20 @@ void PetScene::onNewPetAdd()
 
 void PetScene::onBackKeyTouched()
 {
-	MainScene::theScene()->backPanel();
+	switch (m_usage)
+	{
+	case kPetSceneFromMenuScene:
+		MainScene::theScene()->showPanel(kMainMenu);
+		break;
+	case kPetSceneFromLotteryScene:
+		MainScene::theScene()->showPanel(kLotteryPanel);
+		break;
+	case kPetSceneFromStageScene:
+		MainScene::theScene()->showPanel(kPreStagePanel);
+		break;
+	default:
+		break;
+	}
 }
 
 int PetScene::parsePetType(int petId)

@@ -15,7 +15,7 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>stage/ui/yxjm_shouji.png</path>
+		<path>stage/ui/game_picture_5.png</path>
 	</image>
 	<image>
 		<id>3</id>
@@ -24,7 +24,7 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>stage/ui/yxjm_shouji.png</path>
+		<path>stage/ui/game_picture_5.png</path>
 	</image>
 	<image>
 		<id>4</id>
@@ -33,7 +33,7 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>stage/ui/yxjm_shouji.png</path>
+		<path>stage/ui/game_picture_5.png</path>
 	</image>
 	<emptyBox>
 		<id>5</id>

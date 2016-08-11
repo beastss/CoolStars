@@ -133,6 +133,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
   <ItemGroup>
     <ClCompile Include="..\Classes\Action.cpp" />
     <ClCompile Include="..\Classes\ActionRunner.cpp" />
+    <ClCompile Include="..\Classes\AnnouncementLayer.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\BasePanel.cpp" />
@@ -142,6 +143,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\DataCheck.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\EmptyBox.cpp" />
+    <ClCompile Include="..\Classes\FailStateRecord.cpp" />
     <ClCompile Include="..\Classes\GameBackEndState.cpp" />
     <ClCompile Include="..\Classes\GameClock.cpp" />
     <ClCompile Include="..\Classes\GameData.cpp" />
@@ -228,12 +230,14 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\TouchNode.cpp" />
     <ClCompile Include="..\Classes\UiLayout.cpp" />
     <ClCompile Include="..\Classes\UserInfo.cpp" />
+    <ClCompile Include="..\Classes\ViewUtil.cpp" />
     <ClCompile Include="..\Classes\VisibleRect.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Action.h" />
     <ClInclude Include="..\Classes\ActionRunner.h" />
+    <ClInclude Include="..\Classes\AnnouncementLayer.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\AppMacros.h" />
     <ClInclude Include="..\Classes\BackgroundLayer.h" />
@@ -247,6 +251,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\DataConfig.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
     <ClInclude Include="..\Classes\EmptyBox.h" />
+    <ClInclude Include="..\Classes\FailStateRecord.h" />
     <ClInclude Include="..\Classes\GameBackEndState.h" />
     <ClInclude Include="..\Classes\GameClock.h" />
     <ClInclude Include="..\Classes\GameData.h" />
@@ -339,6 +344,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\TouchNode.h" />
     <ClInclude Include="..\Classes\UiLayout.h" />
     <ClInclude Include="..\Classes\UserInfo.h" />
+    <ClInclude Include="..\Classes\ViewUtil.h" />
     <ClInclude Include="..\Classes\VisibleRect.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

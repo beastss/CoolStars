@@ -7,15 +7,22 @@
 #include "PetManager.h"
 class UiLayout;
 
+enum PetSceneUsage
+{
+	kPetSceneFromMenuScene,
+	kPetSceneFromLotteryScene,
+	kPetSceneFromStageScene,
+};
+
 class PetScene 
 	: public BasePanel
 	, public IPetView
 {
 public:
-	CREATE_FUNC(PetScene);
+	static PetScene *create(int usage);
 	virtual bool init();
 private:
-	PetScene(){}
+	PetScene(int usage);
 	~PetScene(){}
 	virtual void onEnter();
 	virtual void onExit();

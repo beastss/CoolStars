@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "DataConfig.h"
 #include "CommonMacros.h"
+#include "FailStateRecord.h"
 
 struct IStageDataView
 {
@@ -57,6 +58,9 @@ public:
 	const GameResultReward &getResultBonus(){ return m_resultBouns; }
 	void setResultBonus(const GameResultReward &reward){ m_resultBouns = reward; }
 	void resetResultBonus();
+
+	bool isFirstFail(){ return m_failRecord.isFirstFail(); }
+	void recordFailState(bool isWon){ m_failRecord.recordFailState(isWon); }
 public:
 
 	void addView(IStageDataView *view);
@@ -72,5 +76,6 @@ private:
 	int m_topScore;
 	float m_curScoreBonus;
 	GameResultReward m_resultBouns;//记录步数转化为的奖励
+	FailStateRecord m_failRecord;
 };
 #endif
