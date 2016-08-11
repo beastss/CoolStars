@@ -31,6 +31,7 @@
 #include "NoTouchLayer.h"
 #include "StageBonusView.h"
 #include "PackageDialog.h"
+#include "GameBackEndState.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -321,16 +322,26 @@ void StageUiLayer::onShowGameResult(int isWon)
 	CCNode *node = NULL;
 	if (isWon)
 	{
-		auto dialog = PackageDialog::create(kPackageProps);
-		dialog->setConfirmHandle([=]()
+		bool isBusinessMode = GameBackEndState::theModel()->isBusinessMode();
+		if (isBusinessMode)
 		{
-			MainScene::theScene()->showPanel(kStageWinPanel);
-		});
-		dialog->setCancelHandle([=]()
+			//如果是商用 ，弹出道具礼包
+			auto dialog = PackageDialog::create(kPackageProps);
+			dialog->setConfirmHandle([=]()
+			{
+				MainScene::theScene()->showPanel(kStageWinPanel);
+			});
+			dialog->setCancelHandle([=]()
+			{
+				MainScene::theScene()->showPanel(kStageWinPanel);
+			});
+			MainScene::theScene()->showDialog(dialog);
+		}
+		else
 		{
+			//非商用，直接到结算界面
 			MainScene::theScene()->showPanel(kStageWinPanel);
-		});
-		MainScene::theScene()->showDialog(dialog);
+		}
 	}
 	else
 	{
