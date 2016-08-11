@@ -99,10 +99,10 @@ void PreStageScene::initBottomLayout()
 	CCMenuItem *startGameBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(1)));
 	startGameBtn->setTarget(this, menu_selector(PreStageScene::toStartGame));
 
-	auto scaleLarge = CCScaleTo::create(0.5f, 1.2f);
 	auto scaleSmall = CCScaleTo::create(0.6f, 0.8f);
 	auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
-	auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
+
+	auto scale = CCRepeatForever::create(CCSequence::create(scaleSmall, scaleNormal, NULL));
 	startGameBtn->runAction(scale);
 }
 
