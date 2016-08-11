@@ -15,7 +15,7 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>guide/xszt_zi2.png</path>
+		<path>stage/dialog/use_props.png</path>
 	</image>
 	<animation>
 		<id>6</id>
@@ -29,14 +29,14 @@
 	</animation>
 	<button>
 		<id>4</id>
-		<x>141.82</x>
+		<x>143.93</x>
 		<y>66.90</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<normal>package/cancel_check.png</normal>
-		<selected>package/cancel_check.png</selected>
-		<disabled>package/cancel_check.png</disabled>
+		<scale>0.70</scale>
+		<normal>stage/game_win/sljm_annniu.png</normal>
+		<selected>stage/game_win/sljm_annniu.png</selected>
+		<disabled>stage/game_win/sljm_annniu.png</disabled>
 	</button>
 </layout>
 
