@@ -143,6 +143,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\DataCheck.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\EmptyBox.cpp" />
+    <ClCompile Include="..\Classes\FailStateRecord.cpp" />
     <ClCompile Include="..\Classes\GameBackEndState.cpp" />
     <ClCompile Include="..\Classes\GameClock.cpp" />
     <ClCompile Include="..\Classes\GameData.cpp" />
@@ -250,6 +251,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\DataConfig.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
     <ClInclude Include="..\Classes\EmptyBox.h" />
+    <ClInclude Include="..\Classes\FailStateRecord.h" />
     <ClInclude Include="..\Classes\GameBackEndState.h" />
     <ClInclude Include="..\Classes\GameClock.h" />
     <ClInclude Include="..\Classes\GameData.h" />

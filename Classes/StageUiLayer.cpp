@@ -90,11 +90,26 @@ bool StageUiLayer::init()
 	initTopUi();
 	initPets();
 	initBottomUi();
-	showTargetPanel();
-
+	initGameStart();
 	m_noTouchLayer = NoTouchLayer::create();
 	addChild(m_noTouchLayer);
     return true;
+}
+
+
+void StageUiLayer::initGameStart()
+{
+	if (StageDataMgr::theMgr()->isFirstFail())
+	{
+		//如果上次是第一次失败，弹出提示框
+		auto dialog = FailHitDialog::create();
+		dialog->setHandle(bind(&StageUiLayer::showTargetPanel, this));
+		MainScene::theScene()->showDialog(dialog);
+	}
+	else
+	{
+		showTargetPanel();
+	}
 }
 
 void StageUiLayer::initTopUi()

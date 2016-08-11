@@ -56,6 +56,7 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
+	void initGameStart();
 	void handlePetClicked(int petId);
 	void handlePropsItemClicked(int type);
 	void showGameOverHint();
@@ -67,6 +68,7 @@ private:
 	void playExplosionAction(cocos2d::CCPoint pos);
 	void removeExplosionAnimation(cocos2d::extension::CCArmature *, cocos2d::extension::MovementEventType, const char *);
 	const cocos2d::CCPoint &getStarPos(const LogicGrid &grid);
+
 private:
 
 private:

@@ -125,3 +125,26 @@ bool ChangeStarColorPanel::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 	removeFromParent();
 	return true;
 }
+
+/////////////////////////////////////////////////////////////
+bool FailHitDialog::init()
+{
+	auto layout = UiLayout::create("layout/fail_hint.xml");
+	setContentSize(layout->getContentSize());
+	addChild(layout);
+
+	addMaskLayer();
+	CCMenuItem *toMuteBtn = dynamic_cast<CCMenuItem *>((layout->getChildById(4)));
+	toMuteBtn->setTarget(this, menu_selector(FailHitDialog::onCloseBtnClicked));
+	return true;
+}
+
+void FailHitDialog::onCloseBtnClicked(cocos2d::CCObject* pSender)
+{
+	if (m_handle)
+	{
+		m_handle();
+	}
+	removeFromParent();
+
+}
