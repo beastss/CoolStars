@@ -48,4 +48,15 @@ private:
 private:
 	std::function<void()> m_handle;
 };
+//////////////////////////////////////////////
+class FailToUpgradePetDialog : public ScaleDialog
+{
+public:
+	CREATE_FUNC(FailToUpgradePetDialog);
+private:
+	virtual bool init();
+	void onCancel(cocos2d::CCObject* pSender);
+	void onToPetScene(cocos2d::CCObject* pSender);
+private:
+};
 #endif

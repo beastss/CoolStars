@@ -19,25 +19,14 @@
 	</image>
 	<button>
 		<id>6</id>
-		<x>248.10</x>
-		<y>442.11</y>
+		<x>245.99</x>
+		<y>386.18</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
 		<normal>main_menu/zcd_anniu1.png</normal>
 		<selected>main_menu/zcd_anniu1.png</selected>
 		<disabled>main_menu/zcd_anniu1.png</disabled>
-	</button>
-	<button>
-		<id>7</id>
-		<x>247.89</x>
-		<y>318.43</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<normal>main_menu/zcd_anniu2.png</normal>
-		<selected>main_menu/zcd_anniu2.png</selected>
-		<disabled>main_menu/zcd_anniu2.png</disabled>
 	</button>
 	<button>
 		<id>8</id>

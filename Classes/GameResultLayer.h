@@ -14,7 +14,7 @@ public:
 	bool init(std::string xmlFile);
 protected:
 	virtual void addGameResultReward(){}
-
+	virtual void onConfirm(){}
 private:
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	void initLayout();
@@ -40,7 +40,8 @@ public:
 	bool init();
 private:
 	void initPanel();
-	void addGameResultReward();
+	virtual void addGameResultReward();
+	virtual void onConfirm();
 private:
 };
 
@@ -53,7 +54,8 @@ public:
 private:
 	void initPanel();
 	void onBuyPetBtnClicked(CCObject *pSender);
-	void addGameResultReward();
+	virtual void addGameResultReward();
+	virtual void onConfirm();
 private:
 
 };

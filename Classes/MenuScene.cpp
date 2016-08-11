@@ -67,8 +67,8 @@ void MenuScene::initMainLayout()
 	CCMenuItem * normalBtn= dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(6)));
 	normalBtn->setTarget(this, menu_selector(MenuScene::toNormalGame));
 
-	CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
-	treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
+	//CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
+	//treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
 
 	CCMenuItem *drawLotteryBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(8)));
 	drawLotteryBtn->setTarget(this, menu_selector(MenuScene::drawLottery));
@@ -209,8 +209,8 @@ void MenuScene::toShopPanel(cocos2d::CCObject* pSender)
 void MenuScene::justShowNormalGameBtn()
 {
 	m_bottomLayout->setVisible(false);
-	m_mainLayout->getChildById(6)->setPosition(m_mainLayout->getChildById(7)->getPosition());
-	m_mainLayout->getChildById(7)->setVisible(false);
+	//m_mainLayout->getChildById(6)->setPosition(m_mainLayout->getChildById(7)->getPosition());
+	//m_mainLayout->getChildById(7)->setVisible(false);
 	m_mainLayout->getChildById(8)->setVisible(false);
 	m_mainLayout->getChildById(9)->setVisible(false);
 }

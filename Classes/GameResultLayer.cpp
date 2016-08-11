@@ -13,6 +13,7 @@
 #include "CCFunctionAction.h"
 #include "LotteryScene.h"
 #include "SoundMgr.h"
+#include "StagePanelUtil.h"
 using namespace std;
 USING_NS_CC;
 
@@ -102,7 +103,7 @@ void GameResultLayer::initRewardData()
 void GameResultLayer::onConfirmBtnClicked(CCObject *pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+	onConfirm();
 }
 
 bool GameResultLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
@@ -243,6 +244,11 @@ void GameWinLayer::addGameResultReward()
 	m_reward.diamond += rewards[1];
 	m_reward.key += rewards[2];
 }
+
+void GameWinLayer::onConfirm()
+{
+	MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+}
 ///////////////////////////////////////////////////////////////////////////
 
 bool GameFailLayer::init()
@@ -277,6 +283,13 @@ void GameFailLayer::addGameResultReward()
 	m_reward.food += rewards[0];
 	m_reward.diamond += rewards[1];
 	m_reward.key += rewards[2];
+}
+
+void GameFailLayer::onConfirm()
+{
+	auto dialog = FailToUpgradePetDialog::create();
+	MainScene::theScene()->showDialog(dialog);
+
 }
 
 void GameFailLayer::onBuyPetBtnClicked(CCObject *pSender)
