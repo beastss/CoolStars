@@ -19,6 +19,8 @@
 #include "RankingPanelUtil.h"
 #include "KeyPadWatcher.h"
 #include "PackageDialog.h"
+#include "ViewUtil.h"
+#include "AnnouncementLayer.h"
 
 USING_NS_CC;
 using namespace std;
@@ -35,10 +37,12 @@ bool MainScene::init()
 	m_uiLayer = CCNode::create();
 	m_dialogLayer = CCNode::create();
 	m_guideLayer = CCNode::create();
+	m_announcementLayer = AnnouncementLayer::create();
 	addChild(m_bkLayer);
 	addChild(m_uiLayer);
 	addChild(m_dialogLayer);
 	addChild(m_guideLayer);
+	addChild(m_announcementLayer);
 
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	setContentSize(winSize);
@@ -224,4 +228,14 @@ void MainScene::handleKeyBackTouch()
 	{
 		m_curPanel->onBackKeyTouched();
 	}
+}
+
+void MainScene::showTips(const char *str)
+{
+	m_announcementLayer->showTips(str);
+}
+
+void MainScene::addAnnouncement(const char *picPath)
+{
+	m_announcementLayer->addAnnouncement(picPath);
 }

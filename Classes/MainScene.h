@@ -5,6 +5,7 @@
 
 class BasePanel;
 class ScaleDialog;
+class AnnouncementLayer;
 struct PanelRecord
 {
 	int panelId;
@@ -26,6 +27,8 @@ public:
 	void backPanel();
 	void clearPanelRecord(){ m_panelRecord.clear(); }
 	void handleKeyBackTouch();
+	void showTips(const char *str);
+	void addAnnouncement(const char *picPath);
 private:
 	MainScene();
 	~MainScene(){}
@@ -45,6 +48,7 @@ private:
 	cocos2d::CCNode *m_uiLayer;
 	cocos2d::CCNode *m_dialogLayer;
 	cocos2d::CCNode *m_guideLayer;
+	AnnouncementLayer *m_announcementLayer;
 
 	BasePanel *m_curPanel;//ÓÃ²»Îª¿Õ
 };
