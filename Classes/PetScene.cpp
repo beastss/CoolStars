@@ -278,7 +278,7 @@ void PetScene::onBackBtnClicked(cocos2d::CCObject* pSender)
 		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
 		break;
 	case kPetSceneFromStageScene:
-		MainScene::theScene()->showPanel(kPreStagePanel);
+		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
 		break;
 	default:
 		break;

@@ -287,8 +287,16 @@ void GameFailLayer::addGameResultReward()
 
 void GameFailLayer::onConfirm()
 {
-	auto dialog = FailToUpgradePetDialog::create();
-	MainScene::theScene()->showDialog(dialog);
+	bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
+	if (hasPetToUpgrade)
+	{
+		auto dialog = FailToUpgradePetDialog::create();
+		MainScene::theScene()->showDialog(dialog);
+	}
+	else
+	{
+		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+	}
 
 }
 
