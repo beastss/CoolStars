@@ -120,15 +120,13 @@ void MenuScene::initBottomLayout()
 void MenuScene::toNormalGame(CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	StarsController::theModel()->resetStage(kNormalType);
 	MainScene::theScene()->showPanel(kPreStagePanel);
 }
 
 void MenuScene::toTreasureGame(CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	StarsController::theModel()->resetStage(kTreasureType);
-	MainScene::theScene()->showPanel(kPreStagePanel);;
+	MainScene::theScene()->showPanel(kPreStagePanel, kTreasureType);
 }
 
 void MenuScene::drawLottery(cocos2d::CCObject* pSender)
@@ -140,7 +138,7 @@ void MenuScene::drawLottery(cocos2d::CCObject* pSender)
 void MenuScene::toPetPanel(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->showPanel(kPetPanel);
+	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromMenuScene);
 }
 
 void MenuScene::toSetting(cocos2d::CCObject* pSender)

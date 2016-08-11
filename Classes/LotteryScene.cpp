@@ -18,6 +18,7 @@
 #include "PackageDialog.h"
 #include "PackageModel.h"
 #include "MyPurchase.h"
+#include "PetScene.h"
 
 USING_NS_CC;
 using namespace std;
@@ -251,13 +252,12 @@ void LotteryScene::toPetScene(CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	GuideMgr::theMgr()->endGuide(kGuideEnd_lottery_click_pet_btn);
-	MainScene::theScene()->showPanel(kPetPanel);
+	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromLotteryScene);
 }
 
 void LotteryScene::onStartBtnClicked(CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	StarsController::theModel()->resetStage(kNormalType);
 	MainScene::theScene()->showPanel(kPreStagePanel);
 }
 

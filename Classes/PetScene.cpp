@@ -17,12 +17,26 @@
 #include "MyPurchase.h"
 #include <algorithm>
 #include "GameDataAnalysis.h"
+#include "LotteryScene.h"
 
 USING_NS_CC;
 using namespace std;
 
 const float PetScene::kBtnSelectedScale = 1.3f;
 int PetScene::s_curPetColor = kColorRandom;
+
+PetScene *PetScene::create(int usage)
+{
+	PetScene *scene = new PetScene(usage);
+	scene->init();
+	scene->autorelease();
+	return scene;
+}
+
+PetScene::PetScene(int usage)
+{
+	setUsage(usage);
+}
 
 void PetScene::onEnter()
 {
@@ -254,7 +268,21 @@ void PetScene::onYellowPetBtnClicked(cocos2d::CCObject* pSender)
 void PetScene::onBackBtnClicked(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->backPanel();
+
+	switch (m_usage)
+	{
+	case kPetSceneFromMenuScene:
+		MainScene::theScene()->showPanel(kMainMenu);
+		break;
+	case kPetSceneFromLotteryScene:
+		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+		break;
+	case kPetSceneFromStageScene:
+		MainScene::theScene()->showPanel(kPreStagePanel);
+		break;
+	default:
+		break;
+	}
 }
 
 void PetScene::initColorPets()
@@ -421,7 +449,20 @@ void PetScene::onNewPetAdd()
 
 void PetScene::onBackKeyTouched()
 {
-	MainScene::theScene()->backPanel();
+	switch (m_usage)
+	{
+	case kPetSceneFromMenuScene:
+		MainScene::theScene()->showPanel(kMainMenu);
+		break;
+	case kPetSceneFromLotteryScene:
+		MainScene::theScene()->showPanel(kLotteryPanel);
+		break;
+	case kPetSceneFromStageScene:
+		MainScene::theScene()->showPanel(kPreStagePanel);
+		break;
+	default:
+		break;
+	}
 }
 
 int PetScene::parsePetType(int petId)

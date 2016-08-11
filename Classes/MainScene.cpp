@@ -102,6 +102,10 @@ void MainScene::backPanel()
 		auto record = m_panelRecord.back();
 		showPanel(record.panelId, record.usage);
 	}
+	else
+	{
+		MainScene::theScene()->showPanel(kMainMenu);
+	}
 }
 
 void MainScene::recordPanel(int panelId, int usage)
@@ -130,7 +134,7 @@ void MainScene::showPanel(int panelId, int usage, bool closeBehind)
 		panel = MenuScene::create();
 		break;
 	case kPetPanel:
-		panel = PetScene::create();
+		panel = PetScene::create(usage);
 		break;
 	case kShopPanel:
 		panel = ShopScene::create();
@@ -160,7 +164,6 @@ void MainScene::showPanel(int panelId, int usage, bool closeBehind)
 		assert(false && "no this panelId");
 		break;
 	}
-
 	addUiPanel(panel, closeBehind);
 }
 

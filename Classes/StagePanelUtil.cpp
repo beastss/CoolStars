@@ -5,6 +5,7 @@
 #include "SoundMgr.h"
 #include "MainScene.h"
 #include "LotteryScene.h"
+#include "PetScene.h"
 USING_NS_CC;
 using namespace std;
 
@@ -177,6 +178,6 @@ void FailToUpgradePetDialog::onCancel(cocos2d::CCObject* pSender)
 void FailToUpgradePetDialog::onToPetScene(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->showPanel(kPetPanel);
+	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromStageScene);
 	removeFromParent();
 }
