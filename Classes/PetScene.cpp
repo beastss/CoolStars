@@ -382,15 +382,11 @@ void PetScene::refreshPetCost()
 			 
 			 auto buyBtn = m_mainLayout->getChildById(8);
 			 buyBtn->stopAllActions();
-			 //饲料足够时 播放动画
-			 if (isFoodEnough)
-			 {
-				 auto scaleLarge = CCScaleTo::create(0.5f, 1.06f);
-				 auto scaleSmall = CCScaleTo::create(0.6f, 0.93f);
-				 auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
-				 auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
-				 buyBtn->runAction(scale);
-			 }
+			 auto scaleLarge = CCScaleTo::create(0.5f, 1.06f);
+			 auto scaleSmall = CCScaleTo::create(0.6f, 0.93f);
+			 auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
+			 auto scale = CCRepeatForever::create(CCSequence::create(scaleLarge, scaleSmall, scaleNormal, NULL));
+			 buyBtn->runAction(scale);
 		 }
 		 break;
 	}

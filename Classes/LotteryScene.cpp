@@ -228,6 +228,10 @@ void LotteryScene::refreshUi()
 		m_layout->getChildById(16)->setVisible(isShowUp);
 		startGameBtn->setVisible(isShowUp);
 		m_titlePanel->setUiVisible(kTitlePanelBackHome, isShowUp);
+
+		bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
+		m_layout->getChildById(20)->setVisible(hasPetToUpgrade && isShowUp);
+
 	}
 	else
 	{
