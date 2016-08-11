@@ -26,9 +26,12 @@ public:
 	TickClock();
 	~TickClock();
 	void setTickHandle(std::function<void(float dt)> handle){ m_handle = handle; }
+	void reset(){ m_secs = 0; }
+	int getSecs(){ return m_secs; }
 private:
 	virtual void onTick(float dt);
 private:
 	std::function<void(float dt)> m_handle;
+	int m_secs;
 };
 #endif

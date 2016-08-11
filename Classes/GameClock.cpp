@@ -44,6 +44,7 @@ void GameClock::removeListener(IGameClock *iClock)
 }
 //////////////////////////////////////////////////////////
 TickClock::TickClock()
+: m_secs(0)
 {
 	GameClock::theClock()->addListener(this);
 }
@@ -56,6 +57,7 @@ TickClock::~TickClock()
 
 void TickClock::onTick(float dt)
 {
+	m_secs++;
 	if (m_handle)
 	{
 		m_handle(dt);

@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include "RedPackageModule.h"
 #include "DataConfig.h"
+#include "GameClock.h"
 USING_NS_CC;
 
 class StagePetNode;
@@ -51,6 +52,8 @@ public:
 	virtual void onEraseStarsStart();
 	virtual void onEraseStarsEnd();
 	virtual void onExplodeGrid(const LogicGrid &grid);
+	virtual void onOneRoundBegan();
+	virtual void onOneRoundEnd();
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:
@@ -69,6 +72,7 @@ private:
 	void removeExplosionAnimation(cocos2d::extension::CCArmature *, cocos2d::extension::MovementEventType, const char *);
 	const cocos2d::CCPoint &getStarPos(const LogicGrid &grid);
 
+	void onTick(float dt);
 private:
 
 private:
@@ -82,5 +86,6 @@ private:
 	RedPackageModule m_redPackage;
 	NoTouchLayer *m_noTouchLayer;
 	unordered_map<int, cocos2d::CCPoint> m_starsPos; //用于保存stars的位置
+	TickClock m_clock;
 };
 #endif // __PANELLLAYER_H__
