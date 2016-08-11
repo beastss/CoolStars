@@ -29,12 +29,16 @@ void FailStateRecord::recordFailState(bool isWon)
 	{
 		m_curFailState = kStateWon;
 	}
+	else if (m_curFailState == kStateWon)
+	{
+		m_curFailState = kStateFirstFail;
+	}
 	else if (m_curFailState == kStateFirstFail)
 	{
 		m_curFailState = kStateFailTimes;
 	}
 
-	sprintf(str, "update save_state set save_cur_stage = %d where id = 1;", m_curFailState);
+	sprintf(str, "update save_cur_stage set fail_state = %d where id = 1;", m_curFailState);
 	sqlHelper.executeSql(str);
 
 }

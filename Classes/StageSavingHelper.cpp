@@ -81,9 +81,8 @@ void StageSavingHelper::saveCurStageData()
 	auto stageInfo = StageDataMgr::theMgr();
 	int topStage = stageInfo->getTopStage();
 	int topScore = stageInfo->getTopScore();
-	sprintf(str, "replace into save_cur_stage values(1, %d,%d);"
-		, topStage, topScore);
-	
+	//sprintf(str, "replace into save_cur_stage values(1, %d,%d);", topStage, topScore);
+	sprintf(str, "update save_cur_stage set top_stage = %d where id = 1;", topStage);
 	helper.executeSql(str);
 	helper.closeDB();
 }
