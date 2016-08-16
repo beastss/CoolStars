@@ -81,6 +81,8 @@ void GameResultLayer::initLayout()
 	{
 		auto rotate = CCRepeatForever::create(CCRotateBy::create(3.0f, 180));
 		m_layout->getChildById(5)->runAction(rotate);
+		CCNode *rewardBox = m_layout->getChildById(8);
+		rewardBox->runAction(CCRepeatForever::create(CCSequence::create(CCScaleTo::create(1.0f, 1.3f), CCScaleTo::create(0.7f, 1.0f), NULL)));
 	}
 	else
 	{
@@ -113,6 +115,7 @@ bool GameResultLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *p
 	bool canGetReward = UserInfo::theInfo()->canGetRuneStoneReward();
 	if (node->boundingBox().containsPoint(pos) && canGetReward)
 	{
+		node->stopAllActions();
 		node->initWithFile("lottery/cjjm_baoxiang2.png");
 		getRuneStoneReward();
 	}

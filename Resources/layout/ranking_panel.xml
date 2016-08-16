@@ -1,8 +1,8 @@
 <layout width="480.000000" height="800.000000">
 	<image>
 		<id>6</id>
-		<x>250.72</x>
-		<y>393.60</y>
+		<x>241.86</x>
+		<y>392.54</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -37,8 +37,8 @@
 	</image>
 	<image>
 		<id>4</id>
-		<x>249.38</x>
-		<y>666.52</y>
+		<x>239.25</x>
+		<y>672.43</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>

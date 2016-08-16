@@ -5,6 +5,8 @@
 #include "DataManager.h"
 #include "CommonUtil.h"
 #include "SoundMgr.h"
+#include "MainScene.h"
+#include "CommonMacros.h"
 USING_NS_CC;
 using namespace std;
 using namespace extension;
@@ -67,6 +69,7 @@ void RankingNameInputPanel::onConfirm(cocos2d::CCObject* pSender)
 	{
 		RankingModel::theModel()->initFirstOpenRanking(name);
 		removeFromParent();
+		MainScene::theScene()->showPanel(kRankingPanel);
 	}
 	else
 	{

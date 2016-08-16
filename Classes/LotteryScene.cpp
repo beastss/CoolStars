@@ -172,13 +172,13 @@ bool LotteryScene::init()
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	setContentSize(winSize);
 
-	m_bottomLayout = UiLayout::create("layout/pre_stage_bottom.xml");
-	addChild(m_bottomLayout);
-	initBottomLayout();
-
 	m_titlePanel = TitlePanel::create(m_touchPriority);
 	m_titlePanel->setTopThief(kThiefLotteryPanel);
 	addChild(m_titlePanel, 1);
+
+	m_bottomLayout = UiLayout::create("layout/pre_stage_bottom.xml");
+	addChild(m_bottomLayout, 1);
+	initBottomLayout();
 
 	initPanel();
 
@@ -238,6 +238,11 @@ void LotteryScene::initBottomLayout()
 {
 	CCMenuItem *startGameBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(1)));
 	startGameBtn->setTarget(this, menu_selector(LotteryScene::onStartBtnClicked));
+
+	auto scaleSmall = CCScaleTo::create(0.6f, 0.8f);
+	auto scaleNormal = CCScaleTo::create(0.4f, 1.0f);
+	auto scale = CCRepeatForever::create(CCSequence::create(scaleSmall, scaleNormal, NULL));
+	startGameBtn->runAction(scale);
 
 	m_bottomLayout->getChildById(2)->setVisible(false);
 }

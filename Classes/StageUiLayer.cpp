@@ -369,8 +369,6 @@ void StageUiLayer::onGameWin()
 
 void StageUiLayer::onPauseBtnClicked(CCObject *pSender)
 {
-	showPropsGuide();
-	return;
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	MainScene::theScene()->showDialog(PauseDialog::create());
 }

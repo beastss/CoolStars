@@ -185,7 +185,7 @@ void StageOperator::gameOverRandomReplace()
 	auto targetGrids = getRandomGrids(grids, leftSteps);
 	GameResultReward rewardBonus;
 	float kMaxDuration = 0.5f;
-	float avgDuration = 5.0f / targetGrids.size();
+	float avgDuration = 3.0f / targetGrids.size();
 	float duration = min(avgDuration, kMaxDuration);
 	for (size_t i = 0; i < targetGrids.size(); ++i)
 	{
