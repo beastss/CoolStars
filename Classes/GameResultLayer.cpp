@@ -247,7 +247,14 @@ void GameWinLayer::addGameResultReward()
 
 void GameWinLayer::onConfirm()
 {
-	MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+	if (m_reward.key > 0)
+	{
+		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+	}
+	else
+	{
+		MainScene::theScene()->showPanel(kPreStagePanel);
+	}
 }
 ///////////////////////////////////////////////////////////////////////////
 
@@ -293,9 +300,13 @@ void GameFailLayer::onConfirm()
 		auto dialog = FailToUpgradePetDialog::create();
 		MainScene::theScene()->showDialog(dialog);
 	}
-	else
+	else if (m_reward.key > 0)
 	{
 		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+	}
+	else
+	{
+		MainScene::theScene()->showPanel(kPreStagePanel);
 	}
 
 }

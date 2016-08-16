@@ -19,6 +19,8 @@
 #include "PackageModel.h"
 #include "MyPurchase.h"
 #include "PetScene.h"
+#include "ActionRunner.h"
+#include "NoTouchLayer.h"
 
 USING_NS_CC;
 using namespace std;
@@ -62,7 +64,6 @@ bool LotteryNode::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 		}
 		else
 		{
-			m_isOpened = true;
 			handleTouch();
 		}
 	}
@@ -71,6 +72,7 @@ bool LotteryNode::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 
 void LotteryNode::handleTouch()
 {
+	m_isOpened = true;
 	auto pos = getParent()->convertToWorldSpace(getPosition());
 	auto size = getContentSize();
 	pos = ccpAdd(pos, ccpMult(size, 0.5f));
@@ -138,8 +140,17 @@ LotteryScene *LotteryScene::create(int usage)
 
 LotteryScene::LotteryScene(int usage)
 : m_openedBoxNum(0)
+, m_curOpenedNum(0)
 {
 	setUsage(usage);
+	m_runner = ActionRunner::create();
+	m_runner->retain();
+}
+
+LotteryScene::~LotteryScene()
+{
+	m_runner->clear();
+	m_runner->release();
 }
 
 void LotteryScene::onEnter()
@@ -161,6 +172,27 @@ bool LotteryScene::init()
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	setContentSize(winSize);
 
+	m_bottomLayout = UiLayout::create("layout/pre_stage_bottom.xml");
+	addChild(m_bottomLayout);
+	initBottomLayout();
+
+	m_titlePanel = TitlePanel::create(m_touchPriority);
+	m_titlePanel->setTopThief(kThiefLotteryPanel);
+	addChild(m_titlePanel, 1);
+
+	initPanel();
+
+	m_noTouchLayer = NoTouchLayer::create();
+	addChild(m_noTouchLayer);
+	GuideMgr::theMgr()->startGuide(kGuideStart_lottery_in, bind(&LotteryScene::hideBottomBtns, this));
+
+	return true;
+}
+
+void LotteryScene::initPanel()
+{
+	auto winSize = CCDirector::sharedDirector()->getWinSize();
+
 	m_layout = UiLayout::create("layout/lottery_panel.xml");
 	m_layout->setMenuTouchPriority(m_touchPriority);
 	m_layout->setAnchorPoint(ccp(0.5f, 0.5f));
@@ -170,26 +202,16 @@ bool LotteryScene::init()
 	m_layout->runAction(CCEaseBackInOut::create(CCMoveTo::create(0.5f, targetPos)));
 	addChild(m_layout);
 	initLayout();
-
-	m_titlePanel = TitlePanel::create(m_touchPriority);
-	m_titlePanel->setTopThief(kThiefLotteryPanel);
-	addChild(m_titlePanel);
-
-	m_bottomLayout = UiLayout::create("layout/pre_stage_bottom.xml");
-	addChild(m_bottomLayout);
-	initBottomLayout();
-
 	refreshUi();
-
-	GuideMgr::theMgr()->startGuide(kGuideStart_lottery_in, bind(&LotteryScene::hideBottomBtns, this));
-
-	return true;
 }
 
 void LotteryScene::initLayout()
 {
 	CCMenuItem * toPetSceneBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(16)));
 	toPetSceneBtn->setTarget(this, menu_selector(LotteryScene::toPetScene));
+
+	CCMenuItem * openAllBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(21)));
+	openAllBtn->setTarget(this, menu_selector(LotteryScene::openAllBox));
 	
 	int boxIds[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 	for (int i = 0; i < 9; ++i)
@@ -210,6 +232,7 @@ void LotteryScene::initLayout()
 
 	onKeyChanged();
 }
+
 
 void LotteryScene::initBottomLayout()
 {
@@ -255,6 +278,36 @@ void LotteryScene::toPetScene(CCObject* pSender)
 	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromLotteryScene);
 }
 
+void LotteryScene::openAllBox(cocos2d::CCObject* pSender)
+{
+	m_runner->clear();
+	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+	m_noTouchLayer->setCanTouch(false);
+	if (m_curOpenedNum != 0)
+	{
+		newRewardBoxs();
+		m_runner->queueAction(DelayAction::withDelay(3.0f));
+	}
+
+	int boxIds[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+	for (int i = 0; i < 9; ++i)
+	{
+		int id = boxIds[i];
+		m_runner->queueAction(CallFuncAction::withFunctor([=]()
+		{
+			auto box = dynamic_cast<EmptyBox *>(m_layout->getChildById(id));
+			auto node = dynamic_cast<LotteryNode *>(box->getNode());
+			node->handleTouch();
+		}));
+		m_runner->queueAction(DelayAction::withDelay(0.5f));
+	}
+
+	m_runner->queueAction(CallFuncAction::withFunctor([=]()
+	{
+		m_noTouchLayer->setCanTouch(true);
+	}));
+}
+
 void LotteryScene::onStartBtnClicked(CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
@@ -264,25 +317,31 @@ void LotteryScene::onStartBtnClicked(CCObject* pSender)
 void LotteryScene::onOpenReward()
 {
 	m_openedBoxNum++;
-
-	if (m_openedBoxNum % kRewardBoxNum == 0)
+	m_curOpenedNum++;
+	if (m_curOpenedNum >= kRewardBoxNum)
 	{
-		const float kMoveTime = 0.5f;
-		auto moveUpFunc = CCFunctionAction::create([=]()
-		{
-			auto winSize = CCDirector::sharedDirector()->getWinSize();
-			auto targetPos = ccp(winSize.width * 0.5f, winSize.height * 1.5f);
-			m_layout->runAction(CCEaseBackInOut::create(CCMoveTo::create(kMoveTime, targetPos)));
-		});
-
-		auto removeFunc = CCFunctionAction::create([=]()
-		{
-			removeAllChildrenWithCleanup(true);
-			init();
-		});
-		runAction(CCSequence::create(CCDelayTime::create(0.5f), moveUpFunc, CCDelayTime::create(kMoveTime), removeFunc,NULL));
+		newRewardBoxs();
 	}
 	refreshUi();
+}
+
+void LotteryScene::newRewardBoxs()
+{
+	m_curOpenedNum = 0;
+	const float kMoveTime = 0.5f;
+	auto moveUpFunc = CCFunctionAction::create([=]()
+	{
+		auto winSize = CCDirector::sharedDirector()->getWinSize();
+		auto targetPos = ccp(winSize.width * 0.5f, winSize.height * 1.5f);
+		m_layout->runAction(CCEaseBackInOut::create(CCMoveTo::create(kMoveTime, targetPos)));
+	});
+
+	auto removeFunc = CCFunctionAction::create([=]()
+	{
+		removeChild(m_layout, true);
+		initPanel();
+	});
+	runAction(CCSequence::create(CCDelayTime::create(0.5f), moveUpFunc, CCDelayTime::create(kMoveTime), removeFunc, NULL));
 }
 
 void LotteryScene::onKeyChanged()

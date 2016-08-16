@@ -149,5 +149,16 @@
 		<scale>1.00</scale>
 		<path>pet/tips.png</path>
 	</image>
+	<button>
+		<id>21</id>
+		<x>237.22</x>
+		<y>115.83</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>about/gy_anniu.png</normal>
+		<selected>about/gy_anniu.png</selected>
+		<disabled>about/gy_anniu.png</disabled>
+	</button>
 </layout>
 
