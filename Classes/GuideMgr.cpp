@@ -95,8 +95,6 @@ void GuideMgr::finishGuide()
 
 	MainScene::theScene()->removeGuideView();
 	onSave();
-
-	startGuide(kGuideEnd_finishOneGuide, m_curGuideId);//·¢³ö
 }
 
 void GuideMgr::init()
