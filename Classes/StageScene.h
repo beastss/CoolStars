@@ -20,6 +20,7 @@ public:
 	StageStateOwner *getStateOwner(){ return &m_stateOwner; }
 private:
 	StageScene();
+	virtual void onEnter();
 	virtual void onExit();
 	virtual bool init();
 private :

@@ -22,10 +22,22 @@ StageScene::~StageScene()
 
 }
 
+void StageScene::onEnter()
+{
+	BasePanel::onEnter();
+	// ¹«¸æ
+	MainScene::theScene()->removeAnnouncement();
+	MainScene::theScene()->setAnnouncementLoop(true);
+	MainScene::theScene()->addAnnouncement("announcement/game_picture_1.png");
+	MainScene::theScene()->addAnnouncement("announcement/game_picture_3.png");
+}
+
 void StageScene::onExit()
 {
 	BasePanel::onExit();
 	s_scene = NULL;
+
+	MainScene::theScene()->removeAnnouncement();
 }
 
 StageScene* StageScene::theScene()

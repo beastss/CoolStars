@@ -29,6 +29,8 @@ public:
 	void handleKeyBackTouch();
 	void showTips(const char *str);
 	void addAnnouncement(const char *picPath);
+	void removeAnnouncement();
+	void setAnnouncementLoop(bool loop);
 private:
 	MainScene();
 	~MainScene(){}

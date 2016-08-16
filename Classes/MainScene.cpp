@@ -242,3 +242,13 @@ void MainScene::addAnnouncement(const char *picPath)
 {
 	m_announcementLayer->addAnnouncement(picPath);
 }
+
+void MainScene::removeAnnouncement()
+{
+	m_announcementLayer->removeAnnouncement();
+}
+
+void MainScene::setAnnouncementLoop(bool loop)
+{
+	m_announcementLayer->setLoop(loop);
+}
