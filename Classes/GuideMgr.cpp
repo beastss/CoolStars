@@ -89,11 +89,14 @@ void GuideMgr::finishGuide()
 	if (iter != m_finishedGuides.end()) return;
 
 	m_finishedGuides.push_back(m_curGuideId);
+	int temp = m_curGuideId;
 	m_curGuideId = kNotTriggerGuide;
 	m_isRunning = false;
 
 	MainScene::theScene()->removeGuideView();
 	onSave();
+
+	startGuide(kGuideEnd_finishOneGuide, m_curGuideId);//·¢³ö
 }
 
 void GuideMgr::init()

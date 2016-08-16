@@ -6,6 +6,7 @@ enum GuideStartAction
 {
 	kGuideStart_common = 1,
 	kGuideStart_key_run_out,
+	kGuideEnd_finishOneGuide,
 	kGuideStart_mainMenu_in = 10,
 
 	kGuideStart_preStage_in = 20,

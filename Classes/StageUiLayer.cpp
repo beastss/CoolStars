@@ -31,6 +31,7 @@
 #include "NoTouchLayer.h"
 #include "StageBonusView.h"
 #include "PackageDialog.h"
+#include "PropsGuideView.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -368,8 +369,36 @@ void StageUiLayer::onGameWin()
 
 void StageUiLayer::onPauseBtnClicked(CCObject *pSender)
 {
+	showPropsGuide();
+	return;
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	MainScene::theScene()->showDialog(PauseDialog::create());
+}
+
+void StageUiLayer::showPropsGuide()
+{
+	auto propsGuideView = PropsGuideView::create();
+	vector<cocos2d::CCPoint> m_pos;
+	for (int i = 0; i < 3; ++i)
+	{
+		auto box = dynamic_cast<EmptyBox *>(m_bottomUi->getChildById(12 + i));
+		auto node = dynamic_cast<PropItemView *>(box->getNode());
+		node->setInfiniteProps(true);
+		node->showNum(false);
+		m_pos.push_back(node->getNumPos());
+	}
+	PropManager::propMgr()->setInfinite(true);
+	propsGuideView->loadPropsPos(m_pos);
+	propsGuideView->setFinishHandle([=]()
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			auto box = dynamic_cast<EmptyBox *>(m_bottomUi->getChildById(12 + i));
+			auto node = dynamic_cast<PropItemView *>(box->getNode());
+			node->showNum(true);
+		}
+	});
+	addChild(propsGuideView);
 }
 
 void StageUiLayer::showChangeColorPanel(int myColor, const LogicGrid &grid)

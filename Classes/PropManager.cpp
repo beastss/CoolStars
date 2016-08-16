@@ -92,10 +92,11 @@ void PropManager::usePropReorder()
 
 void PropManager::usePropItem(int propType)
 {
-	//StarsController::theModel()->moveOneStep();
-
-	int amount = getPropItemAmount(propType);
-	setPropItemAmount(propType, amount - 1);
+	if (!m_infinite)
+	{
+		int amount = getPropItemAmount(propType);
+		setPropItemAmount(propType, amount - 1);
+	}
 	NOTIFY_VIEWS(onPropItemChanged);
 	GameDataAnalysis::theModel()->consumeProps(propType);
 }

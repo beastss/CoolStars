@@ -28,5 +28,14 @@
 		<num>;10</num>
 		<path>num/ty_ziti6.png</path>
 	</imageNum>
+	<image>
+		<id>4</id>
+		<x>72.81</x>
+		<y>25.96</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>0.30</scale>
+		<path>stage/ui/yxjm_wuxian.png</path>
+	</image>
 </layout>
 

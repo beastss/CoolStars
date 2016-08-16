@@ -4,6 +4,7 @@
 #include "CommonUtil.h"
 #include <algorithm>
 #include "GuideMgr.h"
+#include "PropManager.h"
 
 StageDataMgr::StageDataMgr()
 {
@@ -48,6 +49,7 @@ void StageDataMgr::reset(int gameType)
 		m_curStage = CommonUtil::getRandomValue(1, m_topStage - 1);
 	}
 	GuideMgr::theMgr()->pauseGuide(gameType != kNormalType);
+	PropManager::propMgr()->setInfinite(false);
 }
 
 void StageDataMgr::init()

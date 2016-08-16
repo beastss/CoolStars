@@ -64,6 +64,7 @@ private:
 	void handlePropsItemClicked(int type);
 	void showGameOverHint();
 	void showPetsSkillPanel();
+	void showPropsGuide();
 	void refreshRedPackage();
 
 	void onPauseBtnClicked(CCObject *pSender);
