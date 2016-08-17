@@ -156,9 +156,9 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<normal>about/gy_anniu.png</normal>
-		<selected>about/gy_anniu.png</selected>
-		<disabled>about/gy_anniu.png</disabled>
+		<normal>lottery/btn_4.png</normal>
+		<selected>lottery/btn_4.png</selected>
+		<disabled>lottery/btn_4.png</disabled>
 	</button>
 </layout>
 
