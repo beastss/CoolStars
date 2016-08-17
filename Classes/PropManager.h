@@ -32,6 +32,7 @@ public:
 	void addView(IPropView *view);
 	void removeView(IPropView *view);
 	void setInfinite(bool isInfinite){ m_infinite = isInfinite; }
+	bool isInfiniteMode(){ return m_infinite;}
 private: 
 	PropManager() : m_infinite(false){}
 	void usePropItem(int propType);

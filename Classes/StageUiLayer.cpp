@@ -396,7 +396,8 @@ void StageUiLayer::showChangeColorPanel(int myColor, const LogicGrid &grid)
 void StageUiLayer::handlePropsItemClicked(int type)
 {
 	int amount = PropManager::propMgr()->getPropItemAmount(type);
-	if (amount > 0)
+	bool infiniteMode = PropManager::propMgr()->isInfiniteMode();
+	if (infiniteMode || amount > 0)
 	{
 		m_stateOwner->clickProp(type);
 	}
