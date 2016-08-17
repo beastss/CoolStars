@@ -37,9 +37,9 @@ void StageLayersMgr::targetPanelDone()
 	NOTIFY_LAYERSS(onTargetPanelDone);
 }
 
-void StageLayersMgr::highLightStars(int color)
+void StageLayersMgr::highLightStars(int color, int radiusX, int radiusY)
 {
-	NOTIFY_LAYERSS(onHighLightStars, color);
+	NOTIFY_LAYERSS(onHighLightStars, color, radiusX, radiusY);
 }
 
 void StageLayersMgr::highLightPets(const std::vector<int> &petIds)
@@ -47,9 +47,9 @@ void StageLayersMgr::highLightPets(const std::vector<int> &petIds)
 	NOTIFY_LAYERSS(onHighLightPets, petIds);
 }
 
-void StageLayersMgr::highLightRectStars(int x, int y, int width, int height)
+void StageLayersMgr::highLightRectStars(int x, int y, int width, int height, int radiusX, int radiusY)
 {
-	NOTIFY_LAYERSS(onHighLightRectStars, x, y, width, height);
+	NOTIFY_LAYERSS(onHighLightRectStars, x, y, width, height, radiusX, radiusY);
 }
 
 void StageLayersMgr::toNormalState()

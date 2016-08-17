@@ -108,9 +108,14 @@ void StageNormalState::clickProp(int propId)
 	{
 		PropManager::propMgr()->usePropReorder();
 	}
+	else if (propId == kPropBrush)
+	{
+		StageLayersMgr::theMgr()->highLightRectStars(0, 0, COlUMNS_SIZE, ROWS_SIZE, 0, 0);
+		m_owner->enterPropsClickState(propId);
+	}
 	else
 	{
-		StageLayersMgr::theMgr()->highLightRectStars(0, 0, COlUMNS_SIZE, ROWS_SIZE);
+		StageLayersMgr::theMgr()->highLightRectStars(0, 0, COlUMNS_SIZE, ROWS_SIZE, 1, 1);
 		m_owner->enterPropsClickState(propId);
 	}
 }

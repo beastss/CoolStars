@@ -170,7 +170,7 @@ void PetEntity::useToPetSkill(int petId)
 //////////////////////////////////////////////////////////////////////////////
 void PetRat::skillInit()
 {
-	StageLayersMgr::theMgr()->highLightStars(m_data.color);
+	StageLayersMgr::theMgr()->highLightStars(m_data.color, m_data.skillPower / 2, 0);
 }
 
 void PetRat::toStarSkill(const LogicGrid &grid)
@@ -180,7 +180,7 @@ void PetRat::toStarSkill(const LogicGrid &grid)
 //////////////////////////////////////////////////////////////////////////////
 void PetOx::skillInit()
 {
-	StageLayersMgr::theMgr()->highLightStars(m_data.color);
+	StageLayersMgr::theMgr()->highLightStars(m_data.color, 0, m_data.skillPower / 2);
 }
 
 void PetOx::toStarSkill(const LogicGrid &grid)
@@ -210,7 +210,7 @@ void PetDragon::noTargetSkill()
 //////////////////////////////////////////////////////////////////////////////
 void PetSnake::skillInit()
 {
-	StageLayersMgr::theMgr()->highLightStars(m_data.color);
+	StageLayersMgr::theMgr()->highLightStars(m_data.color, m_data.skillPower, m_data.skillPower);
 }
 
 void PetSnake::toStarSkill(const LogicGrid &grid)
