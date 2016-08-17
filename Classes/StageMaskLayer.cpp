@@ -140,11 +140,21 @@ void StarRectMaskOperator::onHighLightRectStars(int x, int y, int width, int hei
 			if (!node) continue;
 			auto view = node->getView();
 			auto resPath = node->getResPath();
+			string extraPath = node->getExtraResPath();
+			bool hasExtraRes = !extraPath.empty();
+
 			auto pos = view->getParent()->convertToWorldSpace(view->getPosition());
 			CCSprite *starSpr = CCSprite::create(resPath.c_str());
 			starSpr->setPosition(pos);
 			m_layer->addNode(starSpr);
 			m_stars.insert(make_pair(starSpr, LogicGrid(i, j)));
+
+			if (hasExtraRes)
+			{
+				CCSprite *extraImg = CCSprite::create(extraPath.c_str());
+				extraImg->setPosition(pos);
+				m_layer->addNode(extraImg);
+			}
 		}
 	}
 
@@ -334,10 +344,20 @@ void StageMaskLayer::highLightRect(int x, int y, int radiusX, int radiusY)
 			if (!node) continue;
 			auto view = node->getView();
 			auto resPath = node->getResPath();
+			string extraPath = node->getExtraResPath();
+			bool hasExtraRes = !extraPath.empty();
+
 			auto pos = view->getParent()->convertToWorldSpace(view->getPosition());
 			CCSprite *starSpr = CCSprite::create(resPath.c_str());
 			starSpr->setPosition(pos);
 			m_rectNodes->addChild(starSpr);
+
+			if (hasExtraRes)
+			{
+				CCSprite *extraImg = CCSprite::create(extraPath.c_str());
+				extraImg->setPosition(pos);
+				m_rectNodes->addChild(extraImg);
+			}
 		}
 	}
 }
