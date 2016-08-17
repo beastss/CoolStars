@@ -10,10 +10,14 @@ USING_NS_CC;
 StarsEraseModule::StarsEraseModule()
 {
 	reset();
+	m_runner = ActionRunner::create();
+	m_runner->retain();
 }
 
 StarsEraseModule::~StarsEraseModule()
 {
+	m_runner->clear();
+	m_runner->release();
 }
 
 StarsEraseModule *StarsEraseModule::theModel()
@@ -30,20 +34,34 @@ void StarsEraseModule::handleClick(const LogicGrid &grid)
 		std::vector<StarNode *> connectedNodes;
 		node->getConnectedStars(node, connectedNodes);
 		size_t count = connectedNodes.size();
+		sort(connectedNodes.begin(), connectedNodes.end(), [=](StarNode *node1, StarNode *node2)
+		{
+			auto grid1 = node1->getAttr().grid;
+			auto grid2 = node2->getAttr().grid;
+			if (grid1.x == grid2.x) return grid1.y < grid2.y;
+			return grid1.x < grid2.x;
+		});
 		if (count >= CONNECT_COUNT)
 		{
 			StageLayersMgr::theMgr()->eraseStarsStart();
 			for (size_t j = 0; j < count; ++j)
 			{
-				auto node = connectedNodes[j];
-				node->removeNeighbours();
-				StageLayersMgr::theMgr()->explodeGrid(node->getAttr().grid);
-				node->doRemove();
+				m_runner->queueAction(CallFuncAction::withFunctor([=]()
+				{
+					auto node = connectedNodes[j];
+					node->removeNeighbours();
+					StageLayersMgr::theMgr()->explodeGrid(node->getAttr().grid);
+					node->doRemove();
+					SoundMgr::theMgr()->playEffect(kEffectStarErase);
+				}));
+				m_runner->queueAction(DelayAction::withDelay(0.1f));
 			}
-			StageLayersMgr::theMgr()->eraseStarsEnd();
-			StarsController::theModel()->moveOneStep();
-			StarsController::theModel()->genNewStars();
-			SoundMgr::theMgr()->playEffect(kEffectStarErase);
+			m_runner->queueAction(CallFuncAction::withFunctor([=]()
+			{
+				StageLayersMgr::theMgr()->eraseStarsEnd();
+				StarsController::theModel()->moveOneStep();
+				StarsController::theModel()->genNewStars();
+			}));
 		}
 	}
 }

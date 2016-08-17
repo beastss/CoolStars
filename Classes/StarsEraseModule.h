@@ -36,6 +36,7 @@ private:
 	StarsEraseModule();
 private:
 	std::vector<ScaleEarseRunner *>m_runners;
+	ActionRunner *m_runner;
 };
 
 #endif
