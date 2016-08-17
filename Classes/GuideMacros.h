@@ -15,6 +15,7 @@ enum GuideStartAction
 	kGuideStart_stage_showTargetFinished,
 	kGuideStart_stage_petFullPower,
 	kGuideStart_stage_in_pet_skill_state,
+	kGuideStart_stage_props_guide,
 
 	kGuideStart_ranking_in = 60,
 
@@ -45,6 +46,7 @@ enum GuideEndAction
 	kGuideStart_hide_skill_mask_layer,
 	kGuideEnd_pet_use_skill,
 	kGuideEnd_stage_gameOver,
+	kGuideEnd_stage_props_guide,
 
 	kGuideEnd_ranking_in = 60,
 

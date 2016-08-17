@@ -16,6 +16,7 @@ struct IStageLayer
 	virtual void onEraseStarsStart(){}
 	virtual void onEraseStarsEnd(){}
 	virtual void onExplodeGrid(const LogicGrid &grid){}
+	virtual void onGuideViewRemoved(){}
 };
 
 #define NOTIFY_LAYERSS(_FUNC_ ,...)						 \
@@ -46,6 +47,7 @@ public:
 	void eraseStarsStart();
 	void eraseStarsEnd();
 	void explodeGrid(const LogicGrid &grid);
+	void removeGuideView();
 private:
 	StageLayersMgr(){}
 private:

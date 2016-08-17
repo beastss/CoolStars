@@ -86,3 +86,8 @@ void StageLayersMgr::explodeGrid(const LogicGrid &grid)
 {
 	NOTIFY_LAYERSS(onExplodeGrid, grid);
 }
+
+void StageLayersMgr::removeGuideView()
+{
+	NOTIFY_LAYERSS(onGuideViewRemoved);
+}

@@ -145,7 +145,7 @@ void StageOperator::randomReplaceStars(int petId, int starType, int color, int n
 	{
 		auto star = stars[i];
 		auto attr = star->getAttr();
-		if (attr.type == kColorStar)
+		if (attr.type == kColorStar && attr.color != color)
 		{
 			grids.push_back(attr.grid);
 		}

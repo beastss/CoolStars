@@ -4,6 +4,7 @@
 #include "CommonMacros.h"
 #include "DataManager.h"
 #include "GuideMgr.h"
+#include "StageLayersMgr.h"
 USING_NS_CC;
 using namespace std;
 
@@ -35,6 +36,7 @@ void GuideView::onExit()
 {
 	CCNode::onExit();
 	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+	StageLayersMgr::theMgr()->removeGuideView();
 }
 
 bool GuideView::init()

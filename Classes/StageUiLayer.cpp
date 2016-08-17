@@ -32,6 +32,7 @@
 #include "StageBonusView.h"
 #include "PackageDialog.h"
 #include "PropsGuideView.h"
+#include "GuideMgr.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -373,32 +374,6 @@ void StageUiLayer::onPauseBtnClicked(CCObject *pSender)
 	MainScene::theScene()->showDialog(PauseDialog::create());
 }
 
-void StageUiLayer::showPropsGuide()
-{
-	auto propsGuideView = PropsGuideView::create();
-	vector<cocos2d::CCPoint> m_pos;
-	for (int i = 0; i < 3; ++i)
-	{
-		auto box = dynamic_cast<EmptyBox *>(m_bottomUi->getChildById(12 + i));
-		auto node = dynamic_cast<PropItemView *>(box->getNode());
-		node->setInfiniteProps(true);
-		node->showNum(false);
-		m_pos.push_back(node->getNumPos());
-	}
-	PropManager::propMgr()->setInfinite(true);
-	propsGuideView->loadPropsPos(m_pos);
-	propsGuideView->setFinishHandle([=]()
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			auto box = dynamic_cast<EmptyBox *>(m_bottomUi->getChildById(12 + i));
-			auto node = dynamic_cast<PropItemView *>(box->getNode());
-			node->showNum(true);
-		}
-	});
-	addChild(propsGuideView);
-}
-
 void StageUiLayer::showChangeColorPanel(int myColor, const LogicGrid &grid)
 {
 	auto *panel = ChangeStarColorPanel::create(myColor, kStageUiTouchPriority - 1);
@@ -688,4 +663,36 @@ void StageUiLayer::onEraseStarsEnd()
 		m_noTouchLayer->setCanTouch(true, 1);
 	});
 	runAction(CCSequence::create(CCDelayTime::create(0.5f), func, NULL));
+}
+
+void StageUiLayer::onGuideViewRemoved()
+{
+	GuideMgr::theMgr()->startGuide(kGuideStart_stage_props_guide, bind(&StageUiLayer::showPropsGuide, this));
+}
+
+void StageUiLayer::showPropsGuide()
+{
+	auto propsGuideView = PropsGuideView::create();
+	vector<cocos2d::CCPoint> m_pos;
+	for (int i = 0; i < 3; ++i)
+	{
+		auto box = dynamic_cast<EmptyBox *>(m_bottomUi->getChildById(12 + i));
+		auto node = dynamic_cast<PropItemView *>(box->getNode());
+		node->setInfiniteProps(true);
+		node->showNum(false);
+		m_pos.push_back(node->getNumPos());
+	}
+	PropManager::propMgr()->setInfinite(true);
+	propsGuideView->loadPropsPos(m_pos);
+	propsGuideView->setFinishHandle([=]()
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			auto box = dynamic_cast<EmptyBox *>(m_bottomUi->getChildById(12 + i));
+			auto node = dynamic_cast<PropItemView *>(box->getNode());
+			node->showNum(true);
+		}
+		GuideMgr::theMgr()->endGuide(kGuideEnd_stage_props_guide);
+	});
+	addChild(propsGuideView);
 }

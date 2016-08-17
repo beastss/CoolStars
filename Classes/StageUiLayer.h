@@ -54,6 +54,7 @@ public:
 	virtual void onExplodeGrid(const LogicGrid &grid);
 	virtual void onOneRoundBegan();
 	virtual void onOneRoundEnd();
+	virtual void onGuideViewRemoved();
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:
