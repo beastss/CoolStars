@@ -110,12 +110,12 @@ void StageNormalState::clickProp(int propId)
 	}
 	else if (propId == kPropBrush)
 	{
-		StageLayersMgr::theMgr()->highLightRectStars(0, 0, COlUMNS_SIZE, ROWS_SIZE, 0, 0);
+		PropManager::propMgr()->highLightCanBrushArea();
 		m_owner->enterPropsClickState(propId);
 	}
 	else
 	{
-		StageLayersMgr::theMgr()->highLightRectStars(0, 0, COlUMNS_SIZE, ROWS_SIZE, 1, 1);
+		PropManager::propMgr()->highLightCanBombArea();
 		m_owner->enterPropsClickState(propId);
 	}
 }

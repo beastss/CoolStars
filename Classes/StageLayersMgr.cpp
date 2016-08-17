@@ -37,19 +37,14 @@ void StageLayersMgr::targetPanelDone()
 	NOTIFY_LAYERSS(onTargetPanelDone);
 }
 
-void StageLayersMgr::highLightStars(int color, int radiusX, int radiusY)
+void StageLayersMgr::highLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY)
 {
-	NOTIFY_LAYERSS(onHighLightStars, color, radiusX, radiusY);
+	NOTIFY_LAYERSS(onHighLightStars, grids, radiusX, radiusY);
 }
 
 void StageLayersMgr::highLightPets(const std::vector<int> &petIds)
 {
 	NOTIFY_LAYERSS(onHighLightPets, petIds);
-}
-
-void StageLayersMgr::highLightRectStars(int x, int y, int width, int height, int radiusX, int radiusY)
-{
-	NOTIFY_LAYERSS(onHighLightRectStars, x, y, width, height, radiusX, radiusY);
 }
 
 void StageLayersMgr::toNormalState()

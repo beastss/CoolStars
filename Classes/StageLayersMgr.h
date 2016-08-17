@@ -6,11 +6,10 @@ struct IStageLayer
 {
 	virtual void onInitStarsDone(){}
 	virtual void onTargetPanelDone(){}
-	virtual void onHighLightStars(int color, int radiusX, int radiusY){}
+	virtual void onHighLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY){}
 	virtual void onToNormalState(){}
 	virtual void onStarErased(cocos2d::CCPoint pos, int starType, int color){}
 	virtual void onHighLightPets(const std::vector<int> &petIds){}
-	virtual void onHighLightRectStars(int x, int y, int width, int height, int radiusX, int radiusY){}
 	virtual void onScoreBouble(){}
 	virtual void onTouchEnable(bool canTouch){}
 	virtual void onEraseStarsStart(){}
@@ -37,9 +36,8 @@ public:
 public:
 	void initStarDone();
 	void targetPanelDone();
-	void highLightStars(int color, int radiusX, int radiusY);
+	void highLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY);
 	void highLightPets(const std::vector<int> &petIds);
-	void highLightRectStars(int x, int y, int width, int height, int radiusX, int radiusY);
 	void toNormalState();
 	void starErased(cocos2d::CCPoint pos, int starType, int color);
 	void doubleScore();

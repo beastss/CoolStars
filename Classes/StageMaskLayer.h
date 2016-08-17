@@ -20,11 +20,11 @@ protected:
 };
 
 //高亮指定颜色的普通星星
-class StarColorMaskOperator : public MaskOperator
+class StarMaskOperator : public MaskOperator
 {
 public:
-	StarColorMaskOperator(StageMaskLayer *layer) :MaskOperator(layer){}
-	void onHighLightStars(int color, int radiusX, int radiusY);
+	StarMaskOperator(StageMaskLayer *layer) :MaskOperator(layer){}
+	void onHighLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY);
 	virtual bool onTouchBegan(cocos2d::CCTouch *pTouch);
 	virtual void OnTouchMoved(cocos2d::CCTouch *pTouch);
 	virtual void onTouchEnd(cocos2d::CCTouch *pTouch);
@@ -45,22 +45,6 @@ public:
 
 private:
 	std::vector<cocos2d::CCNode *> m_stars;
-};
-
-//高亮指定区域矩形
-class StarRectMaskOperator : public MaskOperator
-{
-public:
-	StarRectMaskOperator(StageMaskLayer *layer) :MaskOperator(layer){}
-	virtual bool onTouchBegan(cocos2d::CCTouch *pTouch);
-	virtual void OnTouchMoved(cocos2d::CCTouch *pTouch);
-	virtual void onTouchEnd(cocos2d::CCTouch *pTouch);
-	void onHighLightRectStars(int x, int y, int width, int height, int radiusX, int radiusY);
-private:
-	std::unordered_map<cocos2d::CCNode *, LogicGrid> m_stars;
-	LogicGrid m_curGrid;
-	int m_radiusX;
-	int m_radiusY; 
 };
 
 class StageMaskLayer
@@ -87,9 +71,8 @@ private:
 	virtual void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 
-	virtual void onHighLightStars(int color, int radiusX, int radiusY);
+	virtual void onHighLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY);
 	virtual void onHighLightPets(const std::vector<int> &petIds);
-	virtual void onHighLightRectStars(int x, int y, int width, int height, int radiusX, int radiusY);
 protected:
 	std::unordered_map<int, cocos2d::CCPoint> m_petsInfo;
 	std::unordered_map<int, cocos2d::CCNode *> m_pets;
@@ -97,9 +80,8 @@ protected:
 	cocos2d::CCNode *m_container;
 	cocos2d::CCNode *m_rectNodes;
 
-	StarColorMaskOperator *m_colorStarOp;
+	StarMaskOperator *m_colorStarOp;
 	PetMaskOperator *m_petOp;
-	StarRectMaskOperator *m_starRectOp;
 };
 
 #endif

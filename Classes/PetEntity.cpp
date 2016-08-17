@@ -170,7 +170,17 @@ void PetEntity::useToPetSkill(int petId)
 //////////////////////////////////////////////////////////////////////////////
 void PetRat::skillInit()
 {
-	StageLayersMgr::theMgr()->highLightStars(m_data.color, m_data.skillPower / 2, 0);
+	vector<LogicGrid> grids;
+	auto nodes = StarsController::theModel()->getStarNodes();
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto attr = nodes[i]->getAttr();
+		if (attr.type == kColorStar && attr.color == m_data.color)
+		{
+			grids.push_back(attr.grid);
+		}
+	}
+	StageLayersMgr::theMgr()->highLightStars(grids, m_data.skillPower / 2, 0);
 }
 
 void PetRat::toStarSkill(const LogicGrid &grid)
@@ -180,7 +190,17 @@ void PetRat::toStarSkill(const LogicGrid &grid)
 //////////////////////////////////////////////////////////////////////////////
 void PetOx::skillInit()
 {
-	StageLayersMgr::theMgr()->highLightStars(m_data.color, 0, m_data.skillPower / 2);
+	vector<LogicGrid> grids;
+	auto nodes = StarsController::theModel()->getStarNodes();
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto attr = nodes[i]->getAttr();
+		if (attr.type == kColorStar && attr.color == m_data.color)
+		{
+			grids.push_back(attr.grid);
+		}
+	}
+	StageLayersMgr::theMgr()->highLightStars(grids, 0, m_data.skillPower / 2);
 }
 
 void PetOx::toStarSkill(const LogicGrid &grid)
@@ -210,7 +230,17 @@ void PetDragon::noTargetSkill()
 //////////////////////////////////////////////////////////////////////////////
 void PetSnake::skillInit()
 {
-	StageLayersMgr::theMgr()->highLightStars(m_data.color, m_data.skillPower, m_data.skillPower);
+	vector<LogicGrid> grids;
+	auto nodes = StarsController::theModel()->getStarNodes();
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto attr = nodes[i]->getAttr();
+		if (attr.type == kColorStar && attr.color == m_data.color)
+		{
+			grids.push_back(attr.grid);
+		}
+	}
+	StageLayersMgr::theMgr()->highLightStars(grids, m_data.skillPower, m_data.skillPower);
 }
 
 void PetSnake::toStarSkill(const LogicGrid &grid)
