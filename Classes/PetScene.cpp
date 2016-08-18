@@ -387,7 +387,7 @@ void PetScene::refreshPetCost()
 		m_mainLayout->getChildById(17)->setVisible(true);
 		m_mainLayout->getChildById(25)->setVisible(true);
 		CCLabelAtlas *costNum = dynamic_cast<CCLabelAtlas *>(m_mainLayout->getChildById(17));
-		int cost = DataManagerSelf->getPetPurchaseConfig().petDiamondCost;
+		int cost = pet->getPetData().diamondCost;
 		costNum->setString(CommonUtil::intToStr(cost));
 		break;
 	}

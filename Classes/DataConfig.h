@@ -29,6 +29,7 @@ struct PetCommonConfig
 	int skillTarget;
 	int maxLevel;
 	std::string skillDescRes;
+	int diamondCost;
 	string desc;
 };
 

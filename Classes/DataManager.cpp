@@ -97,7 +97,8 @@ void DataManager::loadPetCommonConfig()
 		assert(config.foodToUpgrade.size() == config.maxLevel);
 		config.skillTarget = atoi(data[5]);
 		config.skillDescRes = data[6];
-		config.desc = data[7];
+		config.diamondCost = atoi(data[7]);
+		config.desc = data[8];
 		m_petCommonConfig.push_back(config);
 	}
 }

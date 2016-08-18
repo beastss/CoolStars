@@ -43,6 +43,7 @@ void PetEntity::refreshPetData()
 	m_data.skillTarget = commonData.skillTarget;
 	m_data.maxLevel = commonData.maxLevel;
 	m_data.skillDescRes = commonData.skillDescRes;
+	m_data.diamondCost = commonData.diamondCost;
 }
 
 PetEntity *PetEntity::PetFactory(int petId)

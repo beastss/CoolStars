@@ -20,6 +20,7 @@
 #include "GoodsView.h"
 #include "PackageModel.h"
 #include "KeyPadWatcher.h"
+#include "CommonUtil.h"
 
 USING_NS_CC;
 using namespace std;
@@ -66,15 +67,14 @@ void MenuScene::initMainLayout()
 {
 	CCMenuItem * normalBtn= dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(6)));
 	normalBtn->setTarget(this, menu_selector(MenuScene::toNormalGame));
+	normalBtn->runAction(CommonUtil::getRepeatScaleAction());
 
 	//CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
 	//treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
 
-	CCMenuItem *drawLotteryBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(8)));
-	drawLotteryBtn->setTarget(this, menu_selector(MenuScene::drawLottery));
+	CCMenuItem *packageBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(5)));
+	packageBtn->setTarget(this, menu_selector(MenuScene::toPackagePanel));
 
-	CCMenuItem *toPetBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(9)));
-	toPetBtn->setTarget(this, menu_selector(MenuScene::toPetPanel));
 }
 
 void MenuScene::initBottomLayout()
@@ -96,11 +96,14 @@ void MenuScene::initBottomLayout()
 	CCMenuItem *rankBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(4)));
 	rankBtn->setTarget(this, menu_selector(MenuScene::toRankPanel));
 
-	CCMenuItem *packageBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(5)));
-	packageBtn->setTarget(this, menu_selector(MenuScene::toPackagePanel));
-
 	CCMenuItem *shopBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(6)));
 	shopBtn->setTarget(this, menu_selector(MenuScene::toShopPanel));
+
+	CCMenuItem *drawLotteryBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(8)));
+	drawLotteryBtn->setTarget(this, menu_selector(MenuScene::drawLottery));
+
+	CCMenuItem *toPetBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(9)));
+	toPetBtn->setTarget(this, menu_selector(MenuScene::toPetPanel));
 
 	bool isMute = SoundMgr::theMgr()->isMute();
 	if (isMute)
@@ -209,15 +212,13 @@ void MenuScene::justShowNormalGameBtn()
 	m_bottomLayout->setVisible(false);
 	//m_mainLayout->getChildById(6)->setPosition(m_mainLayout->getChildById(7)->getPosition());
 	//m_mainLayout->getChildById(7)->setVisible(false);
-	m_mainLayout->getChildById(8)->setVisible(false);
-	m_mainLayout->getChildById(9)->setVisible(false);
 }
 
 void MenuScene::refreshPetTips()
 {
 	bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
-	m_mainLayout->getChildById(10)->setVisible(hasPetToUpgrade);
-	m_mainLayout->getChildById(10)->setZOrder(2);
+	m_bottomLayout->getChildById(10)->setVisible(hasPetToUpgrade);
+	m_bottomLayout->getChildById(10)->setZOrder(2);
 
 }
 

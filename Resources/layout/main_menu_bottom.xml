@@ -34,8 +34,8 @@
 	</button>
 	<button>
 		<id>4</id>
-		<x>187.86</x>
-		<y>44.07</y>
+		<x>245.69</x>
+		<y>39.85</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -43,21 +43,11 @@
 		<selected>main_menu/zcd_logo1.png</selected>
 		<disabled>main_menu/zcd_logo1.png</disabled>
 	</button>
-	<button>
-		<id>5</id>
-		<x>420.04</x>
-		<y>44.71</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<normal>main_menu/zcd_logo2.png</normal>
-		<selected>main_menu/zcd_logo2.png</selected>
-		<disabled>main_menu/zcd_logo2.png</disabled>
-	</button>
+
 	<button>
 		<id>6</id>
-		<x>303.84</x>
-		<y>45.83</y>
+		<x>158.01</x>
+		<y>44.77</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -76,5 +66,36 @@
 		<selected>main_menu/zcd_anniu7.png</selected>
 		<disabled>main_menu/zcd_anniu7.png</disabled>
 	</button>
+	<button>
+		<id>8</id>
+		<x>334.78</x>
+		<y>40.63</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>0.80</scale>
+		<normal>main_menu/zcd_anniu3.png</normal>
+		<selected>main_menu/zcd_anniu3.png</selected>
+		<disabled>main_menu/zcd_anniu3.png</disabled>
+	</button>
+	<button>
+		<id>9</id>
+		<x>422.31</x>
+		<y>39.98</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>0.80</scale>
+		<normal>main_menu/zcd_anniu4.png</normal>
+		<selected>main_menu/zcd_anniu4.png</selected>
+		<disabled>main_menu/zcd_anniu4.png</disabled>
+	</button>
+	<image>
+		<id>10</id>
+		<x>449.34</x>
+		<y>72.56</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>pet/tips.png</path>
+	</image>
 </layout>
 

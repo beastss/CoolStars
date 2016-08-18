@@ -22,6 +22,7 @@ namespace CommonUtil
 	cocos2d::CCAnimate *getFrameAnimation(std::string pathFormat, int num, float duration);
 	cocos2d::CCMenuItemSprite *getScaleMenuItemSpr(std::string path);
 	std::vector<GoodsData> getGoodsDatas(const std::string &str);
+	cocos2d::CCAction *getRepeatScaleAction(float scale = 0.8f, float toScaleTime = 0.6f, float toNormalTime = 0.4f);
 }
 
 #endif

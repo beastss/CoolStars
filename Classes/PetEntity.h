@@ -18,6 +18,7 @@ struct PetData
 	int skillTarget;
 	int maxLevel;
 	std::string skillDescRes;
+	int diamondCost;
 	//升级后变化
 	int maxEnergy;
 	int skillPower;
