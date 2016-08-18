@@ -1,14 +1,5 @@
 <layout width="480.000000" height="864.000000">
 	<image>
-		<id>4</id>
-		<x>238.67</x>
-		<y>225.49</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>main_menu/zcd_beijing1.png</path>
-	</image>
-	<image>
 		<id>1</id>
 		<x>241.58</x>
 		<y>662.20</y>
@@ -39,5 +30,37 @@
 		<selected>main_menu/zcd_logo2.png</selected>
 		<disabled>main_menu/zcd_logo2.png</disabled>
 	</button>
+	<emptyBox>
+		<id>8</id>
+		<x>40.95</x>
+		<y>326.45</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<emptyBox>
+		<id>9</id>
+		<x>283.23</x>
+		<y>181.05</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<emptyBox>
+		<id>10</id>
+		<x>345.49</x>
+		<y>312.31</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<emptyBox>
+		<id>11</id>
+		<x>90.76</x>
+		<y>153.18</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
 </layout>
 

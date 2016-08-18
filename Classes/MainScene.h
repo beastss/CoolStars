@@ -6,6 +6,7 @@
 class BasePanel;
 class ScaleDialog;
 class AnnouncementLayer;
+class BackgroundLayer;
 struct PanelRecord
 {
 	int panelId;
@@ -31,6 +32,7 @@ public:
 	void addAnnouncement(const char *picPath);
 	void removeAnnouncement();
 	void setAnnouncementLoop(bool loop);
+	void showSimpleBk(bool simpleBk);
 private:
 	MainScene();
 	~MainScene(){}
@@ -46,7 +48,7 @@ private:
 	std::deque<PanelRecord> m_panelRecord;
 	std::vector<BasePanel *>m_panels;
 	
-	cocos2d::CCNode *m_bkLayer;
+	BackgroundLayer *m_bkLayer;
 	cocos2d::CCNode *m_uiLayer;
 	cocos2d::CCNode *m_dialogLayer;
 	cocos2d::CCNode *m_guideLayer;

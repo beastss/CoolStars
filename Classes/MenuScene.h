@@ -36,6 +36,7 @@ private:
 	virtual void onEnter();
 	virtual void onExit();
 	virtual void onBackKeyTouched();
+	void runBkAction();
 private:
 	UiLayout *m_mainLayout;
 	UiLayout *m_bottomLayout;
