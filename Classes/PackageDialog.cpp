@@ -14,6 +14,7 @@
 #include "MainScene.h"
 #include "MsgNotifier.h"
 #include "GameBackEndState.h"
+#include "CommonUtil.h"
 
 USING_NS_CC;
 using namespace std;
@@ -46,17 +47,12 @@ bool PackageDialog::init()
 
 void PackageDialog::initLayout()
 {
-	bool isBusinessMode = GameBackEndState::theModel()->isBusinessMode();
-	m_layout->getChildById(4)->setVisible(!isBusinessMode);
-	m_layout->getChildById(5)->setVisible(!isBusinessMode);
-	m_layout->getChildById(7)->setVisible(isBusinessMode);
-	m_layout->getChildById(8)->setVisible(isBusinessMode);
-
-	CCMenuItem *cancelBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(isBusinessMode ? 7 : 4)));
+	CCMenuItem *cancelBtn = dynamic_cast<CCMenuItem *>(m_layout->getChildById(10));
 	cancelBtn->setTarget(this, menu_selector(PackageDialog::onCancelBtnClicked));
 
-	CCMenuItem *buyBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(isBusinessMode ? 8 : 5)));
+	CCMenuItem *buyBtn = dynamic_cast<CCMenuItem *>(m_layout->getChildById(9));
 	buyBtn->setTarget(this, menu_selector(PackageDialog::onBuyBtnClicked));
+	buyBtn->runAction(CommonUtil::getRepeatScaleAction());
 	
 	auto config = DataManagerSelf->getPackageConfig(m_type);
 

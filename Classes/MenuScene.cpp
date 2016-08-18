@@ -259,22 +259,27 @@ void MenuScene::runBkAction()
 
 	for(int i = 0; i < 4; ++i)
 	{
-		auto xMove = getRandomList(15, 4);
-		auto yMove = getRandomList(10, 4);
+		
 		auto spr = CCSprite::create(paths[i].c_str());
-		spr->setPosition(ccp(200, 200));
 		
 		auto box = dynamic_cast<EmptyBox *>(m_mainLayout->getChildById(8 + i));
 		box->setNode(spr);
+		auto rotate = getRandomList(15, 3);
 		float duration = CCRANDOM_0_1() * 2.0f + 1.0f;
-		auto rotate = CCSequence::create(CCRotateTo::create(duration, 20), CCRotateTo::create(duration, -20), NULL);
+		auto rotateAction = CCSequence::create(
+			CCRotateTo::create(duration, rotate[0]), 
+			CCRotateTo::create(duration, rotate[1]),
+			CCRotateTo::create(duration, rotate[2]), NULL);
+
+		auto xMove = getRandomList(15, 4);
+		auto yMove = getRandomList(10, 4);
 		duration = CCRANDOM_0_1() + 1.0f;
-		auto move = CCSequence::create(
+		auto moveAction = CCSequence::create(
 			CCMoveBy::create(duration, ccp(xMove[0], yMove[0])),
 			CCMoveBy::create(duration, ccp(xMove[1], yMove[1])),
 			CCMoveBy::create(duration, ccp(xMove[2], yMove[2])),
 			CCMoveBy::create(duration, ccp(xMove[3], yMove[3])), NULL);
-		box->runAction(CCRepeatForever::create(CCSpawn::create(rotate, move, NULL)));
+		box->runAction(CCRepeatForever::create(CCSpawn::create(rotateAction, moveAction, NULL)));
 	}
 
 }
