@@ -59,6 +59,9 @@ void PackageDialog::initLayout()
 	CCSprite *text = dynamic_cast<CCSprite *>((m_layout->getChildById(2)));
 	text->initWithFile(config.textPath.c_str());
 	
+	CCSprite *fingerSpr = dynamic_cast<CCSprite *>(m_layout->getChildById(3));
+	auto animation = CommonUtil::getFrameAnimation("guide/xszt_shouzi_%d.png", 2, 0.3f);
+	fingerSpr->runAction(CCRepeatForever::create(animation));
 }
 
 void PackageDialog::onCancelBtnClicked(cocos2d::CCObject* pSender)

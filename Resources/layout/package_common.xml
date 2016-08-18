@@ -49,5 +49,14 @@
 		<selected>package/btn_b.png</selected>
 		<disabled>package/btn_b.png</disabled>
 	</button>
+	<image>
+		<id>3</id>
+		<x>397.08</x>
+		<y>-123.79</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>guide/xszt_shouzi_0.png</path>
+	</image>
 </layout>
 
