@@ -11,7 +11,8 @@ public:
     virtual bool init();
     void setNode(cocos2d::CCNode* node);
     void removeNode();
-	
+	cocos2d::CCNode *getNode(){ return m_node;}
+
 	void setMaskVisible(bool isVisible);
 private:
     cocos2d::CCNode *m_node;

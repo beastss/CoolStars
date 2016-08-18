@@ -19,16 +19,23 @@ protected:
 	StageMaskLayer *m_layer;
 };
 
-class StarColorMaskOperator : public MaskOperator
+//高亮指定颜色的普通星星
+class StarMaskOperator : public MaskOperator
 {
 public:
-	StarColorMaskOperator(StageMaskLayer *layer) :MaskOperator(layer){}
-	void onHighLightStars(int color);
+	StarMaskOperator(StageMaskLayer *layer) :MaskOperator(layer){}
+	void onHighLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY);
+	virtual bool onTouchBegan(cocos2d::CCTouch *pTouch);
+	virtual void OnTouchMoved(cocos2d::CCTouch *pTouch);
 	virtual void onTouchEnd(cocos2d::CCTouch *pTouch);
 private:
 	std::unordered_map<cocos2d::CCNode *, LogicGrid> m_stars;
+	LogicGrid m_curGrid;
+	int m_radiusX;
+	int m_radiusY;
 };
 
+//高亮指定的宠物
 class PetMaskOperator : public MaskOperator
 {
 public:
@@ -38,16 +45,6 @@ public:
 
 private:
 	std::vector<cocos2d::CCNode *> m_stars;
-};
-
-class StarRectMaskOperator : public MaskOperator
-{
-public:
-	StarRectMaskOperator(StageMaskLayer *layer) :MaskOperator(layer){}
-	virtual void onTouchEnd(cocos2d::CCTouch *pTouch);
-	void onHighLightRectStars(int x, int y, int width, int height);
-private:
-	std::unordered_map<cocos2d::CCNode *, LogicGrid> m_stars;
 };
 
 class StageMaskLayer
@@ -60,7 +57,11 @@ public:
 	void initPetViewsInfo(std::unordered_map<int, cocos2d::CCPoint> info);
 	std::unordered_map<int, cocos2d::CCPoint> getPetViewInfo(){ return m_petsInfo; }
 	void addNode(cocos2d::CCNode *node);
+	void setNodesVisible(bool visible){ m_container->setVisible(visible); }
 	void endMask(bool toNormalState = true);
+	//二次选择的高亮
+	void highLightRect(int x, int y, int radiusX, int radiusY);
+	void removeRectHightLight();
 private:
 	StageMaskLayer();
 	virtual bool init();
@@ -70,18 +71,17 @@ private:
 	virtual void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 
-	virtual void onHighLightStars(int color);
+	virtual void onHighLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY);
 	virtual void onHighLightPets(const std::vector<int> &petIds);
-	virtual void onHighLightRectStars(int x, int y, int width, int height);
 protected:
 	std::unordered_map<int, cocos2d::CCPoint> m_petsInfo;
 	std::unordered_map<int, cocos2d::CCNode *> m_pets;
 	MaskOperator *m_curOp;
 	cocos2d::CCNode *m_container;
+	cocos2d::CCNode *m_rectNodes;
 
-	StarColorMaskOperator *m_colorStarOp;
+	StarMaskOperator *m_colorStarOp;
 	PetMaskOperator *m_petOp;
-	StarRectMaskOperator *m_starRectOp;
 };
 
 #endif

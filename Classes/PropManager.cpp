@@ -7,6 +7,7 @@
 #include "StarsEraseModule.h"
 #include "StarsController.h"
 #include "GameDataAnalysis.h"
+#include "StageLayersMgr.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -92,10 +93,11 @@ void PropManager::usePropReorder()
 
 void PropManager::usePropItem(int propType)
 {
-	//StarsController::theModel()->moveOneStep();
-
-	int amount = getPropItemAmount(propType);
-	setPropItemAmount(propType, amount - 1);
+	if (!m_infinite)
+	{
+		int amount = getPropItemAmount(propType);
+		setPropItemAmount(propType, amount - 1);
+	}
 	NOTIFY_VIEWS(onPropItemChanged);
 	GameDataAnalysis::theModel()->consumeProps(propType);
 }
@@ -116,4 +118,35 @@ void PropManager::removeView(IPropView *view)
 	{
 		m_views.erase(iter);
 	}
+}
+
+void PropManager::highLightCanBombArea()
+{
+	vector<LogicGrid> grids;
+	auto nodes = StarsController::theModel()->getStarNodes();
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto attr = nodes[i]->getAttr();
+		if (nodes[i]->canBeRemoved())
+		{
+			grids.push_back(attr.grid);
+		}
+	}
+	StageLayersMgr::theMgr()->highLightStars(grids, 1, 1);
+}
+
+void PropManager::highLightCanBrushArea()
+{
+	vector<LogicGrid> grids;
+	auto nodes = StarsController::theModel()->getStarNodes();
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto attr = nodes[i]->getAttr();
+		if (attr.type == kColorStar)
+		{
+			grids.push_back(attr.grid);
+		}
+	}
+	StageLayersMgr::theMgr()->highLightStars(grids, 0, 0);;
+
 }

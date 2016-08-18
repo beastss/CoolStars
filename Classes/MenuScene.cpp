@@ -20,6 +20,8 @@
 #include "GoodsView.h"
 #include "PackageModel.h"
 #include "KeyPadWatcher.h"
+#include "CommonUtil.h"
+#include "EmptyBox.h"
 
 USING_NS_CC;
 using namespace std;
@@ -28,12 +30,14 @@ void MenuScene::onEnter()
 {
 	BasePanel::onEnter();
 	MsgNotifier::theModel()->addView(this);
+	MainScene::theScene()->showSimpleBk(false);
 }
 
 void MenuScene::onExit()
 {
 	BasePanel::onExit();
 	MsgNotifier::theModel()->removeView(this);
+	MainScene::theScene()->showSimpleBk(true);
 }
 
 bool MenuScene::init()
@@ -59,6 +63,7 @@ bool MenuScene::init()
 	refreshPetTips();
 	GuideMgr::theMgr()->startGuide(kGuideStart_mainMenu_in, bind(&MenuScene::justShowNormalGameBtn, this));
 
+	runBkAction();
 	return true;
 }
 
@@ -66,15 +71,14 @@ void MenuScene::initMainLayout()
 {
 	CCMenuItem * normalBtn= dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(6)));
 	normalBtn->setTarget(this, menu_selector(MenuScene::toNormalGame));
+	normalBtn->runAction(CommonUtil::getRepeatScaleAction());
 
 	//CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
 	//treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
 
-	CCMenuItem *drawLotteryBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(8)));
-	drawLotteryBtn->setTarget(this, menu_selector(MenuScene::drawLottery));
+	CCMenuItem *packageBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(5)));
+	packageBtn->setTarget(this, menu_selector(MenuScene::toPackagePanel));
 
-	CCMenuItem *toPetBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(9)));
-	toPetBtn->setTarget(this, menu_selector(MenuScene::toPetPanel));
 }
 
 void MenuScene::initBottomLayout()
@@ -96,11 +100,14 @@ void MenuScene::initBottomLayout()
 	CCMenuItem *rankBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(4)));
 	rankBtn->setTarget(this, menu_selector(MenuScene::toRankPanel));
 
-	CCMenuItem *packageBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(5)));
-	packageBtn->setTarget(this, menu_selector(MenuScene::toPackagePanel));
-
 	CCMenuItem *shopBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(6)));
 	shopBtn->setTarget(this, menu_selector(MenuScene::toShopPanel));
+
+	CCMenuItem *drawLotteryBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(8)));
+	drawLotteryBtn->setTarget(this, menu_selector(MenuScene::drawLottery));
+
+	CCMenuItem *toPetBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(9)));
+	toPetBtn->setTarget(this, menu_selector(MenuScene::toPetPanel));
 
 	bool isMute = SoundMgr::theMgr()->isMute();
 	if (isMute)
@@ -209,19 +216,65 @@ void MenuScene::justShowNormalGameBtn()
 	m_bottomLayout->setVisible(false);
 	//m_mainLayout->getChildById(6)->setPosition(m_mainLayout->getChildById(7)->getPosition());
 	//m_mainLayout->getChildById(7)->setVisible(false);
-	m_mainLayout->getChildById(8)->setVisible(false);
-	m_mainLayout->getChildById(9)->setVisible(false);
+	m_mainLayout->getChildById(5)->setVisible(false);
 }
 
 void MenuScene::refreshPetTips()
 {
 	bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
-	m_mainLayout->getChildById(10)->setVisible(hasPetToUpgrade);
-	m_mainLayout->getChildById(10)->setZOrder(2);
+	m_bottomLayout->getChildById(10)->setVisible(hasPetToUpgrade);
+	m_bottomLayout->getChildById(10)->setZOrder(2);
 
 }
 
 void MenuScene::onBackKeyTouched()
 {
 	KeyPadWatcher::exitGame();
+}
+
+//生成num个和为0的列表
+vector<float> getRandomList(float max, int num)
+{
+	vector<float> v;
+	int sum = 0;
+	for (int i = 0; i < num - 1; ++i)
+	{
+		float temp = CCRANDOM_MINUS1_1() * max;
+		v.push_back(temp);
+		sum += temp;
+	}
+	v.push_back(-sum);
+	return v;
+}
+
+
+void MenuScene::runBkAction()
+{
+	string paths[] = {
+		"main_menu/bk/bj_pic_1.png",
+		"main_menu/bk/bj_pic_2.png",
+		"main_menu/bk/bj_pic_3.png",
+		"main_menu/bk/bj_pic_4.png"
+	};
+
+	for(int i = 0; i < 4; ++i)
+	{
+		auto xMove = getRandomList(15, 4);
+		auto yMove = getRandomList(10, 4);
+		auto spr = CCSprite::create(paths[i].c_str());
+		spr->setPosition(ccp(200, 200));
+		
+		auto box = dynamic_cast<EmptyBox *>(m_mainLayout->getChildById(8 + i));
+		box->setNode(spr);
+		float duration = CCRANDOM_0_1() * 2.0f + 1.0f;
+		auto rotate = CCSequence::create(CCRotateTo::create(duration, 20), CCRotateTo::create(duration, -20), NULL);
+		duration = CCRANDOM_0_1() + 1.0f;
+		auto move = CCSequence::create(
+			CCMoveBy::create(duration, ccp(xMove[0], yMove[0])),
+			CCMoveBy::create(duration, ccp(xMove[1], yMove[1])),
+			CCMoveBy::create(duration, ccp(xMove[2], yMove[2])),
+			CCMoveBy::create(duration, ccp(xMove[3], yMove[3])), NULL);
+		box->runAction(CCRepeatForever::create(CCSpawn::create(rotate, move, NULL)));
+	}
+
 }

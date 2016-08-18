@@ -33,8 +33,11 @@ bool MainScene::init()
 	CCScene::init();
 	//监听手机按键
 	addChild(KeyPadWatcher::create());
+	auto winSize = CCDirector::sharedDirector()->getWinSize();
+	setContentSize(winSize);
 
-	m_bkLayer = CCNode::create();
+	m_bkLayer = BackgroundLayer::create();
+	m_bkLayer->setPosition(ccpMult(winSize, 0.5f));
 	m_uiLayer = CCNode::create();
 	m_dialogLayer = CCNode::create();
 	m_guideLayer = CCNode::create();
@@ -45,11 +48,6 @@ bool MainScene::init()
 	addChild(m_guideLayer);
 	addChild(m_announcementLayer);
 
-	auto winSize = CCDirector::sharedDirector()->getWinSize();
-	setContentSize(winSize);
-	auto bk = BackgroundLayer::create();
-	bk->setPosition(ccpMult(winSize, 0.5f));
-	m_bkLayer->addChild(bk);
 	showPanel(kMainMenu);
 	showInitialUi();//显示游戏开始 可能需要弹出的ui
 	addGuideEditBtn();//新手引导编辑器
@@ -244,4 +242,19 @@ void MainScene::showTips(const char *str)
 void MainScene::addAnnouncement(const char *picPath)
 {
 	m_announcementLayer->addAnnouncement(picPath);
+}
+
+void MainScene::removeAnnouncement()
+{
+	m_announcementLayer->removeAnnouncement();
+}
+
+void MainScene::setAnnouncementLoop(bool loop)
+{
+	m_announcementLayer->setLoop(loop);
+}
+
+void MainScene::showSimpleBk(bool simpleBk)
+{
+	m_bkLayer->showSimpleBk(simpleBk);
 }

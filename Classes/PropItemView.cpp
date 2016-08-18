@@ -18,6 +18,8 @@ PropItemView *PropItemView::create(int type, int touchPriority)
 PropItemView::PropItemView(int type, int touchPriority)
 : TouchNode(touchPriority)
 , m_type(type)
+, m_isInfinite(false)
+, m_showNum(true)
 {
 
 }
@@ -50,12 +52,18 @@ bool PropItemView::init()
 
 void PropItemView::refreshItemNum()
 {
-	CCLabelAtlas *num = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(2));
-	auto mgr = PropManager::propMgr();
-	int amount = mgr->getPropItemAmount(m_type);
-	string str = ";";
-	str += intToStr(amount);
-	num->setString(str.c_str());
+	m_layout->getChildById(2)->setVisible(m_showNum && !m_isInfinite);
+	m_layout->getChildById(4)->setVisible(m_showNum && m_isInfinite);
+
+	if (!m_isInfinite)
+	{
+		CCLabelAtlas *num = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(2));
+		auto mgr = PropManager::propMgr();
+		int amount = mgr->getPropItemAmount(m_type);
+		string str = ";";
+		str += intToStr(amount);
+		num->setString(str.c_str());
+	}
 }
 
 void PropItemView::runScale()
@@ -84,4 +92,21 @@ bool PropItemView::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 void PropItemView::onPropItemChanged()
 {
 	refreshItemNum();
+}
+
+void PropItemView::setInfiniteProps(bool isInfinite)
+{
+	m_isInfinite = isInfinite;
+	refreshItemNum();
+}
+
+void PropItemView::showNum(bool show)
+{
+	m_showNum = show; 
+	refreshItemNum();
+}
+
+cocos2d::CCPoint PropItemView::getNumPos()
+{
+	return m_layout->convertToWorldSpace(m_layout->getChildById(2)->getPosition());
 }

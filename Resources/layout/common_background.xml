@@ -8,6 +8,15 @@
 		<scale>1.00</scale>
 		<path>background/beij_di.png</path>
 	</image>
+		<image>
+		<id>2</id>
+		<x>238.62</x>
+		<y>398.39</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>background/beij_di_2.jpg</path>
+	</image>
 	<animation>
 		<id>5</id>
 		<x>65.84</x>

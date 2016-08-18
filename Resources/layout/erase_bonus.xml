@@ -1,0 +1,34 @@
+<layout width="300.000000" height="50.000000">
+	<image>
+		<id>1</id>
+		<x>118.75</x>
+		<y>25.44</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_picture_2.png</path>
+	</image>
+	<imageNum>
+		<id>2</id>
+		<x>4.13</x>
+		<y>7.29</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+		<amount>12</amount>
+		<num>10</num>
+		<path>num/ty_ziti2.png</path>
+	</imageNum>
+	<imageNum>
+		<id>3</id>
+		<x>177.86</x>
+		<y>7.29</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+		<amount>12</amount>
+		<num>10</num>
+		<path>num/ty_ziti2.png</path>
+	</imageNum>
+</layout>
+

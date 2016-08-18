@@ -9,6 +9,9 @@
 class UiLayout;
 class TitlePanel;
 class LotteryScene;
+class ActionRunner;
+class NoTouchLayer;
+
 class LotteryNode
 	: public TouchNode
 {
@@ -16,12 +19,12 @@ public:
 	static LotteryNode *create(int touchPriority, LotteryScene *panel);
 	void setHandle(std::function<void()> handle){ m_handle = handle; }
 	bool isOpened();
+	void handleTouch();
 private:
 	virtual bool init();
 	LotteryNode(int touchPriority, LotteryScene *panel);
 	void openReward();
-	void handleTouch();
-	virtual bool onTouchBegan(cocos2d::CCPoint pt, bool isInside);
+	bool onTouchBegan(cocos2d::CCPoint pt, bool isInside);
 	cocos2d::CCAction *getRewardOutAction(int num);
 private:
 	UiLayout *m_layout;
@@ -49,21 +52,27 @@ private:
 	virtual void onEnter();
 	virtual void onExit();
 	LotteryScene(int usage);
+	~LotteryScene();
+	void initPanel();
 	void initLayout();
 	void initBottomLayout();
 	void refreshUi();
+	void newRewardBoxs();
 	void toPetScene(cocos2d::CCObject* pSender);
+	void openAllBox(cocos2d::CCObject* pSender);
 	void onStartBtnClicked(cocos2d::CCObject* pSender);
 	void onOpenReward();
 	virtual void onKeyChanged();
 	void hideBottomBtns();
-
 private:
 	UiLayout *m_layout;
 	UiLayout *m_bottomLayout;
 	TitlePanel *m_titlePanel;
 	static const int kRewardBoxNum = 9;
 	static const int kMinOpenBoxNum = 3;
-	int m_openedBoxNum;
+	int m_openedBoxNum;//累计开过的箱子总数
+	int m_curOpenedNum;//当前九个箱子里开过的数目；
+	ActionRunner *m_runner;
+	NoTouchLayer *m_noTouchLayer;
 };
 #endif

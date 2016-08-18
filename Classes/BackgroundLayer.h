@@ -9,6 +9,7 @@ class BackgroundLayer
 public:
 	CREATE_FUNC(BackgroundLayer);
 	virtual bool init();
+	void showSimpleBk(bool simpleBk);
 private:
 	void doMoveAction(cocos2d::CCNode *node, float speed, cocos2d::CCPoint sourcePos, cocos2d::CCPoint targetPos);
 	void initLayout();

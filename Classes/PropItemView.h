@@ -14,6 +14,9 @@ public:
 	static PropItemView *create(int type, int touchPriority);
 	virtual ~PropItemView(){}
 	void setTouchHandle(std::function<void(int)> handle){ m_touchHandle = handle; }
+	void setInfiniteProps(bool isInfinite);
+	void showNum(bool show);
+	cocos2d::CCPoint getNumPos();
 private:
 	PropItemView(int type, int touchPriority);
 	virtual bool init();
@@ -29,5 +32,7 @@ private:
 	int m_type;
 	UiLayout *m_layout;
 	std::function<void(int)> m_touchHandle;
+	bool m_isInfinite;
+	bool m_showNum;
 };
 #endif

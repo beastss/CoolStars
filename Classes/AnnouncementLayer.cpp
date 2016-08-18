@@ -21,7 +21,7 @@ void AnnouncementLayer::initPanel()
 void AnnouncementLayer::showTips(const char *str)
 {
 	CCNode *node = CCNode::create();
-	CCSprite * bk = CCSprite::create("ranking/phb_zj.png");
+	CCSprite * bk = CCSprite::create("announcement/ty_tab_1.png");
 	node->setContentSize(bk->getContentSize());
 	bk->setPosition(ccpMult(bk->getContentSize(), 0.5f));
 	node->addChild(bk);
@@ -71,15 +71,17 @@ void AnnouncementLayer::showAnnouncement()
 	if (m_announcement.empty()) return;
 
 	auto size = getContentSize();
-	auto nodeSize = CCSize(size.width, 50);
-
 	CCNode *node = CCNode::create();
-	node->setContentSize(nodeSize);
-	node->setPosition(ccp(0, size.height * 0.8f));
-	addChild(node);
 
+	/*
+	auto nodeSize = CCSize(size.width, 50);
 	auto bk = CCLayerColor::create(ccc4(0, 0, 0, 120));
 	bk->setContentSize(nodeSize);
+	node->addChild(bk);
+	*/
+	CCSprite * bk = CCSprite::create("announcement/game_panel_1.png");
+	auto nodeSize = bk->getContentSize();
+	bk->setPosition(ccpMult(bk->getContentSize(), 0.5f));
 	node->addChild(bk);
 
 	auto spr = CCSprite::create(m_announcement.front().c_str());
@@ -87,15 +89,38 @@ void AnnouncementLayer::showAnnouncement()
 	spr->setPosition(ccp(nodeSize.width + sprSize.width * 0.7f, nodeSize.height * 0.5f));
 	node->addChild(spr);
 
-	auto moveIn = CCMoveTo::create(3.0f, ccp(nodeSize.width * 0.5f, nodeSize.height * 0.5f));
-	auto stay = CCDelayTime::create(3.0f);
-	auto moveOut = CCMoveTo::create(3.0f, ccp(-sprSize.width * 0.7f, nodeSize.height * 0.5f));
+	float kFadeInTime = sprSize.width / 70;
+	float kStayTime = 3.0f;
+	float kFadeOutTime = kFadeInTime;
+
+	auto moveIn = CCMoveTo::create(kFadeInTime, ccp(nodeSize.width * 0.5f, nodeSize.height * 0.5f));
+	auto stay = CCDelayTime::create(kStayTime);
+	auto moveOut = CCMoveTo::create(kFadeOutTime, ccp(-sprSize.width * 0.7f, nodeSize.height * 0.5f));
 	auto func = CCFunctionAction::create([=]()
 	{
+		if (m_loop)
+		{
+			m_announcement.push_back(m_announcement.front());
+		}
 		m_announcement.pop_front();
+		node->setVisible(false);	
+	});
+	auto nextAnnouncement = CCFunctionAction::create([=]()
+	{
 		node->removeFromParent();
-		showAnnouncement();
+		AnnouncementLayer::showAnnouncement();
 	});
 
-	spr->runAction(CCSequence::create(moveIn, stay, moveOut, func, NULL));
+	spr->runAction(CCSequence::create(moveIn, moveOut, func, stay, nextAnnouncement, NULL));
+
+	node->setContentSize(nodeSize);
+	node->setPosition(ccp(0, size.height * 0.67f));
+	addChild(node);
+}
+
+void AnnouncementLayer::removeAnnouncement()
+{
+	m_announcement.clear();
+	m_loop = false;
+	removeAllChildrenWithCleanup(true);
 }

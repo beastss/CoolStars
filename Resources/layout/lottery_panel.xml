@@ -149,5 +149,16 @@
 		<scale>1.00</scale>
 		<path>pet/tips.png</path>
 	</image>
+	<button>
+		<id>21</id>
+		<x>237.22</x>
+		<y>115.83</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>lottery/btn_4.png</normal>
+		<selected>lottery/btn_4.png</selected>
+		<disabled>lottery/btn_4.png</disabled>
+	</button>
 </layout>
 

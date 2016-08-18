@@ -218,7 +218,7 @@ bool TitlePanel::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent
 	{
 		auto pos = nodes[i]->getParent()->convertToNodeSpace(pTouch->getLocation());
 		auto box = nodes[i]->boundingBox();
-		if (node->boundingBox().containsPoint(pos))
+		if (box.containsPoint(pos))
 		{
 			SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 			CCSprite *spr = dynamic_cast<CCSprite *>(node);

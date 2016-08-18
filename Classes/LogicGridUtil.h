@@ -7,6 +7,7 @@ struct LogicGrid
 	int x;
 	int y;
 	LogicGrid(int x = 0, int y = 0) : x(x), y(y){}
+	void reset(){ x = -1; y = -1; }
 	//*
 	bool operator == (const LogicGrid &grid)const
 	{
@@ -26,4 +27,14 @@ std::vector<LogicGrid> getStarsOnRow(const LogicGrid &grid, int num);
 std::vector<LogicGrid> getStarsOnColumn(const LogicGrid &grid, int num);
 std::vector<LogicGrid> getRandomGrids(const std::vector<LogicGrid> &range, int num);
 
+
+struct LogicRect
+{
+	int x;
+	int y;
+	int width;
+	int height;
+	LogicRect(int ix, int iy, int iw, int ih) : x(ix), y(iy), width(iw), height(ih){}
+	LogicRect(){}
+};
 #endif

@@ -145,7 +145,7 @@ void StageOperator::randomReplaceStars(int petId, int starType, int color, int n
 	{
 		auto star = stars[i];
 		auto attr = star->getAttr();
-		if (attr.type == kColorStar)
+		if (attr.type == kColorStar && attr.color != color)
 		{
 			grids.push_back(attr.grid);
 		}
@@ -185,7 +185,7 @@ void StageOperator::gameOverRandomReplace()
 	auto targetGrids = getRandomGrids(grids, leftSteps);
 	GameResultReward rewardBonus;
 	float kMaxDuration = 0.5f;
-	float avgDuration = 5.0f / targetGrids.size();
+	float avgDuration = 3.0f / targetGrids.size();
 	float duration = min(avgDuration, kMaxDuration);
 	for (size_t i = 0; i < targetGrids.size(); ++i)
 	{
@@ -234,7 +234,7 @@ void StageOperator::gameOverRandomReplace()
 
 	m_runner->queueAction(CallFuncAction::withFunctor([=]()
 	{
-		StageDataMgr::theMgr()->setResultBonus(rewardBonus);
+		StageDataMgr::theMgr()->addResultBonus(rewardBonus);
 		StarsController::theModel()->gameOver(true);
 	}));
 }

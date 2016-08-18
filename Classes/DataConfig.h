@@ -29,6 +29,7 @@ struct PetCommonConfig
 	int skillTarget;
 	int maxLevel;
 	std::string skillDescRes;
+	int diamondCost;
 	string desc;
 };
 
@@ -215,5 +216,12 @@ struct SoundConfig
 	std::string button;
 	std::string bomb;
 	std::string starErase;
+};
+
+struct EraseBonus
+{
+	int id;
+	int eraseNum;
+	int food;
 };
 #endif

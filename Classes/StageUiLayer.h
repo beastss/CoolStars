@@ -54,6 +54,8 @@ public:
 	virtual void onExplodeGrid(const LogicGrid &grid);
 	virtual void onOneRoundBegan();
 	virtual void onOneRoundEnd();
+	virtual void onGuideViewRemoved();
+	virtual void onLinkErase(int num);
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:
@@ -64,6 +66,7 @@ private:
 	void handlePropsItemClicked(int type);
 	void showGameOverHint();
 	void showPetsSkillPanel();
+	void showPropsGuide();
 	void refreshRedPackage();
 
 	void onPauseBtnClicked(CCObject *pSender);

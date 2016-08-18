@@ -32,6 +32,8 @@
 #include "StageBonusView.h"
 #include "PackageDialog.h"
 #include "GameBackEndState.h"
+#include "PropsGuideView.h"
+#include "GuideMgr.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -414,7 +416,8 @@ void StageUiLayer::showChangeColorPanel(int myColor, const LogicGrid &grid)
 void StageUiLayer::handlePropsItemClicked(int type)
 {
 	int amount = PropManager::propMgr()->getPropItemAmount(type);
-	if (amount > 0)
+	bool infiniteMode = PropManager::propMgr()->isInfiniteMode();
+	if (infiniteMode || amount > 0)
 	{
 		m_stateOwner->clickProp(type);
 	}
@@ -681,4 +684,60 @@ void StageUiLayer::onEraseStarsEnd()
 		m_noTouchLayer->setCanTouch(true, 1);
 	});
 	runAction(CCSequence::create(CCDelayTime::create(0.5f), func, NULL));
+}
+
+void StageUiLayer::onGuideViewRemoved()
+{
+	GuideMgr::theMgr()->startGuide(kGuideStart_stage_props_guide, bind(&StageUiLayer::showPropsGuide, this));
+}
+
+void StageUiLayer::showPropsGuide()
+{
+	auto propsGuideView = PropsGuideView::create();
+	vector<cocos2d::CCPoint> m_pos;
+	for (int i = 0; i < 3; ++i)
+	{
+		auto box = dynamic_cast<EmptyBox *>(m_bottomUi->getChildById(12 + i));
+		auto node = dynamic_cast<PropItemView *>(box->getNode());
+		node->setInfiniteProps(true);
+		node->showNum(false);
+		m_pos.push_back(node->getNumPos());
+	}
+	PropManager::propMgr()->setInfinite(true);
+	propsGuideView->loadPropsPos(m_pos);
+	propsGuideView->setFinishHandle([=]()
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			auto box = dynamic_cast<EmptyBox *>(m_bottomUi->getChildById(12 + i));
+			auto node = dynamic_cast<PropItemView *>(box->getNode());
+			node->showNum(true);
+		}
+		GuideMgr::theMgr()->endGuide(kGuideEnd_stage_props_guide);
+	});
+	addChild(propsGuideView);
+}
+
+void StageUiLayer::onLinkErase(int num)
+{
+	int bonus = DataManagerSelf->getEraseBonus(num);
+	if (bonus <= 0) return;
+
+	auto layout = UiLayout::create("layout/erase_bonus.xml");
+	auto size = getContentSize();
+	layout->setPosition(ccp(size.width * 0.5f, size.height * 0.65f));
+	layout->setAnchorPoint(ccp(0.5f, 0.5f));
+	addChild(layout);
+
+	auto numLabel = dynamic_cast<CCLabelAtlas *>(layout->getChildById(2));
+	numLabel->setString(intToStr(num));
+	
+	auto foodLabel = dynamic_cast<CCLabelAtlas *>(layout->getChildById(3));
+	foodLabel->setString(intToStr(bonus));
+
+	auto func = CCFunctionAction::create([=]()
+	{
+		layout->removeFromParent();
+	});
+	layout->runAction(CCSequence::create(CCBlink::create(2.0f, 3), CCDelayTime::create(0.5f), func, NULL));
 }

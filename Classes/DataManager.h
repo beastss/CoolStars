@@ -30,6 +30,9 @@ public:
 	void loadStageConfig();
 	const StageConfig &getStageConfig(int stage);
 
+	void loadEraseBonus();
+	int getEraseBonus(int eraseNum);
+
 	void loadStarsLoaderConfig();
 	const std::vector<StarsLoaderConfig> getStarsLoaderConfig(int stage);
 
@@ -115,6 +118,7 @@ private:
 	RewardsConfig m_rewardsConfig;
 	vector<ThiefConfig> m_thiefConfig;
 	vector<PurchaseConfig> m_purchaseConfig;
+	vector<EraseBonus> m_eraseBonusConfig;
 	SoundConfig m_soundConfig;
 };
 

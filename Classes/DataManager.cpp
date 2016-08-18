@@ -20,6 +20,7 @@ void DataManager::LoadData()
 {
 	loadSystemConfig();
 	loadStageConfig();
+	loadEraseBonus();
 	loadStarsConfig();
 	loadStarsColorConfig();
 	loadPetCommonConfig();
@@ -96,7 +97,8 @@ void DataManager::loadPetCommonConfig()
 		assert(config.foodToUpgrade.size() == config.maxLevel);
 		config.skillTarget = atoi(data[5]);
 		config.skillDescRes = data[6];
-		config.desc = data[7];
+		config.diamondCost = atoi(data[7]);
+		config.desc = data[8];
 		m_petCommonConfig.push_back(config);
 	}
 }
@@ -238,6 +240,45 @@ const StageConfig &DataManager::getStageConfig(int stage)
 {
 	assert(stage > 0 && stage <= m_systemConfig.stageAmount);
 	return m_stagesConfig[stage - 1];
+}
+
+void DataManager::loadEraseBonus()
+{
+	SqliteHelper sqlHelper(DB_STAGE);
+	auto result = sqlHelper.readRecord("select * from erase_bonus");
+
+	for (auto iter = result.begin(); iter != result.end(); ++iter)
+	{
+		auto rowData = *iter;
+		EraseBonus bonus;
+		bonus.id = atoi(rowData[0]);
+		bonus.eraseNum = atoi(rowData[1]);
+		bonus.food = atoi(rowData[2]);
+
+		m_eraseBonusConfig.push_back(bonus);
+	}
+	sort(m_eraseBonusConfig.begin(), m_eraseBonusConfig.end(), [=](EraseBonus bonus1, EraseBonus bonus2)
+	{
+		return bonus1.eraseNum < bonus2.eraseNum;
+	});
+}
+
+int DataManager::getEraseBonus(int eraseNum)
+{
+	if (eraseNum <= 0) return 0;
+	int maxStep = m_eraseBonusConfig.back().eraseNum;
+	int maxFood = m_eraseBonusConfig.back().food;
+	if (eraseNum > maxStep) return maxFood;
+
+	auto iter = find_if(m_eraseBonusConfig.begin(), m_eraseBonusConfig.end(), [=](EraseBonus bonus)
+	{
+		return bonus.eraseNum == eraseNum;
+	});
+	if (iter != m_eraseBonusConfig.end())
+	{
+		return iter->food;
+	}
+	return 0;
 }
 
 void DataManager::loadStarsLoaderConfig()

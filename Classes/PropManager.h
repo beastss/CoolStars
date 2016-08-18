@@ -31,13 +31,19 @@ public:
 
 	void addView(IPropView *view);
 	void removeView(IPropView *view);
+	void setInfinite(bool isInfinite){ m_infinite = isInfinite; }
+	bool isInfiniteMode(){ return m_infinite;}
+
+	void highLightCanBombArea();
+	void highLightCanBrushArea();
 private: 
-	PropManager(){}
+	PropManager() : m_infinite(false){}
 	void usePropItem(int propType);
 	void save();
 
 private:
 	std::vector<int> m_propAmount;
 	std::vector<IPropView *> m_views;
+	bool m_infinite;
 };
 #endif

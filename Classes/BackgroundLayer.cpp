@@ -18,7 +18,14 @@ bool BackgroundLayer::init()
 
 	setContentSize(size);
 	setAnchorPoint(ccp(0.5, 0.5));
+	showSimpleBk(true);
 	return true;
+}
+
+void BackgroundLayer::showSimpleBk(bool simpleBk)
+{
+	m_bkLayout->getChildById(1)->setVisible(simpleBk);
+	m_bkLayout->getChildById(2)->setVisible(!simpleBk);
 }
 
 void BackgroundLayer::doMoveAction(CCNode *node, float speed, CCPoint sourcePos, CCPoint targetPos)

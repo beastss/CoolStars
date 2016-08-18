@@ -37,19 +37,14 @@ void StageLayersMgr::targetPanelDone()
 	NOTIFY_LAYERSS(onTargetPanelDone);
 }
 
-void StageLayersMgr::highLightStars(int color)
+void StageLayersMgr::highLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY)
 {
-	NOTIFY_LAYERSS(onHighLightStars, color);
+	NOTIFY_LAYERSS(onHighLightStars, grids, radiusX, radiusY);
 }
 
 void StageLayersMgr::highLightPets(const std::vector<int> &petIds)
 {
 	NOTIFY_LAYERSS(onHighLightPets, petIds);
-}
-
-void StageLayersMgr::highLightRectStars(int x, int y, int width, int height)
-{
-	NOTIFY_LAYERSS(onHighLightRectStars, x, y, width, height);
 }
 
 void StageLayersMgr::toNormalState()
@@ -85,4 +80,14 @@ void StageLayersMgr::eraseStarsEnd()
 void StageLayersMgr::explodeGrid(const LogicGrid &grid)
 {
 	NOTIFY_LAYERSS(onExplodeGrid, grid);
+}
+
+void StageLayersMgr::removeGuideView()
+{
+	NOTIFY_LAYERSS(onGuideViewRemoved);
+}
+
+void StageLayersMgr::linkErase(int num)
+{
+	NOTIFY_LAYERSS(onLinkErase, num);
 }
