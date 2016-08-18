@@ -34,6 +34,7 @@ public:
 	void onScaleEraseDone(ScaleEarseRunner *runner);
 private:
 	StarsEraseModule();
+	void addLinkEraseBonus(int num);
 private:
 	std::vector<ScaleEarseRunner *>m_runners;
 	ActionRunner *m_runner;

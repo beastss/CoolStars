@@ -234,7 +234,7 @@ void StageOperator::gameOverRandomReplace()
 
 	m_runner->queueAction(CallFuncAction::withFunctor([=]()
 	{
-		StageDataMgr::theMgr()->setResultBonus(rewardBonus);
+		StageDataMgr::theMgr()->addResultBonus(rewardBonus);
 		StarsController::theModel()->gameOver(true);
 	}));
 }

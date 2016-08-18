@@ -86,3 +86,8 @@ void StageLayersMgr::removeGuideView()
 {
 	NOTIFY_LAYERSS(onGuideViewRemoved);
 }
+
+void StageLayersMgr::linkErase(int num)
+{
+	NOTIFY_LAYERSS(onLinkErase, num);
+}

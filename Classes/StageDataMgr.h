@@ -56,7 +56,8 @@ public:
 	void reset(int gameType = kNormalType);
 
 	const GameResultReward &getResultBonus(){ return m_resultBouns; }
-	void setResultBonus(const GameResultReward &reward){ m_resultBouns = reward; }
+	//这个是增加函数，不是set函数
+	void addResultBonus(const GameResultReward &reward);
 	void resetResultBonus();
 
 	bool isFirstFail(){ return m_failRecord.isFirstFail(); }

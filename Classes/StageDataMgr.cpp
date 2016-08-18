@@ -142,6 +142,15 @@ void StageDataMgr::newRound()
 	m_curScoreBonus = 0;
 }
 
+void StageDataMgr::addResultBonus(const GameResultReward &reward)
+{
+	m_resultBouns.diamond += reward.diamond;
+	m_resultBouns.food += reward.food;
+	m_resultBouns.key += reward.key;
+	//CCLog("add food : %d", reward.food);
+	//CCLog("cur food : %d", m_resultBouns.food);
+}
+
 void StageDataMgr::resetResultBonus()
 {
 	m_resultBouns.diamond = 0;

@@ -9,6 +9,7 @@ struct IStageLayer
 	virtual void onHighLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY){}
 	virtual void onToNormalState(){}
 	virtual void onStarErased(cocos2d::CCPoint pos, int starType, int color){}
+	virtual void onLinkErase(int num){}
 	virtual void onHighLightPets(const std::vector<int> &petIds){}
 	virtual void onScoreBouble(){}
 	virtual void onTouchEnable(bool canTouch){}
@@ -46,6 +47,7 @@ public:
 	void eraseStarsEnd();
 	void explodeGrid(const LogicGrid &grid);
 	void removeGuideView();
+	void linkErase(int num);
 private:
 	StageLayersMgr(){}
 private:

@@ -55,6 +55,7 @@ public:
 	virtual void onOneRoundBegan();
 	virtual void onOneRoundEnd();
 	virtual void onGuideViewRemoved();
+	virtual void onLinkErase(int num);
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:

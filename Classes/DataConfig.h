@@ -216,4 +216,11 @@ struct SoundConfig
 	std::string bomb;
 	std::string starErase;
 };
+
+struct EraseBonus
+{
+	int id;
+	int eraseNum;
+	int food;
+};
 #endif

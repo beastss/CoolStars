@@ -697,3 +697,27 @@ void StageUiLayer::showPropsGuide()
 	});
 	addChild(propsGuideView);
 }
+
+void StageUiLayer::onLinkErase(int num)
+{
+	int bonus = DataManagerSelf->getEraseBonus(num);
+	if (bonus <= 0) return;
+
+	auto layout = UiLayout::create("layout/erase_bonus.xml");
+	auto size = getContentSize();
+	layout->setPosition(ccp(size.width * 0.5f, size.height * 0.65f));
+	layout->setAnchorPoint(ccp(0.5f, 0.5f));
+	addChild(layout);
+
+	auto numLabel = dynamic_cast<CCLabelAtlas *>(layout->getChildById(2));
+	numLabel->setString(intToStr(num));
+	
+	auto foodLabel = dynamic_cast<CCLabelAtlas *>(layout->getChildById(3));
+	foodLabel->setString(intToStr(bonus));
+
+	auto func = CCFunctionAction::create([=]()
+	{
+		layout->removeFromParent();
+	});
+	layout->runAction(CCSequence::create(CCBlink::create(2.0f, 3), CCDelayTime::create(0.5f), func, NULL));
+}

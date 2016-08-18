@@ -4,6 +4,7 @@
 #include "SoundMgr.h"
 #include "StageLayersMgr.h"
 #include <algorithm>
+#include "StageDataMgr.h"
 using namespace std;
 USING_NS_CC;
 
@@ -58,12 +59,23 @@ void StarsEraseModule::handleClick(const LogicGrid &grid)
 			}
 			m_runner->queueAction(CallFuncAction::withFunctor([=]()
 			{
+				addLinkEraseBonus(count);
 				StageLayersMgr::theMgr()->eraseStarsEnd();
 				StarsController::theModel()->moveOneStep();
 				StarsController::theModel()->genNewStars();
 			}));
 		}
 	}
+}
+void StarsEraseModule::addLinkEraseBonus(int num)
+{
+	int food = DataManagerSelf->getEraseBonus(num);
+
+	GameResultReward rewardBonus;
+	rewardBonus.food = food;
+	StageDataMgr::theMgr()->addResultBonus(rewardBonus);
+
+	StageLayersMgr::theMgr()->linkErase(num);
 }
 
 void StarsEraseModule::scaleErase(const LogicGrid &center, int xRadius, int yRadius)
