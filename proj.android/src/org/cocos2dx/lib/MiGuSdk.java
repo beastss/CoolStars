@@ -28,7 +28,7 @@ public class MiGuSdk implements ExternSdkInterface{
 		String name;
 		ItemData(double c, String n){cost = c; name = n;}
 	}
-	ItemData items[] = new ItemData[10];
+	ItemData items[] = new ItemData[9];
 	
 	String[] toastText = 
 		{"钻石不足",
@@ -44,7 +44,6 @@ public class MiGuSdk implements ExternSdkInterface{
 			"道具礼包",
 			"接着玩",
 			"新手宠物包",
-			"推荐宠物包",
 			"一键开箱"};
 		double[]costs = {
 				2,
@@ -55,7 +54,6 @@ public class MiGuSdk implements ExternSdkInterface{
 				30,
 				2,
 				0.1,
-				30,
 				6
 		};
 		for(int i = 0; i < names.length; ++i)
