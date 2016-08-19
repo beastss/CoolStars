@@ -66,9 +66,8 @@ void PackageDialog::initLayout()
 	fingerSpr->setZOrder(2);
 	fingerSpr->runAction(CCRepeatForever::create(
 		CCSequence::create(
-		CCMoveTo::create(0.8f, newPos), 
-		CCMoveTo::create(0.1f, oldPos), 
-		CCDelayTime::create(0.5f), NULL)));
+		CCMoveTo::create(0.3f, newPos), 
+		CCMoveTo::create(0.3f, oldPos), NULL)));
 }
 
 void PackageDialog::onCancelBtnClicked(cocos2d::CCObject* pSender)
