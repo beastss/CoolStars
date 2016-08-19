@@ -95,7 +95,7 @@ public class MiGuSdk implements ExternSdkInterface{
 				payResult = PAY_RESULT_CANCEL;
 				break;
 			}
-			Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
 			onPurchase(payResult);
 		}
 	};

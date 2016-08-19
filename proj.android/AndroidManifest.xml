@@ -43,7 +43,7 @@
         <!-- 配置渠道号 -->
         <meta-data
             android:name="dx_channel"
-            android:value="dx_channel:kxcwx_mubao" />
+            android:value="dx_channel:kxcwx_test1" />
 
         <service android:name="com.dongxin.services.DxService" >
         </service>
@@ -62,7 +62,7 @@
             android:value="579069d1e0f55a65e40002a3" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="kxcwx_mubao" />
+            android:value="kxcwx_test1" />
     </application>
 
     <supports-screens
