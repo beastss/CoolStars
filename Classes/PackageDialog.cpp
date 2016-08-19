@@ -66,7 +66,7 @@ void PackageDialog::initLayout()
 	fingerSpr->setZOrder(2);
 	fingerSpr->runAction(CCRepeatForever::create(
 		CCSequence::create(
-		CCMoveTo::create(1.5f, newPos), 
+		CCMoveTo::create(0.8f, newPos), 
 		CCMoveTo::create(0.1f, oldPos), 
 		CCDelayTime::create(0.5f), NULL)));
 }
