@@ -705,7 +705,7 @@ void StageUiLayer::onLinkErase(int num)
 
 	auto layout = UiLayout::create("layout/erase_bonus.xml");
 	auto size = getContentSize();
-	layout->setPosition(ccp(size.width * 0.5f, size.height * 0.65f));
+	layout->setPosition(ccp(size.width * 0.5f, size.height * 0.50f));
 	layout->setAnchorPoint(ccp(0.5f, 0.5f));
 	addChild(layout);
 

@@ -25,7 +25,6 @@
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
-	
 	<imageNum>
 		<id>15</id>
 		<x>284.90</x>
@@ -126,7 +125,7 @@
 	</image>
 	<image>
 		<id>28</id>
-		<x>254.52</x>
+		<x>260.43</x>
 		<y>206.61</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
@@ -135,8 +134,8 @@
 	</image>
 	<emptyBox>
 		<id>22</id>
-		<x>174.11</x>
-		<y>201.13</y>
+		<x>180.23</x>
+		<y>200.29</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
