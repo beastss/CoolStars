@@ -216,7 +216,7 @@ void LotteryScene::initLayout()
 	toPetSceneBtn->setTarget(this, menu_selector(LotteryScene::toPetScene));
 
 	CCMenuItem * openAllBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(21)));
-	openAllBtn->setTarget(this, menu_selector(LotteryScene::openAllBox));
+	openAllBtn->setTarget(this, menu_selector(LotteryScene::onOpenAllBoxesBtnClicked));
 	
 	int boxIds[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 	for (int i = 0; i < 9; ++i)
@@ -288,7 +288,13 @@ void LotteryScene::toPetScene(CCObject* pSender)
 	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromLotteryScene);
 }
 
-void LotteryScene::openAllBox(cocos2d::CCObject* pSender)
+void LotteryScene::onOpenAllBoxesBtnClicked(cocos2d::CCObject* pSender)
+{
+	const int kOpenAllBoxesPurchaseId = 10;//¼Æ·Ñµãid
+	MyPurchase::sharedPurchase()->buyItem(kOpenAllBoxesPurchaseId, bind(&LotteryScene::openAllBoxs, this));
+}
+
+void LotteryScene::openAllBoxs()
 {
 	m_runner->clear();
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);

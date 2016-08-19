@@ -3,6 +3,7 @@
 #include "org_cocos2dx_lib_MiGuSdk.h"
 #endif
 #include "ActionRunner.h"
+#include "DataManager.h"
 using namespace cocos2d;
 using namespace std;
 
@@ -88,7 +89,7 @@ void MyPurchase::onPayResult(int ret)
 
 bool MyPurchase::checkBuyType(int type)
 {
-	return type >= BuyType_Diamond_200 && type <= BuyType_Pet_Recommend;
+	return type >= 1 && type <= DataManagerSelf->getPurchaseConfigs().size();
 }
 
 void MyPurchase::showToast(int index)
