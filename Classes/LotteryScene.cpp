@@ -77,6 +77,7 @@ void LotteryNode::handleTouch()
 	auto size = getContentSize();
 	pos = ccpAdd(pos, ccpMult(size, 0.5f));
 	m_panel->runKeyMoveAction(pos, bind(&LotteryNode::openReward, this));
+	GuideMgr::theMgr()->endGuide(kGuideEnd_lottery_open_box);
 }
 
 void LotteryNode::openReward()
@@ -199,7 +200,11 @@ void LotteryScene::initPanel()
 	auto sourcePos = ccp(winSize.width * 0.5f, winSize.height * 1.5f);
 	auto targetPos = ccpMult(winSize, 0.5f);
 	m_layout->setPosition(sourcePos);
-	m_layout->runAction(CCEaseBackInOut::create(CCMoveTo::create(0.5f, targetPos)));
+	auto func = CCFunctionAction::create([=]()
+	{
+		GuideMgr::theMgr()->startGuide(kGuideStart_lottery_panel_move_done);
+	});
+	m_layout->runAction(CCSequence::create(CCEaseBackInOut::create(CCMoveTo::create(0.5f, targetPos)), func, NULL));
 	addChild(m_layout);
 	initLayout();
 	refreshUi();

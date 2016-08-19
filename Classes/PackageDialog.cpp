@@ -59,9 +59,16 @@ void PackageDialog::initLayout()
 	CCSprite *text = dynamic_cast<CCSprite *>((m_layout->getChildById(2)));
 	text->initWithFile(config.textPath.c_str());
 	
+	m_layout->getChildById(4)->setVisible(false);
 	CCSprite *fingerSpr = dynamic_cast<CCSprite *>(m_layout->getChildById(3));
-	auto animation = CommonUtil::getFrameAnimation("guide/xszt_shouzi_%d.png", 2, 0.3f);
-	fingerSpr->runAction(CCRepeatForever::create(animation));
+	auto oldPos = fingerSpr->getPosition();
+	auto newPos = m_layout->getChildById(4)->getPosition();
+	fingerSpr->setZOrder(2);
+	fingerSpr->runAction(CCRepeatForever::create(
+		CCSequence::create(
+		CCMoveTo::create(1.5f, newPos), 
+		CCMoveTo::create(0.1f, oldPos), 
+		CCDelayTime::create(0.5f), NULL)));
 }
 
 void PackageDialog::onCancelBtnClicked(cocos2d::CCObject* pSender)
