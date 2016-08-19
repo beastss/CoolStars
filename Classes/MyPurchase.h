@@ -10,19 +10,6 @@
 
 USING_NS_CC;
 
-enum BuyType
-{
-	BuyType_Diamond_200 = 1,
-	BuyType_Diamond_960,
-	BuyType_Diamond_2250,
-	BuyType_Diamond_3600,
-	BuyType_Diamond_6000,
-	BuyType_Props,
-	BuyType_Stage_Step,
-	BuyType_Pet_First_Get,
-	BuyType_Pet_Recommend,
-};
-
 enum ReturnCode
 {
 	kReturnCodeSucceed,

@@ -10,8 +10,8 @@
 	</image>
 	<button>
 		<id>6</id>
-		<x>239.03</x>
-		<y>358.32</y>
+		<x>233.96</x>
+		<y>242.24</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -32,32 +32,32 @@
 	</button>
 	<emptyBox>
 		<id>8</id>
-		<x>40.95</x>
-		<y>326.45</y>
+		<x>31.03</x>
+		<y>329.62</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>9</id>
-		<x>283.23</x>
-		<y>181.05</y>
+		<x>56.57</x>
+		<y>185.90</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>10</id>
-		<x>345.49</x>
-		<y>312.31</y>
+		<x>335.78</x>
+		<y>179.98</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>11</id>
-		<x>90.76</x>
-		<y>153.18</y>
+		<x>280.70</x>
+		<y>337.00</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>

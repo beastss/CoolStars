@@ -77,6 +77,7 @@ void LotteryNode::handleTouch()
 	auto size = getContentSize();
 	pos = ccpAdd(pos, ccpMult(size, 0.5f));
 	m_panel->runKeyMoveAction(pos, bind(&LotteryNode::openReward, this));
+	GuideMgr::theMgr()->endGuide(kGuideEnd_lottery_open_box);
 }
 
 void LotteryNode::openReward()
@@ -199,7 +200,11 @@ void LotteryScene::initPanel()
 	auto sourcePos = ccp(winSize.width * 0.5f, winSize.height * 1.5f);
 	auto targetPos = ccpMult(winSize, 0.5f);
 	m_layout->setPosition(sourcePos);
-	m_layout->runAction(CCEaseBackInOut::create(CCMoveTo::create(0.5f, targetPos)));
+	auto func = CCFunctionAction::create([=]()
+	{
+		GuideMgr::theMgr()->startGuide(kGuideStart_lottery_panel_move_done);
+	});
+	m_layout->runAction(CCSequence::create(CCEaseBackInOut::create(CCMoveTo::create(0.5f, targetPos)), func, NULL));
 	addChild(m_layout);
 	initLayout();
 	refreshUi();
@@ -211,7 +216,7 @@ void LotteryScene::initLayout()
 	toPetSceneBtn->setTarget(this, menu_selector(LotteryScene::toPetScene));
 
 	CCMenuItem * openAllBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(21)));
-	openAllBtn->setTarget(this, menu_selector(LotteryScene::openAllBox));
+	openAllBtn->setTarget(this, menu_selector(LotteryScene::onOpenAllBoxesBtnClicked));
 	
 	int boxIds[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 	for (int i = 0; i < 9; ++i)
@@ -283,7 +288,13 @@ void LotteryScene::toPetScene(CCObject* pSender)
 	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromLotteryScene);
 }
 
-void LotteryScene::openAllBox(cocos2d::CCObject* pSender)
+void LotteryScene::onOpenAllBoxesBtnClicked(cocos2d::CCObject* pSender)
+{
+	const int kOpenAllBoxesPurchaseId = 10;//¼Æ·Ñµãid
+	MyPurchase::sharedPurchase()->buyItem(kOpenAllBoxesPurchaseId, bind(&LotteryScene::openAllBoxs, this));
+}
+
+void LotteryScene::openAllBoxs()
 {
 	m_runner->clear();
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);

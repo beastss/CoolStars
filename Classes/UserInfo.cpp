@@ -50,16 +50,17 @@ void UserInfo::init()
 
 void UserInfo::onTick(float dt)
 {
-	int curTime = time_util::getCurTime();
-	int secsInOneStrength = DataManagerSelf->getSystemConfig().strengthAddMins * 60;
-	int strengthAdd = (curTime - m_lastSaveStrengthTime) / secsInOneStrength;
-	if (strengthAdd > 0)
-	{
-		setStrength(m_strength + strengthAdd);
-	}
 	int secsLeft = 0;
 	if (!isFullStrength())
 	{
+		int curTime = time_util::getCurTime();
+		int secsInOneStrength = DataManagerSelf->getSystemConfig().strengthAddMins * 60;
+		int strengthAdd = (curTime - m_lastSaveStrengthTime) / secsInOneStrength;
+		if (strengthAdd > 0)
+		{
+			setStrength(m_strength + strengthAdd);
+		}
+
 		secsLeft = secsInOneStrength - ((curTime - m_lastSaveStrengthTime) % secsInOneStrength);
 	}
 	NOTIFY_VIEWS(onStrengthLeftTimeChanged, secsLeft);
@@ -105,7 +106,7 @@ void UserInfo::setFood(int value)
 void UserInfo::setStrength(int value)
 {
 	int maxStrength = DataManagerSelf->getSystemConfig().strengthMax;
-	m_strength = min(maxStrength, max(0, value));
+	m_strength = max(0, value);
 
 	SqliteHelper sqlHelper(DB_SAVING);
 	char str[100] = { 0 };
