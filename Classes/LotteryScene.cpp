@@ -290,7 +290,7 @@ void LotteryScene::toPetScene(CCObject* pSender)
 
 void LotteryScene::onOpenAllBoxesBtnClicked(cocos2d::CCObject* pSender)
 {
-	const int kOpenAllBoxesPurchaseId = 10;//计费点id
+	const int kOpenAllBoxesPurchaseId = 9;//计费点id
 	MyPurchase::sharedPurchase()->buyItem(kOpenAllBoxesPurchaseId, bind(&LotteryScene::openAllBoxs, this));
 }
 
