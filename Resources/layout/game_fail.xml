@@ -6,26 +6,9 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>stage/game_fail/sbjm_bj.png</path>
+		<path>stage/game_fail/sbjm_bj.jpg</path>
 	</image>
-	<image>
-		<id>2</id>
-		<x>239.75</x>
-		<y>433.28</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>stage/game_fail/sbjm_bj.png</path>
-	</image>
-	<image>
-		<id>3</id>
-		<x>239.75</x>
-		<y>433.28</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>stage/game_fail/sbjm_bj.png</path>
-	</image>
+	
 	<image>
 		<id>4</id>
 		<x>233.63</x>
@@ -55,7 +38,7 @@
 	</image>
 	<image>
 		<id>7</id>
-		<x>237.85</x>
+		<x>240.00</x>
 		<y>708.06</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
@@ -82,7 +65,7 @@
 	</image>
 	<image>
 		<id>10</id>
-		<x>233.84</x>
+		<x>240.00</x>
 		<y>271.41</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
@@ -145,7 +128,7 @@
 	</image>
 	<button>
 		<id>40</id>
-		<x>223.80</x>
+		<x>240.00</x>
 		<y>100.92</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>

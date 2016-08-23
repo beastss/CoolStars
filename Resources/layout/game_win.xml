@@ -6,7 +6,7 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>stage/game_win/sljm_bj.png</path>
+		<path>stage/game_win/sljm_bj.jpg</path>
 	</image>
 	<image>
 		<id>10</id>
@@ -37,7 +37,7 @@
 	</image>
 	<image>
 		<id>7</id>
-		<x>260.44</x>
+		<x>240.00</x>
 		<y>704.87</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
@@ -118,7 +118,7 @@
 	</image>
 	<image>
 		<id>17</id>
-		<x>249.07</x>
+		<x>240.00</x>
 		<y>262.72</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
@@ -190,7 +190,7 @@
 	</image>
 	<button>
 		<id>40</id>
-		<x>233.72</x>
+		<x>240.00</x>
 		<y>87.83</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
