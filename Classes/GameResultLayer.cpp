@@ -14,20 +14,27 @@
 #include "LotteryScene.h"
 #include "SoundMgr.h"
 #include "StagePanelUtil.h"
+#include "TitlePanel.h"
 using namespace std;
 USING_NS_CC;
 
 bool GameResultLayer::init(string xmlFile)
 {
 	setPanelId(kStageFailPanel);
+	auto winSize = CCDirector::sharedDirector()->getWinSize();
+	setContentSize(winSize);
 
 	m_layout = UiLayout::create(xmlFile.c_str());
+	m_layout->setAnchorPoint(ccp(0.5f, 0.5f));
+	m_layout->setPosition(ccpMult(winSize, 0.5f));
 	initRewardData();
 	saveRewards();
 	initLayout();
-
 	addChild(m_layout);
-	setContentSize(m_layout->getContentSize());
+
+	auto titlePanel = TitlePanel::create(m_touchPriority);
+	titlePanel->setUiVisible(kTitlePanelBackHome, false);
+	addChild(titlePanel);
 	return true;
 }
 
