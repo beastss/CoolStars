@@ -50,10 +50,9 @@ bool StarsLayer::init()
 	setContentSize(m_layout->getContentSize());
 	addChild(m_layout);
 
+	StarsController::theModel()->initStarsData();
 	addBkGrids();
 	addClippingNode();
-
-	StarsController::theModel()->initStarsData();
 	initStars();
 
 	return true;
@@ -88,15 +87,19 @@ void StarsLayer::addBkGrids()
 	{
 		for (int col = 0; col < COlUMNS_SIZE; ++col)
 		{
-			auto grid = CCSprite::create("stage/yxjm_di2.png");
-			grid->setAnchorPoint(ccp(0, 0));
-			auto size = grid->getContentSize();
-			node->addChild(grid);
-			grid->setPosition(ccp(curX, curY));
-			curX += size.width + kSpacing;
-			if (maxHeight < size.height)
+			StarNode *nodeData = StarsController::theModel()->getStarNode(LogicGrid(col, row));
+			if (!nodeData->isStill())
 			{
-				maxHeight = size.height;
+				auto grid = CCSprite::create("stage/yxjm_di2.png");
+				grid->setAnchorPoint(ccp(0, 0));
+				auto size = grid->getContentSize();
+				node->addChild(grid);
+				grid->setPosition(ccp(curX, curY));
+				curX += size.width + kSpacing;
+				if (maxHeight < size.height)
+				{
+					maxHeight = size.height;
+				}
 			}
 		}
 		curX = kSpacing;
@@ -125,7 +128,7 @@ void StarsLayer::initStars()
 	float startHeight = STAR_SIZE * ROWS_SIZE;
 	float speed = startHeight / 0.5f;
 
-	float maxDuration = 0;
+	float kDuration = 1.0f;
 	for (int col = 0; col < COlUMNS_SIZE; ++col)
 	{
 		for (int row = 0; row < ROWS_SIZE; ++row) 
@@ -137,21 +140,18 @@ void StarsLayer::initStars()
 				pStarSprite->setAnchorPoint(ccp(0.5f, 0.5f));
 				CCPoint targetPos = getPosByGrid(grid);
 				CCPoint sourcePos = targetPos;
-				//实现梅花间隔掉落
-				sourcePos.y = targetPos.y + startHeight + grid.y * STAR_SIZE + (grid.x % 2) * STAR_SIZE;
+				sourcePos.y += 30;
+			
 				pStarSprite->setPosition(sourcePos);
 				m_clippingNode->addChild(pStarSprite);
-				//addChild(pStarSprite);
 				m_starsSprite.push_back(pStarSprite);
 
-				float kDuration = (sourcePos.y - targetPos.y) / speed;
-				maxDuration = max(maxDuration, kDuration);
-				CCMoveTo *moveTo = CCMoveTo::create(kDuration, targetPos);
-				pStarSprite->runAction(moveTo);
+				auto *move = CCEaseBackInOut::create(CCMoveTo::create(kDuration, targetPos));
+				pStarSprite->runAction(move);
 			}
 		}
 	}
-	runAction(CCSequence::create(CCDelayTime::create(maxDuration)
+	runAction(CCSequence::create(CCDelayTime::create(kDuration)
 		, CCCallFunc::create(this, callfunc_selector(StarsLayer::starInitDone)),NULL));
 }
 

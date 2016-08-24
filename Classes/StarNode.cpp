@@ -37,6 +37,8 @@ StarNode *StarNode::createNodeFatory(const StarAttr &attr)
 		return new Stone2Node(attr);
 	case kStone3:
 		return new Stone3Node(attr);
+	case kTerrain:
+		return new TerrainNode(attr);
 	default:
 		assert("no this node type!");
 		return NULL;
@@ -88,12 +90,6 @@ bool StarNode::canClickErase()
 		auto grid = connectedNodes[i]->getAttr().grid;
 	}
 	return count >= CONNECT_COUNT;
-}
-
-bool StarNode::canBeRemoved()
-{
-	auto eraseTypes = getConfig().eraseTypes;
-	return find(eraseTypes.begin(), eraseTypes.end(), kCanNotErase) == eraseTypes.end();
 }
 
 void StarNode::doRemove(bool addScore)

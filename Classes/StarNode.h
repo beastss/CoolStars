@@ -21,7 +21,8 @@ enum StarType
 	kStone1,
 	kStone2,
 	kStone3,
-	
+	kTerrain,
+
 	kStarTypeCount,
 };
 //Âß¼­Íø¸ñ£¬×óÏÂ½ÇÎª[0,0]
@@ -47,7 +48,7 @@ public:
 	bool canClickErase();
 	std::vector<StarNode *> getNeighbours();
 	std::vector<StarNode *> getLinkNeighbours();
-	bool canBeRemoved();
+
 	void doRemove(bool addScore = true);
 	void removeNeighbours();
     void moveTo(LogicGrid grid);
@@ -60,6 +61,8 @@ public:
 	virtual std::string getExplosionPath();
 	virtual std::string getBornAnimationPath();
 	virtual void onRemove(){}
+	virtual bool canBeRemoved(){ return true; }
+	virtual bool isStill(){ return false; }
 protected:
     StarNode(const StarAttr &attr);
 	const StarsConfig &getConfig();
@@ -146,6 +149,7 @@ class IronNode : public StarNode
 public:
 	IronNode(const StarAttr &attr) : StarNode(attr){}
 	~IronNode(){}
+	virtual bool canBeRemoved(){ return false; }
 };
 
 class DiamondNode : public StarNode
@@ -169,6 +173,15 @@ public:
 	BombNode(const StarAttr &attr) : StarNode(attr){}
 	~BombNode(){}
 	virtual void onRemove();
+};
+
+class TerrainNode : public StarNode
+{
+public:
+	TerrainNode(const StarAttr &attr) : StarNode(attr){}
+	~TerrainNode(){}
+	virtual bool canBeRemoved(){ return false; }
+	virtual bool isStill(){ return true; }
 };
 
 #endif
