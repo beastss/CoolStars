@@ -84,7 +84,7 @@ StageSceneState::StageSceneState(StageStateOwner *owner)
 ////////////////////////////////////////////////////////////////////////////////////
 void StageNormalState::clickStar(const LogicGrid &grid)
 {
-	StarsEraseModule::theModel()->handleClick(grid);
+	StarsEraseModule::theModel()->linkErase(grid);
 }
 
 void StageNormalState::clickPet(int petId)

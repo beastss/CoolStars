@@ -33,7 +33,6 @@ public:
 	void initBottomUi();
 	void showTargetPanel();
 	std::unordered_map<int, cocos2d::CCPoint> getPetViewsInfo();
-	void showPetSpreadStarsAction(int petId, const StarAttr &attr, std::function<void()> callback);
 	void gameOverSpreadStars(const GoodsData &data, const LogicGrid &targetGrid, std::function<void()> callback);
 public:
 	virtual void onInitStarsDone();
@@ -49,12 +48,11 @@ public:
 	virtual void onGameWin();
 	virtual void onScoreBouble();
 	virtual void onTouchEnable(bool canTouch);
-	virtual void onEraseStarsStart();
-	virtual void onEraseStarsEnd();
 	virtual void onExplodeGrid(const LogicGrid &grid);
 	virtual void onOneRoundBegan();
 	virtual void onOneRoundEnd();
 	virtual void onGuideViewRemoved();
+	virtual void onPetSpreadStar(int petId, const StarAttr &attr, std::function<void()> callback);
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:

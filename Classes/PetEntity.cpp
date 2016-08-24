@@ -182,7 +182,7 @@ void PetRat::useSkill()
 	}
 	
 	int index = CommonUtil::getRandomValue(0, grids.size() - 1);
-	StarsEraseModule::theModel()->scaleErase(grids[index], m_data.skillPower / 2, 0);
+	StageOp->petScaleErase(m_data.petId, grids[index], m_data.skillPower / 2, 0);
 }
 //////////////////////////////////////////////////////////////////////////////
 void PetOx::skillInit()
@@ -213,7 +213,7 @@ void PetOx::useSkill()
 		}
 	}
 	int index = CommonUtil::getRandomValue(0, grids.size() - 1);
-	StarsEraseModule::theModel()->scaleErase(grids[index], 0, m_data.skillPower / 2);
+	StageOp->petScaleErase(m_data.petId, grids[index], 0, m_data.skillPower / 2);
 }
 //////////////////////////////////////////////////////////////////////////////
 
@@ -264,7 +264,7 @@ void PetSnake::useSkill()
 		}
 	}
 	int index = CommonUtil::getRandomValue(0, grids.size() - 1);
-	StarsEraseModule::theModel()->scaleErase(grids[index], m_data.skillPower, m_data.skillPower);
+	StageOp->petScaleErase(m_data.petId, grids[index], m_data.skillPower, m_data.skillPower);
 }
 //////////////////////////////////////////////////////////////////////////////
 

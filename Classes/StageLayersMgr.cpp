@@ -67,16 +67,6 @@ void StageLayersMgr::touchEnable(bool canTouch)
 	NOTIFY_LAYERSS(onTouchEnable, canTouch);
 }
 
-void StageLayersMgr::eraseStarsStart()
-{
-	NOTIFY_LAYERSS(onEraseStarsStart);
-}
-
-void StageLayersMgr::eraseStarsEnd()
-{
-	NOTIFY_LAYERSS(onEraseStarsEnd);
-}
-
 void StageLayersMgr::explodeGrid(const LogicGrid &grid)
 {
 	NOTIFY_LAYERSS(onExplodeGrid, grid);
@@ -85,4 +75,9 @@ void StageLayersMgr::explodeGrid(const LogicGrid &grid)
 void StageLayersMgr::removeGuideView()
 {
 	NOTIFY_LAYERSS(onGuideViewRemoved);
+}
+
+void StageLayersMgr::petSpreadStar(int petId, const StarAttr &attr, function<void()> callback)
+{
+	NOTIFY_LAYERSS(onPetSpreadStar, petId, attr, callback);
 }

@@ -13,8 +13,7 @@ public:
 	~StageOperator();
 public:
 	void eraseStars(std::vector<LogicGrid> grids);
-	void eraseSameColorStars(const LogicGrid &centerGrids, int distance);
-	void randomErase(int num);
+	void petScaleErase(int petId, const LogicGrid &center, int xRadius, int yRadius);
 
 	void addSteps(int amount);
 

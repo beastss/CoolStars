@@ -20,19 +20,24 @@ private:
 	int m_xRadius;
 	int m_yRadius;
 };
+//四种消除方式
+//1.普通点击的连消除
+//2.矩形消除
+//3.随机消除
+//4.//直接消除目标星星 没有爆炸
 
 class StarsEraseModule
 {
 public:
-	~StarsEraseModule();
-	static StarsEraseModule *theModel();
-	void handleClick(const LogicGrid &grid);
+	void linkErase(const LogicGrid &grid);
 	void scaleErase(const LogicGrid &center, int xRadius, int yRadius);
 	void randomErase(int num);
-	void removeStar(const LogicGrid &grid);//直接消除 没有爆炸
+	void removeStar(const LogicGrid &grid);
+public:
+	~StarsEraseModule();
+	static StarsEraseModule *theModel();
 	void reset();
 	void onScaleEraseDone(ScaleEarseRunner *runner);
-	
 	void eraseStarBegan();
 	void eraseStarEnd();
 private:

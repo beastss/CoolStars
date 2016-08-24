@@ -322,7 +322,6 @@ void Stone2Node::onRemove()
 void BombNode::onRemove()
 {
 	return;
-	StageOp->randomErase(COlUMNS_SIZE * ROWS_SIZE);
 }
 /////////////////////////////////////////////////////////////////////////////////
 

@@ -32,7 +32,7 @@ public:
 	void petEnergyChanged(int petId, int oldEnergy, int newEnergy);
 	void newStageInit();
 	bool hasPetToUpgrade();
-	void usePetSkill();
+	bool usePetSkill();
 public:
 	void addView(IPetView *view);
 	void removeView(IPetView *view);

@@ -26,13 +26,13 @@ StarsEraseModule *StarsEraseModule::theModel()
 	return &model;
 }
 
-void StarsEraseModule::handleClick(const LogicGrid &grid)
+void StarsEraseModule::linkErase(const LogicGrid &grid)
 {
-	StageLayersMgr::theMgr()->eraseStarsEnd();//点击星星后，该回合结束
-
 	auto node = StarsController::theModel()->getStarNode(grid);
 	if (node && node->canClickErase())
 	{
+		StarsController::theModel()->endOneRound();//点击星星后，该回合结束
+
 		std::vector<StarNode *> connectedNodes;
 		node->getConnectedStars(node, connectedNodes);
 		size_t count = connectedNodes.size();
@@ -45,7 +45,6 @@ void StarsEraseModule::handleClick(const LogicGrid &grid)
 		});
 		if (count >= CONNECT_COUNT)
 		{
-			StageLayersMgr::theMgr()->eraseStarsStart();
 			for (size_t j = 0; j < count; ++j)
 			{
 				m_runner->queueAction(CallFuncAction::withFunctor([=]()
@@ -54,7 +53,6 @@ void StarsEraseModule::handleClick(const LogicGrid &grid)
 					node->removeNeighbours();
 					StageLayersMgr::theMgr()->explodeGrid(node->getAttr().grid);
 					node->doRemove();
-					//eraseStarBegan();
 					SoundMgr::theMgr()->playEffect(kEffectStarErase);
 				}));
 				m_runner->queueAction(DelayAction::withDelay(0.1f));
@@ -67,7 +65,6 @@ void StarsEraseModule::scaleErase(const LogicGrid &center, int xRadius, int yRad
 {
 	if (m_runners.empty())
 	{
-		StageLayersMgr::theMgr()->eraseStarsStart();
 	}
 
 	auto runner = new ScaleEarseRunner(center, xRadius, yRadius);
@@ -83,20 +80,9 @@ void StarsEraseModule::onScaleEraseDone(ScaleEarseRunner *runner)
 		delete *iter;
 		m_runners.erase(iter);
 	}
-
-	if (m_runners.empty())
-	{
-		StarsController::theModel()->moveOneStep(false);
-		StarsController::theModel()->genNewStars();
-		m_runner->queueAction(DelayAction::withDelay(0.5f));
-		m_runner->queueAction(CallFuncAction::withFunctor([=]()
-		{
-			StageLayersMgr::theMgr()->eraseStarsEnd();
-			StarsController::theModel()->onOneRoundBegan();
-		}));
-	}
 }
 
+//羊技能
 void StarsEraseModule::randomErase(int num)
 {
 	vector<LogicGrid> grids;
@@ -109,9 +95,7 @@ void StarsEraseModule::randomErase(int num)
 	}
 
 	auto targetGrids = getRandomGrids(grids, num);
-	
 	bool hasBomb = false;
-	StageLayersMgr::theMgr()->eraseStarsStart();
 
 	for (size_t i = 0; i < targetGrids.size(); ++i)
 	{
@@ -129,13 +113,13 @@ void StarsEraseModule::randomErase(int num)
 			}
 		}
 	}
-
+	/*
 	if (!hasBomb)
 	{
-		StageLayersMgr::theMgr()->eraseStarsEnd();
 		StarsController::theModel()->moveOneStep(false);
 		StarsController::theModel()->genNewStars();
 	}
+	*/
 }
 
 void StarsEraseModule::removeStar(const LogicGrid &grid)
@@ -164,11 +148,16 @@ void StarsEraseModule::eraseStarBegan()
 void StarsEraseModule::eraseStarEnd()
 {
 	m_starsNotErased--;
+	CCLOG("m_starsNotErased: %d", m_starsNotErased);
 	if (m_starsNotErased <= 0)
 	{
 		m_starsNotErased = 0;
 		StarsController::theModel()->genNewStars();
-		StarsController::theModel()->moveOneStep();
+		m_runner->queueAction(DelayAction::withDelay(0.5f));
+		m_runner->queueAction(CallFuncAction::withFunctor([=]()
+		{
+			StarsController::theModel()->preOneRound();
+		}));
 	}
 }
 

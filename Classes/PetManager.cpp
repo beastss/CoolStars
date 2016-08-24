@@ -160,7 +160,7 @@ bool PetManager::hasPetToUpgrade()
 	return false;
 }
 
-void PetManager::usePetSkill()
+bool PetManager::usePetSkill()
 {
 	for (size_t i = 0; i < m_curPets.size(); ++i)
 	{
@@ -168,7 +168,8 @@ void PetManager::usePetSkill()
 		if (pet && pet->canUseSkill())
 		{
 			pet->triggerSkill();
-			return;
+			return true;
 		}
 	}
+	return false;
 }

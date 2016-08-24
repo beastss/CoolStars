@@ -208,11 +208,13 @@ void StageUiLayer::onOneRoundBegan()
 {
 	m_clock.reset();
 	m_noTouchLayer->setCanTouch(true, 1);
+	CCLog("onOneRoundBegan");
 }
 
 void StageUiLayer::onOneRoundEnd()
 {
-
+	m_noTouchLayer->setCanTouch(false, 1);
+	CCLog("onOneRoundEnd");
 }
 
 void StageUiLayer::showTargetPanel()
@@ -521,10 +523,11 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 		addChild(view);
 	}
 	
-	runAction(CCFunctionAction::create([=]()
+	auto eraseEnd = CCFunctionAction::create([=]()
 	{
 		StarsEraseModule::theModel()->eraseStarEnd();
-	}));
+	});
+	runAction(CCSequence::create(CCDelayTime::create(1.0f), eraseEnd, NULL));
 	//playExplosionAction(pos);
 }
 
@@ -561,7 +564,7 @@ void StageUiLayer::onToNormalState()
 	}
 }
 
-void StageUiLayer::showPetSpreadStarsAction(int petId, const StarAttr &attr, function<void()> callback)
+void StageUiLayer::onPetSpreadStar(int petId, const StarAttr &attr, function<void()> callback)
 {
 	auto iter = m_petViews.find(petId);
 	if (iter != m_petViews.end())
@@ -587,7 +590,7 @@ void StageUiLayer::showPetSpreadStarsAction(int petId, const StarAttr &attr, fun
 			starImg->removeFromParent();
 			if (callback) callback();
 		});
-		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), func, NULL));
+		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
 	}
 }
 
@@ -657,16 +660,6 @@ void StageUiLayer::onScoreBouble()
 void StageUiLayer::onTouchEnable(bool canTouch)
 {
 	m_noTouchLayer->setCanTouch(canTouch);
-}
-
-void StageUiLayer::onEraseStarsStart()
-{
-	m_noTouchLayer->setCanTouch(false, 1);
-}
-
-void StageUiLayer::onEraseStarsEnd()
-{
-	m_noTouchLayer->setCanTouch(true, 1);
 }
 
 void StageUiLayer::onGuideViewRemoved()

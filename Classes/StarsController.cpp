@@ -277,8 +277,7 @@ void StarsController::genNewStars()
 		NOTIFY_VIEWS(onCreateNewStar, node);
 	}
 	moveStars();
-	//0.5s 后延迟
-	onOneRoundBegan();
+	//onOneRoundBegan();
 }
 
 void StarsController::addView(IStarsControlView *view)
@@ -305,8 +304,6 @@ void StarsController::moveOneStep(bool addStep)
 	{
 		StageDataMgr::theMgr()->addStep();
 	}
-	onOneRoundEnd();
-	checkGameOver();
 }
 
 void StarsController::checkGameOver()
@@ -354,8 +351,16 @@ void StarsController::reOrderStars(int times)
 	}
 }
 
+void StarsController::preOneRound()
+{
+	if (!PetManager::petMgr()->usePetSkill())
+	{
+		startOneRound();
+	}
+}
+
 //玩家移动一步，新回合开始
-void StarsController::onOneRoundBegan()
+void StarsController::startOneRound()
 {
 	m_starsBehavior.onOneRoundBegin();
 	StageDataMgr::theMgr()->newRound();
@@ -365,12 +370,14 @@ void StarsController::onOneRoundBegan()
 	{
 		reOrderStars(0);
 	}
-	PetManager::petMgr()->usePetSkill();
+
+	checkGameOver();
 	NOTIFY_VIEWS(onOneRoundBegan);
 }
 
-void StarsController::onOneRoundEnd()
+void StarsController::endOneRound()
 {
+	moveOneStep();
 	m_starsBehavior.onOneRoundEnd();
 	m_starsLoader.onOneRoundEnd();
 	NOTIFY_VIEWS(onOneRoundEnd);
