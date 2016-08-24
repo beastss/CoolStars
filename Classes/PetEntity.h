@@ -58,7 +58,7 @@ public:
 	const PetData &getPetData()const{ return m_data; }
 
 	void setEnergy(int energy);
-	bool canUseSkill() const{ return m_data.energy >= m_data.maxEnergy; }
+	bool isEnergyFull() const{ return m_data.energy >= m_data.maxEnergy; }
 	void setLevel(int level){ m_data.level = level; }
 
 	bool isMaxLevel();
@@ -73,6 +73,7 @@ protected:
 	void refreshPetData();
 public:
 	virtual void skillInit(){}
+	virtual bool canUseSkill() { return isEnergyFull(); }
 private:
 	virtual void useSkill(){}
 protected:
@@ -84,16 +85,16 @@ class PetRat: public PetEntity
 {
 public:
 	PetRat(int petId) : PetEntity(petId){}
+	virtual bool canUseSkill();
 	virtual void useSkill();
-	virtual void skillInit();
 };
 
 class PetOx : public PetEntity
 {
 public:
 	PetOx(int petId) : PetEntity(petId){}
+	virtual bool canUseSkill();
 	virtual void useSkill();
-	virtual void skillInit();
 };
 
 class PetTiger : public PetEntity
@@ -121,8 +122,8 @@ class PetSnake : public PetEntity
 {
 public:
 	PetSnake(int petId) : PetEntity(petId){}
+	virtual bool canUseSkill();
 	virtual void useSkill();
-	virtual void skillInit();
 };
 
 class PetHorse : public PetEntity
@@ -144,7 +145,7 @@ class PetMonkey : public PetEntity
 public:
 	PetMonkey(int petId) : PetEntity(petId){}
 	virtual void useSkill();
-	void skillInit();
+	virtual bool canUseSkill();
 };
 
 class PetRooster : public PetEntity

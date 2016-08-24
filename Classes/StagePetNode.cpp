@@ -95,7 +95,7 @@ bool StagePetNode::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEve
 		{
 			m_touchHandle(m_petId);
 		}
-		if (m_model->canUseSkill())
+		if (m_model->isEnergyFull())
 		{
 			playHappyAction(false);
 		}

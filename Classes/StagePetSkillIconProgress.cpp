@@ -83,14 +83,14 @@ void StagePetSkillIconProgress::setPercentage(float value, bool withAction)
 		CCDelayTime *delay = CCDelayTime::create(0.2f);
 		CCFunctionAction *func = CCFunctionAction::create([=]()
 		{
-			m_layout->getChildById(3)->setVisible(pet->canUseSkill());
+			m_layout->getChildById(3)->setVisible(pet->isEnergyFull());
 		});
 		m_progress->runAction(CCSequence::create(progressto, delay, func, NULL));
 	}
 	else
 	{
 		m_progress->setPercentage(value);
-		m_layout->getChildById(3)->setVisible(pet->canUseSkill());
+		m_layout->getChildById(3)->setVisible(pet->isEnergyFull());
 	}
 }
 

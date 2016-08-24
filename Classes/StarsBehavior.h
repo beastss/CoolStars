@@ -7,7 +7,6 @@ class StarsBehavior
 public:
 	StarsBehavior();
 	void onOneRoundBegin();
-	void onOneRoundEnd();
 private:
 	std::vector<StarNode *> getLiveVineNodes();
 private:

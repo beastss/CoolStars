@@ -351,6 +351,11 @@ void StarsController::reOrderStars(int times)
 	}
 }
 
+void StarsController::initOneRound()
+{
+
+}
+
 void StarsController::preOneRound()
 {
 	if (!PetManager::petMgr()->usePetSkill())
@@ -363,22 +368,20 @@ void StarsController::preOneRound()
 void StarsController::startOneRound()
 {
 	m_starsBehavior.onOneRoundBegin();
-	StageDataMgr::theMgr()->newRound();
-	
 	//游戏中没有可消除的星星 则重排
 	if (noStarsToErase())
 	{
 		reOrderStars(0);
 	}
 
-	checkGameOver();
+	//checkGameOver();
 	NOTIFY_VIEWS(onOneRoundBegan);
 }
 
 void StarsController::endOneRound()
 {
 	moveOneStep();
-	m_starsBehavior.onOneRoundEnd();
+	checkGameOver();
 	m_starsLoader.onOneRoundEnd();
 	NOTIFY_VIEWS(onOneRoundEnd);
 }

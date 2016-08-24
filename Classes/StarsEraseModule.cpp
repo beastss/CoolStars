@@ -4,6 +4,7 @@
 #include "SoundMgr.h"
 #include "StageLayersMgr.h"
 #include <algorithm>
+#include "StageDataMgr.h"
 using namespace std;
 USING_NS_CC;
 
@@ -95,7 +96,6 @@ void StarsEraseModule::randomErase(int num)
 	}
 
 	auto targetGrids = getRandomGrids(grids, num);
-	bool hasBomb = false;
 
 	for (size_t i = 0; i < targetGrids.size(); ++i)
 	{
@@ -104,7 +104,6 @@ void StarsEraseModule::randomErase(int num)
 		{
 			if (node->getAttr().type == kBomb)
 			{
-				hasBomb = true;
 				scaleErase(targetGrids[i], COlUMNS_SIZE, ROWS_SIZE);
 			}
 			else
@@ -113,13 +112,6 @@ void StarsEraseModule::randomErase(int num)
 			}
 		}
 	}
-	/*
-	if (!hasBomb)
-	{
-		StarsController::theModel()->moveOneStep(false);
-		StarsController::theModel()->genNewStars();
-	}
-	*/
 }
 
 void StarsEraseModule::removeStar(const LogicGrid &grid)
@@ -151,8 +143,10 @@ void StarsEraseModule::eraseStarEnd()
 	CCLOG("m_starsNotErased: %d", m_starsNotErased);
 	if (m_starsNotErased <= 0)
 	{
+		//创建新的星星
 		m_starsNotErased = 0;
 		StarsController::theModel()->genNewStars();
+		StageDataMgr::theMgr()->newRound();
 		m_runner->queueAction(DelayAction::withDelay(0.5f));
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
 		{
