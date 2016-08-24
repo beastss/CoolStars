@@ -1,6 +1,7 @@
 #include "StarViewNode.h"
 #include "StarsLayer.h"
 #include "StarsController.h"
+#include "StarsEraseModule.h"
 USING_NS_CC;
 using namespace std;
 
@@ -72,6 +73,7 @@ void StarViewNode::doMove(LogicGrid targetGrid)
 
 void StarViewNode::doEraseAction()
 {
+	StarsEraseModule::theModel()->eraseStarBegan();
 	auto attr = m_model->getAttr();
 	auto pos = getParent()->convertToWorldSpace(getPosition());
 	StageLayersMgr::theMgr()->starErased(pos, attr.type, attr.color);

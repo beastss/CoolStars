@@ -159,3 +159,16 @@ bool PetManager::hasPetToUpgrade()
 	}
 	return false;
 }
+
+void PetManager::usePetSkill()
+{
+	for (size_t i = 0; i < m_curPets.size(); ++i)
+	{
+		auto pet = getPetById(m_curPets[i]);
+		if (pet && pet->canUseSkill())
+		{
+			pet->triggerSkill();
+			return;
+		}
+	}
+}

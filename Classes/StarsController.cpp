@@ -10,6 +10,7 @@
 #include "GuideMgr.h"
 #include "GameBackEndState.h"
 #include "StarsEraseModule.h"
+#include "PetManager.h"
 USING_NS_CC;
 using namespace std;
 StarsController::StarsController()
@@ -276,6 +277,7 @@ void StarsController::genNewStars()
 		NOTIFY_VIEWS(onCreateNewStar, node);
 	}
 	moveStars();
+	//0.5s ºóÑÓ³Ù
 	onOneRoundBegan();
 }
 
@@ -363,7 +365,7 @@ void StarsController::onOneRoundBegan()
 	{
 		reOrderStars(0);
 	}
-
+	PetManager::petMgr()->usePetSkill();
 	NOTIFY_VIEWS(onOneRoundBegan);
 }
 

@@ -65,11 +65,8 @@ public:
 	bool canUpgrade();
 	void upgrade();
 	void getThisNewPet();
+	void triggerSkill();
 	
-	void useNoTargetSkill();
-	void useToStarSkill(const LogicGrid &grid);
-	void useToPetSkill(int petId);
-	void onUseSkill();
 	static PetEntity *PetFactory(int petId);
 protected:
 	PetEntity(int petId);
@@ -77,10 +74,7 @@ protected:
 public:
 	virtual void skillInit(){}
 private:
-	//三个接口对应三种技能目标
-	virtual void noTargetSkill(){}
-	virtual void toStarSkill(const LogicGrid &grid){}
-	virtual void toPetSkill(int petId){}
+	virtual void useSkill(){}
 protected:
 	PetData m_data;
 };
@@ -90,7 +84,7 @@ class PetRat: public PetEntity
 {
 public:
 	PetRat(int petId) : PetEntity(petId){}
-	virtual void toStarSkill(const LogicGrid &grid);
+	virtual void useSkill();
 	virtual void skillInit();
 };
 
@@ -98,7 +92,7 @@ class PetOx : public PetEntity
 {
 public:
 	PetOx(int petId) : PetEntity(petId){}
-	virtual void toStarSkill(const LogicGrid &grid);
+	virtual void useSkill();
 	virtual void skillInit();
 };
 
@@ -106,28 +100,28 @@ class PetTiger : public PetEntity
 {
 public:
 	PetTiger(int petId) : PetEntity(petId){}
-	virtual void noTargetSkill();
+	virtual void useSkill();
 };
 
 class PetRabbit : public PetEntity
 {
 public:
 	PetRabbit(int petId) : PetEntity(petId){}
-	virtual void noTargetSkill();
+	virtual void useSkill();
 };
 
 class PetDragon : public PetEntity
 {
 public:
 	PetDragon(int petId) : PetEntity(petId){}
-	virtual void noTargetSkill();
+	virtual void useSkill();
 };
 
 class PetSnake : public PetEntity
 {
 public:
 	PetSnake(int petId) : PetEntity(petId){}
-	virtual void toStarSkill(const LogicGrid &grid);
+	virtual void useSkill();
 	virtual void skillInit();
 };
 
@@ -135,21 +129,21 @@ class PetHorse : public PetEntity
 {
 public:
 	PetHorse(int petId) : PetEntity(petId){}
-	virtual void noTargetSkill();
+	virtual void useSkill();
 };
 
 class PetGoat : public PetEntity
 {
 public:
 	PetGoat(int petId) : PetEntity(petId){}
-	virtual void noTargetSkill();
+	virtual void useSkill();
 };
 
 class PetMonkey : public PetEntity
 {
 public:
 	PetMonkey(int petId) : PetEntity(petId){}
-	virtual void toPetSkill(int petId);
+	virtual void useSkill();
 	void skillInit();
 };
 
@@ -157,22 +151,21 @@ class PetRooster : public PetEntity
 {
 public:
 	PetRooster(int petId) : PetEntity(petId){}
-	virtual void noTargetSkill();
+	virtual void useSkill();
 };
 
 class PetDog : public PetEntity
 {
 public:
 	PetDog(int petId) : PetEntity(petId){}
-	virtual void noTargetSkill();
-
+	virtual void useSkill();
 };
 
 class PetPig : public PetEntity
 {
 public:
 	PetPig(int petId) : PetEntity(petId){}
-	virtual void toPetSkill(int petId);
+	virtual void useSkill();
 };
 
 #endif

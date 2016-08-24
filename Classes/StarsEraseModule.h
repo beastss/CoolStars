@@ -32,11 +32,15 @@ public:
 	void removeStar(const LogicGrid &grid);//直接消除 没有爆炸
 	void reset();
 	void onScaleEraseDone(ScaleEarseRunner *runner);
+	
+	void eraseStarBegan();
+	void eraseStarEnd();
 private:
 	StarsEraseModule();
 private:
 	std::vector<ScaleEarseRunner *>m_runners;
 	ActionRunner *m_runner;
+	int m_starsNotErased;
 };
 
 #endif

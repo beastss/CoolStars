@@ -33,6 +33,7 @@
 #include "PackageDialog.h"
 #include "PropsGuideView.h"
 #include "GuideMgr.h"
+#include "StarsEraseModule.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -206,6 +207,7 @@ void StageUiLayer::onTick(float dt)
 void StageUiLayer::onOneRoundBegan()
 {
 	m_clock.reset();
+	m_noTouchLayer->setCanTouch(true, 1);
 }
 
 void StageUiLayer::onOneRoundEnd()
@@ -242,7 +244,7 @@ void StageUiLayer::showGameOverHint()
 
 void StageUiLayer::handlePetClicked(int petId)
 {
-	m_stateOwner->clickPet(petId);
+	//m_stateOwner->clickPet(petId);
 }
 
 void StageUiLayer::showPetsSkillPanel()
@@ -518,6 +520,11 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 		view->setPosition(newPos);
 		addChild(view);
 	}
+	
+	runAction(CCFunctionAction::create([=]()
+	{
+		StarsEraseModule::theModel()->eraseStarEnd();
+	}));
 	//playExplosionAction(pos);
 }
 
@@ -659,11 +666,7 @@ void StageUiLayer::onEraseStarsStart()
 
 void StageUiLayer::onEraseStarsEnd()
 {
-	auto func = CCFunctionAction::create([=]()
-	{
-		m_noTouchLayer->setCanTouch(true, 1);
-	});
-	runAction(CCSequence::create(CCDelayTime::create(0.5f), func, NULL));
+	m_noTouchLayer->setCanTouch(true, 1);
 }
 
 void StageUiLayer::onGuideViewRemoved()
