@@ -27,6 +27,7 @@ void StagePetNode::onEnter()
 {
 	CCNode::onEnter();
 	StarsController::theModel()->addView(this);
+	PetManager::petMgr()->addView(this);
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, m_touchPriority, true);
 }
 
@@ -34,6 +35,7 @@ void StagePetNode::onExit()
 {
 	CCNode::onExit();
 	StarsController::theModel()->removeView(this);
+	PetManager::petMgr()->removeView(this);
 	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 }
 
@@ -161,4 +163,9 @@ void StagePetNode::onDesignatedStarChanged(int starType, int color, int rounds)
 		num->setString(str);
 	}
 	
+}
+
+void StagePetNode::onUsePetSkill(int petId)
+{
+	playHappyAction(false);
 }

@@ -34,6 +34,7 @@
 #include "PropsGuideView.h"
 #include "GuideMgr.h"
 #include "StarsEraseModule.h"
+#include "PreStagePetSlot.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -569,7 +570,7 @@ void StageUiLayer::onPetSpreadStar(int petId, const StarAttr &attr, function<voi
 	auto iter = m_petViews.find(petId);
 	if (iter != m_petViews.end())
 	{
-		static const float kDutation = 0.3f;
+		static const float kDutation = 1.0f;
 
 		auto starNode = StarsController::theModel()->getStarNode(attr.grid);
 		auto starView = starNode->getView();
@@ -578,8 +579,9 @@ void StageUiLayer::onPetSpreadStar(int petId, const StarAttr &attr, function<voi
 		auto tempNode = StarNode::createNodeFatory(attr);
 		auto petView = iter->second;
 		auto sourcePos = petView->getParent()->convertToWorldSpace(petView->getPosition());
+		sourcePos.y -= petView->getContentSize().height * 0.40f;
 
-		CCSprite *starImg = CCSprite::create(tempNode->getResPath().c_str());
+		CCNode *starImg = PetSkillIcon::create(petId);
 		starImg->setPosition(sourcePos);
 		addChild(starImg);
 		delete tempNode;

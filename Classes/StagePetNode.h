@@ -14,6 +14,7 @@ class StagePetNode
 	: public cocos2d::CCNode
 	, public cocos2d::CCTouchDelegate
 	, public IStarsControlView
+	, public IPetView
 {
 public:
 	static StagePetNode *create(int petId, int touchPriority);
@@ -33,6 +34,7 @@ private:
 	bool isInside(cocos2d::CCPoint pt);
 	void runNormalAction(cocos2d::extension::CCArmature *, cocos2d::extension::MovementEventType, const char *);
 	virtual void onDesignatedStarChanged(int starType, int color, int rounds);
+	virtual void onUsePetSkill(int petId);
 private:
 	int m_petId;
 	const PetEntity *m_model;

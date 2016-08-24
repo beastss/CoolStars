@@ -168,6 +168,7 @@ bool PetManager::usePetSkill()
 		if (pet && pet->canUseSkill())
 		{
 			pet->triggerSkill();
+			NOTIFY_VIEWS(onUsePetSkill, pet->getPetData().petId);
 			return true;
 		}
 	}
