@@ -270,6 +270,7 @@ void PetMonkey::useSkill()
 	{
 		int index = CommonUtil::getRandomValue(0, targetPetIds.size() - 1);
 		StageOp->addPetEnergy(targetPetIds[index], m_data.skillPower);
+		StarsController::theModel()->preOneRound();
 	}
 }
 
