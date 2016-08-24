@@ -81,6 +81,7 @@ void StarsEraseModule::onScaleEraseDone(ScaleEarseRunner *runner)
 		delete *iter;
 		m_runners.erase(iter);
 	}
+	newRound();
 }
 
 //羊技能
@@ -140,17 +141,20 @@ void StarsEraseModule::eraseStarBegan()
 void StarsEraseModule::eraseStarEnd()
 {
 	m_starsNotErased--;
-	CCLOG("m_starsNotErased: %d", m_starsNotErased);
-	if (m_starsNotErased <= 0)
+	newRound();
+}
+
+void StarsEraseModule::newRound()
+{
+	if (m_starsNotErased <= 0 && m_runners.empty())
 	{
 		//创建新的星星
 		m_starsNotErased = 0;
 		StarsController::theModel()->genNewStars();
-		StageDataMgr::theMgr()->newRound();
 		m_runner->queueAction(DelayAction::withDelay(0.5f));
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
 		{
-			StarsController::theModel()->preOneRound();
+			StarsController::theModel()->initOneRound();
 		}));
 	}
 }

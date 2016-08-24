@@ -40,6 +40,7 @@ public:
 	void onScaleEraseDone(ScaleEarseRunner *runner);
 	void eraseStarBegan();
 	void eraseStarEnd();
+	void newRound();
 private:
 	StarsEraseModule();
 private:

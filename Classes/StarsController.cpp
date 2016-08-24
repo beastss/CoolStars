@@ -306,7 +306,7 @@ void StarsController::moveOneStep(bool addStep)
 	}
 }
 
-void StarsController::checkGameOver()
+bool StarsController::checkGameOver()
 {
 	if (m_target.isGameOver())
 	{
@@ -320,7 +320,9 @@ void StarsController::checkGameOver()
 		{
 			NOTIFY_VIEWS(onRunOutSteps);
 		}
+		return true;
 	}
+	return false;
 }
 
 bool StarsController::noStarsToErase()
@@ -353,7 +355,11 @@ void StarsController::reOrderStars(int times)
 
 void StarsController::initOneRound()
 {
-
+	if (!checkGameOver())
+	{
+		preOneRound();
+		StageDataMgr::theMgr()->newRound();
+	}
 }
 
 void StarsController::preOneRound()
@@ -381,7 +387,6 @@ void StarsController::startOneRound()
 void StarsController::endOneRound()
 {
 	moveOneStep();
-	checkGameOver();
 	m_starsLoader.onOneRoundEnd();
 	NOTIFY_VIEWS(onOneRoundEnd);
 }

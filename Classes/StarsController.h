@@ -56,7 +56,7 @@ private:
 	bool isGridEmpty(const LogicGrid &grid);
 	bool noStarsToErase();
 	void reOrderStars(int times);
-	void checkGameOver();
+	bool checkGameOver();
 	void startOneRound();
 	void moveOneStep(bool addStep = true);
 private:
