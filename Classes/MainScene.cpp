@@ -44,8 +44,8 @@ bool MainScene::init()
 	addChild(m_bkLayer);
 	addChild(m_uiLayer);
 	addChild(m_dialogLayer);
-	addChild(m_guideLayer);
 	addChild(m_announcementLayer);
+	addChild(m_guideLayer);
 
 	showPanel(kMainMenu);
 	showInitialUi();//显示游戏开始 可能需要弹出的ui
