@@ -170,8 +170,6 @@ void StarsController::removeStarNode(StarNode *node)
 	if (iter != m_starNodes.end())
 	{
 		auto attr = (*iter)->getAttr();
-		m_target.starErased(attr.type, attr.color);
-
 		delete *iter;
 		m_starNodes.erase(iter);
 		NOTIFY_VIEWS(onStarRemove);
