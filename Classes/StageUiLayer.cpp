@@ -565,34 +565,35 @@ void StageUiLayer::onToNormalState()
 	}
 }
 
-void StageUiLayer::onPetSpreadStar(int petId, const StarAttr &attr, function<void()> callback)
+void StageUiLayer::onPetSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback)
 {
 	auto iter = m_petViews.find(petId);
 	if (iter != m_petViews.end())
 	{
 		static const float kDutation = 1.0f;
 
-		auto starNode = StarsController::theModel()->getStarNode(attr.grid);
-		auto starView = starNode->getView();
-		auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
-
-		auto tempNode = StarNode::createNodeFatory(attr);
-		auto petView = iter->second;
-		auto sourcePos = petView->getParent()->convertToWorldSpace(petView->getPosition());
-		sourcePos.y -= petView->getContentSize().height * 0.40f;
-
-		CCNode *starImg = PetSkillIcon::create(petId);
-		starImg->setPosition(sourcePos);
-		addChild(starImg);
-		delete tempNode;
-
-		auto moveTo = CCMoveTo::create(kDutation, targetPos);
-		auto func = CCFunctionAction::create([=]()
+		for (size_t i = 0; i < grids.size(); ++i)
 		{
-			starImg->removeFromParent();
-			if (callback) callback();
-		});
-		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
+			auto starNode = StarsController::theModel()->getStarNode(grids[i]);
+			auto starView = starNode->getView();
+			auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
+
+			auto petView = iter->second;
+			auto sourcePos = petView->getParent()->convertToWorldSpace(petView->getPosition());
+			sourcePos.y -= petView->getContentSize().height * 0.40f;
+
+			CCNode *starImg = PetSkillIcon::create(petId);
+			starImg->setPosition(sourcePos);
+			addChild(starImg);
+
+			auto moveTo = CCMoveTo::create(kDutation, targetPos);
+			auto func = CCFunctionAction::create([=]()
+			{
+				starImg->removeFromParent();
+				if (i == grids.size() - 1 && callback) callback();
+			});
+			starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
+		}
 	}
 }
 

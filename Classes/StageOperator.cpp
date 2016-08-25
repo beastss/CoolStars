@@ -47,10 +47,30 @@ void StageOperator::eraseStars(vector<LogicGrid> grids)
 
 void StageOperator::petScaleErase(int petId, const LogicGrid &center, int xRadius, int yRadius)
 {
-	auto star = StarsController::theModel()->getStarNode(center);
-	StageLayersMgr::theMgr()->petSpreadStar(petId, star->getAttr(), [=]()
+	vector<LogicGrid> grids;
+	grids.push_back(center);
+	StageLayersMgr::theMgr()->petSpreadStar(petId, grids, [=]()
 	{
 		StarsEraseModule::theModel()->scaleErase(center, xRadius, yRadius);
+	});
+}
+
+void StageOperator::petRandomErase(int petId, int num)
+{
+	vector<LogicGrid> grids;
+	for (size_t i = 0; i < ROWS_SIZE; ++i)
+	{
+		for (int j = 0; j < COlUMNS_SIZE; ++j)
+		{
+			grids.push_back(LogicGrid(j, i));
+		}
+	}
+
+	auto targetGrids = getRandomGrids(grids, num);
+	StageLayersMgr::theMgr()->petSpreadStar(petId, targetGrids, [=]()
+	{
+		StarsEraseModule::theModel()->listErase(targetGrids);
+
 	});
 }
 
@@ -128,6 +148,23 @@ void StageOperator::randomReplaceStars(int petId, int starType, int color, int n
 	}
 
 	auto targetGrids = getRandomGrids(grids, num);
+	StageLayersMgr::theMgr()->petSpreadStar(petId, targetGrids, [=]()
+	{
+		for (size_t i = 0; i < targetGrids.size(); ++i)
+		{
+			auto star = StarsController::theModel()->getStarNode(targetGrids[i]);
+			if (star)
+			{
+				StarAttr targetStarAttr = star->getAttr();
+				targetStarAttr.color = color;
+				targetStarAttr.type = starType;
+				StarsController::theModel()->replaceStar(targetStarAttr);
+			}
+		}
+		StarsController::theModel()->preOneRound();
+	});
+
+	/*
 	for (size_t i = 0; i < targetGrids.size(); ++i)
 	{
 		auto star = StarsController::theModel()->getStarNode(targetGrids[i]);
@@ -143,6 +180,7 @@ void StageOperator::randomReplaceStars(int petId, int starType, int color, int n
 			});
 		}
 	}
+	*/
 }
 
 void StageOperator::gameOverRandomReplace()

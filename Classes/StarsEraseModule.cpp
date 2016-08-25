@@ -85,27 +85,16 @@ void StarsEraseModule::onScaleEraseDone(ScaleEarseRunner *runner)
 }
 
 //Ñò¼¼ÄÜ
-void StarsEraseModule::randomErase(int num)
+void StarsEraseModule::listErase(const std::vector<LogicGrid> &grids)
 {
-	vector<LogicGrid> grids;
-	for (size_t i = 0; i < ROWS_SIZE; ++i)
+	for (size_t i = 0; i < grids.size(); ++i)
 	{
-		for (int j = 0; j < COlUMNS_SIZE; ++j)
-		{
-			grids.push_back(LogicGrid(j, i));
-		}
-	}
-
-	auto targetGrids = getRandomGrids(grids, num);
-
-	for (size_t i = 0; i < targetGrids.size(); ++i)
-	{
-		auto node = StarsController::theModel()->getStarNode(targetGrids[i]);
+		auto node = StarsController::theModel()->getStarNode(grids[i]);
 		if (node && node->canBeRemoved())
 		{
 			if (node->getAttr().type == kBomb)
 			{
-				scaleErase(targetGrids[i], COlUMNS_SIZE, ROWS_SIZE);
+				scaleErase(grids[i], COlUMNS_SIZE, ROWS_SIZE);
 			}
 			else
 			{

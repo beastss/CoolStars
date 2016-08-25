@@ -77,7 +77,7 @@ void StageLayersMgr::removeGuideView()
 	NOTIFY_LAYERSS(onGuideViewRemoved);
 }
 
-void StageLayersMgr::petSpreadStar(int petId, const StarAttr &attr, function<void()> callback)
+void StageLayersMgr::petSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback)
 {
-	NOTIFY_LAYERSS(onPetSpreadStar, petId, attr, callback);
+	NOTIFY_LAYERSS(onPetSpreadStar, petId, grids, callback);
 }

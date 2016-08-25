@@ -18,7 +18,7 @@ struct IStageLayer
 	virtual void onEraseStarsEnd(){}
 	virtual void onExplodeGrid(const LogicGrid &grid){}
 	virtual void onGuideViewRemoved(){}
-	virtual void onPetSpreadStar(int petId, const StarAttr &attr, std::function<void()> callback){}
+	virtual void onPetSpreadStar(int petId, const vector<LogicGrid> &grids, std::function<void()> callback){}
 	
 };
 
@@ -48,7 +48,7 @@ public:
 	void touchEnable(bool canTouch);
 	void explodeGrid(const LogicGrid &grid);
 	void removeGuideView();
-	void petSpreadStar(int petId, const StarAttr &attr, function<void()> callback);
+	void petSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback);
 private:
 	StageLayersMgr(){}
 private:

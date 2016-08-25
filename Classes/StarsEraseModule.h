@@ -23,7 +23,7 @@ private:
 //四种消除方式
 //1.普通点击的连消除
 //2.矩形消除
-//3.随机消除
+//3.列表消除
 //4.//直接消除目标星星 没有爆炸
 
 class StarsEraseModule
@@ -31,7 +31,7 @@ class StarsEraseModule
 public:
 	void linkErase(const LogicGrid &grid);
 	void scaleErase(const LogicGrid &center, int xRadius, int yRadius);
-	void randomErase(int num);
+	void listErase(const std::vector<LogicGrid> &grids);
 	void removeStar(const LogicGrid &grid);
 public:
 	~StarsEraseModule();

@@ -52,7 +52,7 @@ public:
 	virtual void onOneRoundBegan();
 	virtual void onOneRoundEnd();
 	virtual void onGuideViewRemoved();
-	virtual void onPetSpreadStar(int petId, const StarAttr &attr, std::function<void()> callback);
+	virtual void onPetSpreadStar(int petId, const vector<LogicGrid> &grids, std::function<void()> callback);
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:
