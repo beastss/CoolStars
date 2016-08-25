@@ -471,6 +471,7 @@ void StageUiLayer::onExplodeGrid(const LogicGrid &grid)
 
 void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 {
+	bool starsFly = false;
 	if (starType == kColorStar)
 	{
 		const static float kDuration = 0.8f;
@@ -480,6 +481,7 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 			auto petView = iter->second;
 			if (petView->getColor() == color)
 			{
+				starsFly = true;
 				auto config = DataManagerSelf->getStarsColorConfig(color);
 				auto resPath = config.colorStarRes;
 				CCSprite *starSpr = CCSprite::create(resPath.c_str());
@@ -528,7 +530,10 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 	{
 		StarsEraseModule::theModel()->eraseStarEnd();
 	});
-	runAction(CCSequence::create(CCDelayTime::create(1.0f), eraseEnd, NULL));
+	const static float kTime = starsFly ? 1.0f : 0.1f;
+	runAction(CCSequence::create(CCDelayTime::create(kTime), eraseEnd, NULL));
+
+	
 	//playExplosionAction(pos);
 }
 
