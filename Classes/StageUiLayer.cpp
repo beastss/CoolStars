@@ -700,6 +700,9 @@ void StageUiLayer::showPropsGuide()
 
 void StageUiLayer::onLinkErase(int num)
 {
+	static const int kBonusTag = -100;
+	removeChildByTag(kBonusTag, true);
+
 	int bonus = DataManagerSelf->getEraseBonus(num);
 	if (bonus <= 0) return;
 
@@ -707,7 +710,7 @@ void StageUiLayer::onLinkErase(int num)
 	auto size = getContentSize();
 	layout->setPosition(ccp(size.width * 0.5f, size.height * 0.50f));
 	layout->setAnchorPoint(ccp(0.5f, 0.5f));
-	addChild(layout);
+	addChild(layout, 1, kBonusTag);
 
 	auto numLabel = dynamic_cast<CCLabelAtlas *>(layout->getChildById(2));
 	numLabel->setString(intToStr(num));
@@ -719,5 +722,6 @@ void StageUiLayer::onLinkErase(int num)
 	{
 		layout->removeFromParent();
 	});
-	layout->runAction(CCSequence::create(CCBlink::create(2.0f, 3), CCDelayTime::create(0.5f), func, NULL));
+	layout->setScale(0.5f);
+	layout->runAction(CCSequence::create(CCScaleTo::create(0.5f, 1.0f), CCBlink::create(0.6f, 2), CCDelayTime::create(0.5f), func, NULL));
 }
