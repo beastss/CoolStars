@@ -28,9 +28,12 @@ public:
 public: //对星星的操作接口
 	StarNode *getStarNode(const LogicGrid &grid);
 	std::vector<StarNode *> &getStarNodes(){ return m_starNodes; }
+	std::vector<LogicGrid> getEmptyGrids();
 	void initStarsData();
     void moveStars();
 	void removeStarNode(StarNode *node);
+	void genNewStars1();
+	void move(const LogicGrid grid);
 	void genNewStars();
 	void initOneRound();
 	void preOneRound();//新回合的预处理

@@ -52,6 +52,10 @@ public:
 	void doRemove(bool addScore = true);
 	void removeNeighbours();
     void moveTo(LogicGrid grid);
+	void drop();
+	bool dropDown();
+	bool dropLeftDown();
+	bool dropRightDown();
 
 	bool canLink(int type, int color);
 	void getConnectedStars(StarNode *node, std::vector<StarNode *> &connectedNodes);

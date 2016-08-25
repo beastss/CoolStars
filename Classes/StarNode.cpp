@@ -189,8 +189,81 @@ void StarNode::moveTo(LogicGrid grid)
 	{
 		m_view->doMove(grid);
 	}
+	m_attr.grid = grid; 
 }
 
+void StarNode::drop()
+{
+	if (m_attr.grid.y < 1) return;
+	if (dropDown()) return;
+	if (dropLeftDown()) return;
+	if (dropRightDown()) return;
+}
+
+bool StarNode::dropDown()
+{
+	if (!isStill())
+	{
+		//直下移动
+		auto nextGrid = m_attr.grid;
+		nextGrid.y -= 1;
+		if (isValidGrid(nextGrid) && !StarsController::theModel()->getStarNode(nextGrid))
+		{
+			moveTo(nextGrid);
+			drop();
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+bool StarNode::dropLeftDown()
+{
+	auto leftGrid = m_attr.grid;
+	auto node = StarsController::theModel()->getStarNode(leftGrid);
+	leftGrid.x -= 1;
+
+	if (isValidGrid(leftGrid) && node && node->isStill())
+	//if (true)
+	{
+		//左下移动
+		auto nextGrid = m_attr.grid;
+		nextGrid.x -= 1;
+		nextGrid.y -= 1;
+
+		if (isValidGrid(nextGrid) && !StarsController::theModel()->getStarNode(nextGrid))
+		{
+			moveTo(nextGrid);
+			drop();
+			return true;
+		}
+	}
+	return false;
+}
+
+bool StarNode::dropRightDown()
+{
+	auto rightGrid = m_attr.grid;
+	auto node = StarsController::theModel()->getStarNode(rightGrid);
+	rightGrid.x += 1;
+
+	if (isValidGrid(rightGrid) && node && node->isStill())
+	//if (true)
+	{
+		//右下移动
+		auto nextGrid = m_attr.grid;
+		nextGrid.x += 1;
+		nextGrid.y -= 1;
+		if (isValidGrid(nextGrid) && !StarsController::theModel()->getStarNode(nextGrid))
+		{
+			moveTo(nextGrid);
+			drop();
+			return true;
+		}
+	}
+	return false;
+}
 /////////////////////////////////////////////////////////////////////////////////
 ColorStar::ColorStar(const StarAttr &attr)
 : StarNode(attr)

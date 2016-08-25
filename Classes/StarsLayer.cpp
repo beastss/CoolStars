@@ -88,18 +88,18 @@ void StarsLayer::addBkGrids()
 		for (int col = 0; col < COlUMNS_SIZE; ++col)
 		{
 			StarNode *nodeData = StarsController::theModel()->getStarNode(LogicGrid(col, row));
+			auto grid = CCSprite::create("stage/yxjm_di2.png");
+			grid->setAnchorPoint(ccp(0, 0));
+			auto size = grid->getContentSize();
 			if (!nodeData->isStill())
 			{
-				auto grid = CCSprite::create("stage/yxjm_di2.png");
-				grid->setAnchorPoint(ccp(0, 0));
-				auto size = grid->getContentSize();
 				node->addChild(grid);
 				grid->setPosition(ccp(curX, curY));
-				curX += size.width + kSpacing;
-				if (maxHeight < size.height)
-				{
-					maxHeight = size.height;
-				}
+			}
+			curX += size.width + kSpacing;
+			if (maxHeight < size.height)
+			{
+				maxHeight = size.height;
 			}
 		}
 		curX = kSpacing;

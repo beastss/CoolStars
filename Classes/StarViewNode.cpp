@@ -2,6 +2,7 @@
 #include "StarsLayer.h"
 #include "StarsController.h"
 #include "StarsEraseModule.h"
+#include "ActionRunner.h"
 USING_NS_CC;
 using namespace std;
 
@@ -18,11 +19,16 @@ StarViewNode::StarViewNode(StarNode *node)
 , m_isExploded(false)
 {
     m_model->bindView(this);
+	m_runner = ActionRunner::create();
+	m_runner->retain();
 }
 
 StarViewNode::~StarViewNode()
 {
+	m_runner->clear();
+	m_runner->release();
 }
+
 bool StarViewNode::init()
 {
 	string fileName = m_model->getResPath();
@@ -65,10 +71,16 @@ cocos2d::CCPoint StarViewNode::getPosByGrid(LogicGrid grid)
 
 void StarViewNode::doMove(LogicGrid targetGrid)
 {
-	stopAllActions();
-	CCPoint pos = getPosByGrid(targetGrid);
-    CCMoveTo *moveTo = CCMoveTo::create(0.4f, pos);
-	runAction(CCEaseBackInOut::create(moveTo));
+	const float kDuration = 0.2f;
+	m_runner->queueAction(CallFuncAction::withFunctor([=]
+	{
+		CCPoint pos = getPosByGrid(targetGrid);
+		CCMoveTo *moveTo = CCMoveTo::create(kDuration, pos);
+		CCLOG("count:%d", m_runner->count());
+		//runAction(CCEaseBackInOut::create(moveTo));
+		runAction(moveTo);
+	}));
+	m_runner->queueAction(DelayAction::withDelay(kDuration));
 }
 
 void StarViewNode::doEraseAction()

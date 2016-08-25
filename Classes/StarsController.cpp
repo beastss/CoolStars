@@ -197,7 +197,7 @@ void StarsController::gameOver(bool isWon)
 	NOTIFY_VIEWS(onShowGameResult, isWon);
 }
 
-void StarsController::genNewStars()
+void StarsController::genNewStars1()
 {
 	//移动方向： 上下左右
 	int moveDirection[4][2] = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
@@ -278,6 +278,55 @@ void StarsController::genNewStars()
 	}
 	moveStars();
 	//onOneRoundBegan();
+}
+
+void StarsController::move(const LogicGrid grid)
+{
+	/*
+	if (!getStarNode(grid))
+	{
+		auto attr = m_starsLoader.genNewStars(newGrid[i]);
+		StarNode *node = StarNode::createNodeFatory(attr);
+		m_starNodes.push_back(node);
+		NOTIFY_VIEWS(onCreateNewStar, node);
+	}
+	*/
+}
+
+void StarsController::genNewStars()
+{
+	for (int row = 0; row < ROWS_SIZE; ++row)
+	{
+		for (int col = 0; col < COlUMNS_SIZE; ++col)
+		{
+			auto node = getStarNode(LogicGrid(col, row));
+			if (node)
+			{
+				node->drop();
+			}
+		}
+	}
+
+	/*
+	for (int col = 0; col < COlUMNS_SIZE; ++col)
+	{
+		StarNode *node = NULL;
+		int yOffset = 0;
+		while (!(node = getStarNode(LogicGrid(col, ROWS_SIZE - 1))))
+		{
+			auto attr = m_starsLoader.genNewStars(LogicGrid(col, ROWS_SIZE + yOffset));
+			yOffset++;
+			StarNode *node = StarNode::createNodeFatory(attr);
+			m_starNodes.push_back(node);
+			NOTIFY_VIEWS(onCreateNewStar, node);
+			node->drop();
+		}
+	}
+	*/
+	/*
+		node->moveTo(targetGrid);
+		node->setLogicGrid(targetGrid);
+	*/
 }
 
 void StarsController::addView(IStarsControlView *view)
@@ -427,4 +476,21 @@ void StarsController::loadDesignatedStar(int starType, int color, int rounds)
 void StarsController::onDesignatedStarChanged(int starType, int color, int rounds)
 {
 	NOTIFY_VIEWS(onDesignatedStarChanged, starType, color, rounds);
+}
+
+vector<LogicGrid> StarsController::getEmptyGrids()
+{
+	vector<LogicGrid> grids;
+	for (int col = 0; col < COlUMNS_SIZE; ++col)
+	{
+		for (int row = 0; row < ROWS_SIZE; ++row)
+		{
+			auto grid = LogicGrid(col, row);
+			if (!getStarNode(grid))
+			{
+				grids.push_back(grid);
+			}
+		}
+	}
+	return grids;
 }

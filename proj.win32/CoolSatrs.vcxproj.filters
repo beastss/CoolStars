@@ -375,6 +375,9 @@
     <ClCompile Include="..\Classes\PropsGuideView.cpp">
       <Filter>GameStage\StageUi</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\StarsMover.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -715,6 +718,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\PropsGuideView.h">
       <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsMover.h">
+      <Filter>GameStage\StageModel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

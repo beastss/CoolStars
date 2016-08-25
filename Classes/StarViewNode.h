@@ -4,6 +4,7 @@
 #include "StarNode.h"
 #include "LogicGridUtil.h"
 
+class ActionRunner;
 class StarViewNode : public cocos2d::CCNode
 {
 public :
@@ -27,6 +28,7 @@ private:
 protected:
 	bool m_isExploded;
 	StarNode *m_model;
+	ActionRunner *m_runner;
 };
 
 
