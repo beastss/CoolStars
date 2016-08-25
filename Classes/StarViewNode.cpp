@@ -78,7 +78,7 @@ void StarViewNode::doMove(LogicGrid targetGrid)
 		CCMoveTo *moveTo = CCMoveTo::create(kDuration, pos);
 		CCLOG("count:%d", m_runner->count());
 		//runAction(CCEaseBackInOut::create(moveTo));
-		runAction(moveTo);
+		runAction(CCActionEase::create(moveTo));
 	}));
 	m_runner->queueAction(DelayAction::withDelay(kDuration));
 }

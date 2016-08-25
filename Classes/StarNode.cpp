@@ -194,7 +194,7 @@ void StarNode::moveTo(LogicGrid grid)
 
 void StarNode::drop()
 {
-	if (m_attr.grid.y < 1) return;
+	if (m_attr.grid.y < 1 || isStill()) return;
 	if (dropDown()) return;
 	if (dropLeftDown()) return;
 	if (dropRightDown()) return;
@@ -202,27 +202,23 @@ void StarNode::drop()
 
 bool StarNode::dropDown()
 {
-	if (!isStill())
+	//直下移动
+	auto nextGrid = m_attr.grid;
+	nextGrid.y -= 1;
+	if (isValidGrid(nextGrid) && !StarsController::theModel()->getStarNode(nextGrid))
 	{
-		//直下移动
-		auto nextGrid = m_attr.grid;
-		nextGrid.y -= 1;
-		if (isValidGrid(nextGrid) && !StarsController::theModel()->getStarNode(nextGrid))
-		{
-			moveTo(nextGrid);
-			drop();
-			return true;
-		}
+		moveTo(nextGrid);
+		drop();
+		return true;
 	}
-	
 	return false;
 }
 
 bool StarNode::dropLeftDown()
 {
 	auto leftGrid = m_attr.grid;
-	auto node = StarsController::theModel()->getStarNode(leftGrid);
 	leftGrid.x -= 1;
+	auto node = StarsController::theModel()->getStarNode(leftGrid);
 
 	if (isValidGrid(leftGrid) && node && node->isStill())
 	//if (true)
@@ -245,8 +241,8 @@ bool StarNode::dropLeftDown()
 bool StarNode::dropRightDown()
 {
 	auto rightGrid = m_attr.grid;
-	auto node = StarsController::theModel()->getStarNode(rightGrid);
 	rightGrid.x += 1;
+	auto node = StarsController::theModel()->getStarNode(rightGrid);
 
 	if (isValidGrid(rightGrid) && node && node->isStill())
 	//if (true)
