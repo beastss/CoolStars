@@ -192,6 +192,7 @@ void StageOperator::gameOverRandomReplace()
 		auto star = StarsController::theModel()->getStarNode(targetGrids[i]);
 		if (star)
 		{
+			/*
 			vector<float> percents;
 			vector<string> paths = { "common/title_diamond.png", "common/title_food.png" };
 			
@@ -215,7 +216,31 @@ void StageOperator::gameOverRandomReplace()
 				data.type = kGoodsFood;
 				rewardBonus.food++;
 			}
-			
+			////////////////////////*/
+			vector<float> percents;
+			auto configs = DataManagerSelf->getGameWinBonusConfigs();
+			for (size_t j = 0; j < configs.size(); ++j)
+			{
+				percents.push_back(configs[j].percent);
+			}
+			int index = getResultByPercent(percents);
+			GoodsData data;
+			data.type = configs[index].goodsType;
+			data.amount = configs[index].amount;
+
+			switch (data.type)
+			{
+			case kGoodsDiamond:
+				rewardBonus.diamond += data.amount;
+				break;
+			case kGoodsFood:
+				rewardBonus.food += data.amount;
+				break;
+			case kGoodsKey:
+				rewardBonus.key += data.amount;
+				break;
+			}
+	
 			//步数变成钻石或者饲料
 			m_runner->queueAction(CallFuncAction::withFunctor([=]()
 			{

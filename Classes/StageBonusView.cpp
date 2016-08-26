@@ -42,6 +42,9 @@ void StageBonusView::initLayout()
 {
 	CCSprite *spr = dynamic_cast<CCSprite *>(m_layout->getChildById(1));
 	spr->initWithFile(m_goodsRes[m_data.type].c_str());
+	
+	CCLabelAtlas *amount = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(2));
+	amount->setString(CommonUtil::intToStr(m_data.amount));
 }
 
 void StageBonusView::scaleAndFadeOut()
