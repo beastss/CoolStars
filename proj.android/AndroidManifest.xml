@@ -16,7 +16,7 @@
         <!-- migu -->
         <activity
             android:name="cn.cmgame.billing.api.GameOpenActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="sensor"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
@@ -30,6 +30,20 @@
                 <category android:name="android.intent.category.CHINAMOBILE_GAMES" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="cn.cmgame2_0.launch_model.shortcut.main.MiguHomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cn.cmgame2_0.category.migu_home" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="cn.cmgame.billing.service.GameService" >
+        </service>
+
         <activity
             android:name="com.dongxin.CoolStars.CoolStars"
             android:configChanges="orientation"
@@ -83,5 +97,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
 
 </manifest>
