@@ -98,6 +98,7 @@ public class PayAndroidApi {
 		if(win)
 		{
 			UMGameAgent.finishLevel(str);
+			UMGameAgent.setPlayerLevel(stage);
 		}
 		else
 		{
