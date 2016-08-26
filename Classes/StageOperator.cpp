@@ -192,31 +192,6 @@ void StageOperator::gameOverRandomReplace()
 		auto star = StarsController::theModel()->getStarNode(targetGrids[i]);
 		if (star)
 		{
-			/*
-			vector<float> percents;
-			vector<string> paths = { "common/title_diamond.png", "common/title_food.png" };
-			
-			//红包30%获得钻石，70%获取饲料
-			percents.push_back(30);
-			percents.push_back(70);
-
-			const int kDiamondIndex = 0;
-			const int kFoodIndex = 1;
-			GoodsData data;
-			data.amount = 1;
-			int index = getResultByPercent(percents);
-			string rewardPath = paths[index];
-			if (index == kDiamondIndex)
-			{
-				data.type = kGoodsDiamond;
-				rewardBonus.diamond++;
-			}
-			else
-			{
-				data.type = kGoodsFood;
-				rewardBonus.food++;
-			}
-			////////////////////////*/
 			vector<float> percents;
 			auto configs = DataManagerSelf->getGameWinBonusConfigs();
 			for (size_t j = 0; j < configs.size(); ++j)
