@@ -59,7 +59,8 @@ private:
 	void refreshUi();
 	void newRewardBoxs();
 	void toPetScene(cocos2d::CCObject* pSender);
-	void openAllBox(cocos2d::CCObject* pSender);
+	void onOpenAllBoxesBtnClicked(cocos2d::CCObject* pSender);
+	void openAllBoxs();
 	void onStartBtnClicked(cocos2d::CCObject* pSender);
 	void onOpenReward();
 	virtual void onKeyChanged();
