@@ -530,7 +530,7 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 	{
 		StarsEraseModule::theModel()->eraseStarEnd();
 	});
-	const static float kTime = starsFly ? 1.0f : 0.1f;
+	const float kTime = starsFly ? 1.0f : 0.1f;
 	runAction(CCSequence::create(CCDelayTime::create(kTime), eraseEnd, NULL));
 
 	
