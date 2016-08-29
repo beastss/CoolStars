@@ -73,8 +73,8 @@ StarNode *StarsController::getStarNode(const LogicGrid &grid)
 		const LogicGrid temp = node->getAttr().grid;
 		return grid == temp;
 	});
-
-	return iter != m_starNodes.end() ? *iter : NULL;
+	auto ret = iter != m_starNodes.end() ? *iter : NULL;
+	return ret;
 }
 
 void StarsController::moveStars()
@@ -307,11 +307,11 @@ void StarsController::genNewStars()
 		}
 	}
 
-	/*
 	for (int col = 0; col < COlUMNS_SIZE; ++col)
 	{
 		StarNode *node = NULL;
 		int yOffset = 0;
+		node = getStarNode(LogicGrid(col, ROWS_SIZE - 1));
 		while (!(node = getStarNode(LogicGrid(col, ROWS_SIZE - 1))))
 		{
 			auto attr = m_starsLoader.genNewStars(LogicGrid(col, ROWS_SIZE + yOffset));
@@ -322,11 +322,6 @@ void StarsController::genNewStars()
 			node->drop();
 		}
 	}
-	*/
-	/*
-		node->moveTo(targetGrid);
-		node->setLogicGrid(targetGrid);
-	*/
 }
 
 void StarsController::addView(IStarsControlView *view)
