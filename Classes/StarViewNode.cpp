@@ -71,7 +71,7 @@ cocos2d::CCPoint StarViewNode::getPosByGrid(LogicGrid grid)
 
 void StarViewNode::doMove(LogicGrid targetGrid)
 {
-	const float kDuration = 0.2f;
+	const float kDuration = 0.1f;
 	m_runner->queueAction(CallFuncAction::withFunctor([=]
 	{
 		CCPoint pos = getPosByGrid(targetGrid);
@@ -81,6 +81,7 @@ void StarViewNode::doMove(LogicGrid targetGrid)
 		runAction(CCActionEase::create(moveTo));
 	}));
 	m_runner->queueAction(DelayAction::withDelay(kDuration));
+	m_runner->queueAction(DelayNFrames::delay(1)); //延迟一帧 不然星星移动有偏移，星星移动时间和delay不会完全相同
 }
 
 void StarViewNode::doEraseAction()
