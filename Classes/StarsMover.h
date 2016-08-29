@@ -8,18 +8,21 @@ class StarsMover
 {
 public:
 	static StarsMover *fatory();
-	virtual void moveStars(){}
-	virtual void genStars(){}
-	virtual bool isBottom(){ return false; }
-	virtual LogicGrid getDownOffset(){ return LogicGrid(); }
-	virtual LogicGrid getLeftOffset(){ return LogicGrid(); }
-	virtual LogicGrid getRightOffset(){return LogicGrid(); }
-private:
+protected:
+	void StarsMover::drop(StarNode *node);
+private:// 相对的掉落方向，由具体的移动方向来决定
 	bool StarsMover::dropDown();
 	bool StarsMover::dropLeftDown();
 	bool StarsMover::dropRightDown();
-protected:
-	void StarsMover::drop(StarNode *node);
+//接口
+public:
+	virtual void moveStars() = 0;
+	virtual void genStars() = 0;
+private:
+	virtual bool isBottom() = 0;
+	virtual LogicGrid getDownOffset() = 0;
+	virtual LogicGrid getLeftOffset() = 0;
+	virtual LogicGrid getRightOffset() = 0;
 protected:
 	StarNode *m_curNode;
 private:
@@ -38,6 +41,7 @@ class MoveStarsUp
 public:
 	virtual void moveStars();
 	virtual void genStars();
+private:
 	virtual bool isBottom();
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();
@@ -50,6 +54,7 @@ class MoveStarsDown
 public:
 	virtual void moveStars();
 	virtual void genStars();
+private:
 	virtual bool isBottom();
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();
@@ -62,6 +67,7 @@ class MoveStarsLeft
 public:
 	virtual void moveStars();
 	virtual void genStars();
+private:
 	virtual bool isBottom();
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();
@@ -74,6 +80,7 @@ class MoveStarsRight
 public:
 	virtual void moveStars();
 	virtual void genStars();
+private:
 	virtual bool isBottom();
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();

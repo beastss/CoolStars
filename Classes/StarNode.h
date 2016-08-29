@@ -62,7 +62,7 @@ public:
 	virtual std::string getBornAnimationPath();
 	virtual void onRemove(){}
 	virtual bool canBeRemoved(){ return true; }
-	virtual bool isStill(){ return false; }
+	virtual bool isStill(){ return false; }//是否为静止不动。地形星星
 private:
 	LogicGrid getTargetGrid(const LogicGrid &grid, int dropDirection);
 protected:

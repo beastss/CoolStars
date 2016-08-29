@@ -38,7 +38,7 @@ void StarsMover::drop(StarNode *node)
 bool StarsMover::dropDown()
 {
 	auto attr = m_curNode->getAttr();
-	if (isBottom()) return false;
+	if (isBottom()) return false;//µ×²¿²»µôÂäÁË
 	auto nextGrid = attr.grid;
 	auto offset = getDownOffset();
 	nextGrid.x += offset.x;
