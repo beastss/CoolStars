@@ -21,6 +21,14 @@ struct IStarsControlView
 	virtual void onDesignatedStarChanged(int starType, int color, int rounds){}
 };
 
+enum MoveDirection
+{
+	kMoveUp,
+	kMoveDown,
+	kMoveLeft,
+	kMoveRight,
+};
+
 class StarsController
 {
 public:
@@ -40,6 +48,7 @@ public: //对星星的操作接口
 	void endOneRound();
 	void addScore(int value);
 	void replaceStar(const StarAttr &attr);
+	void genNextStar(const LogicGrid &grid);
 	void genStar(const StarAttr &attr);
 	void resetStage(int gameType);
 	int getStageAmount();
@@ -68,13 +77,5 @@ private:
 	StageTarget m_target;
 	StarsLoader m_starsLoader;
 	StarsBehavior m_starsBehavior;
-private:
-	enum Direction
-	{
-		kMoveUp,		
-		kMoveDown,	
-		kMoveLeft,	
-		kMoveRight,
-	};
 };
 #endif

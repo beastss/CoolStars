@@ -11,6 +11,7 @@
 #include "GameBackEndState.h"
 #include "StarsEraseModule.h"
 #include "PetManager.h"
+#include "StarsMover.h"
 USING_NS_CC;
 using namespace std;
 StarsController::StarsController()
@@ -295,33 +296,9 @@ void StarsController::move(const LogicGrid grid)
 
 void StarsController::genNewStars()
 {
-	for (int row = 0; row < ROWS_SIZE; ++row)
-	{
-		for (int col = 0; col < COlUMNS_SIZE; ++col)
-		{
-			auto node = getStarNode(LogicGrid(col, row));
-			if (node)
-			{
-				node->drop();
-			}
-		}
-	}
-
-	for (int col = 0; col < COlUMNS_SIZE; ++col)
-	{
-		StarNode *node = NULL;
-		int yOffset = 0;
-		node = getStarNode(LogicGrid(col, ROWS_SIZE - 1));
-		while (!(node = getStarNode(LogicGrid(col, ROWS_SIZE - 1))))
-		{
-			auto attr = m_starsLoader.genNewStars(LogicGrid(col, ROWS_SIZE + yOffset));
-			yOffset++;
-			StarNode *node = StarNode::createNodeFatory(attr);
-			m_starNodes.push_back(node);
-			NOTIFY_VIEWS(onCreateNewStar, node);
-			node->drop();
-		}
-	}
+	auto starsMover = StarsMover::fatory();
+	starsMover->moveStars();
+	starsMover->genStars();
 }
 
 void StarsController::addView(IStarsControlView *view)
@@ -455,6 +432,12 @@ void StarsController::genStar(const StarAttr &attr)
 	auto node = StarNode::createNodeFatory(attr);
 	m_starNodes.push_back(node);
 	NOTIFY_VIEWS(onCreateNewStar, node);
+}
+
+void StarsController::genNextStar(const LogicGrid &grid)
+{
+	auto attr = m_starsLoader.genNewStars(grid);
+	genStar(attr);
 }
 
 int StarsController::getStageAmount()

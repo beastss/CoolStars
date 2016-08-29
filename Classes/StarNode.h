@@ -52,10 +52,6 @@ public:
 	void doRemove(bool addScore = true);
 	void removeNeighbours();
     void moveTo(LogicGrid grid);
-	void drop();
-	bool dropDown();
-	bool dropLeftDown();
-	bool dropRightDown();
 
 	bool canLink(int type, int color);
 	void getConnectedStars(StarNode *node, std::vector<StarNode *> &connectedNodes);
@@ -67,12 +63,11 @@ public:
 	virtual void onRemove(){}
 	virtual bool canBeRemoved(){ return true; }
 	virtual bool isStill(){ return false; }
+private:
+	LogicGrid getTargetGrid(const LogicGrid &grid, int dropDirection);
 protected:
     StarNode(const StarAttr &attr);
 	const StarsConfig &getConfig();
-private:
-
-	;
 protected:
 	StarAttr m_attr;
 	StarViewNode *m_view;
