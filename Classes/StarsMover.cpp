@@ -92,6 +92,58 @@ bool StarsMover::dropRightDown()
 }
 
 ///////////////////////////////////////////////////////////
+void MoveStarsUp::moveStars()
+{
+	for (int row = ROWS_SIZE - 1; row >= 0; --row)
+	{
+		for (int col = COlUMNS_SIZE - 1; col >= 0; --col)
+		{
+			auto node = StarsController::theModel()->getStarNode(LogicGrid(col, row));
+			if (node)
+			{
+				drop(node);
+			}
+		}
+	}
+}
+
+void MoveStarsUp::genStars()
+{
+	for (int col = COlUMNS_SIZE - 1; col >= 0; --col)
+	{
+		StarNode *node = NULL;
+		int offset = 0;
+		while (!(node = StarsController::theModel()->getStarNode(LogicGrid(col, 0))))
+		{
+			auto newStar = StarsController::theModel()->genNextStar(LogicGrid(col, -1 + offset));
+			offset--;
+			drop(newStar);
+		}
+	}
+}
+
+bool MoveStarsUp::isBottom()
+{
+	return m_curNode->getAttr().grid.y >= ROWS_SIZE - 1;
+}
+
+LogicGrid MoveStarsUp::getDownOffset()
+{
+	return LogicGrid(0, 1);
+}
+
+LogicGrid MoveStarsUp::getLeftOffset()
+{
+	return LogicGrid(1, 0);
+}
+
+LogicGrid MoveStarsUp::getRightOffset()
+{
+	return LogicGrid(-1, 0);
+}
+
+
+///////////////////////////////////////////////////////////
 void MoveStarsDown::moveStars()
 {
 	for (int row = 0; row < ROWS_SIZE; ++row)
@@ -112,12 +164,12 @@ void MoveStarsDown::genStars()
 	for (int col = 0; col < COlUMNS_SIZE; ++col)
 	{
 		StarNode *node = NULL;
-		int yOffset = 0;
+		int offset = 0;
 		while (!(node = StarsController::theModel()->getStarNode(LogicGrid(col, ROWS_SIZE - 1))))
 		{
-			StarsController::theModel()->genNextStar(LogicGrid(col, ROWS_SIZE + yOffset));
-			yOffset++;
-			drop(node);
+			auto newStar = StarsController::theModel()->genNextStar(LogicGrid(col, ROWS_SIZE + offset));
+			offset++;
+			drop(newStar);
 		}
 	}
 }
@@ -141,3 +193,106 @@ LogicGrid MoveStarsDown::getRightOffset()
 {
 	return LogicGrid(1, 0);
 }
+
+///////////////////////////////////////////////////////////
+void MoveStarsLeft::moveStars()
+{
+	for (int col = 0; col < COlUMNS_SIZE; ++col)
+	{
+		for (int row = ROWS_SIZE - 1; row >= 0; --row)
+		{
+			auto node = StarsController::theModel()->getStarNode(LogicGrid(col, row));
+			if (node)
+			{
+				drop(node);
+			}
+		}
+	}
+}
+
+void MoveStarsLeft::genStars()
+{
+	for (int row = ROWS_SIZE - 1; row >= 0; --row)
+	{
+		StarNode *node = NULL;
+		int offset = 0;
+		while (!(node = StarsController::theModel()->getStarNode(LogicGrid(COlUMNS_SIZE - 1, row))))
+		{
+			auto newStar = StarsController::theModel()->genNextStar(LogicGrid(COlUMNS_SIZE + offset, row));
+			offset++;
+			drop(newStar);
+		}
+	}
+}
+
+bool MoveStarsLeft::isBottom()
+{
+	return m_curNode->getAttr().grid.x < 1;
+}
+
+LogicGrid MoveStarsLeft::getDownOffset()
+{
+	return LogicGrid(-1, 0);
+}
+
+LogicGrid MoveStarsLeft::getLeftOffset()
+{
+	return LogicGrid(0, 1);
+}
+
+LogicGrid MoveStarsLeft::getRightOffset()
+{
+	return LogicGrid(0, -1);
+}
+
+///////////////////////////////////////////////////////////
+void MoveStarsRight::moveStars()
+{
+	for (int col = COlUMNS_SIZE - 1; col >= 0; --col)
+	{
+		for (int row = 0; row < ROWS_SIZE; ++row)
+		{
+			auto node = StarsController::theModel()->getStarNode(LogicGrid(col, row));
+			if (node)
+			{
+				drop(node);
+			}
+		}
+	}
+}
+
+void MoveStarsRight::genStars()
+{
+	for (int row = 0; row < ROWS_SIZE; ++row)
+	{
+		StarNode *node = NULL;
+		int offset = 0;
+		while (!(node = StarsController::theModel()->getStarNode(LogicGrid(0, row))))
+		{
+			auto newStar = StarsController::theModel()->genNextStar(LogicGrid(-1 + offset, row));
+			offset--;
+			drop(newStar);
+		}
+	}
+}
+
+bool MoveStarsRight::isBottom()
+{
+	return m_curNode->getAttr().grid.x >= COlUMNS_SIZE - 1;
+}
+
+LogicGrid MoveStarsRight::getDownOffset()
+{
+	return LogicGrid(1, 0);
+}
+
+LogicGrid MoveStarsRight::getLeftOffset()
+{
+	return LogicGrid(0, -1);
+}
+
+LogicGrid MoveStarsRight::getRightOffset()
+{
+	return LogicGrid(0, 1);
+}
+

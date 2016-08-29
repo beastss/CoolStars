@@ -21,14 +21,6 @@ struct IStarsControlView
 	virtual void onDesignatedStarChanged(int starType, int color, int rounds){}
 };
 
-enum MoveDirection
-{
-	kMoveUp,
-	kMoveDown,
-	kMoveLeft,
-	kMoveRight,
-};
-
 class StarsController
 {
 public:
@@ -38,18 +30,15 @@ public: //对星星的操作接口
 	std::vector<StarNode *> &getStarNodes(){ return m_starNodes; }
 	std::vector<LogicGrid> getEmptyGrids();
 	void initStarsData();
-    void moveStars();
 	void removeStarNode(StarNode *node);
-	void genNewStars1();
-	void move(const LogicGrid grid);
 	void genNewStars();
 	void initOneRound();
 	void preOneRound();//新回合的预处理
 	void endOneRound();
 	void addScore(int value);
 	void replaceStar(const StarAttr &attr);
-	void genNextStar(const LogicGrid &grid);
-	void genStar(const StarAttr &attr);
+	StarNode *genNextStar(const LogicGrid &grid);
+	StarNode *genStar(const StarAttr &attr);
 	void resetStage(int gameType);
 	int getStageAmount();
 	void loadDesignatedStar(int starType, int color, int rounds);
@@ -64,7 +53,6 @@ private:
 	StarsController();
 	~StarsController();
 
-    void moveStar(StarNode *node);
 	bool isGridEmpty(const LogicGrid &grid);
 	bool noStarsToErase();
 	void reOrderStars(int times);

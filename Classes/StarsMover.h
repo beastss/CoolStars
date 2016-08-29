@@ -22,14 +22,26 @@ protected:
 	void StarsMover::drop(StarNode *node);
 protected:
 	StarNode *m_curNode;
+private:
+	enum MoveDirection
+	{
+		kMoveUp,
+		kMoveDown,
+		kMoveLeft,
+		kMoveRight,
+	};
 };
 
 class MoveStarsUp
 	:public StarsMover
 {
 public:
-	virtual void moveStars(){}
-	virtual void genStars(){}
+	virtual void moveStars();
+	virtual void genStars();
+	virtual bool isBottom();
+	virtual LogicGrid getDownOffset();
+	virtual LogicGrid getLeftOffset();
+	virtual LogicGrid getRightOffset();
 };
 
 class MoveStarsDown
@@ -38,7 +50,6 @@ class MoveStarsDown
 public:
 	virtual void moveStars();
 	virtual void genStars();
-
 	virtual bool isBottom();
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();
@@ -49,16 +60,24 @@ class MoveStarsLeft
 	:public StarsMover
 {
 public:
-	virtual void moveStars(){}
-	virtual void genStars(){}
+	virtual void moveStars();
+	virtual void genStars();
+	virtual bool isBottom();
+	virtual LogicGrid getDownOffset();
+	virtual LogicGrid getLeftOffset();
+	virtual LogicGrid getRightOffset();
 };
 
 class MoveStarsRight
 	:public StarsMover
 {
 public:
-	virtual void moveStars(){}
-	virtual void genStars(){}
+	virtual void moveStars();
+	virtual void genStars();
+	virtual bool isBottom();
+	virtual LogicGrid getDownOffset();
+	virtual LogicGrid getLeftOffset();
+	virtual LogicGrid getRightOffset();
 };
 
 #endif

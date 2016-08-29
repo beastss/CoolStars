@@ -78,32 +78,6 @@ StarNode *StarsController::getStarNode(const LogicGrid &grid)
 	return ret;
 }
 
-void StarsController::moveStars()
-{
-	sort(m_starNodes.begin(), m_starNodes.end(), [=](StarNode *node1, StarNode *node2)->bool
-	{
-		auto grid1 = node1->getAttr().grid;
-		auto grid2 = node2->getAttr().grid;
-		switch (StageDataMgr::theMgr()->getCurDirection())
-		{
-		case kMoveUp:
-			return grid1.y > grid2.y;
-		case kMoveDown:
-			return grid1.y < grid2.y;
-		case kMoveLeft :
-			return grid1.x < grid2.x;
-		case kMoveRight:
-			return grid1.x > grid2.x;
-		default:
-			return false;
-		}
-	});
-	for (auto iter = m_starNodes.begin(); iter != m_starNodes.end(); ++iter)
-	{
-		moveStar(*iter);
-	}
-}
-
 bool StarsController::isGridEmpty(const LogicGrid &grid)
 {
 	auto iter = find_if(m_starNodes.begin(), m_starNodes.end(), [=](StarNode* node)->bool
@@ -111,62 +85,6 @@ bool StarsController::isGridEmpty(const LogicGrid &grid)
 		return node->getAttr().grid == grid;
 	});
 	return iter == m_starNodes.end();
-}
-
-void StarsController::moveStar(StarNode *node)
-{
-	int direction = StageDataMgr::theMgr()->getCurDirection();
-    auto curGrid = node->getAttr().grid;
-    auto targetGrid = curGrid;
-    switch (direction)
-    {
-        case kMoveUp :
-            for (int i = curGrid.y + 1; i < ROWS_SIZE; ++i)
-            {
-				LogicGrid temp(curGrid.x, i);
-				if (isGridEmpty(temp))
-                {
-                    targetGrid.y++;
-                }
-            }
-            break;
-        case kMoveDown:
-            for (int i = 0; i < curGrid.y; ++i)
-            {
-				LogicGrid temp(curGrid.x, i);
-				if (isGridEmpty(temp))
-                {
-                    targetGrid.y--;
-                }
-            }
-            break;
-        case kMoveLeft:
-            for (int i = 0; i < curGrid.x; i++)
-            {
-				LogicGrid temp(i, curGrid.y);
-				if (isGridEmpty(temp))
-                {
-                    targetGrid.x--;
-                }
-            }
-            break;	
-        case kMoveRight:
-            for (int i = curGrid.x + 1; i < COlUMNS_SIZE; ++i)
-            {
-				LogicGrid temp(i, curGrid.y);
-				if (isGridEmpty(temp))
-                {
-                    targetGrid.x++;
-                    
-                }
-            }
-            break;
-    }
-	if (targetGrid != node->getAttr().grid)
-	{
-		node->moveTo(targetGrid);
-		node->setLogicGrid(targetGrid);
-	}
 }
 
 void StarsController::removeStarNode(StarNode *node)
@@ -196,102 +114,6 @@ void StarsController::gameOver(bool isWon)
 		StageDataMgr::theMgr()->toNextStage();
 	}
 	NOTIFY_VIEWS(onShowGameResult, isWon);
-}
-
-void StarsController::genNewStars1()
-{
-	//移动方向： 上下左右
-	int moveDirection[4][2] = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
-	int emptyGridX[COlUMNS_SIZE] = {0};	//值为x的一列上空格的个数
-	int emptyGridY[ROWS_SIZE] = {0};		//值为y的一行上空格的个数
-	for (int x = 0; x < COlUMNS_SIZE; ++x)
-	{
-		for (int y = 0; y < ROWS_SIZE; ++y)
-		{
-
-			auto iter = find_if(m_starNodes.begin(), m_starNodes.end(), [=](StarNode *node)->bool
-			{
-				auto grid = node->getAttr().grid;
-				return  grid.x == x && grid.y == y;
-			});
-
-			if (iter == m_starNodes.end())
-			{
-				emptyGridX[x]++;
-				emptyGridY[y]++;
-			}
-		}
-	}
-
-	int kExtraGridOffset = max(COlUMNS_SIZE, ROWS_SIZE);//新创建的星星初始 在四方扩大kExtraGridOffset个的地方
-	vector<LogicGrid> newGrid;
-	switch (StageDataMgr::theMgr()->getCurDirection())
-	{
-	case kMoveUp:
-		for (int i = 0; i < COlUMNS_SIZE; ++i)
-		{
-			for (int j = 0; j < emptyGridX[i]; ++j)
-			{
-				LogicGrid grid(i, 0 - kExtraGridOffset + j);
-				newGrid.push_back(grid);
-			}
-		}
-		break;
-	case kMoveDown:
-		for (int i = 0; i < COlUMNS_SIZE; ++i)
-		{
-			for (int j = 0; j < emptyGridX[i]; ++j)
-			{
-				LogicGrid grid(i, ROWS_SIZE  - 1 + kExtraGridOffset - j);
-				newGrid.push_back(grid);
-			}
-		}
-		break;
-	case kMoveLeft:
-		for (int i = 0; i < ROWS_SIZE; ++i)
-		{
-			for (int j = 0; j < emptyGridY[i]; ++j)
-			{
-				LogicGrid grid(COlUMNS_SIZE - 1 + kExtraGridOffset - j ,i);
-				newGrid.push_back(grid);
-			}
-		}
-		break;
-	case kMoveRight:
-		for (int i = 0; i < ROWS_SIZE; ++i)
-		{
-			for (int j = 0; j < emptyGridY[i]; ++j)
-			{
-				LogicGrid grid(0 - kExtraGridOffset + j, i);
-				newGrid.push_back(grid);
-			}
-		}
-		break;
-	default:
-		break;
-	}
-	for (size_t i = 0; i < newGrid.size(); ++i)
-	{
-		auto attr = m_starsLoader.genNewStars(newGrid[i]);
-		StarNode *node = StarNode::createNodeFatory(attr);
-		m_starNodes.push_back(node);
-		NOTIFY_VIEWS(onCreateNewStar, node);
-	}
-	moveStars();
-	//onOneRoundBegan();
-}
-
-void StarsController::move(const LogicGrid grid)
-{
-	/*
-	if (!getStarNode(grid))
-	{
-		auto attr = m_starsLoader.genNewStars(newGrid[i]);
-		StarNode *node = StarNode::createNodeFatory(attr);
-		m_starNodes.push_back(node);
-		NOTIFY_VIEWS(onCreateNewStar, node);
-	}
-	*/
 }
 
 void StarsController::genNewStars()
@@ -427,17 +249,18 @@ void StarsController::replaceStar(const StarAttr &attr)
 	genStar(attr);
 }
 
-void StarsController::genStar(const StarAttr &attr)
+StarNode *StarsController::genStar(const StarAttr &attr)
 {
 	auto node = StarNode::createNodeFatory(attr);
 	m_starNodes.push_back(node);
 	NOTIFY_VIEWS(onCreateNewStar, node);
+	return node;
 }
 
-void StarsController::genNextStar(const LogicGrid &grid)
+StarNode *StarsController::genNextStar(const LogicGrid &grid)
 {
 	auto attr = m_starsLoader.genNewStars(grid);
-	genStar(attr);
+	return genStar(attr);
 }
 
 int StarsController::getStageAmount()
