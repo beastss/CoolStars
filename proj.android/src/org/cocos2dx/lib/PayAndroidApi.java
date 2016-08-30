@@ -39,7 +39,7 @@ public class PayAndroidApi {
 	}
 
 	private void init() {
-		sdkObj = new MiGuSdk(mContext);
+		sdkObj = new TemplateSdk(mContext);
 		new DongXinPush(mContext);
 	}
 
@@ -97,25 +97,12 @@ public class PayAndroidApi {
 		str += stage;
 		if(win)
 		{
-			UMGameAgent.finishLevel(str);
-			UMGameAgent.setPlayerLevel(stage);
+			UMGameAgent.failLevel(str);
 		}
 		else
 		{
-			UMGameAgent.failLevel(str);
+			UMGameAgent.finishLevel(str);
 		}
-	}
-	
-	public void buyItemByDiamond(String name, int cost)
-	{
-		Log.d("analysis", String.format("buyItemByDiamond name: %s cost: %d", name, cost));
-		UMGameAgent.buy(name, 1, cost); 
-	}
-	
-	public void useItem(String name)
-	{
-		Log.d("analysis", String.format("useItem name: %s", name));
-		UMGameAgent.use(name, 1 , 0);
 	}
 	
 	static boolean siIsForBusiness;

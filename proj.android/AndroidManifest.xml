@@ -1,69 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dongxin.pei.jidi"
-    android:versionCode="35"
-    android:versionName="3.1.13" >
+      package="com.dongxin.kxcwx"
+      android:versionCode="1"
+      android:versionName="1.0.0">
 
-    <uses-sdk android:minSdkVersion="8" />
-
+    <uses-sdk android:minSdkVersion="8"/>
     <uses-feature android:glEsVersion="0x00020000" />
 
-    <application
-        android:name="com.dongxin.CoolStars.CmgameApplication"
+     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
-
-        <!-- migu -->
-        <activity
-            android:name="cn.cmgame.billing.api.GameOpenActivity"
-            android:configChanges="orientation|keyboard|screenSize"
-            android:screenOrientation="sensor"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.CHINAMOBILE_OMS_GAME" />
-
-                <category android:name="android.intent.category.CHINAMOBILE_GAMES" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="cn.cmgame2_0.launch_model.shortcut.main.MiguHomeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="cn.cmgame2_0.category.migu_home" />
-            </intent-filter>
-        </activity>
-
-        <service android:name="cn.cmgame.billing.service.GameService" >
-        </service>
-
-        <activity
+		
+		 <activity
             android:name="com.dongxin.CoolStars.CoolStars"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		
         <!-- dong_xin_push -->
-        <!-- 配置渠道号 -->
+		  <!-- 配置渠道号 -->
         <meta-data
             android:name="dx_channel"
-            android:value="dx_channel:kxcwx_test1" />
-
-        <service android:name="com.dongxin.services.DxService" >
+            android:value="dx_channel:kxcwx_mubao" /><service android:name="com.dongxin.services.DxService" >
         </service>
         <service android:name="com.dongxin.statistics.AlarmService" >
         </service>
-
         <receiver android:name="com.dongxin.services.DxReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -71,36 +39,32 @@
         </receiver>
 
         <!-- youmeng -->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="579069d1e0f55a65e40002a3" />
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="kxcwx_test1" />
+        <meta-data android:value="579069d1e0f55a65e40002a3" android:name="UMENG_APPKEY"/>
+		<meta-data android:value="kxcwx_mubao" android:name="UMENG_CHANNEL"/>
+        
     </application>
-
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:smallScreens="true" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    <supports-screens android:largeScreens="true"
+                      android:smallScreens="true"
+                      android:anyDensity="true"
+                      android:normalScreens="true"/>
+                         
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	
+	 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
-
-</manifest>
+	
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    
+</manifest> 
