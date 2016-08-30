@@ -1,9 +1,16 @@
 package org.cocos2dx.lib;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.xmlpull.v1.XmlPullParser;
+
 import com.umeng.analytics.game.UMGameAgent;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Xml;
 import android.widget.Toast;
 
 public class TemplateSdk implements ExternSdkInterface{
@@ -19,64 +26,85 @@ public class TemplateSdk implements ExternSdkInterface{
 		initItemData();
 	}
 	
-	class ItemData
-	{
+	class ItemData {
 		double cost;
 		String name;
-		ItemData(double c, String n){cost = c; name = n;}
-	}
-	ItemData items[] = new ItemData[9];
-	
-	String[] toastText = 
-		{"钻石不足",
-		"饲料不足",
-		"体力不足"};  
-	private void initItemData(){
-		String[]names = {
-			"200钻石",
-			"960钻石",
-			"2250钻石",
-			"3600钻石",
-			"6000钻石",
-			"道具礼包",
-			"接着玩",
-			"新手宠物包",
-			"推荐宠物包"};
-		double[]costs = {
-				2,
-				8,
-				15,
-				20,
-				30,
-				30,
-				2,
-				0.1,
-				30,
-		};
-		for(int i = 0; i < names.length; ++i)
-		{
-			items[i] = new ItemData(costs[i], names[i]);
+
+		void setCost(double c) {
+			cost = c;
+		}
+
+		void setName(String n) {
+			name = n;
+		}
+		
+		double getCost() {
+			return cost;
+		}
+
+		String getName() {
+			return name;
 		}
 	}
 
-	//itemId 是从1开始
+	List<ItemData> items = new ArrayList<ItemData>();
+
+	String[] toastText = { "钻石不足", "饲料不足", "体力不足" };
+
+	private void initItemData() {
+		InputStream is = null;
+		try {
+			is = mContext.getResources().getAssets().open("billing.xml");
+		} catch (Exception e) {
+			Log.e("test", "open xml errer!!");
+			e.printStackTrace();
+		}
+
+		ItemData item = null;
+		XmlPullParser parser = Xml.newPullParser();
+		try {
+			parser.setInput(is, "gbk");
+			int eventCode = parser.getEventType();
+			while (eventCode != XmlPullParser.END_DOCUMENT) {
+
+				switch (eventCode) {
+				case XmlPullParser.START_DOCUMENT:
+					break;
+				case XmlPullParser.START_TAG:
+					if ("item".equals(parser.getName())) {
+						// 通过getName判断读到哪个标签，然后通过nextText()获取文本节点值，或通过getAttributeValue(i)获取属性节点值
+						item = new ItemData();
+						item.setName(parser.getAttributeValue(0));
+						item.setCost(Double.valueOf(parser.getAttributeValue(3)));
+						items.add(item);
+					}
+					break;
+				case XmlPullParser.END_TAG:
+					break;
+				}
+				eventCode = parser.next();
+			}
+
+		} catch (Exception e) {
+			Log.e("test", "parse xml fail!!");
+			e.printStackTrace();
+		}
+	}
+
+	// itemId 是从1开始
+	int curItemId;
 	public void purchase(int itemId) {
+		Log.e("test", "into here!!");
+		if (itemId < 1 || itemId > items.size()) {
+			return;
+		}
+
+		curItemId = itemId - 1;
+		ItemData item = items.get(curItemId);
+		
 		Toast.makeText(mContext, "购买成功", Toast.LENGTH_SHORT).show();
 		onPurchase(PAY_RESULT_SUCCESS);
 		
-	}
-
-	private String getBillingIndex(int i) {
-		if (i < 9) {
-			return "00" + i;
-		} else {
-			return "0" + i;
-		}
-	}
-	private int getItemIndex(String billingIndex)
-	{
-		int index = Integer.parseInt(billingIndex);
-		return index;
 	}
 
 	public void startGame()
