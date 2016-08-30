@@ -97,12 +97,25 @@ public class PayAndroidApi {
 		str += stage;
 		if(win)
 		{
-			UMGameAgent.failLevel(str);
+			UMGameAgent.finishLevel(str);
+			UMGameAgent.setPlayerLevel(stage);
 		}
 		else
 		{
-			UMGameAgent.finishLevel(str);
+			UMGameAgent.failLevel(str);
 		}
+	}
+	
+	public void buyItemByDiamond(String name, int cost)
+	{
+		Log.d("analysis", String.format("buyItemByDiamond name: %s cost: %d", name, cost));
+		UMGameAgent.buy(name, 1, cost); 
+	}
+	
+	public void useItem(String name)
+	{
+		Log.d("analysis", String.format("useItem name: %s", name));
+		UMGameAgent.use(name, 1 , 0);
 	}
 	
 	static boolean siIsForBusiness;
