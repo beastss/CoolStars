@@ -116,7 +116,7 @@ bool PackageScene::init()
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	setContentSize(winSize);
 
-	auto dialog = PackageDialog::create(kPackageProps);
+	auto dialog = PackageDialog::create(kPackagePetFirstGet);
 	addChild(dialog);
 	dialog->setAnchorPoint(ccp(0.5f, 0.5f));
 	dialog->setPosition(ccpMult(winSize, 0.5f));
@@ -124,6 +124,10 @@ bool PackageScene::init()
 	{
 		MainScene::theScene()->clearPanelRecord();
 		MainScene::theScene()->showPanel(kMainMenu);;
+	});
+	dialog->setConfirmHandle([=]()
+	{
+		MsgNotifier::theModel()->onPetPackageBuy();
 	});
 	m_thief = CCSprite::create("thief/youxijiemian_sentou1.png");
 	m_thief->setScale(0.1f);

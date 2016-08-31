@@ -28,6 +28,7 @@ void MenuScene::onEnter()
 {
 	BasePanel::onEnter();
 	MsgNotifier::theModel()->addView(this);
+
 }
 
 void MenuScene::onExit()
@@ -57,6 +58,7 @@ bool MenuScene::init()
 	initMainLayout();
 	initBottomLayout();
 	refreshPetTips();
+	refreshPackage();
 	GuideMgr::theMgr()->startGuide(kGuideStart_mainMenu_in, bind(&MenuScene::justShowNormalGameBtn, this));
 
 	return true;
@@ -224,4 +226,15 @@ void MenuScene::refreshPetTips()
 void MenuScene::onBackKeyTouched()
 {
 	KeyPadWatcher::exitGame();
+}
+
+void MenuScene::onPetPackageBuy()
+{
+	refreshPackage();
+}
+
+void MenuScene::refreshPackage()
+{
+	bool canBuy = PackageModel::theModel()->canBuyPetPackage();
+	m_bottomLayout->getChildById(5)->setVisible(canBuy);
 }

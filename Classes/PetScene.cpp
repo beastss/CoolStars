@@ -219,8 +219,7 @@ void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
 	if (petType == kPetForRmbPurchase)
 	{
 		SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-		auto dialog = PackageDialog::create(kPackagePetFirstGet);
-		MainScene::theScene()->showDialog(dialog);
+		PackageModel::theModel()->buyPackage(kPackagePetFirstGet, [=](){});
 	}
 	else if (petType == kPetForDiamondPurchase)
 	{
