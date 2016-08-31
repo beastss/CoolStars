@@ -116,6 +116,9 @@ void PetScene::initMainLayout()
 	CCMenuItem *buyBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(25)));
 	buyBtn->setTarget(this, menu_selector(PetScene::onBuyBtnClicked));
 
+	CCMenuItem *packageBuyBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(28)));
+	packageBuyBtn->setTarget(this, menu_selector(PetScene::onBuyBtnClicked));
+
 	CCPoint leftmost = m_mainLayout->getChildById(19)->getPosition();
 	CCPoint center = m_mainLayout->getChildById(10)->getPosition();
 	CCPoint rightmost = m_mainLayout->getChildById(20)->getPosition();
@@ -219,8 +222,7 @@ void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
 	if (petType == kPetForRmbPurchase)
 	{
 		SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-		auto dialog = PackageDialog::create(kPackagePetFirstGet);
-		MainScene::theScene()->showDialog(dialog);
+		PackageModel::theModel()->buyPackage(kPackagePetFirstGet, [=](){});
 	}
 	else if (petType == kPetForDiamondPurchase)
 	{
@@ -377,6 +379,7 @@ void PetScene::refreshPetCost()
 	m_mainLayout->getChildById(18)->setVisible(false);
 	m_mainLayout->getChildById(25)->setVisible(false);
 	m_mainLayout->getChildById(27)->setVisible(false);
+	m_mainLayout->getChildById(28)->setVisible(false);
 	switch (petType)
 	{
 	case kPetForGuide:
@@ -423,7 +426,7 @@ void PetScene::refreshPetCost()
 		bool canBuy = PackageModel::theModel()->canBuyPetPackage();
 		if (canBuy)
 		{
-			m_mainLayout->getChildById(25)->setVisible(true);
+			m_mainLayout->getChildById(28)->setVisible(true);
 			m_mainLayout->getChildById(27)->setVisible(true);
 		}
 		break;
