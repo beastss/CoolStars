@@ -61,6 +61,7 @@ bool MenuScene::init()
 	initMainLayout();
 	initBottomLayout();
 	refreshPetTips();
+	refreshPackage();
 	GuideMgr::theMgr()->startGuide(kGuideStart_mainMenu_in, bind(&MenuScene::justShowNormalGameBtn, this));
 
 	runBkAction();
@@ -257,18 +258,18 @@ void MenuScene::runBkAction()
 		"main_menu/bk/bj_pic_4.png"
 	};
 
-	for(int i = 0; i < 4; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
-		
+
 		auto spr = CCSprite::create(paths[i].c_str());
-		
+
 		auto box = dynamic_cast<EmptyBox *>(m_mainLayout->getChildById(8 + i));
 		auto oldPos = box->getPosition();
 		box->setNode(spr);
 		auto rotate = getRandomList(15, 3);
 		float duration = CCRANDOM_0_1() * 2.0f + 1.0f;
 		auto rotateAction = CCSequence::create(
-			CCRotateBy::create(duration, rotate[0]), 
+			CCRotateBy::create(duration, rotate[0]),
 			CCRotateBy::create(duration, rotate[1]),
 			CCRotateTo::create(duration, 0), NULL);
 
@@ -282,5 +283,15 @@ void MenuScene::runBkAction()
 			CCMoveTo::create(duration, oldPos), NULL);
 		box->runAction(CCRepeatForever::create(CCSpawn::create(rotateAction, moveAction, NULL)));
 	}
+}
 
+void MenuScene::onPetPackageBuy()
+{
+	refreshPackage();
+}
+
+void MenuScene::refreshPackage()
+{
+	bool canBuy = PackageModel::theModel()->canBuyPetPackage();
+	m_mainLayout->getChildById(5)->setVisible(canBuy);
 }
