@@ -293,5 +293,5 @@ void MenuScene::onPetPackageBuy()
 void MenuScene::refreshPackage()
 {
 	bool canBuy = PackageModel::theModel()->canBuyPetPackage();
-	m_bottomLayout->getChildById(5)->setVisible(canBuy);
+	m_mainLayout->getChildById(5)->setVisible(canBuy);
 }
