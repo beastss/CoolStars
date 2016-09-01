@@ -15,6 +15,7 @@
 #include "PackageDialog.h"
 #include "PreStagePetSlot.h"
 #include "MyPurchase.h"
+#include "CCFunctionAction.h"
 
 USING_NS_CC;
 using namespace std;
@@ -79,7 +80,7 @@ bool PetScene::init()
 	}
 	handleColorBtnClicked(s_curPetColor);
 
-	GuideMgr::theMgr()->startGuide(kGuideStart_pet_in);
+	GuideMgr::theMgr()->startGuide(kGuideStart_pet_in, bind(&PetScene::toGuidePage, this));
 	return true;
 }
 
@@ -190,6 +191,14 @@ void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 		MainScene::theScene()->showDialog(dialog);
 		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
 	}
+
+	auto btn = dynamic_cast<CCMenuItem *>(pSender);
+	btn->setEnabled(false);
+	auto func = CCFunctionAction::create([=]()
+	{
+		btn->setEnabled(true);
+	});
+	btn->runAction(CCSequence::create(CCDelayTime::create(0.7f), func, NULL));
 }
 
 void PetScene::onPetPackageBtnClicked(cocos2d::CCObject* pSender)
@@ -360,4 +369,10 @@ void PetScene::onNewPetAdd()
 void PetScene::onBackKeyTouched()
 {
 	MainScene::theScene()->backPanel();
+}
+
+void PetScene::toGuidePage()
+{
+	return;
+	//handleColorBtnClicked(kColorRed);
 }

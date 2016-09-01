@@ -42,6 +42,7 @@ private:
 	void handleColorBtnClicked(int color);
 
 	virtual void onBackKeyTouched();
+	void toGuidePage();
 private:
 	virtual void onNewPetAdd();
 private:
