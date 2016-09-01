@@ -184,12 +184,18 @@ bool StageMaskLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pE
 
 void StageMaskLayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {
-	m_curOp->OnTouchMoved(pTouch);
+	if (isVisible())
+	{
+		m_curOp->OnTouchMoved(pTouch);
+	}
 }
 
 void StageMaskLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {
-	m_curOp->onTouchEnd(pTouch);
+	if (isVisible())
+	{
+		m_curOp->onTouchEnd(pTouch);
+	}
 }
 
 void StageMaskLayer::onHighLightStars(const std::vector<LogicGrid> &grids, int radiusX, int radiusY)
