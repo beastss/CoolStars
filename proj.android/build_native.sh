@@ -77,3 +77,15 @@ else
     "$NDK_ROOT"/ndk-build -C "$APP_ANDROID_ROOT" $* \
         "NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/prebuilt"
 fi
+
+# copy third_libs
+for file in "$APP_ANDROID_ROOT"/third_libs/*
+do
+if [ -d "$file" ]; then
+    cp -rf "$file" "$APP_ANDROID_ROOT"/libs
+fi
+
+if [ -f "$file" ]; then
+    cp "$file" "$APP_ANDROID_ROOT"/libs
+fi
+done
