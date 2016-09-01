@@ -121,8 +121,9 @@ bool GameResultLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *p
 	{
 		node->initWithFile("lottery/cjjm_baoxiang2.png");
 		getRuneStoneReward();
+		return true;
 	}
-	return true;
+	return false;
 }
 
 void GameResultLayer::getRuneStoneReward()
