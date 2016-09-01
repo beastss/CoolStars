@@ -92,3 +92,4 @@ done
 
 # init game record
 cp "$APP_ANDROID_ROOT"/assets/data/saving_init.db "$APP_ANDROID_ROOT"/assets/data/saving.db
+
