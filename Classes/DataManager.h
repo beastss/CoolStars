@@ -41,6 +41,9 @@ public:
 	void loadStarsColorConfig();
 	const StarsColorConfig &getStarsColorConfig(int color);
 
+	void loadGameWinBonusConfig();
+	const vector<GameWinBonusConfig> &getGameWinBonusConfigs();
+
 	void loadPetCommonConfig();
 	const PetCommonConfig &getPetCommonConfig(int petCommonId);
 
@@ -116,6 +119,7 @@ private:
 	vector<ThiefConfig> m_thiefConfig;
 	vector<PurchaseConfig> m_purchaseConfig;
 	SoundConfig m_soundConfig;
+	vector<GameWinBonusConfig> m_gameWinBonusConfig;
 };
 
 #endif

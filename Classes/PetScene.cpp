@@ -18,6 +18,7 @@
 #include <algorithm>
 #include "GameDataAnalysis.h"
 #include "LotteryScene.h"
+#include "CCFunctionAction.h"
 
 USING_NS_CC;
 using namespace std;
@@ -98,7 +99,7 @@ bool PetScene::init()
 	addChild(m_redPointLayer);
 	handleColorBtnClicked(s_curPetColor);
 
-	GuideMgr::theMgr()->startGuide(kGuideStart_pet_in);
+	GuideMgr::theMgr()->startGuide(kGuideStart_pet_in, bind(&PetScene::toGuidePage, this));
 	return true;
 }
 
@@ -115,6 +116,9 @@ void PetScene::initMainLayout()
 
 	CCMenuItem *buyBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(25)));
 	buyBtn->setTarget(this, menu_selector(PetScene::onBuyBtnClicked));
+
+	CCMenuItem *packageBuyBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(28)));
+	packageBuyBtn->setTarget(this, menu_selector(PetScene::onBuyBtnClicked));
 
 	CCPoint leftmost = m_mainLayout->getChildById(19)->getPosition();
 	CCPoint center = m_mainLayout->getChildById(10)->getPosition();
@@ -210,6 +214,14 @@ void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 		MainScene::theScene()->showDialog(dialog);
 		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
 	}
+
+	auto btn = dynamic_cast<CCMenuItem *>(pSender);
+	btn->setEnabled(false);
+	auto func = CCFunctionAction::create([=]()
+	{
+		btn->setEnabled(true);
+	});
+	btn->runAction(CCSequence::create(CCDelayTime::create(0.7f), func, NULL));
 }
 
 void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
@@ -219,8 +231,7 @@ void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
 	if (petType == kPetForRmbPurchase)
 	{
 		SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-		auto dialog = PackageDialog::create(kPackagePetFirstGet);
-		MainScene::theScene()->showDialog(dialog);
+		PackageModel::theModel()->buyPackage(kPackagePetFirstGet, [=](){});
 	}
 	else if (petType == kPetForDiamondPurchase)
 	{
@@ -377,6 +388,7 @@ void PetScene::refreshPetCost()
 	m_mainLayout->getChildById(18)->setVisible(false);
 	m_mainLayout->getChildById(25)->setVisible(false);
 	m_mainLayout->getChildById(27)->setVisible(false);
+	m_mainLayout->getChildById(28)->setVisible(false);
 	switch (petType)
 	{
 	case kPetForGuide:
@@ -423,7 +435,7 @@ void PetScene::refreshPetCost()
 		bool canBuy = PackageModel::theModel()->canBuyPetPackage();
 		if (canBuy)
 		{
-			m_mainLayout->getChildById(25)->setVisible(true);
+			m_mainLayout->getChildById(28)->setVisible(true);
 			m_mainLayout->getChildById(27)->setVisible(true);
 		}
 		break;
@@ -549,4 +561,9 @@ void PetScene::refrshRedPoint()
 			}
 		}
 	}
+}
+
+void PetScene::toGuidePage()
+{
+	handleColorBtnClicked(kColorRed);
 }

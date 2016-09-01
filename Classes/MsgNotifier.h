@@ -8,6 +8,7 @@ struct IMsgWatcherView
 {
 	virtual void onThiefShowUp(){}
 	virtual void onThiefDisappear(){}
+	virtual void onPetPackageBuy(){}
 };
 
 class MsgNotifier
@@ -19,6 +20,7 @@ public:
 public:
 	void onThiefShowUp(){ NOTIFY_VIEWS(onThiefShowUp); }
 	void onThiefDisappear(){ NOTIFY_VIEWS(onThiefDisappear); }
+	void onPetPackageBuy(){ NOTIFY_VIEWS(onPetPackageBuy); }
 private:
 	std::vector<IMsgWatcherView *>m_views;
 };

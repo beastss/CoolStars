@@ -109,6 +109,14 @@ struct StarsColorConfig
 	std::string desc;
 };
 
+struct GameWinBonusConfig
+{
+	int id;
+	int goodsType;
+	int percent;
+	int amount;
+};
+
 struct StageStarInfo
 {
 	int starType;

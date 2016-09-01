@@ -38,6 +38,7 @@ void DataManager::LoadData()
 	loadThiefConfig();
 	loadPurchase();
 	loadSound();
+	loadGameWinBonusConfig();
 }
 
 void DataManager::loadStarsConfig()
@@ -350,6 +351,30 @@ const StarsColorConfig &DataManager::getStarsColorConfig(int color)
 {
 	assert(color > kColorRandom && color <= kColorPurple);
 	return m_starsColorConfig[color];
+}
+
+void DataManager::loadGameWinBonusConfig()
+{
+	SqliteHelper sqlHelper(DB_STAGE);
+	auto result = sqlHelper.readRecord("select * from game_win_bonus");
+	assert(!result.empty());
+
+	for (auto iter = result.begin(); iter != result.end(); ++iter)
+	{
+		auto data = *iter;
+		GameWinBonusConfig config;
+		config.id = atoi(data[0]);
+		config.goodsType = atoi(data[1]);
+		config.percent = atoi(data[2]);
+		config.amount = atoi(data[3]);
+
+		m_gameWinBonusConfig.push_back(config);
+	}
+}
+
+const vector<GameWinBonusConfig> &DataManager::getGameWinBonusConfigs()
+{
+	return m_gameWinBonusConfig;
 }
 
 void DataManager::loadPropsConfig()

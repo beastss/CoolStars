@@ -36,6 +36,8 @@ private:
 	virtual void onEnter();
 	virtual void onExit();
 	virtual void onBackKeyTouched();
+	virtual void onPetPackageBuy();
+	void refreshPackage();
 private:
 	UiLayout *m_mainLayout;
 	UiLayout *m_bottomLayout;

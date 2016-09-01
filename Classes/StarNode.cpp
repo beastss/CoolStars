@@ -104,6 +104,7 @@ void StarNode::doRemove(bool addScore)
 	{
 		int myScore = getConfig().score;
 		StarsController::theModel()->addScore(myScore);//±¬Õ¨Ôò¼Ó·Ö
+		StarsController::theModel()->getStageTarget()->starErased(m_attr.type, m_attr.color);
 		onRemove();
 	}
 	StarsController::theModel()->removeStarNode(this);
