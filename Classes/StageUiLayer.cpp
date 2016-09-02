@@ -471,6 +471,7 @@ void StageUiLayer::onExplodeGrid(const LogicGrid &grid)
 
 void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 {
+	bool starsFly = false;
 	if (starType == kColorStar)
 	{
 		const static float kDuration = 0.8f;
@@ -480,6 +481,7 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 			auto petView = iter->second;
 			if (petView->getColor() == color)
 			{
+				starsFly = true;
 				auto config = DataManagerSelf->getStarsColorConfig(color);
 				auto resPath = config.colorStarRes;
 				CCSprite *starSpr = CCSprite::create(resPath.c_str());
@@ -528,7 +530,10 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 	{
 		StarsEraseModule::theModel()->eraseStarEnd();
 	});
-	runAction(CCSequence::create(CCDelayTime::create(1.0f), eraseEnd, NULL));
+	const float kTime = starsFly ? 1.0f : 0.1f;
+	runAction(CCSequence::create(CCDelayTime::create(kTime), eraseEnd, NULL));
+
+	
 	//playExplosionAction(pos);
 }
 
@@ -565,34 +570,35 @@ void StageUiLayer::onToNormalState()
 	}
 }
 
-void StageUiLayer::onPetSpreadStar(int petId, const StarAttr &attr, function<void()> callback)
+void StageUiLayer::onPetSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback)
 {
 	auto iter = m_petViews.find(petId);
 	if (iter != m_petViews.end())
 	{
 		static const float kDutation = 1.0f;
 
-		auto starNode = StarsController::theModel()->getStarNode(attr.grid);
-		auto starView = starNode->getView();
-		auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
-
-		auto tempNode = StarNode::createNodeFatory(attr);
-		auto petView = iter->second;
-		auto sourcePos = petView->getParent()->convertToWorldSpace(petView->getPosition());
-		sourcePos.y -= petView->getContentSize().height * 0.40f;
-
-		CCNode *starImg = PetSkillIcon::create(petId);
-		starImg->setPosition(sourcePos);
-		addChild(starImg);
-		delete tempNode;
-
-		auto moveTo = CCMoveTo::create(kDutation, targetPos);
-		auto func = CCFunctionAction::create([=]()
+		for (size_t i = 0; i < grids.size(); ++i)
 		{
-			starImg->removeFromParent();
-			if (callback) callback();
-		});
-		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
+			auto starNode = StarsController::theModel()->getStarNode(grids[i]);
+			auto starView = starNode->getView();
+			auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
+
+			auto petView = iter->second;
+			auto sourcePos = petView->getParent()->convertToWorldSpace(petView->getPosition());
+			sourcePos.y -= petView->getContentSize().height * 0.40f;
+
+			CCNode *starImg = PetSkillIcon::create(petId);
+			starImg->setPosition(sourcePos);
+			addChild(starImg);
+
+			auto moveTo = CCMoveTo::create(kDutation, targetPos);
+			auto func = CCFunctionAction::create([=]()
+			{
+				starImg->removeFromParent();
+				if (i == grids.size() - 1 && callback) callback();
+			});
+			starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
+		}
 	}
 }
 

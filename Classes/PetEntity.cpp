@@ -243,7 +243,7 @@ void PetHorse::useSkill()
 
 void PetGoat::useSkill()
 {
-	StarsEraseModule::theModel()->randomErase(m_data.skillPower);
+	StageOp->petRandomErase(m_data.petId, m_data.skillPower);
 }
 //////////////////////////////////////////////////////////////////////////////
 static vector<int> getNotFullEnergyPets(int selfId)

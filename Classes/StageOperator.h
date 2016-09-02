@@ -14,6 +14,7 @@ public:
 public:
 	void eraseStars(std::vector<LogicGrid> grids);
 	void petScaleErase(int petId, const LogicGrid &center, int xRadius, int yRadius);
+	void petRandomErase(int petId, int num);
 
 	void addSteps(int amount);
 
