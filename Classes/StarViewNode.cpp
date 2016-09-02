@@ -77,10 +77,19 @@ void StarViewNode::doMove(LogicGrid targetGrid)
 	m_runner->queueAction(CallFuncAction::withFunctor([=]
 	{
 		CCPoint pos = getPosByGrid(targetGrid);
-		CCMoveTo *moveTo = CCMoveTo::create(kDuration, pos);
 		CCLOG("count:%d", m_runner->count());
 		//runAction(CCEaseBackInOut::create(moveTo));
-		runAction(CCActionEase::create(moveTo));
+		if (m_runner->count() == 2)
+		{
+			CCMoveTo *moveTo1 = CCMoveTo::create(kDuration * 0.6f, ccp(pos.x, pos.y - 20));
+			CCMoveTo *moveTo2 = CCMoveTo::create(kDuration * 0.4f, pos);
+			runAction(CCSequence::create(moveTo1, moveTo2, NULL));
+		}
+		else
+		{
+			CCMoveTo *moveTo = CCMoveTo::create(kDuration, pos);
+			runAction(CCActionEase::create(moveTo));
+		}
 	}));
 	//m_runner->queueAction(DelayAction::withDelay(kDuration));
 	m_runner->queueAction(DelayNFrames::delay(kFrames + 1)); //延迟一帧 不然星星移动有偏移，星星移动时间和delay不会完全相同
