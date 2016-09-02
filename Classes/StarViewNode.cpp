@@ -69,20 +69,28 @@ cocos2d::CCPoint StarViewNode::getPosByGrid(LogicGrid grid)
 	return pos;
 }
 
-void StarViewNode::doMove(LogicGrid targetGrid)
+void StarViewNode::doMove(LogicGrid targetGrid, int direction)
 {
+	LogicGrid oldGrid = m_model->getAttr().grid;
+	//计算到达目标相差的格子数
+	int step = max(abs(targetGrid.x - oldGrid.x), abs(targetGrid.y - oldGrid.y));
 	const float kInterval = CCDirector::sharedDirector()->getAnimationInterval();
-	const float kDuration = 0.1f;
+	const float kOneStepTime = 0.1f;
+	const float kDuration = kOneStepTime * step;
 	const int kFrames = kDuration / kInterval;
+
 	m_runner->queueAction(CallFuncAction::withFunctor([=]
 	{
 		CCPoint pos = getPosByGrid(targetGrid);
 		CCLOG("count:%d", m_runner->count());
-		//runAction(CCEaseBackInOut::create(moveTo));
+		//移动的最后一个格子，播放弹一下的动画
 		if (m_runner->count() == 2)
 		{
-			CCMoveTo *moveTo1 = CCMoveTo::create(kDuration * 0.6f, ccp(pos.x, pos.y - 20));
-			CCMoveTo *moveTo2 = CCMoveTo::create(kDuration * 0.4f, pos);
+			int vec[5][2] = { {0, 0}, { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
+			const float kOffset = 20;
+			auto tempPos = ccp(pos.x + kOffset * vec[direction][0], pos.y + kOffset * vec[direction][1]);
+			CCMoveTo *moveTo1 = CCMoveTo::create(kDuration, tempPos);
+			CCMoveTo *moveTo2 = CCMoveTo::create(kOneStepTime * 0.4f, pos);
 			runAction(CCSequence::create(moveTo1, moveTo2, NULL));
 		}
 		else
@@ -91,7 +99,6 @@ void StarViewNode::doMove(LogicGrid targetGrid)
 			runAction(CCActionEase::create(moveTo));
 		}
 	}));
-	//m_runner->queueAction(DelayAction::withDelay(kDuration));
 	m_runner->queueAction(DelayNFrames::delay(kFrames + 1)); //延迟一帧 不然星星移动有偏移，星星移动时间和delay不会完全相同
 }
 

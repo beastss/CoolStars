@@ -18,6 +18,7 @@ struct StarsConfig
 	string explosionRes;
 	vector<int> linkStarTypes;
 	vector<int> eraseTypes;
+	bool canMove;
 };
 
 struct PetCommonConfig

@@ -49,7 +49,7 @@ void DataManager::loadStarsConfig()
 	{
 		StarsConfig config;
 		auto data = (*iter);
-		assert(data.size() == 8);
+		assert(data.size() == 9);
 
 		config.id = atoi(data[0]);
 		config.desc = data[1];
@@ -59,6 +59,7 @@ void DataManager::loadStarsConfig()
 		config.explosionRes = data[5];
 		config.linkStarTypes = CommonUtil::parseStrToInts(data[6]);
 		config.eraseTypes = CommonUtil::parseStrToInts(data[7]);
+		config.canMove = atoi(data[8]) == 1;
 
 		m_starsConfig.push_back(config);
 	}

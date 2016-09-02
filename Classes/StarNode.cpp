@@ -185,11 +185,11 @@ vector<StarNode *> StarNode::getNeighbours()
 	return neighbours;
 }
 
-void StarNode::moveTo(LogicGrid grid)
+void StarNode::moveTo(LogicGrid grid, int direction)
 {
 	if (m_view)
 	{
-		m_view->doMove(grid);
+		m_view->doMove(grid, direction);
 	}
 	m_attr.grid = grid; 
 }
