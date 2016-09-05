@@ -378,6 +378,9 @@
     <ClCompile Include="..\Classes\StarsMover.cpp">
       <Filter>GameStage\StageModel</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\StarsUtil.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -721,6 +724,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\StarsMover.h">
       <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsUtil.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

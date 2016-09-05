@@ -57,12 +57,13 @@ public:
 	void getConnectedStars(StarNode *node, std::vector<StarNode *> &connectedNodes);
 public:
 	bool canNotMove();//是否为静止不动。地形星星
+	bool canBeRemoved();
+
 	virtual std::string getResPath();
 	virtual std::string getExtraResPath(){ return ""; }
 	virtual std::string getExplosionPath();
 	virtual std::string getBornAnimationPath();
 	virtual void onRemove(){}
-	virtual bool canBeRemoved(){ return true; }
 private:
 	LogicGrid getTargetGrid(const LogicGrid &grid, int dropDirection);
 protected:
@@ -148,7 +149,6 @@ class IronNode : public StarNode
 public:
 	IronNode(const StarAttr &attr) : StarNode(attr){}
 	~IronNode(){}
-	virtual bool canBeRemoved(){ return false; }
 };
 
 class DiamondNode : public StarNode
@@ -179,7 +179,6 @@ class TerrainNode : public StarNode
 public:
 	TerrainNode(const StarAttr &attr) : StarNode(attr){}
 	~TerrainNode(){}
-	virtual bool canBeRemoved(){ return false; }
 };
 
 #endif

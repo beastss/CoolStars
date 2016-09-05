@@ -3,8 +3,11 @@
 #include "StarsController.h"
 #include "StarNode.h"
 #include "StageDataMgr.h"
+#include <algorithm>
+#include "StarsUtil.h"
 USING_NS_CC;
 using namespace std;
+using namespace StarsUtil;
 
 StarsMover *StarsMover::fatory()
 {
@@ -25,37 +28,7 @@ StarsMover *StarsMover::fatory()
 	return NULL;
 }
 
-bool StarsMover::hasMoveStarsInColumn(int col)
-{
-	vector<vector<StageStarInfo>> stageVec;
-	StageDataMgr::theMgr()->getStageStars(stageVec);
-	for (size_t i = 0; i < stageVec.size(); ++i)
-	{
-		int starType = stageVec[i][col].starType;
-		bool canMove = DataManagerSelf->getStarsConfig(starType).canMove;
-		if (canMove)
-		{
-			return true;
-		}
-	}
-	return false;
-}
 
-bool StarsMover::hasMoveStarsInRow(int row)
-{
-	vector<vector<StageStarInfo>> stageVec;
-	StageDataMgr::theMgr()->getStageStars(stageVec);
-	for (size_t i = 0; i < COlUMNS_SIZE; ++i)
-	{
-		int starType = stageVec[ROWS_SIZE - 1 - row][i].starType;
-		bool canMove = DataManagerSelf->getStarsConfig(starType).canMove;
-		if (canMove)
-		{
-			return true;
-		}
-	}
-	return false;
-}
 
 void StarsMover::drop(StarNode *node)
 {
@@ -167,8 +140,7 @@ LogicGrid MoveStarsUp::getTopGrid(int col)
 	for (int row = 0; row < ROWS_SIZE; ++row) 
 	{
 		int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
-		bool canMove = DataManagerSelf->getStarsConfig(starType).canMove;
-		if (canMove)
+		if (!isStaticStar(starType))
 		{
 			topGrid.y = row;
 			break;
@@ -244,8 +216,7 @@ LogicGrid MoveStarsDown::getTopGrid(int col)
 	for (int row = ROWS_SIZE - 1; row >= 0; --row)
 	{
 		int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
-		bool canMove = DataManagerSelf->getStarsConfig(starType).canMove;
-		if (canMove)
+		if (!isStaticStar(starType))
 		{
 			topGrid.y = row;
 			break;
@@ -319,8 +290,7 @@ LogicGrid MoveStarsLeft::getTopGrid(int row)
 	for (int col = COlUMNS_SIZE - 1; col >= 0; --col)
 	{
 		int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
-		bool canMove = DataManagerSelf->getStarsConfig(starType).canMove;
-		if (canMove)
+		if (!isStaticStar(starType))
 		{
 			topGrid.x = col;
 			break;
@@ -395,8 +365,7 @@ LogicGrid MoveStarsRight::getTopGrid(int row)
 	for (int col = 0; col < COlUMNS_SIZE; --col)
 	{
 		int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
-		bool canMove = DataManagerSelf->getStarsConfig(starType).canMove;
-		if (canMove)
+		if (!isStaticStar(starType))
 		{
 			topGrid.x = col;
 			break;

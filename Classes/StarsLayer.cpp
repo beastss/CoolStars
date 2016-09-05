@@ -7,6 +7,8 @@
 #include "EmptyBox.h"
 #include "StageScene.h"
 #include <algorithm>
+#include "StageDataMgr.h"
+#include "StarsUtil.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -72,7 +74,7 @@ void StarsLayer::addClippingNode()
 	m_clippingNode->setStencil(back);
 
 	addChild(m_clippingNode);
-	m_clippingNode->setPosition(m_layout->getChildById(1)->getPosition());
+	m_clippingNode->setPosition(getStartPos());
 }
 
 void StarsLayer::addBkGrids()
@@ -108,7 +110,7 @@ void StarsLayer::addBkGrids()
 	node->setContentSize(m_layout->getChildById(5)->getContentSize());
 
 	addChild(node);
-	node->setPosition(m_layout->getChildById(1)->getPosition());
+	node->setPosition(getStartPos());
 }
 
 StarViewNode *StarsLayer::createStarByGrid(const LogicGrid &grid)
@@ -226,4 +228,49 @@ void StarsLayer::onCreateNewStar(StarNode *node)
 
 void StarsLayer::onToNormalState()
 {
+}
+
+CCPoint StarsLayer::getStartPos()
+{
+	vector<vector<StageStarInfo>> stageVec;
+	int emptyCols = 0;
+	int emptyRows = 0;
+
+	int index = 0;
+	int endIndex = 0;
+	StageDataMgr::theMgr()->getStageStars(stageVec);
+	//从左到右
+	for (index = 0; index < COlUMNS_SIZE; ++index)
+	{
+		if (!StarsUtil::hasMoveStarsInColumn(index)) emptyCols++;
+		else break;
+	}
+	
+	//从右到左
+	endIndex = index;
+	for (index = COlUMNS_SIZE - 1; index > endIndex; --index)
+	{
+		if (!StarsUtil::hasMoveStarsInColumn(index)) emptyCols++;
+		else break;
+	}
+
+	//从下到上
+	for (index = 0; index < ROWS_SIZE; ++index)
+	{
+		if (!StarsUtil::hasMoveStarsInRow(index)) emptyRows++;
+		else break;
+	}
+
+	//从上到下
+	endIndex = index;
+	for (index = ROWS_SIZE - 1; index > endIndex; --index)
+	{
+		if (!StarsUtil::hasMoveStarsInRow(index)) emptyRows++;
+		else break;
+	}
+
+	auto pos = m_layout->getChildById(1)->getPosition();
+	pos.x += emptyCols * STAR_SIZE / 2.0f;
+	pos.y += emptyRows * STAR_SIZE / 2.0f;
+	return pos;
 }

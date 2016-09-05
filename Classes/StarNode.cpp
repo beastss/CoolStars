@@ -72,6 +72,12 @@ bool StarNode::canNotMove()
 	return !getConfig().canMove;
 }
 
+bool StarNode::canBeRemoved()
+{ 
+	auto config = getConfig().eraseTypes;
+	return find(config.begin(), config.end(), kCanNotErase) == config.end();
+}
+
 string StarNode::getResPath()
 {
 	return getConfig().resPath;

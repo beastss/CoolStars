@@ -36,6 +36,7 @@ private:
 	virtual void onExit();
 	void addClippingNode();
 	void addBkGrids();
+	cocos2d::CCPoint getStartPos();
 private:
 	StarUtil *m_pStarUtil;
 	std::vector<StarViewNode *> m_starsSprite;
