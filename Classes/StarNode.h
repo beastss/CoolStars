@@ -56,7 +56,7 @@ public:
 	bool canLink(int type, int color);
 	void getConnectedStars(StarNode *node, std::vector<StarNode *> &connectedNodes);
 public:
-	bool canNotMove();//是否为静止不动。地形星星
+	bool canNotMove();//是否为静止不动。
 	bool canBeRemoved();
 
 	virtual std::string getResPath();

@@ -63,7 +63,9 @@ bool StarsLayer::init()
 void StarsLayer::addClippingNode()
 {
 	CCLayerColor *back = CCLayerColor::create(ccc4(125, 0, 0, 255));
-	CCSize size = CCSize(STAR_SIZE * COlUMNS_SIZE, STAR_SIZE * ROWS_SIZE);
+	auto range = StarsUtil::usedRange();
+	//CCSize size = CCSize(STAR_SIZE * COlUMNS_SIZE, STAR_SIZE * ROWS_SIZE);
+	CCSize size = CCSize(STAR_SIZE * range.cols, STAR_SIZE * range.rows);
 	back->setContentSize(size);
 	
 	CCSprite *sp = CCSprite::create("shop/sd_zuanshi2.png");
@@ -74,7 +76,14 @@ void StarsLayer::addClippingNode()
 	m_clippingNode->setStencil(back);
 
 	addChild(m_clippingNode);
-	m_clippingNode->setPosition(getStartPos());
+	auto startPos = getStartPos();
+	m_clippingNode->setPosition(startPos);
+
+	auto maskBk = m_layout->getChildById(5);
+	maskBk->setAnchorPoint(ccp(0, 0));
+	maskBk->setScaleX((float)range.cols / COlUMNS_SIZE);
+	maskBk->setScaleY((float)range.rows / ROWS_SIZE);
+	maskBk->setPosition(m_layout->convertToNodeSpace(convertToWorldSpace(startPos)));
 }
 
 void StarsLayer::addBkGrids()
@@ -93,7 +102,7 @@ void StarsLayer::addBkGrids()
 			auto grid = CCSprite::create("stage/yxjm_di2.png");
 			grid->setAnchorPoint(ccp(0, 0));
 			auto size = grid->getContentSize();
-			if (!nodeData->canNotMove())
+			if (!nodeData->canNotMove() || nodeData->canBeRemoved())
 			{
 				node->addChild(grid);
 				grid->setPosition(ccp(curX, curY));
@@ -232,45 +241,11 @@ void StarsLayer::onToNormalState()
 
 CCPoint StarsLayer::getStartPos()
 {
-	vector<vector<StageStarInfo>> stageVec;
-	int emptyCols = 0;
-	int emptyRows = 0;
+	//配表时，左边和右边没有空行，因为clippingnode剪切不了左下角区域
 
-	int index = 0;
-	int endIndex = 0;
-	StageDataMgr::theMgr()->getStageStars(stageVec);
-	//从左到右
-	for (index = 0; index < COlUMNS_SIZE; ++index)
-	{
-		if (!StarsUtil::hasMoveStarsInColumn(index)) emptyCols++;
-		else break;
-	}
-	
-	//从右到左
-	endIndex = index;
-	for (index = COlUMNS_SIZE - 1; index > endIndex; --index)
-	{
-		if (!StarsUtil::hasMoveStarsInColumn(index)) emptyCols++;
-		else break;
-	}
-
-	//从下到上
-	for (index = 0; index < ROWS_SIZE; ++index)
-	{
-		if (!StarsUtil::hasMoveStarsInRow(index)) emptyRows++;
-		else break;
-	}
-
-	//从上到下
-	endIndex = index;
-	for (index = ROWS_SIZE - 1; index > endIndex; --index)
-	{
-		if (!StarsUtil::hasMoveStarsInRow(index)) emptyRows++;
-		else break;
-	}
-
+	auto range = StarsUtil::usedRange();
 	auto pos = m_layout->getChildById(1)->getPosition();
-	pos.x += emptyCols * STAR_SIZE / 2.0f;
-	pos.y += emptyRows * STAR_SIZE / 2.0f;
+	pos.x += (COlUMNS_SIZE - range.cols) * STAR_SIZE / 2.0f;
+	pos.y += (ROWS_SIZE - range.rows) * STAR_SIZE / 2.0f;
 	return pos;
 }

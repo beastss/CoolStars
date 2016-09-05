@@ -4,6 +4,7 @@
 #include "StageDataMgr.h"
 USING_NS_CC;
 using namespace std;
+using namespace StarsUtil;
 
 bool StarsUtil::isStaticStar(int starType)
 {
@@ -43,4 +44,49 @@ bool StarsUtil::hasMoveStarsInRow(int row)
 		}
 	}
 	return false;
+}
+
+const StarsUtil::StarsRange StarsUtil::usedRange()
+{
+	StarsRange range;
+	int emptyCols = 0;
+	int emptyRows = 0;
+
+	int index = 0;
+	int endIndex = 0;
+	//从左到右
+	for (index = 0; index < COlUMNS_SIZE; ++index)
+	{
+		if (!StarsUtil::hasMoveStarsInColumn(index)) emptyCols++;
+		else break;
+	}
+	range.x = emptyCols;
+
+	//从右到左
+	endIndex = index;
+	for (index = COlUMNS_SIZE - 1; index > endIndex; --index)
+	{
+		if (!StarsUtil::hasMoveStarsInColumn(index)) emptyCols++;
+		else break;
+	}
+
+	//从下到上
+	for (index = 0; index < ROWS_SIZE; ++index)
+	{
+		if (!StarsUtil::hasMoveStarsInRow(index)) emptyRows++;
+		else break;
+	}
+	range.y = emptyRows;
+
+	//从上到下
+	endIndex = index;
+	for (index = ROWS_SIZE - 1; index > endIndex; --index)
+	{
+		if (!StarsUtil::hasMoveStarsInRow(index)) emptyRows++;
+		else break;
+	}
+
+	range.cols = COlUMNS_SIZE - emptyCols;
+	range.rows = ROWS_SIZE - emptyRows;
+	return range;
 }
