@@ -91,7 +91,7 @@ void StarsLayer::addBkGrids()
 			auto grid = CCSprite::create("stage/yxjm_di2.png");
 			grid->setAnchorPoint(ccp(0, 0));
 			auto size = grid->getContentSize();
-			if (!nodeData->isStill())
+			if (!nodeData->canNotMove())
 			{
 				node->addChild(grid);
 				grid->setPosition(ccp(curX, curY));

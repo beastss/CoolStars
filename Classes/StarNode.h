@@ -56,13 +56,13 @@ public:
 	bool canLink(int type, int color);
 	void getConnectedStars(StarNode *node, std::vector<StarNode *> &connectedNodes);
 public:
+	bool canNotMove();//是否为静止不动。地形星星
 	virtual std::string getResPath();
 	virtual std::string getExtraResPath(){ return ""; }
 	virtual std::string getExplosionPath();
 	virtual std::string getBornAnimationPath();
 	virtual void onRemove(){}
 	virtual bool canBeRemoved(){ return true; }
-	virtual bool isStill(){ return false; }//是否为静止不动。地形星星
 private:
 	LogicGrid getTargetGrid(const LogicGrid &grid, int dropDirection);
 protected:
@@ -180,7 +180,6 @@ public:
 	TerrainNode(const StarAttr &attr) : StarNode(attr){}
 	~TerrainNode(){}
 	virtual bool canBeRemoved(){ return false; }
-	virtual bool isStill(){ return true; }
 };
 
 #endif

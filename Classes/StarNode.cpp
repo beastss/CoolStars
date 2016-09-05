@@ -67,6 +67,11 @@ bool StarNode::canLink(int type, int color)
 	return false;
 }
 
+bool StarNode::canNotMove()
+{
+	return !getConfig().canMove;
+}
+
 string StarNode::getResPath()
 {
 	return getConfig().resPath;

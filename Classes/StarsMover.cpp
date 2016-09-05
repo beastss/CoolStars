@@ -9,7 +9,6 @@ using namespace std;
 StarsMover *StarsMover::fatory()
 {
 	int direction = StageDataMgr::theMgr()->getCurDirection();
-	direction = kMoveRight;
 	switch (direction)
 	{
 	case kMoveUp:
@@ -61,7 +60,7 @@ bool StarsMover::hasMoveStarsInRow(int row)
 void StarsMover::drop(StarNode *node)
 {
 	m_curNode = node;
-	if (node->isStill()) return;
+	if (node->canNotMove()) return;
 	if (dropDown()) return;
 	if (dropLeftDown()) return;
 	if (dropRightDown()) return;
@@ -92,7 +91,7 @@ bool StarsMover::dropLeftDown()
 	auto leftGrid = m_curNode->getAttr().grid + getLeftOffset();
 	auto node = StarsController::theModel()->getStarNode(leftGrid);
 
-	if (node && node->isStill())
+	if (node && node->canNotMove())
 	{
 		auto nextGrid = leftGrid + getDownOffset();
 		if (isValidGrid(nextGrid) && !StarsController::theModel()->getStarNode(nextGrid))
@@ -111,7 +110,7 @@ bool StarsMover::dropRightDown()
 	auto rightGrid = m_curNode->getAttr().grid + getRightOffset();
 	auto node = StarsController::theModel()->getStarNode(rightGrid);
 
-	if (node && node->isStill())
+	if (node && node->canNotMove())
 	{
 		auto nextGrid = rightGrid + getDownOffset();
 		if (isValidGrid(nextGrid) && !StarsController::theModel()->getStarNode(nextGrid))
