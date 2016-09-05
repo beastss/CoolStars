@@ -235,7 +235,9 @@ void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
 	}
 	else if (petType == kPetForDiamondPurchase)
 	{
-		int cost = DataManagerSelf->getPetPurchaseConfig().petDiamondCost;
+		int petId = m_colorPets[s_curPetColor][m_curColorPetIndex];
+		auto data = PetManager::petMgr()->getPetById(petId)->getPetData();
+		int cost = data.diamondCost;
 		if (UserInfo::theInfo()->consumeDiamond(cost))
 		{
 			PetManager::petMgr()->addNewPet(petId);
