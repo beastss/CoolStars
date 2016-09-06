@@ -46,7 +46,11 @@ void StarsController::initStarsData()
 			attr.type = stageVec[col][row].starType;
 			attr.color = stageVec[col][row].color;
 			attr.grid = LogicGrid(row, ROWS_SIZE - col - 1);
-			m_starNodes.push_back(StarNode::createNodeFatory(attr));
+			auto node = StarNode::createNodeFatory(attr);
+			if (node)
+			{
+				m_starNodes.push_back(node);
+			}
 		}
 	}
 

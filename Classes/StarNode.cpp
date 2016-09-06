@@ -15,6 +15,8 @@ StarNode *StarNode::createNodeFatory(const StarAttr &attr)
 {
 	switch (attr.type)
 	{
+	case kEmpty:
+		return NULL;
 	case kColorStar:
 		return new ColorStar(attr);
 	case kBounceBall:

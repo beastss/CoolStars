@@ -67,10 +67,10 @@ void DataManager::loadStarsConfig()
 
 const StarsConfig &DataManager::getStarsConfig(int starType)
 {
-	assert(starType > kEmpty && starType < kStarTypeCount);
-	if (starType > kEmpty && starType < kStarTypeCount)
+	assert(starType >= kEmpty && starType < kStarTypeCount);
+	if (starType >= kEmpty && starType < kStarTypeCount)
 	{
-		return m_starsConfig[starType - 1];
+		return m_starsConfig[starType];
 	}
 	else
 	{
