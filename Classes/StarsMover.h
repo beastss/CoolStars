@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "LogicGridUtil.h"
 #include "CommonMacros.h"
+#include <unordered_map>
 class StarNode;
 
 class StarsMover
@@ -11,10 +12,13 @@ public:
 	static StarsMover *fatory();
 protected:
 	void StarsMover::drop(StarNode *node);
+	StarsMover();
 private:// 相对的掉落方向，由具体的移动方向来决定
 	bool dropDown();
 	bool dropLeftDown();
 	bool dropRightDown();
+private:
+	void init();
 //接口
 public:
 	virtual void moveStars() = 0;
@@ -27,6 +31,10 @@ private:
 protected:
 	StarNode *m_curNode;
 	int m_direction;
+	std::unordered_map<int, LogicGrid>m_upMoveTopGrids;
+	std::unordered_map<int, LogicGrid>m_downMoveTopGrids;
+	std::unordered_map<int, LogicGrid>m_leftMoveTopGrids;
+	std::unordered_map<int, LogicGrid>m_rightMoveTopGrids;
 };
 
 class MoveStarsUp
@@ -41,7 +49,6 @@ private:
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();
 	virtual LogicGrid getRightOffset();
-	LogicGrid getTopGrid(int col);
 };
 
 class MoveStarsDown
@@ -56,7 +63,6 @@ private:
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();
 	virtual LogicGrid getRightOffset();
-	LogicGrid getTopGrid(int col);
 };
 
 class MoveStarsLeft
@@ -71,7 +77,6 @@ private:
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();
 	virtual LogicGrid getRightOffset();
-	LogicGrid getTopGrid(int row);
 };
 
 class MoveStarsRight
@@ -86,7 +91,6 @@ private:
 	virtual LogicGrid getDownOffset();
 	virtual LogicGrid getLeftOffset();
 	virtual LogicGrid getRightOffset();
-	LogicGrid getTopGrid(int row);
 };
 
 #endif

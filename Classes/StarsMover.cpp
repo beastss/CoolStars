@@ -28,7 +28,64 @@ StarsMover *StarsMover::fatory()
 	return NULL;
 }
 
+StarsMover::StarsMover()
+{
+	init();
+}
 
+void StarsMover::init()
+{
+	//返回的数据是保存行的
+	vector<vector<StageStarInfo>> stageVec;
+	StageDataMgr::theMgr()->getStageStars(stageVec);
+
+	for (int col = 0; col < COlUMNS_SIZE; ++col)
+	{
+		for (int row = 0; row < ROWS_SIZE; ++row)
+		{
+			int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
+			if (!isStaticStar(starType))
+			{
+				m_upMoveTopGrids[col] = LogicGrid(col, row);
+				break;
+			}
+		}
+
+		for (int row = ROWS_SIZE - 1; row >= 0; --row)
+		{
+			int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
+			if (!isStaticStar(starType))
+			{
+				m_downMoveTopGrids[col] = LogicGrid(col, row);
+				break;
+			}
+		}
+	}
+
+
+	for (int row = 0; row < ROWS_SIZE; ++row)
+	{
+		for (int col = COlUMNS_SIZE - 1; col >= 0; --col)
+		{
+			int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
+			if (!isStaticStar(starType))
+			{
+				m_leftMoveTopGrids[row] = LogicGrid(col, row);
+				break;
+			}
+		}
+
+		for (int col = 0; col < COlUMNS_SIZE; ++col)
+		{
+			int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
+			if (!isStaticStar(starType))
+			{
+				m_rightMoveTopGrids[row] = LogicGrid(col, row);
+				break;
+			}
+		}
+	}
+}
 
 void StarsMover::drop(StarNode *node)
 {
@@ -116,10 +173,10 @@ void MoveStarsUp::genStars()
 {
 	for (int col = COlUMNS_SIZE - 1; col >= 0; --col)
 	{
-		if (!hasMoveStarsInColumn(col)) continue;
+		if (m_upMoveTopGrids.find(col) == m_upMoveTopGrids.end()) continue;
+		auto topGrid = m_upMoveTopGrids[col];
 		StarNode *node = NULL;
 		int offset = 1;
-		auto topGrid = getTopGrid(col);
 		while (!(node = StarsController::theModel()->getStarNode(topGrid)))
 		{
 			auto newStar = StarsController::theModel()->genNextStar(LogicGrid(col, topGrid.y - offset));
@@ -128,26 +185,6 @@ void MoveStarsUp::genStars()
 			drop(newStar);
 		}
 	}
-}
-
-LogicGrid MoveStarsUp::getTopGrid(int col)
-{
-	//返回的数据是保存行的
-	vector<vector<StageStarInfo>> stageVec;
-	StageDataMgr::theMgr()->getStageStars(stageVec);
-
-	LogicGrid topGrid = LogicGrid(col, 0);
-	for (int row = 0; row < ROWS_SIZE; ++row) 
-	{
-		int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
-		if (!isStaticStar(starType))
-		{
-			topGrid.y = row;
-			break;
-		}
-	}
-	CCLOG("MoveStarsUp::getTopGrid x = %d, y = %d", topGrid.x, topGrid.y);
-	return topGrid;
 }
 
 bool MoveStarsUp::isBottom()
@@ -191,10 +228,10 @@ void MoveStarsDown::genStars()
 {
 	for (int col = 0; col < COlUMNS_SIZE; ++col)
 	{
-		if (!hasMoveStarsInColumn(col)) continue;
+		if (m_downMoveTopGrids.find(col) == m_downMoveTopGrids.end()) continue;
+		auto topGrid = m_downMoveTopGrids[col];
 		StarNode *node = NULL;
 		int offset = 1;
-		auto topGrid = getTopGrid(col);
 		while (!(node = StarsController::theModel()->getStarNode(topGrid)))
 		{
 			auto newStar = StarsController::theModel()->genNextStar(LogicGrid(col, topGrid.y + offset));
@@ -204,26 +241,6 @@ void MoveStarsDown::genStars()
 			int a = 0;
 		}
 	}
-}
-
-LogicGrid MoveStarsDown::getTopGrid(int col)
-{
-	//返回的数据是保存行的
-	vector<vector<StageStarInfo>> stageVec;
-	StageDataMgr::theMgr()->getStageStars(stageVec);
-
-	LogicGrid topGrid = LogicGrid(col, ROWS_SIZE - 1);
-	for (int row = ROWS_SIZE - 1; row >= 0; --row)
-	{
-		int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
-		if (!isStaticStar(starType))
-		{
-			topGrid.y = row;
-			break;
-		}
-	}
-	CCLOG("MoveStarsDown::getTopGrid x = %d, y = %d", topGrid.x, topGrid.y);
-	return topGrid;
 }
 
 bool MoveStarsDown::isBottom()
@@ -266,10 +283,10 @@ void MoveStarsLeft::genStars()
 {
 	for (int row = ROWS_SIZE - 1; row >= 0; --row)
 	{
-		if (!hasMoveStarsInRow(row)) continue;
+		if (m_leftMoveTopGrids.find(row) == m_leftMoveTopGrids.end()) continue;
+		auto topGrid = m_leftMoveTopGrids[row];
 		StarNode *node = NULL;
 		int offset = 1;
-		auto topGrid = getTopGrid(row);
 		while (!(node = StarsController::theModel()->getStarNode(topGrid)))
 		{
 			auto newStar = StarsController::theModel()->genNextStar(LogicGrid(topGrid.x + offset, row));
@@ -279,27 +296,6 @@ void MoveStarsLeft::genStars()
 		}
 	}
 }
-
-LogicGrid MoveStarsLeft::getTopGrid(int row)
-{
-	//返回的数据是保存行的
-	vector<vector<StageStarInfo>> stageVec;
-	StageDataMgr::theMgr()->getStageStars(stageVec);
-
-	LogicGrid topGrid = LogicGrid(COlUMNS_SIZE - 1, row);
-	for (int col = COlUMNS_SIZE - 1; col >= 0; --col)
-	{
-		int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
-		if (!isStaticStar(starType))
-		{
-			topGrid.x = col;
-			break;
-		}
-	}
-	CCLOG("MoveStarsLeft::getTopGrid x = %d, y = %d", topGrid.x, topGrid.y);
-	return topGrid;
-}
-
 
 bool MoveStarsLeft::isBottom()
 {
@@ -341,10 +337,10 @@ void MoveStarsRight::genStars()
 {
 	for (int row = 0; row < ROWS_SIZE; ++row)
 	{
-		if (!hasMoveStarsInRow(row)) continue;
+		if (m_rightMoveTopGrids.find(row) == m_rightMoveTopGrids.end()) continue;
+		auto topGrid = m_rightMoveTopGrids[row];
 		StarNode *node = NULL;
 		int offset = 1;
-		auto topGrid = getTopGrid(row);
 		while (!(node = StarsController::theModel()->getStarNode(topGrid)))
 		{
 			auto newStar = StarsController::theModel()->genNextStar(LogicGrid(topGrid.x - offset, row));
@@ -353,26 +349,6 @@ void MoveStarsRight::genStars()
 			drop(newStar);
 		}
 	}
-}
-
-LogicGrid MoveStarsRight::getTopGrid(int row)
-{
-	//返回的数据是保存行的
-	vector<vector<StageStarInfo>> stageVec;
-	StageDataMgr::theMgr()->getStageStars(stageVec);
-
-	LogicGrid topGrid = LogicGrid(0, row);
-	for (int col = 0; col < COlUMNS_SIZE; --col)
-	{
-		int starType = stageVec[ROWS_SIZE - 1 - row][col].starType;
-		if (!isStaticStar(starType))
-		{
-			topGrid.x = col;
-			break;
-		}
-	}
-	CCLOG("MoveStarsRight::getTopGrid x = %d, y = %d", topGrid.x, topGrid.y);
-	return topGrid;
 }
 
 bool MoveStarsRight::isBottom()
