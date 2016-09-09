@@ -381,6 +381,9 @@
     <ClCompile Include="..\Classes\StarsUtil.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\StarBkGrid.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -727,6 +730,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\StarsUtil.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarBkGrid.h">
+      <Filter>GameStage\StageUi</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

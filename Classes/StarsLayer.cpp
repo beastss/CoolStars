@@ -9,6 +9,7 @@
 #include <algorithm>
 #include "StageDataMgr.h"
 #include "StarsUtil.h"
+#include "StarBkGrid.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -55,7 +56,7 @@ bool StarsLayer::init()
 	StarsController::theModel()->initStarsData();
 	addBkGrids();
 	addClippingNode();
-	initStars();
+	//initStars();
 
 	return true;
 }
@@ -84,10 +85,12 @@ void StarsLayer::addClippingNode()
 	maskBk->setScaleX((float)range.cols / COlUMNS_SIZE);
 	maskBk->setScaleY((float)range.rows / ROWS_SIZE);
 	maskBk->setPosition(m_layout->convertToNodeSpace(convertToWorldSpace(startPos)));
+	m_layout->removeChild(m_layout->getChildById(5));
 }
 
 void StarsLayer::addBkGrids()
 {
+	/*
 	CCNode *node = CCNode::create();
 	static const float kSpacing = 2;
 	float curX = kSpacing;
@@ -118,6 +121,29 @@ void StarsLayer::addBkGrids()
 	}
 	node->setContentSize(m_layout->getChildById(5)->getContentSize());
 
+	addChild(node);
+	node->setPosition(getStartPos());
+	*/
+	
+	float curHeight = 0;
+	float curWidth = 0;
+	CCNode *node = CCNode::create(); 
+	for (int row = 0; row < ROWS_SIZE; ++row)
+	{
+		float height = 0;
+		for (int col = 0; col < COlUMNS_SIZE; ++col)
+		{
+			GridRound round;
+			auto grid = StarBkGrid::create(round);
+			node->addChild(grid);
+			auto size = grid->getContentSize();
+			curWidth += size.width;
+			height = max(height, size.height);
+			grid->setPosition(curWidth, curHeight);
+		}
+		curHeight += height;
+		curWidth = 0;
+	}
 	addChild(node);
 	node->setPosition(getStartPos());
 }

@@ -207,6 +207,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\StageMaskLayer.cpp" />
     <ClCompile Include="..\Classes\StagePetSkillIconProgress.cpp" />
     <ClCompile Include="..\Classes\StageTargetPanel.cpp" />
+    <ClCompile Include="..\Classes\StarBkGrid.cpp" />
     <ClCompile Include="..\Classes\StarsController.cpp" />
     <ClCompile Include="..\Classes\StageOperator.cpp" />
     <ClCompile Include="..\Classes\StagePanelUtil.cpp" />
@@ -324,6 +325,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\StageMaskLayer.h" />
     <ClInclude Include="..\Classes\StagePetSkillIconProgress.h" />
     <ClInclude Include="..\Classes\StageTargetPanel.h" />
+    <ClInclude Include="..\Classes\StarBkGrid.h" />
     <ClInclude Include="..\Classes\StarsController.h" />
     <ClInclude Include="..\Classes\StageOperator.h" />
     <ClInclude Include="..\Classes\StagePanelUtil.h" />
