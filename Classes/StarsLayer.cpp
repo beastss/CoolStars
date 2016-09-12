@@ -133,19 +133,21 @@ void StarsLayer::addBkGrids()
 		float height = 0;
 		for (int col = 0; col < COlUMNS_SIZE; ++col)
 		{
-			GridRound round;
-			auto grid = StarBkGrid::create(round);
+			auto grid = StarBkGrid::create(LogicGrid(col, row));
 			node->addChild(grid);
+			grid->setPosition(curWidth, curHeight);
+
 			auto size = grid->getContentSize();
 			curWidth += size.width;
 			height = max(height, size.height);
-			grid->setPosition(curWidth, curHeight);
 		}
 		curHeight += height;
 		curWidth = 0;
 	}
 	addChild(node);
-	node->setPosition(getStartPos());
+	//node->setPosition(getStartPos());
+	auto pos = m_layout->getChildById(1)->getPosition();
+	node->setPosition(convertToNodeSpace(m_layout->convertToWorldSpace(pos)));
 }
 
 StarViewNode *StarsLayer::createStarByGrid(const LogicGrid &grid)

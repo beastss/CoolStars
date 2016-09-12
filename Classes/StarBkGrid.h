@@ -2,6 +2,7 @@
 #define __STARBKGRID_H__ 
 
 #include "cocos2d.h"
+#include "LogicGridUtil.h"
 
 class UiLayout;
 
@@ -20,15 +21,16 @@ class StarBkGrid
 	: public cocos2d::CCNode
 {
 public:
-	static StarBkGrid *create(const GridRound &round);
+	static StarBkGrid *create(const LogicGrid &grid);
 private:
-	StarBkGrid(const GridRound &round):m_round(round){}
+	StarBkGrid(const LogicGrid &grid) :m_grid(grid){}
 	virtual bool init();
 private:
-	GridRound m_round;
+	LogicGrid m_grid;
 	UiLayout *m_layout;
 
 private:
+	/*
 	enum GridDirection
 	{
 		kGridtop = 1,
@@ -39,6 +41,14 @@ private:
 		kGridLowerLeft,
 		kGridLeft,
 		kGridUpperLeft,
+	};
+	*/
+	enum GridDirection
+	{
+		kGridtop,
+		kGridRight,
+		kGridBottom,
+		kGridLeft,
 	};
 };
 #endif

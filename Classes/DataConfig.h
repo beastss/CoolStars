@@ -110,6 +110,16 @@ struct StarsColorConfig
 	std::string desc;
 };
 
+struct GridBkConfig
+{
+	int id;
+	std::string path;
+	std::string anchor;
+	std::string pos;
+	std::vector<int> exist;
+	std::vector<int> notExist;
+};
+
 struct GameWinBonusConfig
 {
 	int id;

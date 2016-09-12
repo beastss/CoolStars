@@ -21,6 +21,7 @@ void DataManager::LoadData()
 	loadSystemConfig();
 	loadStageConfig();
 	loadStarsConfig();
+	loadBkGridConfig();
 	loadStarsColorConfig();
 	loadPetCommonConfig();
 	loadPetResConfig();
@@ -76,6 +77,29 @@ const StarsConfig &DataManager::getStarsConfig(int starType)
 	{
 		return m_starsConfig[0];
 	}
+}
+
+void DataManager::loadBkGridConfig()
+{
+	SqliteHelper helper(DB_CONFIG);
+	auto result = helper.readRecord("select * from grid_bk");
+	for (auto iter = result.begin(); iter != result.end(); ++iter)
+	{
+		GridBkConfig config;
+		auto data = (*iter);
+
+		config.id = atoi(data[0]);
+		config.path = data[1];
+		config.exist = CommonUtil::parseStrToInts(data[2]);
+		config.notExist = CommonUtil::parseStrToInts(data[3]);
+
+		m_gridBkConfig.push_back(config);
+	}
+}
+
+const std::vector<GridBkConfig> &DataManager::getBkGridConfig()
+{
+	return m_gridBkConfig;
 }
 
 void DataManager::loadPetCommonConfig()
