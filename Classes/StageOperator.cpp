@@ -163,24 +163,6 @@ void StageOperator::randomReplaceStars(int petId, int starType, int color, int n
 		}
 		StarsController::theModel()->preOneRound();
 	});
-
-	/*
-	for (size_t i = 0; i < targetGrids.size(); ++i)
-	{
-		auto star = StarsController::theModel()->getStarNode(targetGrids[i]);
-		if (star)
-		{
-			StarAttr targetStarAttr = star->getAttr();
-			targetStarAttr.color = color;
-			targetStarAttr.type = starType;
-			StageLayersMgr::theMgr()->petSpreadStar(petId, targetStarAttr, [=]()
-			{
-				StarsController::theModel()->replaceStar(targetStarAttr);
-				StarsController::theModel()->preOneRound();
-			});
-		}
-	}
-	*/
 }
 
 void StageOperator::gameOverRandomReplace()
@@ -191,7 +173,11 @@ void StageOperator::gameOverRandomReplace()
 	{
 		for (int col = 0; col < COlUMNS_SIZE; col++)
 		{
-			grids.push_back(LogicGrid(col, row));
+			auto node = StarsController::theModel()->getStarNode(LogicGrid(col, row));
+			if (node && !node->canNotMove())
+			{
+				grids.push_back(LogicGrid(col, row));
+			}
 		}
 	}
 	
