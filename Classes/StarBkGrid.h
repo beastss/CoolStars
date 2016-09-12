@@ -6,17 +6,6 @@
 
 class UiLayout;
 
-struct GridRound //方格为中心八个方向
-{
-	bool top;
-	bool upperRight;
-	bool right;
-	bool lowerRight;
-	bool bottom;
-	bool lowerLeft;
-	bool left;
-	bool upperLeft;
-};
 class StarBkGrid
 	: public cocos2d::CCNode
 {
@@ -30,19 +19,6 @@ private:
 	UiLayout *m_layout;
 
 private:
-	/*
-	enum GridDirection
-	{
-		kGridtop = 1,
-		kGridUpperRight,
-		kGridRight,
-		kGridLowerRight,
-		kGridBottom,
-		kGridLowerLeft,
-		kGridLeft,
-		kGridUpperLeft,
-	};
-	*/
 	enum GridDirection
 	{
 		kGridtop,
