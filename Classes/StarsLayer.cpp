@@ -56,7 +56,7 @@ bool StarsLayer::init()
 	StarsController::theModel()->initStarsData();
 	addBkGrids();
 	addClippingNode();
-	//initStars();
+	initStars();
 
 	return true;
 }
@@ -90,41 +90,6 @@ void StarsLayer::addClippingNode()
 
 void StarsLayer::addBkGrids()
 {
-	/*
-	CCNode *node = CCNode::create();
-	static const float kSpacing = 2;
-	float curX = kSpacing;
-	float curY = kSpacing;
-	float maxHeight = 0;
-
-	for (int row = 0; row < ROWS_SIZE; ++row)
-	{
-		for (int col = 0; col < COlUMNS_SIZE; ++col)
-		{
-			StarNode *nodeData = StarsController::theModel()->getStarNode(LogicGrid(col, row));
-			auto grid = CCSprite::create("stage/yxjm_di2.png");
-			grid->setAnchorPoint(ccp(0, 0));
-			auto size = grid->getContentSize();
-			if (!nodeData || !nodeData->canNotMove() || nodeData->canBeRemoved())
-			{
-				node->addChild(grid);
-				grid->setPosition(ccp(curX, curY));
-			}
-			curX += size.width + kSpacing;
-			if (maxHeight < size.height)
-			{
-				maxHeight = size.height;
-			}
-		}
-		curX = kSpacing;
-		curY += maxHeight + kSpacing;
-	}
-	node->setContentSize(m_layout->getChildById(5)->getContentSize());
-
-	addChild(node);
-	node->setPosition(getStartPos());
-	*/
-	
 	float curHeight = 0;
 	float curWidth = 0;
 	CCNode *node = CCNode::create(); 
@@ -140,14 +105,13 @@ void StarsLayer::addBkGrids()
 			auto size = grid->getContentSize();
 			curWidth += size.width;
 			height = max(height, size.height);
+
 		}
 		curHeight += height;
 		curWidth = 0;
 	}
 	addChild(node);
-	//node->setPosition(getStartPos());
-	auto pos = m_layout->getChildById(1)->getPosition();
-	node->setPosition(convertToNodeSpace(m_layout->convertToWorldSpace(pos)));
+	node->setPosition(getStartPos());
 }
 
 StarViewNode *StarsLayer::createStarByGrid(const LogicGrid &grid)
@@ -231,6 +195,7 @@ bool StarsLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 //左下第一个grid为（0，0）
 CCPoint StarsLayer::getPosByGrid(LogicGrid grid)
 {
+	
 	CCPoint pos;
 	pos.x = STAR_SIZE * (grid.x + 0.5f);
 	pos.y = STAR_SIZE * (grid.y + 0.5f);
@@ -272,7 +237,9 @@ CCPoint StarsLayer::getStartPos()
 	//配表时，左边和右边没有空行，因为clippingnode剪切不了左下角区域
 
 	auto range = StarsUtil::usedRange();
-	auto pos = m_layout->getChildById(1)->getPosition();
+	auto winSize = CCDirector::sharedDirector()->getWinSize();
+	//auto pos = m_layout->getChildById(1)->getPosition();
+	auto pos = ccp(winSize.width * 0.07f, winSize.height *0.17f);
 	pos.x += (COlUMNS_SIZE - range.cols) * STAR_SIZE / 2.0f;
 	pos.y += (ROWS_SIZE - range.rows) * STAR_SIZE / 2.0f;
 	return pos;

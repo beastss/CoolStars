@@ -58,8 +58,6 @@ bool StarBkGrid::init()
 	}
 	addChild(bk);
 
-	return true;
-
 	int offset[8][2] = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
 	auto configs = DataManagerSelf->getBkGridConfig();
 
