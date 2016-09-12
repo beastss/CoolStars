@@ -16,7 +16,7 @@ using namespace rapidjson;
 #define DESIGN_HEIGHT 800
 #define COlUMNS_SIZE 8
 #define ROWS_SIZE 8
-#define STAR_SIZE 52 
+#define STAR_SIZE 54 
 
 #define MENU_ITEM_SEL_SCALE 1.1f
 #define MENU_ITEM_SEL_ANCHOR ccp((MENU_ITEM_SEL_SCALE-1.0f)/2,(MENU_ITEM_SEL_SCALE-1.0f)/2)

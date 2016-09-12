@@ -239,7 +239,7 @@ CCPoint StarsLayer::getStartPos()
 	auto range = StarsUtil::usedRange();
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	//auto pos = m_layout->getChildById(1)->getPosition();
-	auto pos = ccp(winSize.width * 0.07f, winSize.height *0.17f);
+	auto pos = ccp(winSize.width * 0.05f, winSize.height *0.15f);
 	pos.x += (COlUMNS_SIZE - range.cols) * STAR_SIZE / 2.0f;
 	pos.y += (ROWS_SIZE - range.rows) * STAR_SIZE / 2.0f;
 	return pos;
