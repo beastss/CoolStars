@@ -28,8 +28,8 @@ public:
 	void reOrderStars();
 	void loadDesignatedStar(int color, int rounds);
 
-	std::vector<LogicGrid> getColorGrids();
-	std::vector<LogicGrid> getRandomColorGrids(int num);
+	std::vector<LogicGrid> getRandomColorGrids(int num, bool hasExceptColor = false, int exceptColor = kColorRed);
+	std::vector<LogicGrid> getRandomActiveGrids(int num);//·Ç¿ÕÐÇÐÇ
 private:
 	StageOperator();
 private:
