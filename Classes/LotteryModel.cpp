@@ -62,7 +62,7 @@ LotteryData LotteryModel::getLotteryResult()
 	return data;
 }
 
-void LotteryModel::doLottery(const LotteryData &data)
+void LotteryModel::doLottery(const LotteryData &data, bool consume)
 {
 	switch (data.type)
 	{
@@ -92,16 +92,19 @@ void LotteryModel::doLottery(const LotteryData &data)
 		break;
 	}
 
-	int oldValue = UserInfo::theInfo()->getKey();
-	if (oldValue > 0)
+	if (consume)
 	{
-		UserInfo::theInfo()->setKey(oldValue - 1);
-	}
-	else
-	{
-		int cost = DataManagerSelf->getSystemConfig().diamondsForOneKey;
-		UserInfo::theInfo()->consumeDiamond(cost);
-		GameDataAnalysis::theModel()->consumeDiamond(kDiamondConsumeLottery, 0, cost);
+		int oldValue = UserInfo::theInfo()->getKey();
+		if (oldValue > 0)
+		{
+			UserInfo::theInfo()->setKey(oldValue - 1);
+		}
+		else
+		{
+			int cost = DataManagerSelf->getSystemConfig().diamondsForOneKey;
+			UserInfo::theInfo()->consumeDiamond(cost);
+			GameDataAnalysis::theModel()->consumeDiamond(kDiamondConsumeLottery, 0, cost);
+		}
 	}
 }
 

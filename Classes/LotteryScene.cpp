@@ -70,17 +70,17 @@ bool LotteryNode::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 	return isInside;
 }
 
-void LotteryNode::handleTouch()
+void LotteryNode::handleTouch(bool consume)
 {
 	m_isOpened = true;
 	auto pos = getParent()->convertToWorldSpace(getPosition());
 	auto size = getContentSize();
 	pos = ccpAdd(pos, ccpMult(size, 0.5f));
-	m_panel->runKeyMoveAction(pos, bind(&LotteryNode::openReward, this));
+	m_panel->runKeyMoveAction(pos, bind(&LotteryNode::openReward, this, consume));
 	GuideMgr::theMgr()->endGuide(kGuideEnd_lottery_open_box);
 }
 
-void LotteryNode::openReward()
+void LotteryNode::openReward(bool consume)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	m_layout->getChildById(1)->setVisible(false);
@@ -114,7 +114,7 @@ void LotteryNode::openReward()
 	
 	m_goodsLayout->runAction(getRewardOutAction(goodsNum));
 
-	LotteryModel::theModel()->doLottery(data);
+	LotteryModel::theModel()->doLottery(data, consume);
 }
 
 CCAction *LotteryNode::getRewardOutAction(int num)
@@ -313,7 +313,7 @@ void LotteryScene::openAllBoxs()
 		{
 			auto box = dynamic_cast<EmptyBox *>(m_layout->getChildById(id));
 			auto node = dynamic_cast<LotteryNode *>(box->getNode());
-			node->handleTouch();
+			node->handleTouch(false);
 		}));
 		m_runner->queueAction(DelayAction::withDelay(0.5f));
 	}

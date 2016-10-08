@@ -19,11 +19,11 @@ public:
 	static LotteryNode *create(int touchPriority, LotteryScene *panel);
 	void setHandle(std::function<void()> handle){ m_handle = handle; }
 	bool isOpened();
-	void handleTouch();
+	void handleTouch(bool consume = true);
 private:
 	virtual bool init();
 	LotteryNode(int touchPriority, LotteryScene *panel);
-	void openReward();
+	void openReward(bool consume);
 	bool onTouchBegan(cocos2d::CCPoint pt, bool isInside);
 	cocos2d::CCAction *getRewardOutAction(int num);
 private:
