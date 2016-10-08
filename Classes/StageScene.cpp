@@ -25,6 +25,7 @@ StageScene::~StageScene()
 void StageScene::onEnter()
 {
 	BasePanel::onEnter();
+	return;
 	// ¹«¸æ
 	MainScene::theScene()->removeAnnouncement();
 	MainScene::theScene()->setAnnouncementLoop(true);

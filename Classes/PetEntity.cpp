@@ -210,16 +210,7 @@ void PetRabbit::useSkill()
 	StageOp->randomReplaceStars(m_data.petId, kColorStar, m_data.color, m_data.skillPower);
 }
 //////////////////////////////////////////////////////////////////////////////
-
 void PetDragon::useSkill()
-{
-	StageLayersMgr::theMgr()->doubleScore();
-	auto info = StageDataMgr::theMgr();
-	info->setNextScoreBonus(m_data.skillPower);
-	StarsController::theModel()->preOneRound();
-}
-//////////////////////////////////////////////////////////////////////////////
-void PetSnake::useSkill()
 {
 	auto grids = getSameColorGrids(m_data.color);
 	if (!grids.empty())
@@ -229,9 +220,18 @@ void PetSnake::useSkill()
 	}
 }
 
-bool PetSnake::canUseSkill()
+bool PetDragon::canUseSkill()
 {
 	return isEnergyFull() && !getSameColorGrids(m_data.color).empty();
+}
+
+//////////////////////////////////////////////////////////////////////////////
+void PetSnake::useSkill()
+{
+	StageLayersMgr::theMgr()->doubleScore();
+	auto info = StageDataMgr::theMgr();
+	info->setNextScoreBonus(m_data.skillPower);
+	StarsController::theModel()->preOneRound();
 }
 //////////////////////////////////////////////////////////////////////////////
 

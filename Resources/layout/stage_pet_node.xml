@@ -25,5 +25,25 @@
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
+	<image>
+		<id>6</id>
+		<x>49.36</x>
+		<y>-15.58</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>0.70</scale>
+		<path>pet/red/cwjm_jishu.png</path>
+	</image>
+	<imageNum>
+		<id>7</id>
+		<x>64.61</x>
+		<y>-26.60</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>0.70</scale>
+		<amount>10</amount>
+		<num>3</num>
+		<path>pet/red/cwjm_shuzi.png</path>
+	</imageNum>
 </layout>
 

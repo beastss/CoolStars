@@ -115,6 +115,7 @@ class PetDragon : public PetEntity
 {
 public:
 	PetDragon(int petId) : PetEntity(petId){}
+	virtual bool canUseSkill();
 	virtual void useSkill();
 };
 
@@ -122,7 +123,6 @@ class PetSnake : public PetEntity
 {
 public:
 	PetSnake(int petId) : PetEntity(petId){}
-	virtual bool canUseSkill();
 	virtual void useSkill();
 };
 
