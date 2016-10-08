@@ -12,7 +12,7 @@ struct IStageLayer
 	virtual void onToNormalState(){}
 	virtual void onStarErased(cocos2d::CCPoint pos, int starType, int color){}
 	virtual void onHighLightPets(const std::vector<int> &petIds){}
-	virtual void onScoreBouble(){}
+	virtual void onScoreDouble(){}
 	virtual void onTouchEnable(bool canTouch){}
 	virtual void onEraseStarsStart(){}
 	virtual void onEraseStarsEnd(){}

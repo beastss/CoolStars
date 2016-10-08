@@ -602,6 +602,30 @@ void StageUiLayer::onPetSpreadStar(int petId, const vector<LogicGrid> &grids, fu
 	}
 }
 
+void StageUiLayer::onRedPackageBomb()
+{
+	auto grids = StageOp->getRandomColorGrids(1);
+	if (grids.empty()) return;
+
+	static const float kDutation = 1.0f;
+	auto starNode = StarsController::theModel()->getStarNode(grids[0]);
+	auto starView = starNode->getView();
+	auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
+	auto sourcePos = m_bottomUi->getChildById(15)->getPosition();
+
+	CCNode *bomb = CCSprite::create("stage/ui/yxjm_daoju3.png");
+	bomb->setPosition(sourcePos);
+	addChild(bomb);
+
+	auto moveTo = CCMoveTo::create(kDutation, targetPos);
+	auto func = CCFunctionAction::create([=]()
+	{
+		bomb->removeFromParent();
+		StarsEraseModule::theModel()->scaleErase(grids[0], 1, 1);
+	});
+	bomb->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
+}
+
 void StageUiLayer::gameOverSpreadStars(const GoodsData &data, const LogicGrid &targetGrid, std::function<void()> callback)
 {
 	static const float kDutation = 0.3f;
@@ -652,7 +676,7 @@ bool StageUiLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEve
 	return false;
 }
 
-void StageUiLayer::onScoreBouble()
+void StageUiLayer::onScoreDouble()
 {
 	auto spr = CCSprite::create("stage/pets/yxjm_defenshuangbei.png");
 	auto winSize = CCDirector::sharedDirector()->getWinSize();

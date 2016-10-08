@@ -244,3 +244,31 @@ void StageOperator::loadDesignatedStar(int color, int rounds)
 	StarsController::theModel()->loadDesignatedStar(kColorStar, color, rounds);
 }
 
+vector<LogicGrid> StageOperator::getColorGrids()
+{
+	vector<LogicGrid> grids;
+	auto nodes = StarsController::theModel()->getStarNodes();
+
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto attr = nodes[i]->getAttr();
+		if (attr.type == kColorStar)
+		{
+			grids.push_back(attr.grid);
+		}
+	}
+	return grids;
+}
+
+std::vector<LogicGrid> StageOperator::getRandomColorGrids(int num)
+{
+	vector<LogicGrid> grids;
+	auto colorGrids = getColorGrids();
+	auto seq = buildRandomSequence(colorGrids.size());
+	int size = min(num, seq.size());
+	for (int i = 0; i < size; ++i)
+	{
+		grids.push_back(colorGrids[seq[i]]);
+	}
+	return grids;
+}

@@ -27,6 +27,9 @@ public:
 	void chageStarType(int type);
 	void reOrderStars();
 	void loadDesignatedStar(int color, int rounds);
+
+	std::vector<LogicGrid> getColorGrids();
+	std::vector<LogicGrid> getRandomColorGrids(int num);
 private:
 	StageOperator();
 private:

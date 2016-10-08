@@ -59,7 +59,7 @@ void StageLayersMgr::starErased(cocos2d::CCPoint pos, int starType, int color)
 
 void StageLayersMgr::doubleScore()
 {
-	NOTIFY_LAYERSS(onScoreBouble);
+	NOTIFY_LAYERSS(onScoreDouble);
 }
 
 void StageLayersMgr::touchEnable(bool canTouch)

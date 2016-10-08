@@ -46,13 +46,14 @@ public:
 	virtual void onToNormalState();
 	virtual void onRunOutSteps();
 	virtual void onGameWin();
-	virtual void onScoreBouble();
+	virtual void onScoreDouble();
 	virtual void onTouchEnable(bool canTouch);
 	virtual void onExplodeGrid(const LogicGrid &grid);
 	virtual void onOneRoundBegan();
 	virtual void onOneRoundEnd();
 	virtual void onGuideViewRemoved();
 	virtual void onPetSpreadStar(int petId, const vector<LogicGrid> &grids, std::function<void()> callback);
+	virtual void onRedPackageBomb();
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:
