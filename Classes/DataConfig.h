@@ -99,6 +99,7 @@ struct SystemConfig
 	int diamondsForOneKey;
 	int foodsByOneDiamond;
 	int packagePetStage;//新手宠物礼包里 宠物在某关后出现
+	int stepsReduce;//打破最高关后，轮回第一关时，第一关的步数减去stepsReduce
 };
 
 struct StarsColorConfig

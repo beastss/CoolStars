@@ -31,7 +31,9 @@ int StageDataMgr::getCurDirection()
 int StageDataMgr::getLeftSteps()
 {
 	auto config = DataManagerSelf->getStageConfig(m_curStage);
-	int leftStep = config.step - m_step;
+	int stepsReduce = DataManagerSelf->getSystemConfig().stepsReduce;
+	int stageAmount = DataManagerSelf->getSystemConfig().stageAmount;
+	int leftStep = config.step - m_step - ((m_curStage - 1)/ stageAmount) * stepsReduce;
 	return max(leftStep, 0);
 }
 
@@ -61,15 +63,8 @@ void StageDataMgr::init()
 void StageDataMgr::toNextStage()
 {
 	reset();
-	if (!isTheLastStage())
-	{
-		m_curStage++;
-		if (m_curStage > m_topStage)
-		{
-			m_topStage = m_curStage;
-			StageSavingHelper::saveCurStageData();
-		}
-	}
+	m_curStage++;
+	m_topStage = m_curStage;
 }
 
 void StageDataMgr::setCurScore(int score)

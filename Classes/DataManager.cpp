@@ -385,6 +385,7 @@ void DataManager::loadSystemConfig()
 	m_systemConfig.diamondsForOneKey = atoi(data[7]);
 	m_systemConfig.foodsByOneDiamond = atoi(data[8]);
 	m_systemConfig.packagePetStage = atoi(data[9]);
+	m_systemConfig.stepsReduce = atoi(data[10]);
 }
 
 const SystemConfig &DataManager::getSystemConfig()
