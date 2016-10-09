@@ -173,6 +173,33 @@ bool FailToUpgradePetDialog::init()
 	cancelBtn->setTarget(this, menu_selector(FailToUpgradePetDialog::onCancel));
 	CCMenuItem *toPetSceneBtn = dynamic_cast<CCMenuItem *>((layout->getChildById(5)));
 	toPetSceneBtn->setTarget(this, menu_selector(FailToUpgradePetDialog::onToPetScene));
+
+	layout->getChildById(8)->setVisible(false);
+	bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
+	if (hasPetToUpgrade)
+	{
+		layout->getChildById(2)->setVisible(false);
+		int petId = PetManager::petMgr()->getCanUpgradePetId();
+		auto pet = PetManager::petMgr()->getPetById(petId);
+		CCSprite *petImg = dynamic_cast<CCSprite *>(layout->getChildById(9));
+		if (pet)
+		{
+			auto path = pet->getPetData().petImgRes;
+			petImg->initWithFile(path.c_str());
+		}
+		auto startPos = layout->getChildById(7)->getPosition();
+		auto endPos = layout->getChildById(8)->getPosition();
+		layout->getChildById(7)->runAction(CCRepeatForever::create(
+			CCSequence::create(
+			CCMoveTo::create(0.3f, endPos),
+			CCMoveTo::create(0.3f, startPos), NULL)));
+
+	}
+	else
+	{
+		layout->getChildById(7)->setVisible(false);
+		layout->getChildById(9)->setVisible(false);
+	}
 	return true;
 }
 
@@ -193,6 +220,13 @@ void FailToUpgradePetDialog::onCancel(cocos2d::CCObject* pSender)
 void FailToUpgradePetDialog::onToPetScene(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromStageScene);
+	if (m_usage == kUsageExitGame)
+	{
+		MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromMenuScene);
+	}
+	else
+	{
+		MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromStageScene);
+	}
 	removeFromParent();
 }

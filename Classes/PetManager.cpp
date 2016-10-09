@@ -160,6 +160,21 @@ bool PetManager::hasPetToUpgrade()
 	return false;
 }
 
+int PetManager::getCanUpgradePetId()
+{
+	auto ids = getOwnedPetIds();
+	for (size_t i = 0; i < ids.size(); ++i)
+	{
+		auto pet = getPetById(ids[i]);
+		if (pet && pet->canUpgrade())
+		{
+			return pet->getPetData().petId;
+		}
+	}
+	assert(false);//预先调用hasPetToUpgrade来判断
+	return 1;
+}
+
 bool PetManager::usePetSkill()
 {
 	for (size_t i = 0; i < m_curPets.size(); ++i)
