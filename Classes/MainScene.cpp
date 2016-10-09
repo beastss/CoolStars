@@ -252,3 +252,8 @@ void MainScene::setAnnouncementLoop(bool loop)
 {
 	m_announcementLayer->setLoop(loop);
 }
+
+void MainScene::exitGame()
+{
+	KeyPadWatcher::exitGame();
+}

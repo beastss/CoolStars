@@ -31,6 +31,7 @@ public:
 	void addAnnouncement(const char *picPath);
 	void removeAnnouncement();
 	void setAnnouncementLoop(bool loop);
+	void exitGame();
 private:
 	MainScene();
 	~MainScene(){}

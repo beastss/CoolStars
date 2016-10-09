@@ -225,7 +225,7 @@ void MenuScene::refreshPetTips()
 
 void MenuScene::onBackKeyTouched()
 {
-	KeyPadWatcher::exitGame();
+	MainScene::theScene()->exitGame();
 }
 
 void MenuScene::onPetPackageBuy()
