@@ -26,7 +26,8 @@ public:
 	void addPetEnergy(int petId, int value);
 	void removePetDebuff(int who);
 	void chageStarType(int type);
-	void reOrderStars(std::function<void()> callback = std::function<void()>());
+	void reOrderStars(std::function<void()> callback);
+	void reOrderStars();
 	void loadDesignatedStar(int color, int rounds);
 
 	std::vector<LogicGrid> getRandomColorGrids(int num, bool hasExceptColor = false, int exceptColor = kColorRed);

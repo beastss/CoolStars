@@ -101,35 +101,40 @@ void StageOperator::reOrderStars(std::function<void()> callback)
 {
 	MainScene::theScene()->showTips(DataManagerSelf->getText("no_link_stars").c_str(), true, [=]()
 	{
-		auto nodes = StarsController::theModel()->getStarNodes();
-
-		vector<LogicGrid> targetGrids;
-		vector<StarNode *> colorNodes;
-		for (size_t i = 0; i < nodes.size(); ++i)
-		{
-			auto starType = nodes[i]->getAttr().type;
-			auto grid = nodes[i]->getAttr().grid;
-			if (starType == kColorStar)
-			{
-				colorNodes.push_back(nodes[i]);
-				targetGrids.push_back(grid);
-			}
-		}
-		assert(targetGrids.size() == colorNodes.size());
-		auto seq = buildRandomSequence(colorNodes.size());
-
-		for (size_t i = 0; i < colorNodes.size(); ++i)
-		{
-			auto node = colorNodes[i];
-			int index = seq[i];
-			LogicGrid targetGrid = targetGrids[index];
-
-			node->moveTo(targetGrid);
-			node->setLogicGrid(targetGrid);
-		}
+		reOrderStars();
 		if(callback) callback();
 	});
 
+}
+
+void StageOperator::reOrderStars()
+{
+	auto nodes = StarsController::theModel()->getStarNodes();
+
+	vector<LogicGrid> targetGrids;
+	vector<StarNode *> colorNodes;
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto starType = nodes[i]->getAttr().type;
+		auto grid = nodes[i]->getAttr().grid;
+		if (starType == kColorStar)
+		{
+			colorNodes.push_back(nodes[i]);
+			targetGrids.push_back(grid);
+		}
+	}
+	assert(targetGrids.size() == colorNodes.size());
+	auto seq = buildRandomSequence(colorNodes.size());
+
+	for (size_t i = 0; i < colorNodes.size(); ++i)
+	{
+		auto node = colorNodes[i];
+		int index = seq[i];
+		LogicGrid targetGrid = targetGrids[index];
+
+		node->moveTo(targetGrid);
+		node->setLogicGrid(targetGrid);
+	}
 }
 
 void StageOperator::randomReplaceStars(int petId, int starType, int color, int num)
