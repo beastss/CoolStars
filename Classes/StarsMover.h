@@ -11,7 +11,7 @@ class StarsMover
 public:
 	static StarsMover *fatory();
 protected:
-	void StarsMover::drop(StarNode *node);
+	void drop(StarNode *node);
 	StarsMover();
 private:// 相对的掉落方向，由具体的移动方向来决定
 	bool dropDown();

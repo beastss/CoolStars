@@ -12,7 +12,7 @@
 #include "StarsEraseModule.h"
 #include "PetManager.h"
 #include "StarsMover.h"
-#include <xmemory>
+#include <memory>
 USING_NS_CC;
 using namespace std;
 StarsController::StarsController()

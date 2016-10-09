@@ -11,6 +11,7 @@
 #include "StarsEraseModule.h"
 #include "MainScene.h"
 #include "DataManager.h"
+#include <algorithm>
 using namespace std;
 using namespace CommonUtil;
 USING_NS_CC; 
@@ -233,7 +234,7 @@ std::vector<LogicGrid> StageOperator::getRandomColorGrids(int num, bool hasExcep
 
 	vector<LogicGrid> grids;
 	auto seq = buildRandomSequence(colorGrids.size());
-	int size = min(num, seq.size());
+	int size = min(num, (int)seq.size());
 	for (int i = 0; i < size; ++i)
 	{
 		grids.push_back(colorGrids[seq[i]]);
@@ -257,7 +258,7 @@ std::vector<LogicGrid> StageOperator::getRandomActiveGrids(int num)
 
 	vector<LogicGrid> grids;
 	auto seq = buildRandomSequence(colorGrids.size());
-	int size = min(num, seq.size());
+	int size = min(num, (int)seq.size());
 	for (int i = 0; i < size; ++i)
 	{
 		grids.push_back(colorGrids[seq[i]]);

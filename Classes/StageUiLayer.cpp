@@ -349,6 +349,7 @@ void StageUiLayer::onRunOutSteps()
 
 void StageUiLayer::onGameWin()
 {
+	SoundMgr::theMgr()->playEffect(kEffectGameWin);
 	for (auto iter = m_petViews.begin(); iter != m_petViews.end(); ++iter)
 	{
 		iter->second->playHappyAction(true);
@@ -628,6 +629,8 @@ void StageUiLayer::onRedPackageBomb()
 
 void StageUiLayer::gameOverSpreadStars(const GoodsData &data, const LogicGrid &targetGrid, std::function<void()> callback)
 {
+	SoundMgr::theMgr()->playEffect(kEffectStepsToRes);
+
 	static const float kDutation = 0.3f;
 
 	auto starNode = StarsController::theModel()->getStarNode(targetGrid);

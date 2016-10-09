@@ -2,6 +2,7 @@
 #include "DataManager.h"
 #include "CommonMacros.h"
 #include "StageDataMgr.h"
+#include <algorithm>
 USING_NS_CC;
 using namespace std;
 using namespace StarsUtil;
