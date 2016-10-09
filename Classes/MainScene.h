@@ -33,6 +33,7 @@ public:
 	void removeAnnouncement();
 	void setAnnouncementLoop(bool loop);
 	void showSimpleBk(bool simpleBk);
+	void exitGame();
 private:
 	MainScene();
 	~MainScene(){}

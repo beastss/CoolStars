@@ -22,6 +22,7 @@
 #include "KeyPadWatcher.h"
 #include "CommonUtil.h"
 #include "EmptyBox.h"
+#include "StagePanelUtil.h"
 
 USING_NS_CC;
 using namespace std;
@@ -230,7 +231,8 @@ void MenuScene::refreshPetTips()
 
 void MenuScene::onBackKeyTouched()
 {
-	KeyPadWatcher::exitGame();
+	auto dialog = FailToUpgradePetDialog::create(FailToUpgradePetDialog::kUsageExitGame);
+	MainScene::theScene()->showDialog(dialog);
 }
 
 //生成num个和为0的列表

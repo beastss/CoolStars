@@ -52,11 +52,19 @@ private:
 class FailToUpgradePetDialog : public ScaleDialog
 {
 public:
-	CREATE_FUNC(FailToUpgradePetDialog);
+	static FailToUpgradePetDialog *create(int usage = kUsageStageFail);
 private:
+	FailToUpgradePetDialog(int usage):m_usage(usage){}
 	virtual bool init();
 	void onCancel(cocos2d::CCObject* pSender);
 	void onToPetScene(cocos2d::CCObject* pSender);
 private:
+	int m_usage;
+public:
+	enum
+	{
+		kUsageStageFail,
+		kUsageExitGame,
+	};
 };
 #endif

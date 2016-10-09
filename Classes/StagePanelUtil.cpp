@@ -154,6 +154,14 @@ void FailHitDialog::onCloseBtnClicked(cocos2d::CCObject* pSender)
 }
 
 /////////////////////////////////////////////////////////////
+FailToUpgradePetDialog *FailToUpgradePetDialog::create(int usage)
+{
+	auto dialog = new FailToUpgradePetDialog(usage);
+	dialog->init();
+	dialog->autorelease();
+	return dialog;
+}
+
 bool FailToUpgradePetDialog::init()
 {
 	auto layout = UiLayout::create("layout/fail_to_upgrade_pet.xml");
@@ -171,7 +179,14 @@ bool FailToUpgradePetDialog::init()
 void FailToUpgradePetDialog::onCancel(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+	if (m_usage == kUsageExitGame)
+	{
+		MainScene::theScene()->exitGame();
+	}
+	else
+	{
+		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+	}
 	removeFromParent();
 }
 

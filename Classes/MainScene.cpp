@@ -258,3 +258,8 @@ void MainScene::showSimpleBk(bool simpleBk)
 {
 	m_bkLayer->showSimpleBk(simpleBk);
 }
+
+void MainScene::exitGame()
+{
+	KeyPadWatcher::exitGame();
+}
