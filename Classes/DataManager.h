@@ -101,6 +101,8 @@ public:
 
 	void loadSound();
 	const SoundConfig &getSoundConfig();
+
+	std::string getText(std::string tag);
 private:
 	vector<StageConfig> m_stagesConfig;
 	vector<StarsConfig> m_starsConfig;

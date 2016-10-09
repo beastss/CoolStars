@@ -9,6 +9,8 @@
 #include <algorithm>
 #include "ActionRunner.h"
 #include "StarsEraseModule.h"
+#include "MainScene.h"
+#include "DataManager.h"
 using namespace std;
 using namespace CommonUtil;
 USING_NS_CC; 
@@ -94,34 +96,39 @@ void StageOperator::chageStarType(int type)
 	StarsController::theModel()->replaceStar(attr);
 }
 
-void StageOperator::reOrderStars()
+void StageOperator::reOrderStars(std::function<void()> callback)
 {
-	auto nodes = StarsController::theModel()->getStarNodes();
-
-	vector<LogicGrid> targetGrids;
-	vector<StarNode *> colorNodes;
-	for (size_t i = 0; i < nodes.size(); ++i)
+	MainScene::theScene()->showTips(DataManagerSelf->getText("no_link_stars").c_str(), true, [=]()
 	{
-		auto starType = nodes[i]->getAttr().type;
-		auto grid = nodes[i]->getAttr().grid;
-		if (starType == kColorStar)
+		auto nodes = StarsController::theModel()->getStarNodes();
+
+		vector<LogicGrid> targetGrids;
+		vector<StarNode *> colorNodes;
+		for (size_t i = 0; i < nodes.size(); ++i)
 		{
-			colorNodes.push_back(nodes[i]);
-			targetGrids.push_back(grid);
+			auto starType = nodes[i]->getAttr().type;
+			auto grid = nodes[i]->getAttr().grid;
+			if (starType == kColorStar)
+			{
+				colorNodes.push_back(nodes[i]);
+				targetGrids.push_back(grid);
+			}
 		}
-	}
-	assert(targetGrids.size() == colorNodes.size());
-	auto seq = buildRandomSequence(colorNodes.size());
+		assert(targetGrids.size() == colorNodes.size());
+		auto seq = buildRandomSequence(colorNodes.size());
 
-	for (size_t i = 0; i < colorNodes.size(); ++i)
-	{
-		auto node = colorNodes[i];
-		int index = seq[i];
-		LogicGrid targetGrid = targetGrids[index];
-		
-		node->moveTo(targetGrid);
-		node->setLogicGrid(targetGrid);
-	}
+		for (size_t i = 0; i < colorNodes.size(); ++i)
+		{
+			auto node = colorNodes[i];
+			int index = seq[i];
+			LogicGrid targetGrid = targetGrids[index];
+
+			node->moveTo(targetGrid);
+			node->setLogicGrid(targetGrid);
+		}
+		if(callback) callback();
+	});
+
 }
 
 void StageOperator::randomReplaceStars(int petId, int starType, int color, int num)

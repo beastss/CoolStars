@@ -192,11 +192,15 @@ void StarsController::reOrderStars(int times)
 		gameOver(false);
 		return;
 	}
-	StageOperator::theOperator()->reOrderStars();
-	if (noStarsToErase())
+
+	StageOperator::theOperator()->reOrderStars([=]()
 	{
-		reOrderStars(times + 1);
-	}
+		if (noStarsToErase())
+		{
+			reOrderStars(times + 1);
+		}
+	});
+	
 }
 
 void StarsController::initOneRound()

@@ -233,9 +233,9 @@ void MainScene::handleKeyBackTouch()
 	}
 }
 
-void MainScene::showTips(const char *str)
+void MainScene::showTips(const char *str, bool swallowTouch, std::function<void()> callback)
 {
-	m_announcementLayer->showTips(str);
+	m_announcementLayer->showTips(str, swallowTouch, callback);
 }
 
 void MainScene::addAnnouncement(const char *picPath)

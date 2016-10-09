@@ -29,6 +29,7 @@ enum TouchPriority
 	kStageNoTouchPriority = -45,
 
 	kDialogTouchPriority = -50,
+	kNotificationTouchPriority = -60,
 	kGuideTouchPriority = -70,
 };
 

@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "StarsController.h"
 #include "StarNode.h"
+#include <functional>
 
 #define StageOp StageOperator::theOperator()
 class ActionRunner;
@@ -25,7 +26,7 @@ public:
 	void addPetEnergy(int petId, int value);
 	void removePetDebuff(int who);
 	void chageStarType(int type);
-	void reOrderStars();
+	void reOrderStars(std::function<void()> callback = std::function<void()>());
 	void loadDesignatedStar(int color, int rounds);
 
 	std::vector<LogicGrid> getRandomColorGrids(int num, bool hasExceptColor = false, int exceptColor = kColorRed);

@@ -27,7 +27,7 @@ public:
 	void backPanel();
 	void clearPanelRecord(){ m_panelRecord.clear(); }
 	void handleKeyBackTouch();
-	void showTips(const char *str);
+	void showTips(const char *str, bool swallowTouch = false, std::function<void()> callback = std::function<void()>());
 	void addAnnouncement(const char *picPath);
 	void removeAnnouncement();
 	void setAnnouncementLoop(bool loop);

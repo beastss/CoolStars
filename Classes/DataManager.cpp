@@ -705,3 +705,11 @@ const SoundConfig &DataManager::getSoundConfig()
 {
 	return m_soundConfig;
 }
+
+string DataManager::getText(string tag)
+{
+	string tbPath = "data/strings.xml";
+	CCDictionary* pDict = CCDictionary::createWithContentsOfFile(tbPath.c_str());
+	auto value = pDict->valueForKey(tag)->getCString();
+	return value;
+}
