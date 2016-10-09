@@ -264,8 +264,9 @@ void DataManager::loadStageConfig()
 
 const StageConfig &DataManager::getStageConfig(int stage)
 {
-	assert(stage > 0 && stage <= m_systemConfig.stageAmount);
-	return m_stagesConfig[stage - 1];
+	stage = (stage - 1) % m_systemConfig.stageAmount;
+	assert(stage >= 0);
+	return m_stagesConfig[stage];
 }
 
 void DataManager::loadEraseBonus()
@@ -344,7 +345,7 @@ void DataManager::getNewStageStarsData(std::vector<std::vector<StageStarInfo>> &
 {
 	vector<StageConfig> m_stagesConfig;
 	SqliteHelper sqlHelper(DB_STAGE);
-
+	stageNum = (stageNum - 1) % m_systemConfig.stageAmount + 1;
 	char str[100] = { 0 };
 	sprintf(str, "select * from stage%d_stars", stageNum);
 	auto result = sqlHelper.readRecord(str);

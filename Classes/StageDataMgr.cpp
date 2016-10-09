@@ -65,6 +65,7 @@ void StageDataMgr::toNextStage()
 	reset();
 	m_curStage++;
 	m_topStage = m_curStage;
+	StageSavingHelper::saveCurStageData();
 }
 
 void StageDataMgr::setCurScore(int score)
