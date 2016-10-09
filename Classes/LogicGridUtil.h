@@ -17,6 +17,13 @@ struct LogicGrid
 	{
 		return (x != grid.x || y != grid.y);
 	}
+	LogicGrid operator + (const LogicGrid &grid)const
+	{
+		LogicGrid temp;
+		temp.x = x + grid.x;
+		temp.y = y + grid.y;
+		return temp;
+	}
 };
 
 bool isValidGrid(const LogicGrid &grid);

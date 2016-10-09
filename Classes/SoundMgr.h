@@ -4,13 +4,16 @@
 #include <unordered_map>
 enum BackGroundMusic
 {
-	kBackGroundMusicMain
+	kBackGroundMusicMainMenu,
+	kBackGroundMusicStage,
 };
 enum EffectMusic
 {
 	kEffectMusicButton,
 	kEffectMusicBomb,
 	kEffectStarErase,
+	kEffectStepsToRes,
+	kEffectGameWin,
 };
 
 class SoundMgr 
@@ -19,7 +22,7 @@ public:
 	static SoundMgr *theMgr();
 	void init();
 
-	void playBackground();
+	void playBackground(int bkType);
 	void playEffect(int effectType);
 	void setMute(bool mute);
 	bool isMute();

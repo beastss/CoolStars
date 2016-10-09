@@ -19,6 +19,8 @@ public:
 
 	void pause();
 	void resume();
+	
+	int count(){ return m_actions.size(); }
 private:
 	ActionRunner();
 	~ActionRunner();

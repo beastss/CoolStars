@@ -165,7 +165,7 @@
 	<emptyBox>
 		<id>10</id>
 		<x>81.67</x>
-		<y>104.64</y>
+		<y>105.00</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
@@ -173,7 +173,7 @@
 	<emptyBox>
 		<id>11</id>
 		<x>192.17</x>
-		<y>108.66</y>
+		<y>105.00</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
@@ -181,7 +181,7 @@
 	<emptyBox>
 		<id>12</id>
 		<x>301.91</x>
-		<y>107.81</y>
+		<y>105.00</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
@@ -189,7 +189,7 @@
 	<emptyBox>
 		<id>13</id>
 		<x>411.00</x>
-		<y>108.25</y>
+		<y>105.00</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>

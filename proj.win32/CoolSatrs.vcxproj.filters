@@ -375,6 +375,15 @@
     <ClCompile Include="..\Classes\PropsGuideView.cpp">
       <Filter>GameStage\StageUi</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\StarsMover.cpp">
+      <Filter>GameStage\StageModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarsUtil.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarBkGrid.cpp">
+      <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -714,6 +723,15 @@
       <Filter>GameStage\StageModel</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PropsGuideView.h">
+      <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsMover.h">
+      <Filter>GameStage\StageModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarsUtil.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarBkGrid.h">
       <Filter>GameStage\StageUi</Filter>
     </ClInclude>
   </ItemGroup>

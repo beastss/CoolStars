@@ -2,6 +2,8 @@
 #define __STAGELAYERSMGR_H__
 #include "cocos2d.h"
 #include "LogicGridUtil.h"
+#include "StarNode.h"
+#include <functional>
 struct IStageLayer
 {
 	virtual void onInitStarsDone(){}
@@ -11,12 +13,14 @@ struct IStageLayer
 	virtual void onStarErased(cocos2d::CCPoint pos, int starType, int color){}
 	virtual void onLinkErase(int num){}
 	virtual void onHighLightPets(const std::vector<int> &petIds){}
-	virtual void onScoreBouble(){}
+	virtual void onScoreDouble(){}
 	virtual void onTouchEnable(bool canTouch){}
 	virtual void onEraseStarsStart(){}
 	virtual void onEraseStarsEnd(){}
 	virtual void onExplodeGrid(const LogicGrid &grid){}
 	virtual void onGuideViewRemoved(){}
+	virtual void onPetSpreadStar(int petId, const vector<LogicGrid> &grids, std::function<void()> callback){}
+	
 };
 
 #define NOTIFY_LAYERSS(_FUNC_ ,...)						 \
@@ -43,11 +47,10 @@ public:
 	void starErased(cocos2d::CCPoint pos, int starType, int color);
 	void doubleScore();
 	void touchEnable(bool canTouch);
-	void eraseStarsStart();
-	void eraseStarsEnd();
 	void explodeGrid(const LogicGrid &grid);
 	void removeGuideView();
 	void linkErase(int num);
+	void petSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback);
 private:
 	StageLayersMgr(){}
 private:

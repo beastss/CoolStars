@@ -7,6 +7,9 @@
 #include "EmptyBox.h"
 #include "StageScene.h"
 #include <algorithm>
+#include "StageDataMgr.h"
+#include "StarsUtil.h"
+#include "StarBkGrid.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -50,10 +53,9 @@ bool StarsLayer::init()
 	setContentSize(m_layout->getContentSize());
 	addChild(m_layout);
 
+	StarsController::theModel()->initStarsData();
 	addBkGrids();
 	addClippingNode();
-
-	StarsController::theModel()->initStarsData();
 	initStars();
 
 	return true;
@@ -62,7 +64,9 @@ bool StarsLayer::init()
 void StarsLayer::addClippingNode()
 {
 	CCLayerColor *back = CCLayerColor::create(ccc4(125, 0, 0, 255));
-	CCSize size = CCSize(STAR_SIZE * COlUMNS_SIZE, STAR_SIZE * ROWS_SIZE);
+	auto range = StarsUtil::usedRange();
+	//CCSize size = CCSize(STAR_SIZE * COlUMNS_SIZE, STAR_SIZE * ROWS_SIZE);
+	CCSize size = CCSize(STAR_SIZE * range.cols, STAR_SIZE * range.rows);
 	back->setContentSize(size);
 	
 	CCSprite *sp = CCSprite::create("shop/sd_zuanshi2.png");
@@ -73,39 +77,41 @@ void StarsLayer::addClippingNode()
 	m_clippingNode->setStencil(back);
 
 	addChild(m_clippingNode);
-	m_clippingNode->setPosition(m_layout->getChildById(1)->getPosition());
+	auto startPos = getStartPos();
+	m_clippingNode->setPosition(startPos);
+
+	auto maskBk = m_layout->getChildById(5);
+	maskBk->setAnchorPoint(ccp(0, 0));
+	maskBk->setScaleX((float)range.cols / COlUMNS_SIZE);
+	maskBk->setScaleY((float)range.rows / ROWS_SIZE);
+	maskBk->setPosition(m_layout->convertToNodeSpace(convertToWorldSpace(startPos)));
+	m_layout->removeChild(m_layout->getChildById(5));
 }
 
 void StarsLayer::addBkGrids()
 {
-	CCNode *node = CCNode::create();
-	static const float kSpacing = 2;
-	float curX = kSpacing;
-	float curY = kSpacing;
-	float maxHeight = 0;
-
+	float curHeight = 0;
+	float curWidth = 0;
+	CCNode *node = CCNode::create(); 
 	for (int row = 0; row < ROWS_SIZE; ++row)
 	{
+		float height = 0;
 		for (int col = 0; col < COlUMNS_SIZE; ++col)
 		{
-			auto grid = CCSprite::create("stage/yxjm_di2.png");
-			grid->setAnchorPoint(ccp(0, 0));
-			auto size = grid->getContentSize();
+			auto grid = StarBkGrid::create(LogicGrid(col, row));
 			node->addChild(grid);
-			grid->setPosition(ccp(curX, curY));
-			curX += size.width + kSpacing;
-			if (maxHeight < size.height)
-			{
-				maxHeight = size.height;
-			}
-		}
-		curX = kSpacing;
-		curY += maxHeight + kSpacing;
-	}
-	node->setContentSize(m_layout->getChildById(5)->getContentSize());
+			grid->setPosition(curWidth, curHeight);
 
+			auto size = grid->getContentSize();
+			curWidth += size.width;
+			height = max(height, size.height);
+
+		}
+		curHeight += height;
+		curWidth = 0;
+	}
 	addChild(node);
-	node->setPosition(m_layout->getChildById(1)->getPosition());
+	node->setPosition(getStartPos());
 }
 
 StarViewNode *StarsLayer::createStarByGrid(const LogicGrid &grid)
@@ -125,7 +131,7 @@ void StarsLayer::initStars()
 	float startHeight = STAR_SIZE * ROWS_SIZE;
 	float speed = startHeight / 0.5f;
 
-	float maxDuration = 0;
+	float kDuration = 1.0f;
 	for (int col = 0; col < COlUMNS_SIZE; ++col)
 	{
 		for (int row = 0; row < ROWS_SIZE; ++row) 
@@ -137,21 +143,18 @@ void StarsLayer::initStars()
 				pStarSprite->setAnchorPoint(ccp(0.5f, 0.5f));
 				CCPoint targetPos = getPosByGrid(grid);
 				CCPoint sourcePos = targetPos;
-				//实现梅花间隔掉落
-				sourcePos.y = targetPos.y + startHeight + grid.y * STAR_SIZE + (grid.x % 2) * STAR_SIZE;
+				sourcePos.y += 30;
+			
 				pStarSprite->setPosition(sourcePos);
 				m_clippingNode->addChild(pStarSprite);
-				//addChild(pStarSprite);
 				m_starsSprite.push_back(pStarSprite);
 
-				float kDuration = (sourcePos.y - targetPos.y) / speed;
-				maxDuration = max(maxDuration, kDuration);
-				CCMoveTo *moveTo = CCMoveTo::create(kDuration, targetPos);
-				pStarSprite->runAction(moveTo);
+				auto *move = CCEaseBackInOut::create(CCMoveTo::create(kDuration, targetPos));
+				pStarSprite->runAction(move);
 			}
 		}
 	}
-	runAction(CCSequence::create(CCDelayTime::create(maxDuration)
+	runAction(CCSequence::create(CCDelayTime::create(kDuration)
 		, CCCallFunc::create(this, callfunc_selector(StarsLayer::starInitDone)),NULL));
 }
 
@@ -162,7 +165,7 @@ void StarsLayer::starInitDone()
 		m_starsSprite[i]->showBornAnimation();
 	}
 	StageLayersMgr::theMgr()->initStarDone();
-	StarsController::theModel()->onOneRoundBegan();
+	StarsController::theModel()->preOneRound();
 }
 
 StarViewNode *StarsLayer::getClickedStar(CCPoint pos)
@@ -192,6 +195,7 @@ bool StarsLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 //左下第一个grid为（0，0）
 CCPoint StarsLayer::getPosByGrid(LogicGrid grid)
 {
+	
 	CCPoint pos;
 	pos.x = STAR_SIZE * (grid.x + 0.5f);
 	pos.y = STAR_SIZE * (grid.y + 0.5f);
@@ -226,4 +230,17 @@ void StarsLayer::onCreateNewStar(StarNode *node)
 
 void StarsLayer::onToNormalState()
 {
+}
+
+CCPoint StarsLayer::getStartPos()
+{
+	//配表时，左边和右边没有空行，因为clippingnode剪切不了左下角区域
+
+	auto range = StarsUtil::usedRange();
+	auto winSize = CCDirector::sharedDirector()->getWinSize();
+	//auto pos = m_layout->getChildById(1)->getPosition();
+	auto pos = ccp(winSize.width * 0.05f, winSize.height *0.15f);
+	pos.x += (COlUMNS_SIZE - range.cols) * STAR_SIZE / 2.0f;
+	pos.y += (ROWS_SIZE - range.rows) * STAR_SIZE / 2.0f;
+	return pos;
 }

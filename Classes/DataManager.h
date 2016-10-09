@@ -41,6 +41,9 @@ public:
 	void loadStarsConfig();
 	const StarsConfig &getStarsConfig(int starType);
 
+	void loadBkGridConfig();
+	const std::vector<GridBkConfig> &getBkGridConfig();
+
 	void loadStarsColorConfig();
 	const StarsColorConfig &getStarsColorConfig(int color);
 
@@ -101,9 +104,12 @@ public:
 
 	void loadSound();
 	const SoundConfig &getSoundConfig();
+
+	std::string getText(std::string tag);
 private:
 	vector<StageConfig> m_stagesConfig;
 	vector<StarsConfig> m_starsConfig;
+	vector<GridBkConfig> m_gridBkConfig;
 	vector<StarsLoaderConfig> m_starsLoaderConfig;
 	vector<PetCommonConfig> m_petCommonConfig;
 	vector<PetResConfig> m_petResConfig;

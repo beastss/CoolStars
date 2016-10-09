@@ -29,6 +29,7 @@ enum TouchPriority
 	kStageNoTouchPriority = -45,
 
 	kDialogTouchPriority = -50,
+	kNotificationTouchPriority = -60,
 	kGuideTouchPriority = -70,
 };
 
@@ -79,6 +80,16 @@ enum ConsumeType
 	kConsumeDiamond,
 	kConsumeMoney,
 };
+
+enum MoveDirection
+{
+	kMoveNoDirection,
+	kMoveUp,
+	kMoveDown,
+	kMoveLeft,
+	kMoveRight,
+};
+
 #define NOTIFY_VIEWS(_FUNC_ ,...)						\
 for (size_t index = 0; index < m_views.size(); ++index) \
 {														\

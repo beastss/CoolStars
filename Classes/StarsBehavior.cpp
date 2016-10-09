@@ -6,14 +6,14 @@ using namespace std;
 USING_NS_CC;
 
 StarsBehavior::StarsBehavior()
-: m_needAddLiveVine(false)
 {
 
 }
 
 void StarsBehavior::onOneRoundBegin()
 {
-	if (m_needAddLiveVine)
+	int amount = getLiveVineNodes().size();
+	if (m_liveVineAmount > 0 && m_liveVineAmount == amount)
 	{
 		auto nodes = getLiveVineNodes();
 		for (size_t i = 0; i < nodes.size(); ++i)
@@ -32,19 +32,9 @@ void StarsBehavior::onOneRoundBegin()
 				break;
 			}
 		}
-		m_needAddLiveVine = false;
 	}
 
 	m_liveVineAmount = getLiveVineNodes().size();
-}
-
-void StarsBehavior::onOneRoundEnd()
-{
-	int amount = getLiveVineNodes().size();
-	if (m_liveVineAmount > 0 && m_liveVineAmount == amount)
-	{
-		m_needAddLiveVine = true;
-	}
 }
 
 vector<StarNode *> StarsBehavior::getLiveVineNodes()

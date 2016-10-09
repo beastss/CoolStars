@@ -21,7 +21,8 @@ enum StarType
 	kStone1,
 	kStone2,
 	kStone3,
-	
+	kTerrain,
+
 	kStarTypeCount,
 };
 //逻辑网格，左下角为[0,0]
@@ -47,25 +48,27 @@ public:
 	bool canClickErase();
 	std::vector<StarNode *> getNeighbours();
 	std::vector<StarNode *> getLinkNeighbours();
-	bool canBeRemoved();
+
 	void doRemove(bool addScore = true);
 	void removeNeighbours();
-    void moveTo(LogicGrid grid);
+	void moveTo(LogicGrid grid, int direction = kMoveNoDirection);
 
 	bool canLink(int type, int color);
 	void getConnectedStars(StarNode *node, std::vector<StarNode *> &connectedNodes);
 public:
+	bool canNotMove();//是否为静止不动。
+	bool canBeRemoved();
+
 	virtual std::string getResPath();
 	virtual std::string getExtraResPath(){ return ""; }
 	virtual std::string getExplosionPath();
 	virtual std::string getBornAnimationPath();
 	virtual void onRemove(){}
+private:
+	LogicGrid getTargetGrid(const LogicGrid &grid, int dropDirection);
 protected:
     StarNode(const StarAttr &attr);
 	const StarsConfig &getConfig();
-private:
-
-	;
 protected:
 	StarAttr m_attr;
 	StarViewNode *m_view;
@@ -169,6 +172,13 @@ public:
 	BombNode(const StarAttr &attr) : StarNode(attr){}
 	~BombNode(){}
 	virtual void onRemove();
+};
+
+class TerrainNode : public StarNode
+{
+public:
+	TerrainNode(const StarAttr &attr) : StarNode(attr){}
+	~TerrainNode(){}
 };
 
 #endif

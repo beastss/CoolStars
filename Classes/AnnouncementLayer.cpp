@@ -1,8 +1,21 @@
 #include "AnnouncementLayer.h"
 #include "CCFunctionAction.h"
 #include "ViewUtil.h"
+#include "CommonMacros.h"
 USING_NS_CC;
 using namespace std;
+
+void AnnouncementLayer::onEnter()
+{
+	CCNode::onEnter();
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kNotificationTouchPriority, true);
+}
+
+void AnnouncementLayer::onExit()
+{
+	CCNode::onExit();
+	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+}
 
 bool AnnouncementLayer::init()
 {
@@ -18,8 +31,14 @@ void AnnouncementLayer::initPanel()
 
 }
 
-void AnnouncementLayer::showTips(const char *str)
+bool AnnouncementLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {
+	return m_swallowTouch;
+}
+
+void AnnouncementLayer::showTips(const char *str, bool swallowTouch, std::function<void()> callback)
+{
+	m_swallowTouch = swallowTouch;
 	CCNode *node = CCNode::create();
 	CCSprite * bk = CCSprite::create("announcement/ty_tab_1.png");
 	node->setContentSize(bk->getContentSize());
@@ -38,6 +57,8 @@ void AnnouncementLayer::showTips(const char *str)
 
 	auto func = CCFunctionAction::create([=]()
 	{
+		if (callback) callback();
+		m_swallowTouch = false;
 		node->removeFromParent();
 	});
 	float kFadeInTime = 0.3f;

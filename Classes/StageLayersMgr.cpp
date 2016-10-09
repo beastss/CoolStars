@@ -59,22 +59,12 @@ void StageLayersMgr::starErased(cocos2d::CCPoint pos, int starType, int color)
 
 void StageLayersMgr::doubleScore()
 {
-	NOTIFY_LAYERSS(onScoreBouble);
+	NOTIFY_LAYERSS(onScoreDouble);
 }
 
 void StageLayersMgr::touchEnable(bool canTouch)
 {
 	NOTIFY_LAYERSS(onTouchEnable, canTouch);
-}
-
-void StageLayersMgr::eraseStarsStart()
-{
-	NOTIFY_LAYERSS(onEraseStarsStart);
-}
-
-void StageLayersMgr::eraseStarsEnd()
-{
-	NOTIFY_LAYERSS(onEraseStarsEnd);
 }
 
 void StageLayersMgr::explodeGrid(const LogicGrid &grid)
@@ -90,4 +80,9 @@ void StageLayersMgr::removeGuideView()
 void StageLayersMgr::linkErase(int num)
 {
 	NOTIFY_LAYERSS(onLinkErase, num);
+}
+
+void StageLayersMgr::petSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback)
+{
+	NOTIFY_LAYERSS(onPetSpreadStar, petId, grids, callback);
 }

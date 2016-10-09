@@ -22,6 +22,7 @@ void DataManager::LoadData()
 	loadStageConfig();
 	loadEraseBonus();
 	loadStarsConfig();
+	loadBkGridConfig();
 	loadStarsColorConfig();
 	loadPetCommonConfig();
 	loadPetResConfig();
@@ -50,7 +51,7 @@ void DataManager::loadStarsConfig()
 	{
 		StarsConfig config;
 		auto data = (*iter);
-		assert(data.size() == 8);
+		assert(data.size() == 9);
 
 		config.id = atoi(data[0]);
 		config.desc = data[1];
@@ -60,6 +61,7 @@ void DataManager::loadStarsConfig()
 		config.explosionRes = data[5];
 		config.linkStarTypes = CommonUtil::parseStrToInts(data[6]);
 		config.eraseTypes = CommonUtil::parseStrToInts(data[7]);
+		config.canMove = atoi(data[8]) == 1;
 
 		m_starsConfig.push_back(config);
 	}
@@ -67,15 +69,38 @@ void DataManager::loadStarsConfig()
 
 const StarsConfig &DataManager::getStarsConfig(int starType)
 {
-	assert(starType > kEmpty && starType < kStarTypeCount);
-	if (starType > kEmpty && starType < kStarTypeCount)
+	assert(starType >= kEmpty && starType < kStarTypeCount);
+	if (starType >= kEmpty && starType < kStarTypeCount)
 	{
-		return m_starsConfig[starType - 1];
+		return m_starsConfig[starType];
 	}
 	else
 	{
 		return m_starsConfig[0];
 	}
+}
+
+void DataManager::loadBkGridConfig()
+{
+	SqliteHelper helper(DB_CONFIG);
+	auto result = helper.readRecord("select * from grid_bk");
+	for (auto iter = result.begin(); iter != result.end(); ++iter)
+	{
+		GridBkConfig config;
+		auto data = (*iter);
+
+		config.id = atoi(data[0]);
+		config.path = data[1];
+		config.exist = CommonUtil::parseStrToInts(data[2]);
+		config.notExist = CommonUtil::parseStrToInts(data[3]);
+
+		m_gridBkConfig.push_back(config);
+	}
+}
+
+const std::vector<GridBkConfig> &DataManager::getBkGridConfig()
+{
+	return m_gridBkConfig;
 }
 
 void DataManager::loadPetCommonConfig()
@@ -720,4 +745,12 @@ void DataManager::loadSound()
 const SoundConfig &DataManager::getSoundConfig()
 {
 	return m_soundConfig;
+}
+
+string DataManager::getText(string tag)
+{
+	string tbPath = "data/strings.xml";
+	CCDictionary* pDict = CCDictionary::createWithContentsOfFile(tbPath.c_str());
+	auto value = pDict->valueForKey(tag)->getCString();
+	return value;
 }

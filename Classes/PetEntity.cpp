@@ -11,6 +11,7 @@
 #include "GuideMgr.h"
 #include "StarsEraseModule.h"
 #include "GameDataAnalysis.h"
+#include "CommonUtil.h"
 PetEntity::PetEntity(int petId)
 {
 	//上次保存的宠物数据
@@ -139,164 +140,158 @@ void PetEntity::setEnergy(int energy)
 	m_data.energy = value;
 	
 	PetManager::petMgr()->petEnergyChanged(m_data.petId, oldEnergy, value);
+}
+
+void PetEntity::triggerSkill()
+{
 	if (canUseSkill())
 	{
+		setEnergy(0);
+		useSkill();
 		GuideMgr::theMgr()->startGuide(kGuideStart_stage_petFullPower);
 	}
 }
 
-void PetEntity::onUseSkill()
-{
-	setEnergy(0);
-	//StarsController::theModel()->moveOneStep(false); 
-}
-
-void PetEntity::useNoTargetSkill()
-{
-	noTargetSkill();
-	onUseSkill();
-}
-
-void PetEntity::useToStarSkill(const LogicGrid &grid)
-{
-	toStarSkill(grid);
-	onUseSkill();
-}
-
-void PetEntity::useToPetSkill(int petId)
-{
-	toPetSkill(petId);
-	onUseSkill();
-}
-//////////////////////////////////////////////////////////////////////////////
-void PetRat::skillInit()
+static vector<LogicGrid> getSameColorGrids(int color)
 {
 	vector<LogicGrid> grids;
 	auto nodes = StarsController::theModel()->getStarNodes();
+
 	for (size_t i = 0; i < nodes.size(); ++i)
 	{
 		auto attr = nodes[i]->getAttr();
-		if (attr.type == kColorStar && attr.color == m_data.color)
+		if (attr.type == kColorStar && attr.color == color)
 		{
 			grids.push_back(attr.grid);
 		}
 	}
-	StageLayersMgr::theMgr()->highLightStars(grids, m_data.skillPower / 2, 0);
-}
-
-void PetRat::toStarSkill(const LogicGrid &grid)
-{
-	StarsEraseModule::theModel()->scaleErase(grid, m_data.skillPower / 2, 0);
+	return grids;
 }
 //////////////////////////////////////////////////////////////////////////////
-void PetOx::skillInit()
+void PetRat::useSkill()
 {
-	vector<LogicGrid> grids;
-	auto nodes = StarsController::theModel()->getStarNodes();
-	for (size_t i = 0; i < nodes.size(); ++i)
+	auto grids = getSameColorGrids(m_data.color);
+	if (!grids.empty())
 	{
-		auto attr = nodes[i]->getAttr();
-		if (attr.type == kColorStar && attr.color == m_data.color)
-		{
-			grids.push_back(attr.grid);
-		}
+		int index = CommonUtil::getRandomValue(0, grids.size() - 1);
+		StageOp->petScaleErase(m_data.petId, grids[index], m_data.skillPower / 2, 0);
 	}
-	StageLayersMgr::theMgr()->highLightStars(grids, 0, m_data.skillPower / 2);
 }
 
-void PetOx::toStarSkill(const LogicGrid &grid)
+bool PetRat::canUseSkill()
 {
-	StarsEraseModule::theModel()->scaleErase(grid, 0, m_data.skillPower / 2);
+	return isEnergyFull() && !getSameColorGrids(m_data.color).empty();
+}
+//////////////////////////////////////////////////////////////////////////////
+void PetOx::useSkill()
+{
+	auto grids = getSameColorGrids(m_data.color);
+	if (!grids.empty())
+	{
+		int index = CommonUtil::getRandomValue(0, grids.size() - 1);
+		StageOp->petScaleErase(m_data.petId, grids[index], 0, m_data.skillPower / 2);
+	}
+}
+
+bool PetOx::canUseSkill()
+{
+	return isEnergyFull() && !getSameColorGrids(m_data.color).empty();
 }
 //////////////////////////////////////////////////////////////////////////////
 
-void PetTiger::noTargetSkill()
+void PetTiger::useSkill()
 {
 	StageOp->addSteps(m_data.skillPower);//如果使用技能也算一步 需要+1
+	StarsController::theModel()->preOneRound();
 }
 //////////////////////////////////////////////////////////////////////////////
 
-void PetRabbit::noTargetSkill()
+void PetRabbit::useSkill()
 {
 	StageOp->randomReplaceStars(m_data.petId, kColorStar, m_data.color, m_data.skillPower);
 }
 //////////////////////////////////////////////////////////////////////////////
+void PetDragon::useSkill()
+{
+	auto grids = getSameColorGrids(m_data.color);
+	if (!grids.empty())
+	{
+		int index = CommonUtil::getRandomValue(0, grids.size() - 1);
+		StageOp->petScaleErase(m_data.petId, grids[index], m_data.skillPower, m_data.skillPower);
+	}
+}
 
-void PetDragon::noTargetSkill()
+bool PetDragon::canUseSkill()
+{
+	return isEnergyFull() && !getSameColorGrids(m_data.color).empty();
+}
+
+//////////////////////////////////////////////////////////////////////////////
+void PetSnake::useSkill()
 {
 	StageLayersMgr::theMgr()->doubleScore();
 	auto info = StageDataMgr::theMgr();
 	info->setNextScoreBonus(m_data.skillPower);
-}
-//////////////////////////////////////////////////////////////////////////////
-void PetSnake::skillInit()
-{
-	vector<LogicGrid> grids;
-	auto nodes = StarsController::theModel()->getStarNodes();
-	for (size_t i = 0; i < nodes.size(); ++i)
-	{
-		auto attr = nodes[i]->getAttr();
-		if (attr.type == kColorStar && attr.color == m_data.color)
-		{
-			grids.push_back(attr.grid);
-		}
-	}
-	StageLayersMgr::theMgr()->highLightStars(grids, m_data.skillPower, m_data.skillPower);
-}
-
-void PetSnake::toStarSkill(const LogicGrid &grid)
-{
-	StarsEraseModule::theModel()->scaleErase(grid, m_data.skillPower, m_data.skillPower);
+	StarsController::theModel()->preOneRound();
 }
 //////////////////////////////////////////////////////////////////////////////
 
-void PetHorse::noTargetSkill()
+void PetHorse::useSkill()
 {
 	StageOp->randomReplaceStars(m_data.petId, kDiamond, kColorRandom, m_data.skillPower);
 }
 //////////////////////////////////////////////////////////////////////////////
 
-void PetGoat::noTargetSkill()
+void PetGoat::useSkill()
 {
-	StarsEraseModule::theModel()->randomErase(m_data.skillPower);
+	StageOp->petRandomErase(m_data.petId, m_data.skillPower);
 }
 //////////////////////////////////////////////////////////////////////////////
-void PetMonkey::skillInit()
+static vector<int> getNotFullEnergyPets(int selfId)
 {
-	vector<int> highLightPetsId;
+	vector<int> targetPetIds;
 	std::vector<int> petIds = PetManager::petMgr()->getCurPetIds();
 	for (size_t i = 0; i < petIds.size(); ++i)
 	{
 		int petId = petIds[i];
-		if (m_data.petId == petId) continue;
+		if (selfId == petId) continue;
 		auto pet = PetManager::petMgr()->getPetById(petId);
-		if (pet && !pet->canUseSkill())
+		if (pet && !pet->isEnergyFull())
 		{
-			highLightPetsId.push_back(petId);
+			targetPetIds.push_back(petId);
 		}
-		
 	}
-	StageLayersMgr::theMgr()->highLightPets(highLightPetsId);
+	return targetPetIds;
 }
 
-void PetMonkey::toPetSkill(int petId)
+void PetMonkey::useSkill()
 {
-	StageOp->addPetEnergy(petId, m_data.skillPower);
+	auto targetPetIds = getNotFullEnergyPets(m_data.petId);
+	if (!targetPetIds.empty())
+	{
+		int index = CommonUtil::getRandomValue(0, targetPetIds.size() - 1);
+		StageOp->addPetEnergy(targetPetIds[index], m_data.skillPower);
+		StarsController::theModel()->preOneRound();
+	}
+}
+
+bool PetMonkey::canUseSkill()
+{
+	return isEnergyFull() && !getNotFullEnergyPets(m_data.petId).empty();
 }
 //////////////////////////////////////////////////////////////////////////////
-
-void PetRooster::noTargetSkill()
+void PetRooster::useSkill()
 {
 	StageOp->loadDesignatedStar(m_data.color, m_data.skillPower);//使用技能也算一步 需要+1
+	StarsController::theModel()->preOneRound();
 }
 //////////////////////////////////////////////////////////////////////////////
-void PetDog::noTargetSkill()
+void PetDog::useSkill()
 {
 	StageOp->randomReplaceStars(m_data.petId, kKey, kColorRandom, m_data.skillPower);
-
 }
 //////////////////////////////////////////////////////////////////////////////
-void PetPig::toPetSkill(int petId)
+void PetPig::useSkill()
 {
 
 }

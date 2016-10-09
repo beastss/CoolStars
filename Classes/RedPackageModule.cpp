@@ -8,6 +8,8 @@
 #include "SqliteHelper.h"
 #include "RedPackageDialog.h"
 #include "PackageModel.h"
+#include "StageScene.h"
+#include "StageUiLayer.h"
 
 using namespace std;
 USING_NS_CC;
@@ -47,8 +49,9 @@ void RedPackageModule::openRedPackage()
 	{
 		vector<float> percents;
 		//红包60%获得钻石，40%开启钻石礼包
-		percents.push_back(60);
+		percents.push_back(30);
 		percents.push_back(40);
+		percents.push_back(30);
 
 		redPackageType = getResultByPercent(percents);
 	}
@@ -66,10 +69,15 @@ void RedPackageModule::openRedPackage()
 		RedPackageDialog *dialog = RedPackageDialog::create();
 		MainScene::theScene()->showDialog(dialog);
 	}
-	else
+	else if (redPackageType == kRedPackageDiamondPackage)
 	{
 		PackageDialog *dialog = PackageDialog::create(kPackageDiamond);
 		MainScene::theScene()->showDialog(dialog);
+	}
+	else
+	{
+		auto uilayer = StageScene::theScene()->getStageUiLayer();
+		uilayer->onRedPackageBomb();
 	}
 	m_alreadyGetThisRedPackage = true;
 

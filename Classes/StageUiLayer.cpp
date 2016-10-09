@@ -34,6 +34,8 @@
 #include "GameBackEndState.h"
 #include "PropsGuideView.h"
 #include "GuideMgr.h"
+#include "StarsEraseModule.h"
+#include "PreStagePetSlot.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -207,11 +209,14 @@ void StageUiLayer::onTick(float dt)
 void StageUiLayer::onOneRoundBegan()
 {
 	m_clock.reset();
+	m_noTouchLayer->setCanTouch(true, 1);
+	CCLog("onOneRoundBegan");
 }
 
 void StageUiLayer::onOneRoundEnd()
 {
-
+	m_noTouchLayer->setCanTouch(false, 1);
+	CCLog("onOneRoundEnd");
 }
 
 void StageUiLayer::showTargetPanel()
@@ -243,7 +248,7 @@ void StageUiLayer::showGameOverHint()
 
 void StageUiLayer::handlePetClicked(int petId)
 {
-	m_stateOwner->clickPet(petId);
+	//m_stateOwner->clickPet(petId);
 }
 
 void StageUiLayer::showPetsSkillPanel()
@@ -364,6 +369,7 @@ void StageUiLayer::onRunOutSteps()
 
 void StageUiLayer::onGameWin()
 {
+	SoundMgr::theMgr()->playEffect(kEffectGameWin);
 	for (auto iter = m_petViews.begin(); iter != m_petViews.end(); ++iter)
 	{
 		iter->second->playHappyAction(true);
@@ -486,6 +492,7 @@ void StageUiLayer::onExplodeGrid(const LogicGrid &grid)
 
 void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 {
+	bool starsFly = false;
 	if (starType == kColorStar)
 	{
 		const static float kDuration = 0.8f;
@@ -495,6 +502,7 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 			auto petView = iter->second;
 			if (petView->getColor() == color)
 			{
+				starsFly = true;
 				auto config = DataManagerSelf->getStarsColorConfig(color);
 				auto resPath = config.colorStarRes;
 				CCSprite *starSpr = CCSprite::create(resPath.c_str());
@@ -538,6 +546,15 @@ void StageUiLayer::onStarErased(cocos2d::CCPoint pos, int starType, int color)
 		view->setPosition(newPos);
 		addChild(view);
 	}
+	
+	auto eraseEnd = CCFunctionAction::create([=]()
+	{
+		StarsEraseModule::theModel()->eraseStarEnd();
+	});
+	const float kTime = starsFly ? 1.0f : 0.1f;
+	runAction(CCSequence::create(CCDelayTime::create(kTime), eraseEnd, NULL));
+
+	
 	//playExplosionAction(pos);
 }
 
@@ -574,38 +591,66 @@ void StageUiLayer::onToNormalState()
 	}
 }
 
-void StageUiLayer::showPetSpreadStarsAction(int petId, const StarAttr &attr, function<void()> callback)
+void StageUiLayer::onPetSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback)
 {
 	auto iter = m_petViews.find(petId);
 	if (iter != m_petViews.end())
 	{
-		static const float kDutation = 0.3f;
+		static const float kDutation = 1.0f;
 
-		auto starNode = StarsController::theModel()->getStarNode(attr.grid);
-		auto starView = starNode->getView();
-		auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
-
-		auto tempNode = StarNode::createNodeFatory(attr);
-		auto petView = iter->second;
-		auto sourcePos = petView->getParent()->convertToWorldSpace(petView->getPosition());
-
-		CCSprite *starImg = CCSprite::create(tempNode->getResPath().c_str());
-		starImg->setPosition(sourcePos);
-		addChild(starImg);
-		delete tempNode;
-
-		auto moveTo = CCMoveTo::create(kDutation, targetPos);
-		auto func = CCFunctionAction::create([=]()
+		for (size_t i = 0; i < grids.size(); ++i)
 		{
-			starImg->removeFromParent();
-			if (callback) callback();
-		});
-		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), func, NULL));
+			auto starNode = StarsController::theModel()->getStarNode(grids[i]);
+			auto starView = starNode->getView();
+			auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
+
+			auto petView = iter->second;
+			auto sourcePos = petView->getParent()->convertToWorldSpace(petView->getPosition());
+			sourcePos.y -= petView->getContentSize().height * 0.40f;
+
+			CCNode *starImg = PetSkillIcon::create(petId);
+			starImg->setPosition(sourcePos);
+			addChild(starImg);
+
+			auto moveTo = CCMoveTo::create(kDutation, targetPos);
+			auto func = CCFunctionAction::create([=]()
+			{
+				starImg->removeFromParent();
+				if (i == grids.size() - 1 && callback) callback();
+			});
+			starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
+		}
 	}
+}
+
+void StageUiLayer::onRedPackageBomb()
+{
+	auto grids = StageOp->getRandomColorGrids(1);
+	if (grids.empty()) return;
+
+	static const float kDutation = 1.0f;
+	auto starNode = StarsController::theModel()->getStarNode(grids[0]);
+	auto starView = starNode->getView();
+	auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
+	auto sourcePos = m_bottomUi->getChildById(15)->getPosition();
+
+	CCNode *bomb = CCSprite::create("stage/ui/yxjm_daoju3.png");
+	bomb->setPosition(sourcePos);
+	addChild(bomb);
+
+	auto moveTo = CCMoveTo::create(kDutation, targetPos);
+	auto func = CCFunctionAction::create([=]()
+	{
+		bomb->removeFromParent();
+		StarsEraseModule::theModel()->scaleErase(grids[0], 1, 1);
+	});
+	bomb->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
 }
 
 void StageUiLayer::gameOverSpreadStars(const GoodsData &data, const LogicGrid &targetGrid, std::function<void()> callback)
 {
+	SoundMgr::theMgr()->playEffect(kEffectStepsToRes);
+
 	static const float kDutation = 0.3f;
 
 	auto starNode = StarsController::theModel()->getStarNode(targetGrid);
@@ -654,7 +699,7 @@ bool StageUiLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEve
 	return false;
 }
 
-void StageUiLayer::onScoreBouble()
+void StageUiLayer::onScoreDouble()
 {
 	auto spr = CCSprite::create("stage/pets/yxjm_defenshuangbei.png");
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
@@ -670,20 +715,6 @@ void StageUiLayer::onScoreBouble()
 void StageUiLayer::onTouchEnable(bool canTouch)
 {
 	m_noTouchLayer->setCanTouch(canTouch);
-}
-
-void StageUiLayer::onEraseStarsStart()
-{
-	m_noTouchLayer->setCanTouch(false, 1);
-}
-
-void StageUiLayer::onEraseStarsEnd()
-{
-	auto func = CCFunctionAction::create([=]()
-	{
-		m_noTouchLayer->setCanTouch(true, 1);
-	});
-	runAction(CCSequence::create(CCDelayTime::create(0.5f), func, NULL));
 }
 
 void StageUiLayer::onGuideViewRemoved()

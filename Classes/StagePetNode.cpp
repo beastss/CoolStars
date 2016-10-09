@@ -4,6 +4,7 @@
 #include "UiLayout.h"
 #include "EmptyBox.h"
 #include "StagePetSkillIconProgress.h"
+#include "CommonUtil.h"
 using namespace std;
 USING_NS_CC;
 
@@ -27,6 +28,7 @@ void StagePetNode::onEnter()
 {
 	CCNode::onEnter();
 	StarsController::theModel()->addView(this);
+	PetManager::petMgr()->addView(this);
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, m_touchPriority, true);
 }
 
@@ -34,6 +36,7 @@ void StagePetNode::onExit()
 {
 	CCNode::onExit();
 	StarsController::theModel()->removeView(this);
+	PetManager::petMgr()->removeView(this);
 	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 }
 
@@ -77,6 +80,17 @@ void StagePetNode::initLayout()
 	m_skillIcon = StagePetSkillIconProgress::create(m_petId);
 	box->setNode(m_skillIcon);
 
+	auto data = PetManager::petMgr()->getPetById(m_petId)->getPetData();
+	auto config = DataManagerSelf->getPetColorConfig(data.color);
+
+	//等级图标
+	CCSprite *lvImg = dynamic_cast<CCSprite *>(m_layout->getChildById(6));
+	lvImg->initWithFile(config.skillLvLabel.c_str());
+	//等级
+	CCLabelAtlas *lvNum = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(7));
+	CCSprite *numRes = CCSprite::create(config.numRes.c_str());
+	auto numResSize = numRes->getContentSize();
+	lvNum->initWithString(CommonUtil::intToStr(data.level), config.numRes.c_str(), numResSize.width / 10, numResSize.height, '0');
 }
 
 bool StagePetNode::isInside(CCPoint pt)
@@ -95,7 +109,7 @@ bool StagePetNode::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEve
 		{
 			m_touchHandle(m_petId);
 		}
-		if (m_model->canUseSkill())
+		if (m_model->isEnergyFull())
 		{
 			playHappyAction(false);
 		}
@@ -161,4 +175,9 @@ void StagePetNode::onDesignatedStarChanged(int starType, int color, int rounds)
 		num->setString(str);
 	}
 	
+}
+
+void StagePetNode::onUsePetSkill(int petId)
+{
+	playHappyAction(false);
 }

@@ -1,6 +1,8 @@
 #include "StarViewNode.h"
 #include "StarsLayer.h"
 #include "StarsController.h"
+#include "StarsEraseModule.h"
+#include "ActionRunner.h"
 USING_NS_CC;
 using namespace std;
 
@@ -17,11 +19,16 @@ StarViewNode::StarViewNode(StarNode *node)
 , m_isExploded(false)
 {
     m_model->bindView(this);
+	m_runner = ActionRunner::create();
+	m_runner->retain();
 }
 
 StarViewNode::~StarViewNode()
 {
+	m_runner->clear();
+	m_runner->release();
 }
+
 bool StarViewNode::init()
 {
 	string fileName = m_model->getResPath();
@@ -62,16 +69,42 @@ cocos2d::CCPoint StarViewNode::getPosByGrid(LogicGrid grid)
 	return pos;
 }
 
-void StarViewNode::doMove(LogicGrid targetGrid)
+void StarViewNode::doMove(LogicGrid targetGrid, int direction)
 {
-	stopAllActions();
-	CCPoint pos = getPosByGrid(targetGrid);
-    CCMoveTo *moveTo = CCMoveTo::create(0.4f, pos);
-	runAction(CCEaseBackInOut::create(moveTo));
+	LogicGrid oldGrid = m_model->getAttr().grid;
+	//计算到达目标相差的格子数
+	int step = max(abs(targetGrid.x - oldGrid.x), abs(targetGrid.y - oldGrid.y));
+	const float kInterval = CCDirector::sharedDirector()->getAnimationInterval();
+	const float kOneStepTime = 0.1f;
+	const float kDuration = kOneStepTime * step;
+	const int kFrames = kDuration / kInterval;
+
+	m_runner->queueAction(CallFuncAction::withFunctor([=]
+	{
+		CCPoint pos = getPosByGrid(targetGrid);
+		CCLOG("count:%d", m_runner->count());
+		//移动的最后一个格子，播放弹一下的动画
+		if (m_runner->count() == 2)
+		{
+			int vec[5][2] = { {0, 0}, { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
+			const float kOffset = 20;
+			auto tempPos = ccp(pos.x + kOffset * vec[direction][0], pos.y + kOffset * vec[direction][1]);
+			CCMoveTo *moveTo1 = CCMoveTo::create(kDuration, tempPos);
+			CCMoveTo *moveTo2 = CCMoveTo::create(kOneStepTime * 0.4f, pos);
+			runAction(CCSequence::create(moveTo1, moveTo2, NULL));
+		}
+		else
+		{
+			CCMoveTo *moveTo = CCMoveTo::create(kDuration, pos);
+			runAction(CCActionEase::create(moveTo));
+		}
+	}));
+	m_runner->queueAction(DelayNFrames::delay(kFrames + 1)); //延迟一帧 不然星星移动有偏移，星星移动时间和delay不会完全相同
 }
 
 void StarViewNode::doEraseAction()
 {
+	StarsEraseModule::theModel()->eraseStarBegan();
 	auto attr = m_model->getAttr();
 	auto pos = getParent()->convertToWorldSpace(getPosition());
 	StageLayersMgr::theMgr()->starErased(pos, attr.type, attr.color);

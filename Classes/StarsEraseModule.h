@@ -20,24 +20,34 @@ private:
 	int m_xRadius;
 	int m_yRadius;
 };
+//四种消除方式
+//1.普通点击的连消除
+//2.矩形消除
+//3.列表消除
+//4.//直接消除目标星星 没有爆炸
 
 class StarsEraseModule
 {
 public:
+	void linkErase(const LogicGrid &grid);
+	void scaleErase(const LogicGrid &center, int xRadius, int yRadius);
+	void listErase(const std::vector<LogicGrid> &grids);
+	void removeStar(const LogicGrid &grid);
+public:
 	~StarsEraseModule();
 	static StarsEraseModule *theModel();
-	void handleClick(const LogicGrid &grid);
-	void scaleErase(const LogicGrid &center, int xRadius, int yRadius);
-	void randomErase(int num);
-	void removeStar(const LogicGrid &grid);//直接消除 没有爆炸
 	void reset();
 	void onScaleEraseDone(ScaleEarseRunner *runner);
+	void eraseStarBegan();
+	void eraseStarEnd();
+	void newRound();
 private:
 	StarsEraseModule();
 	void addLinkEraseBonus(int num);
 private:
 	std::vector<ScaleEarseRunner *>m_runners;
 	ActionRunner *m_runner;
+	int m_starsNotErased;
 };
 
 #endif

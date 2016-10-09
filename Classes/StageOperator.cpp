@@ -9,6 +9,9 @@
 #include <algorithm>
 #include "ActionRunner.h"
 #include "StarsEraseModule.h"
+#include "MainScene.h"
+#include "DataManager.h"
+#include <algorithm>
 using namespace std;
 using namespace CommonUtil;
 USING_NS_CC; 
@@ -45,37 +48,24 @@ void StageOperator::eraseStars(vector<LogicGrid> grids)
 	StarsController::theModel()->genNewStars();
 }
 
-void StageOperator::eraseSameColorStars(const LogicGrid &centerGrids, int distance)
-{
-	auto centerNode = StarsController::theModel()->getStarNode(centerGrids);
-	auto grids = getSquareGrids(centerGrids, distance);
-
-	vector<LogicGrid> targetGrids;
-	for (size_t i = 0; i < grids.size(); ++i)
-	{
-		auto node = StarsController::theModel()->getStarNode(grids[i]);
-		if (node && node->getAttr().color == centerNode->getAttr().color)
-		{
-			targetGrids.push_back(grids[i]);
-		}
-	}
-
-	eraseStars(targetGrids);
-}
-
-void StageOperator::randomErase(int num)
+void StageOperator::petScaleErase(int petId, const LogicGrid &center, int xRadius, int yRadius)
 {
 	vector<LogicGrid> grids;
-	for (size_t i = 0; i < ROWS_SIZE; ++i)
+	grids.push_back(center);
+	StageLayersMgr::theMgr()->petSpreadStar(petId, grids, [=]()
 	{
-		for (int j = 0; j < COlUMNS_SIZE; ++j)
-		{
-			grids.push_back(LogicGrid(j, i));
-		}
-	}
+		StarsEraseModule::theModel()->scaleErase(center, xRadius, yRadius);
+	});
+}
 
-	auto targetGrids = getRandomGrids(grids, num);
-	eraseStars(targetGrids);
+void StageOperator::petRandomErase(int petId, int num)
+{
+	auto targetGrids = getRandomColorGrids(num);
+	StageLayersMgr::theMgr()->petSpreadStar(petId, targetGrids, [=]()
+	{
+		StarsEraseModule::theModel()->listErase(targetGrids);
+
+	});
 }
 
 void StageOperator::addSteps(int amount)
@@ -107,82 +97,65 @@ void StageOperator::chageStarType(int type)
 	StarsController::theModel()->replaceStar(attr);
 }
 
-void StageOperator::reOrderStars()
+void StageOperator::reOrderStars(std::function<void()> callback)
 {
-	auto nodes = StarsController::theModel()->getStarNodes();
-
-	vector<LogicGrid> targetGrids;
-	vector<StarNode *> colorNodes;
-	for (size_t i = 0; i < nodes.size(); ++i)
+	MainScene::theScene()->showTips(DataManagerSelf->getText("no_link_stars").c_str(), true, [=]()
 	{
-		auto starType = nodes[i]->getAttr().type;
-		auto grid = nodes[i]->getAttr().grid;
-		if (starType == kColorStar)
+		auto nodes = StarsController::theModel()->getStarNodes();
+
+		vector<LogicGrid> targetGrids;
+		vector<StarNode *> colorNodes;
+		for (size_t i = 0; i < nodes.size(); ++i)
 		{
-			colorNodes.push_back(nodes[i]);
-			targetGrids.push_back(grid);
+			auto starType = nodes[i]->getAttr().type;
+			auto grid = nodes[i]->getAttr().grid;
+			if (starType == kColorStar)
+			{
+				colorNodes.push_back(nodes[i]);
+				targetGrids.push_back(grid);
+			}
 		}
-	}
-	assert(targetGrids.size() == colorNodes.size());
-	auto seq = buildRandomSequence(colorNodes.size());
+		assert(targetGrids.size() == colorNodes.size());
+		auto seq = buildRandomSequence(colorNodes.size());
 
-	for (size_t i = 0; i < colorNodes.size(); ++i)
-	{
-		auto node = colorNodes[i];
-		int index = seq[i];
-		LogicGrid targetGrid = targetGrids[index];
-		
-		node->moveTo(targetGrid);
-		node->setLogicGrid(targetGrid);
-	}
+		for (size_t i = 0; i < colorNodes.size(); ++i)
+		{
+			auto node = colorNodes[i];
+			int index = seq[i];
+			LogicGrid targetGrid = targetGrids[index];
+
+			node->moveTo(targetGrid);
+			node->setLogicGrid(targetGrid);
+		}
+		if(callback) callback();
+	});
+
 }
 
 void StageOperator::randomReplaceStars(int petId, int starType, int color, int num)
 {
-	auto stars = StarsController::theModel()->getStarNodes();
-	vector<LogicGrid> grids;
-	for (size_t i = 0; i < stars.size(); ++i)
+	auto targetGrids = getRandomColorGrids(num, true, color);
+	StageLayersMgr::theMgr()->petSpreadStar(petId, targetGrids, [=]()
 	{
-		auto star = stars[i];
-		auto attr = star->getAttr();
-		if (attr.type == kColorStar && attr.color != color)
+		for (size_t i = 0; i < targetGrids.size(); ++i)
 		{
-			grids.push_back(attr.grid);
-		}
-	}
-
-	auto targetGrids = getRandomGrids(grids, num);
-	for (size_t i = 0; i < targetGrids.size(); ++i)
-	{
-		auto star = StarsController::theModel()->getStarNode(targetGrids[i]);
-		if (star)
-		{
-			StarAttr targetStarAttr = star->getAttr();
-			targetStarAttr.color = color;
-			targetStarAttr.type = starType;
-			auto uiLayer = StageScene::theScene()->getStageUiLayer();
-			uiLayer->showPetSpreadStarsAction(petId, targetStarAttr, [=]()
+			auto star = StarsController::theModel()->getStarNode(targetGrids[i]);
+			if (star)
 			{
+				StarAttr targetStarAttr = star->getAttr();
+				targetStarAttr.color = color;
+				targetStarAttr.type = starType;
 				StarsController::theModel()->replaceStar(targetStarAttr);
-			});
+			}
 		}
-	}
+		StarsController::theModel()->preOneRound();
+	});
 }
 
 void StageOperator::gameOverRandomReplace()
 {
-	auto stars = StarsController::theModel()->getStarNodes();
-	vector<LogicGrid> grids;
-	for (int row = 0; row < ROWS_SIZE; row++)
-	{
-		for (int col = 0; col < COlUMNS_SIZE; col++)
-		{
-			grids.push_back(LogicGrid(col, row));
-		}
-	}
-	
 	int leftSteps = StageDataMgr::theMgr()->getLeftSteps();
-	auto targetGrids = getRandomGrids(grids, leftSteps);
+	auto targetGrids = getRandomActiveGrids(leftSteps);
 	GameResultReward rewardBonus;
 	float kMaxDuration = 0.5f;
 	float avgDuration = 3.0f / targetGrids.size();
@@ -244,3 +217,51 @@ void StageOperator::loadDesignatedStar(int color, int rounds)
 	StarsController::theModel()->loadDesignatedStar(kColorStar, color, rounds);
 }
 
+std::vector<LogicGrid> StageOperator::getRandomColorGrids(int num, bool hasExceptColor, int exceptColor)
+{
+	vector<LogicGrid> colorGrids;
+	auto nodes = StarsController::theModel()->getStarNodes();
+
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto attr = nodes[i]->getAttr();
+		if (attr.type == kColorStar)
+		{
+			if (hasExceptColor && exceptColor == attr.color) continue;
+			colorGrids.push_back(attr.grid);
+		}
+	}
+
+	vector<LogicGrid> grids;
+	auto seq = buildRandomSequence(colorGrids.size());
+	int size = min(num, (int)seq.size());
+	for (int i = 0; i < size; ++i)
+	{
+		grids.push_back(colorGrids[seq[i]]);
+	}
+	return grids;
+}
+
+std::vector<LogicGrid> StageOperator::getRandomActiveGrids(int num)
+{
+	vector<LogicGrid> colorGrids;
+	auto nodes = StarsController::theModel()->getStarNodes();
+
+	for (size_t i = 0; i < nodes.size(); ++i)
+	{
+		auto attr = nodes[i]->getAttr();
+		if (attr.type != kEmpty)
+		{
+			colorGrids.push_back(attr.grid);
+		}
+	}
+
+	vector<LogicGrid> grids;
+	auto seq = buildRandomSequence(colorGrids.size());
+	int size = min(num, (int)seq.size());
+	for (int i = 0; i < size; ++i)
+	{
+		grids.push_back(colorGrids[seq[i]]);
+	}
+	return grids;
+}

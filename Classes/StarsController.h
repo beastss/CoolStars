@@ -28,16 +28,17 @@ public:
 public: //对星星的操作接口
 	StarNode *getStarNode(const LogicGrid &grid);
 	std::vector<StarNode *> &getStarNodes(){ return m_starNodes; }
+	std::vector<LogicGrid> getEmptyGrids();
 	void initStarsData();
-    void moveStars();
 	void removeStarNode(StarNode *node);
 	void genNewStars();
-	void moveOneStep(bool addStep = true);
-	void onOneRoundBegan();
-	void onOneRoundEnd();
+	void initOneRound();
+	void preOneRound();//新回合的预处理
+	void endOneRound();
 	void addScore(int value);
 	void replaceStar(const StarAttr &attr);
-	void genStar(const StarAttr &attr);
+	StarNode *genNextStar(const LogicGrid &grid);
+	StarNode *genStar(const StarAttr &attr);
 	void resetStage(int gameType);
 	int getStageAmount();
 	void loadDesignatedStar(int starType, int color, int rounds);
@@ -52,24 +53,17 @@ private:
 	StarsController();
 	~StarsController();
 
-    void moveStar(StarNode *node);
 	bool isGridEmpty(const LogicGrid &grid);
 	bool noStarsToErase();
 	void reOrderStars(int times);
-	void checkGameOver();
+	bool checkGameOver();
+	void startOneRound();
+	void moveOneStep(bool addStep = true);
 private:
 	std::vector<StarNode *> m_starNodes;
 	std::vector<IStarsControlView *> m_views;
 	StageTarget m_target;
 	StarsLoader m_starsLoader;
 	StarsBehavior m_starsBehavior;
-private:
-	enum Direction
-	{
-		kMoveUp,		
-		kMoveDown,	
-		kMoveLeft,	
-		kMoveRight,
-	};
 };
 #endif

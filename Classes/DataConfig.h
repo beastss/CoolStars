@@ -18,6 +18,7 @@ struct StarsConfig
 	string explosionRes;
 	vector<int> linkStarTypes;
 	vector<int> eraseTypes;
+	bool canMove;
 };
 
 struct PetCommonConfig
@@ -108,6 +109,16 @@ struct StarsColorConfig
 	std::string bounceBallRes;
 	std::string bounceBallExplosionRes;
 	std::string desc;
+};
+
+struct GridBkConfig
+{
+	int id;
+	std::string path;
+	std::string anchor;
+	std::string pos;
+	std::vector<int> exist;
+	std::vector<int> notExist;
 };
 
 struct GameWinBonusConfig

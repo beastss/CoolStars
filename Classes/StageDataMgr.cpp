@@ -25,7 +25,7 @@ int StageDataMgr::getCurDirection()
 	{
 		index = ((m_step - 1) % dirs.size());
 	}
-	return dirs[index];
+	return dirs[index] + 1;//配置上的0 等同方向上（1）
 }
 
 int StageDataMgr::getLeftSteps()

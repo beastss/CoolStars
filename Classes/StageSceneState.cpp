@@ -84,22 +84,14 @@ StageSceneState::StageSceneState(StageStateOwner *owner)
 ////////////////////////////////////////////////////////////////////////////////////
 void StageNormalState::clickStar(const LogicGrid &grid)
 {
-	StarsEraseModule::theModel()->handleClick(grid);
+	StarsEraseModule::theModel()->linkErase(grid);
 }
 
 void StageNormalState::clickPet(int petId)
 {
 	auto pet = PetManager::petMgr()->getPetById(petId);
-	if (!pet || !pet->canUseSkill()) return;
+	if (!pet || !pet->isEnergyFull()) return;
 	int targetType = pet->getPetData().skillTarget;
-	if (targetType == kNoTarget)
-	{
-		pet->useNoTargetSkill();
-	}
-	else
-	{
-		m_owner->enterPetSkillState(petId);
-	}
 }
 
 void StageNormalState::clickProp(int propId)
@@ -155,7 +147,7 @@ void StagePetSkillState::clickStar(const LogicGrid &grid)
 	auto pet = PetManager::petMgr()->getPetById(m_curPetId);
 	if (pet)
 	{
-		pet->useToStarSkill(grid); 
+		//pet->useToStarSkill(grid); 
 		outPetSkillState();
 	}
 }
@@ -165,7 +157,7 @@ void StagePetSkillState::clickPet(int petId)
 	auto pet = PetManager::petMgr()->getPetById(m_curPetId);
 	if (pet)
 	{
-		pet->useToPetSkill(petId);
+		//pet->useToPetSkill(petId);
 		outPetSkillState();
 	}
 }

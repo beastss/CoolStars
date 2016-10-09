@@ -35,7 +35,7 @@ void MyPurchase::buyItem(int id, std::function<void()> callback)
 	s_callback = callback;
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
 	onPayResult(kReturnCodeSucceed);
-#else(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	const char* funstr = "org/cocos2dx/lib/PayAndroidApi";
 	JniMethodInfo minfo;
 	bool isHave = JniHelper::getStaticMethodInfo(minfo,

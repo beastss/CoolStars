@@ -15,10 +15,14 @@ SoundMgr *SoundMgr::theMgr()
 void SoundMgr::init()
 {
 	auto sound = DataManagerSelf->getSoundConfig();
-	m_backgroundMusic[kBackGroundMusicMain] = sound.background;
-	m_effectMusic[kEffectMusicButton] = sound.button;
-	m_effectMusic[kEffectMusicBomb] = sound.bomb;
-	m_effectMusic[kEffectStarErase] = sound.starErase;
+	m_backgroundMusic[kBackGroundMusicMainMenu] = "sounds/bk_main_menu.ogg";
+	m_backgroundMusic[kBackGroundMusicStage] = "sounds/bk_stage.ogg";
+
+	m_effectMusic[kEffectMusicButton] = "sounds/button.ogg";
+	m_effectMusic[kEffectMusicBomb] = "sounds/bomb.ogg";;
+	m_effectMusic[kEffectStarErase] = "sounds/pop.ogg";
+	m_effectMusic[kEffectStepsToRes] = "sounds/steps_to_res.ogg";
+	m_effectMusic[kEffectGameWin] = "sounds/game_win.ogg";
 
 	auto audioMgr = SimpleAudioEngine::sharedEngine();
 	for (auto iter = m_backgroundMusic.begin(); iter != m_backgroundMusic.end(); ++iter)
@@ -34,9 +38,13 @@ void SoundMgr::init()
 	loadLastSetting();
 }
 
-void SoundMgr::playBackground()
+void SoundMgr::playBackground(int bkType)
 {
-	SimpleAudioEngine::sharedEngine()->playBackgroundMusic(m_backgroundMusic[kBackGroundMusicMain].c_str(), true);
+	SimpleAudioEngine::sharedEngine()->playBackgroundMusic(m_backgroundMusic[bkType].c_str(), true);
+	if (m_isMute)
+	{
+		SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	}
 }
 
 void SoundMgr::playEffect(int effectType)
@@ -49,17 +57,6 @@ void SoundMgr::playEffect(int effectType)
 
 void SoundMgr::setMute( bool mute )
 {
-	/*
-	if (mute == m_isMute) return;
-	if (mute)
-	{
-		SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
-	}
-	else
-	{
-		playBackground();
-	}
-	*/
 	if (mute)
 	{
 		SimpleAudioEngine::sharedEngine()->pauseAllEffects();
@@ -95,7 +92,7 @@ void SoundMgr::loadLastSetting()
 	auto data = result[0];
 
 	bool isMute = atoi(data[2]) == 1;
-	playBackground();
+	playBackground(kBackGroundMusicMainMenu);
 	setMute(isMute);
 }
 

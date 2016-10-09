@@ -5,6 +5,8 @@
 #include <algorithm>
 #include "CommonMacros.h"
 #include "StageOperator.h"
+#include "StageDataMgr.h"
+#include <unordered_map>
 
 using namespace cocos2d;
 using namespace std;
@@ -13,6 +15,8 @@ StarNode *StarNode::createNodeFatory(const StarAttr &attr)
 {
 	switch (attr.type)
 	{
+	case kEmpty:
+		return NULL;
 	case kColorStar:
 		return new ColorStar(attr);
 	case kBounceBall:
@@ -37,6 +41,8 @@ StarNode *StarNode::createNodeFatory(const StarAttr &attr)
 		return new Stone2Node(attr);
 	case kStone3:
 		return new Stone3Node(attr);
+	case kTerrain:
+		return new TerrainNode(attr);
 	default:
 		assert("no this node type!");
 		return NULL;
@@ -61,6 +67,17 @@ bool StarNode::canLink(int type, int color)
 		return m_attr.color == color;
 	}
 	return false;
+}
+
+bool StarNode::canNotMove()
+{
+	return !getConfig().canMove;
+}
+
+bool StarNode::canBeRemoved()
+{ 
+	auto config = getConfig().eraseTypes;
+	return find(config.begin(), config.end(), kCanNotErase) == config.end();
 }
 
 string StarNode::getResPath()
@@ -88,12 +105,6 @@ bool StarNode::canClickErase()
 		auto grid = connectedNodes[i]->getAttr().grid;
 	}
 	return count >= CONNECT_COUNT;
-}
-
-bool StarNode::canBeRemoved()
-{
-	auto eraseTypes = getConfig().eraseTypes;
-	return find(eraseTypes.begin(), eraseTypes.end(), kCanNotErase) == eraseTypes.end();
 }
 
 void StarNode::doRemove(bool addScore)
@@ -187,13 +198,13 @@ vector<StarNode *> StarNode::getNeighbours()
 	return neighbours;
 }
 
-
-void StarNode::moveTo(LogicGrid grid)
+void StarNode::moveTo(LogicGrid grid, int direction)
 {
 	if (m_view)
 	{
-		m_view->doMove(grid);
+		m_view->doMove(grid, direction);
 	}
+	m_attr.grid = grid; 
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -323,7 +334,6 @@ void Stone2Node::onRemove()
 void BombNode::onRemove()
 {
 	return;
-	StageOp->randomErase(COlUMNS_SIZE * ROWS_SIZE);
 }
 /////////////////////////////////////////////////////////////////////////////////
 

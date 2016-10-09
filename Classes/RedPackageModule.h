@@ -6,6 +6,7 @@ enum RedPackageType
 {
 	kRedPackageDiamond,
 	kRedPackageDiamondPackage,
+	kRedPackageBomb,
 };
 
 class RedPackageModule

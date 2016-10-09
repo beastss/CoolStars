@@ -10,6 +10,7 @@ struct IPetView
 {
 	virtual void onPetEnergyChanged(int petId, int oldEnergy, int newEnergy){}
 	virtual void onNewPetAdd(){}
+	virtual void onUsePetSkill(int petId){}
 };
 
 class PetManager
@@ -32,6 +33,7 @@ public:
 	void petEnergyChanged(int petId, int oldEnergy, int newEnergy);
 	void newStageInit();
 	bool hasPetToUpgrade();
+	bool usePetSkill();
 public:
 	void addView(IPetView *view);
 	void removeView(IPetView *view);

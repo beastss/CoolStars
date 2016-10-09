@@ -4,6 +4,7 @@
 #include "StarNode.h"
 #include "LogicGridUtil.h"
 
+class ActionRunner;
 class StarViewNode : public cocos2d::CCNode
 {
 public :
@@ -16,7 +17,7 @@ public :
 	
 	LogicGrid getGrid()const {return m_model->getAttr().grid;}
 
-	void doMove(LogicGrid targetGrid);
+	void doMove(LogicGrid targetGrid, int direction);
 	cocos2d::CCPoint getPosByGrid(LogicGrid grid);
 	void removeSelf(bool withAction);
 	void showBornAnimation();
@@ -27,6 +28,7 @@ private:
 protected:
 	bool m_isExploded;
 	StarNode *m_model;
+	ActionRunner *m_runner;
 };
 
 

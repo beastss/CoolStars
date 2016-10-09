@@ -8,6 +8,7 @@
 #include "GuideMgr.h"
 #include "PauseDialog.h"
 #include "MainScene.h"
+#include "SoundMgr.h"
 using namespace cocos2d;
 
 StageScene *StageScene::s_scene = NULL;
@@ -25,6 +26,8 @@ StageScene::~StageScene()
 void StageScene::onEnter()
 {
 	BasePanel::onEnter();
+	SoundMgr::theMgr()->playBackground(kBackGroundMusicStage);
+	return;
 	// ¹«¸æ
 	MainScene::theScene()->removeAnnouncement();
 	MainScene::theScene()->setAnnouncementLoop(true);
@@ -37,6 +40,7 @@ void StageScene::onExit()
 	BasePanel::onExit();
 	s_scene = NULL;
 
+	SoundMgr::theMgr()->playBackground(kBackGroundMusicMainMenu);
 	MainScene::theScene()->removeAnnouncement();
 }
 
