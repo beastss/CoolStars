@@ -250,7 +250,7 @@ std::vector<LogicGrid> StageOperator::getRandomActiveGrids(int num)
 	for (size_t i = 0; i < nodes.size(); ++i)
 	{
 		auto attr = nodes[i]->getAttr();
-		if (attr.type != kEmpty)
+		if (attr.type != kTerrain)
 		{
 			colorGrids.push_back(attr.grid);
 		}
