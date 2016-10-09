@@ -33,7 +33,7 @@ bool PetSkillIcon::init()
 	int commandId = pet->getPetData().commonid;
 	char str[100] = { 0 };
 	auto numSize = CCSprite::create("num/ty_ziti6.png")->getContentSize();
-	if (commandId == kPetDragon)
+	if (commandId == kPetSnake)
 	{
 		sprintf(str, ";%d", pet->getPetData().skillPower);
 		auto pLabel = CCLabelAtlas::create(str, "num/ty_ziti6.png", numSize.width / 12, numSize.height, '0');
