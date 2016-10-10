@@ -9,6 +9,7 @@
 #include "PauseDialog.h"
 #include "MainScene.h"
 #include "SoundMgr.h"
+#include "PetManager.h"
 using namespace cocos2d;
 
 StageScene *StageScene::s_scene = NULL;
@@ -42,6 +43,7 @@ void StageScene::onExit()
 
 	SoundMgr::theMgr()->playBackground(kBackGroundMusicMainMenu);
 	MainScene::theScene()->removeAnnouncement();
+	PetManager::petMgr()->removeTempPets();
 }
 
 StageScene* StageScene::theScene()

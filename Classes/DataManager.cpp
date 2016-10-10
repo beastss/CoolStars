@@ -628,20 +628,21 @@ void DataManager::loadGuideConfig()
 		config.id = atoi(data[0]);
 		config.stage = atoi(data[1]);
 		config.startAction = atoi(data[2]);
-		config.endAction = atoi(data[3]);
-		config.param = atoi(data[4]);
-		config.showGuideView = atoi(data[5]) == 1;
-		config.rectType = atoi(data[6]);
+		config.startParam = atoi(data[3]);
+		config.endAction = atoi(data[4]);
+		config.endParam = atoi(data[5]);
+		config.showGuideView = atoi(data[6]) == 1;
+		config.rectType = atoi(data[7]);
 
-		auto rectVec = parseStrToFloats(data[7]);
+		auto rectVec = parseStrToFloats(data[8]);
 		assert(rectVec.size() == 4 || rectVec.empty());
 		config.targetRect = rectVec;
 
-		config.showMask = atoi(data[8]) == 1;
-		config.fingerType = atoi(data[9]);
-		config.showTextDialog = atoi(data[10]) == 1;
-		config.dialogText = data[11];
-		config.desc = data[12];
+		config.showMask = atoi(data[9]) == 1;
+		config.fingerType = atoi(data[10]);
+		config.showTextDialog = atoi(data[11]) == 1;
+		config.dialogText = data[12];
+		config.desc = data[13];
 
 		m_guideConfig.push_back(config);
 	}

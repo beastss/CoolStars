@@ -189,3 +189,39 @@ bool PetManager::usePetSkill()
 	}
 	return false;
 }
+
+void PetManager::addTempPet(int petId, int level)
+{
+	auto pet = getPetById(petId);
+	if (pet && !pet->getPetData().isOwned)
+	{
+		m_tempPets.push_back(petId);
+		pet->setLevel(level);
+	}
+}
+
+void PetManager::removeTempPets()
+{
+	for (size_t i = 0; i < m_tempPets.size(); ++i)
+	{
+		auto pet = getPetById(m_tempPets[i]);
+		if (pet)
+		{
+			pet->setLevel(0);
+		}
+	}
+	for (auto iter = m_curPets.begin(); iter != m_curPets.end();)
+	{
+		if (find(m_tempPets.begin(), m_tempPets.end(), *iter) != m_tempPets.end())
+		{
+			iter = m_curPets.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+	PetSavingHelper::recordCurActivePets();
+	m_tempPets.clear();
+
+}

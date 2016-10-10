@@ -25,7 +25,7 @@ GuideMgr::GuideMgr()
 {
 }
 
-void GuideMgr::startGuide(int startAction, std::function<void()> callback)
+void GuideMgr::startGuide(int startAction, std::function<void()> callback, int param)
 {
 	if (!m_guideEnable || m_pauseGuide) return;
 
@@ -45,7 +45,8 @@ void GuideMgr::startGuide(int startAction, std::function<void()> callback)
 			data.stage = topStage;
 		}
 		return data.stage == topStage 
-			&& data.startAction == startAction;
+			&& data.startAction == startAction
+			&& data.startParam == param;
 	});
 	
 	if (iter != configs.end())
@@ -75,7 +76,7 @@ void GuideMgr::endGuide(int endAction, int param)
 	if (m_curGuideId == kNotTriggerGuide) return;
 	
 	auto config = DataManagerSelf->getGuideConfigById(m_curGuideId);
-	if (config->endAction == endAction && config->param == param)
+	if (config->endAction == endAction && config->endParam == param)
 	{
 		finishGuide();
 	}

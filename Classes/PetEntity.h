@@ -60,13 +60,13 @@ public:
 
 	void setEnergy(int energy);
 	bool isEnergyFull() const{ return m_data.energy >= m_data.maxEnergy; }
-	void setLevel(int level){ m_data.level = level; }
 
 	bool isMaxLevel();
 	bool canUpgrade();
 	void upgrade();
 	void getThisNewPet();
 	void triggerSkill();
+	void setLevel(int level);
 	
 	static PetEntity *PetFactory(int petId);
 protected:

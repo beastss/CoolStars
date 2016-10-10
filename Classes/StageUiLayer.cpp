@@ -36,16 +36,21 @@
 #include "GuideMgr.h"
 #include "StarsEraseModule.h"
 #include "PreStagePetSlot.h"
+#include "ActionRunner.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
 StageUiLayer::StageUiLayer()
 {
 	m_stateOwner = StageScene::theScene()->getStateOwner();
+	m_runner = ActionRunner::create();
+	m_runner->retain();
 }
 
 StageUiLayer::~StageUiLayer(void)
 {
+	m_runner->clear();
+	m_runner->release();
 }
 
 StageUiLayer *StageUiLayer::create()
@@ -161,15 +166,41 @@ void StageUiLayer::initPets()
 	int uiIds[] = { 10, 11, 12, 13};
 	auto ids = PetManager::petMgr()->getCurPetIds();
 	assert(ids.size() <= 4);
+
+	m_runner->queueAction(DelayAction::withDelay(1.0f));
 	for (size_t i = 0; i < ids.size(); ++i)
 	{
-		StagePetNode *petNode = StagePetNode::create(ids[i], kStageUiTouchPriority);
-		petNode->setTouchHandle(bind(&StageUiLayer::handlePetClicked, this, placeholders::_1));
-		auto node = dynamic_cast<EmptyBox *>((m_topUi->getChildById(uiIds[i])));
-		node->setNode(petNode);
-		node->setAnchorPoint(ccp(0.5f, 0.5f));
-		m_petViews[ids[i]] = petNode;
+		int uiId = uiIds[i];
+		int petId = ids[i];
+		m_runner->queueAction(CallFuncAction::withFunctor([=]()
+		{
+			CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo("stage/pets/animation/Youxitexiao.ExportJson");
+			auto armature = CCArmature::create("Youxitexiao");
+			armature->getAnimation()->playWithIndex(0);
+			auto box = m_topUi->getChildById(uiId);
+			auto pos = convertToNodeSpace(box->getParent()->convertToWorldSpace(box->getPosition()));
+			armature->setPosition(pos);
+			armature->getAnimation()->setMovementEventCallFunc(this, SEL_MovementEventCallFunc(&StageUiLayer::bubbleFinished));
+			addChild(armature);
+		}));
+
+		m_runner->queueAction(DelayAction::withDelay(0.3f));
+		m_runner->queueAction(CallFuncAction::withFunctor([=]()
+		{
+			StagePetNode *petNode = StagePetNode::create(petId, kStageUiTouchPriority);
+			petNode->setTouchHandle(bind(&StageUiLayer::handlePetClicked, this, placeholders::_1));
+			auto node = dynamic_cast<EmptyBox *>((m_topUi->getChildById(uiId)));
+			node->setNode(petNode);
+			node->setAnchorPoint(ccp(0.5f, 0.5f));
+			m_petViews[petId] = petNode;
+		}));
+		m_runner->queueAction(DelayAction::withDelay(0.3f));
 	}
+}
+
+void StageUiLayer::bubbleFinished(cocos2d::extension::CCArmature *armature, cocos2d::extension::MovementEventType, const char *)
+{
+	armature->removeFromParent();
 }
 
 void StageUiLayer::initBottomUi()
@@ -217,6 +248,20 @@ void StageUiLayer::onOneRoundEnd()
 {
 	m_noTouchLayer->setCanTouch(false, 1);
 	CCLog("onOneRoundEnd");
+	int steps =  StageDataMgr::theMgr()->getCurStep();
+	GuideMgr::theMgr()->startGuide(kGuideStart_stage_onRound_end, bind(&StageUiLayer::tryPets, this), steps);
+}
+
+void StageUiLayer::tryPets()
+{
+	vector<int> petIds = { 2, 10, 18, 21 };//红鼠、黄兔、蓝牛、紫龙
+	const int kLevel = 2;
+	for (size_t i = 0; i < petIds.size(); ++i)
+	{
+		PetManager::petMgr()->addTempPet(petIds[i], kLevel);
+	}
+	PetManager::petMgr()->setCurPets(petIds);
+	initPets();
 }
 
 void StageUiLayer::showTargetPanel()

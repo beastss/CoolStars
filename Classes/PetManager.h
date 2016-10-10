@@ -24,6 +24,8 @@ public:
 	int getMaxPetsAmount(){ return m_pets.size(); }
 	bool ownedThisPet(int id);
 	void addNewPet(int petId);
+	void addTempPet(int petId, int level);
+	void removeTempPets();
 
 	//当前选中的宠物 ，将在关卡里出现
 	const std::vector<int> &getCurPetIds() { return m_curPets; }
@@ -45,5 +47,6 @@ private:
 	std::map<int, PetEntity *> m_pets;
 	std::vector<int> m_curPets;
 	std::vector<IPetView *>m_views;
+	std::vector<int> m_tempPets;//临时试用的宠物
 };
 #endif

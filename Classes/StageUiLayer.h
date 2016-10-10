@@ -15,6 +15,8 @@ class StagePetNode;
 class UiLayout;
 class StageStateOwner;
 class NoTouchLayer;
+class ActionRunner;
+
 class StageUiLayer
     : public cocos2d::CCNode
 	, public IStageDataView
@@ -67,11 +69,13 @@ private:
 	void showPetsSkillPanel();
 	void showPropsGuide();
 	void refreshRedPackage();
+	void tryPets();
 
 	void onPauseBtnClicked(CCObject *pSender);
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	void playExplosionAction(cocos2d::CCPoint pos);
 	void removeExplosionAnimation(cocos2d::extension::CCArmature *, cocos2d::extension::MovementEventType, const char *);
+	void bubbleFinished(cocos2d::extension::CCArmature *, cocos2d::extension::MovementEventType, const char *);
 	const cocos2d::CCPoint &getStarPos(const LogicGrid &grid);
 
 	void onTick(float dt);
@@ -89,5 +93,6 @@ private:
 	NoTouchLayer *m_noTouchLayer;
 	unordered_map<int, cocos2d::CCPoint> m_starsPos; //用于保存stars的位置
 	TickClock m_clock;
+	ActionRunner *m_runner;
 };
 #endif // __PANELLLAYER_H__

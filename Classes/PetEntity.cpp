@@ -133,6 +133,14 @@ void PetEntity::upgrade()
 	PetSavingHelper::setPetState(m_data);
 }
 
+void PetEntity::setLevel(int level)
+{
+	m_data.level = min(max(1, level), m_data.maxLevel);
+	m_data.isOwned = level != 0;
+	refreshPetData();
+	//²»×ö±£´æ
+}
+
 void PetEntity::setEnergy(int energy)
 {
 	int value = max(0, min(energy, m_data.maxEnergy));

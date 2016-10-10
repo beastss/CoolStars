@@ -197,8 +197,9 @@ struct GuideConfig
 	int id;
 	int stage;
 	int startAction;
+	int startParam;
 	int endAction;
-	int param;
+	int endParam;
 	bool showGuideView;
 	int rectType;
 	std::vector<float>targetRect;
