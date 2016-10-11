@@ -68,11 +68,11 @@ void StageOperator::petRandomErase(int petId, int num)
 	});
 }
 
-void StageOperator::addSteps(int amount)
+void StageOperator::petAddSteps(int petId, int amount)
 {
 	auto stageInfo = StageDataMgr::theMgr();
 	int curStep = stageInfo->getCurStep();
-	stageInfo->setCurStep(curStep - amount);
+	StageLayersMgr::theMgr()->petChangeStep(petId, curStep - amount);
 }
 
 void StageOperator::changeColor(const StarAttr &attr)
@@ -80,9 +80,9 @@ void StageOperator::changeColor(const StarAttr &attr)
 	StarsController::theModel()->replaceStar(attr);
 }
 
-void StageOperator::addPetEnergy(int petId, int value)
+void StageOperator::addPetEnergy(int fromPetId, int toPetId, int energy)
 {
-	PetManager::petMgr()->addPetEnergy(petId, value);
+	StageLayersMgr::theMgr()->addPetEnergy(fromPetId, toPetId, energy);
 }
 
 void StageOperator::removePetDebuff(int who)

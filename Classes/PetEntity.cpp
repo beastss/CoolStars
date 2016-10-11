@@ -209,7 +209,7 @@ bool PetOx::canUseSkill()
 
 void PetTiger::useSkill()
 {
-	StageOp->addSteps(m_data.skillPower);//如果使用技能也算一步 需要+1
+	StageOp->petAddSteps(m_data.petId, m_data.skillPower);//如果使用技能也算一步 需要+1
 	StarsController::theModel()->preOneRound();
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -278,7 +278,7 @@ void PetMonkey::useSkill()
 	if (!targetPetIds.empty())
 	{
 		int index = CommonUtil::getRandomValue(0, targetPetIds.size() - 1);
-		StageOp->addPetEnergy(targetPetIds[index], m_data.skillPower);
+		StageOp->addPetEnergy(m_data.petId, targetPetIds[index], m_data.skillPower);
 		StarsController::theModel()->preOneRound();
 	}
 }

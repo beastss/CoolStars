@@ -57,6 +57,8 @@ public:
 	virtual void onLinkErase(int num);
 	virtual void onPetSpreadStar(int petId, const vector<LogicGrid> &grids, std::function<void()> callback);
 	virtual void onRedPackageBomb();
+	virtual void onPetChangeStep(int petId, int newSteps);
+	virtual void onAddPetEnergy(int fromPetId, int toPetId, int energy);
 public:
 	void showChangeColorPanel(int myColor, const LogicGrid &grid);
 private:

@@ -698,6 +698,63 @@ void StageUiLayer::onRedPackageBomb()
 	bomb->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
 }
 
+void StageUiLayer::onPetChangeStep(int petId, int newSteps)
+{
+	auto iter = m_petViews.find(petId);
+	if (iter != m_petViews.end())
+	{
+		static const float kDutation = 1.0f;
+		auto stepNum = m_topUi->getChildById(17);
+		auto targetPos = stepNum->getParent()->convertToWorldSpace(stepNum->getPosition());
+
+		auto petView = iter->second;
+		auto sourcePos = petView->getParent()->convertToWorldSpace(petView->getPosition());
+		sourcePos.y -= petView->getContentSize().height * 0.40f;
+
+		CCNode *starImg = PetSkillIcon::create(petId);
+		starImg->setPosition(sourcePos);
+		addChild(starImg);
+
+		auto moveTo = CCMoveTo::create(kDutation, targetPos);
+		auto func = CCFunctionAction::create([=]()
+		{
+			starImg->removeFromParent();
+			StageDataMgr::theMgr()->setCurStep(newSteps);
+		});
+		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
+	}
+}
+
+void StageUiLayer::onAddPetEnergy(int fromPetId, int toPetId, int energy)
+{
+	auto fromPetIter = m_petViews.find(fromPetId);
+	auto toPetIter = m_petViews.find(fromPetId);
+	if (fromPetIter != m_petViews.end() && toPetIter != m_petViews.end())
+	{
+		static const float kDutation = 1.0f;
+
+		auto fromPet = toPetIter->second;
+		auto targetPos = fromPet->getParent()->convertToWorldSpace(fromPet->getPosition());
+		targetPos.y -= fromPet->getContentSize().height * 0.40f;;
+
+		auto toPet = toPetIter->second;
+		auto sourcePos = toPet->getParent()->convertToWorldSpace(toPet->getPosition());
+		sourcePos.y -= toPet->getContentSize().height * 0.40f;
+
+		CCNode *starImg = PetSkillIcon::create(fromPetId);
+		starImg->setPosition(sourcePos);
+		addChild(starImg);
+
+		auto moveTo = CCMoveTo::create(kDutation, targetPos);
+		auto func = CCFunctionAction::create([=]()
+		{
+			starImg->removeFromParent();
+			PetManager::petMgr()->addPetEnergy(toPetId, energy);
+		});
+		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
+	}
+}
+
 void StageUiLayer::gameOverSpreadStars(const GoodsData &data, const LogicGrid &targetGrid, std::function<void()> callback)
 {
 	SoundMgr::theMgr()->playEffect(kEffectStepsToRes);

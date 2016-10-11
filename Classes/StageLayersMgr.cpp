@@ -86,3 +86,13 @@ void StageLayersMgr::petSpreadStar(int petId, const vector<LogicGrid> &grids, fu
 {
 	NOTIFY_LAYERSS(onPetSpreadStar, petId, grids, callback);
 }
+
+void StageLayersMgr::petChangeStep(int petId, int newSteps)
+{
+	NOTIFY_LAYERSS(onPetChangeStep, petId, newSteps);
+}
+
+void StageLayersMgr::addPetEnergy(int fromPetId, int toPetId, int energy)
+{
+	NOTIFY_LAYERSS(onAddPetEnergy, fromPetId, toPetId, energy);
+}

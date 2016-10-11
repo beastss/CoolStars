@@ -20,7 +20,8 @@ struct IStageLayer
 	virtual void onExplodeGrid(const LogicGrid &grid){}
 	virtual void onGuideViewRemoved(int guideId){}
 	virtual void onPetSpreadStar(int petId, const vector<LogicGrid> &grids, std::function<void()> callback){}
-	
+	virtual void onPetChangeStep(int petId, int newSteps){}
+	virtual void onAddPetEnergy(int fromPetId, int toPetId, int energy){}
 };
 
 #define NOTIFY_LAYERSS(_FUNC_ ,...)						 \
@@ -51,6 +52,8 @@ public:
 	void removeGuideView(int guideId);
 	void linkErase(int num);
 	void petSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback);
+	void petChangeStep(int petId, int newSteps);
+	void addPetEnergy(int fromPetId, int toPetId, int energy);
 private:
 	StageLayersMgr(){}
 private:
