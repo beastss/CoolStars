@@ -13,15 +13,19 @@
 #include "PetManager.h"
 #include "StarsMover.h"
 #include <memory>
+#include "ActionRunner.h"
 USING_NS_CC;
 using namespace std;
 StarsController::StarsController()
 {
-
+	m_runner = ActionRunner::create();
+	m_runner->retain();
 }
 
 StarsController::~StarsController()
 {
+	m_runner->clear();
+	m_runner->release();
 }
 
 StarsController *StarsController::theModel()
@@ -217,6 +221,14 @@ void StarsController::preOneRound()
 	if (!PetManager::petMgr()->usePetSkill())
 	{
 		startOneRound();
+	}
+	else
+	{
+		m_runner->queueAction(DelayAction::withDelay(3.0f));
+		m_runner->queueAction(CallFuncAction::withFunctor([=]()
+		{
+			preOneRound();
+		}));
 	}
 }
 

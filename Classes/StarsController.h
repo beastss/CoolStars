@@ -9,6 +9,7 @@
 #include "StarsLoader.h"
 #include "StarsBehavior.h"
 
+class ActionRunner;
 struct IStarsControlView
 {
 	virtual void onCreateNewStar(StarNode *node){}
@@ -65,5 +66,6 @@ private:
 	StageTarget m_target;
 	StarsLoader m_starsLoader;
 	StarsBehavior m_starsBehavior;
+	ActionRunner *m_runner;
 };
 #endif

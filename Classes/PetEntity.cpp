@@ -210,7 +210,6 @@ bool PetOx::canUseSkill()
 void PetTiger::useSkill()
 {
 	StageOp->petAddSteps(m_data.petId, m_data.skillPower);//如果使用技能也算一步 需要+1
-	StarsController::theModel()->preOneRound();
 }
 //////////////////////////////////////////////////////////////////////////////
 
@@ -240,7 +239,6 @@ void PetSnake::useSkill()
 	StageLayersMgr::theMgr()->doubleScore();
 	auto info = StageDataMgr::theMgr();
 	info->setNextScoreBonus(m_data.skillPower);
-	StarsController::theModel()->preOneRound();
 }
 //////////////////////////////////////////////////////////////////////////////
 
@@ -279,7 +277,6 @@ void PetMonkey::useSkill()
 	{
 		int index = CommonUtil::getRandomValue(0, targetPetIds.size() - 1);
 		StageOp->addPetEnergy(m_data.petId, targetPetIds[index], m_data.skillPower);
-		StarsController::theModel()->preOneRound();
 	}
 }
 
@@ -291,7 +288,6 @@ bool PetMonkey::canUseSkill()
 void PetRooster::useSkill()
 {
 	StageOp->loadDesignatedStar(m_data.color, m_data.skillPower);//使用技能也算一步 需要+1
-	StarsController::theModel()->preOneRound();
 }
 //////////////////////////////////////////////////////////////////////////////
 void PetDog::useSkill()
