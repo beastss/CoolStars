@@ -364,6 +364,9 @@ void PetScene::refreshUi()
 		CCLabelAtlas *skillPower = dynamic_cast<CCLabelAtlas *>(m_mainLayout->getChildById(23));
 		skillPower->setString(CommonUtil::intToStr(data.skillPower));
 
+		CCLabelAtlas *skillEnergy = dynamic_cast<CCLabelAtlas *>(m_mainLayout->getChildById(30));
+		skillEnergy->setString(CommonUtil::intToStr(data.maxEnergy));
+
 		auto skillIcon = PetSkillIcon::create(petId);
 		EmptyBox *skillIconBox = dynamic_cast<EmptyBox *>(m_mainLayout->getChildById(24));
 		skillIconBox->setNode(skillIcon);

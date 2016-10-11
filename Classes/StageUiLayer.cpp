@@ -255,10 +255,10 @@ void StageUiLayer::onOneRoundEnd()
 void StageUiLayer::tryPets()
 {
 	vector<int> petIds = { 2, 10, 18, 21 };//红鼠、黄兔、蓝牛、紫龙
-	const int kLevel = 2;
+	vector<int> levels = { 2, 2, 2, 3 };
 	for (size_t i = 0; i < petIds.size(); ++i)
 	{
-		PetManager::petMgr()->addTempPet(petIds[i], kLevel);
+		PetManager::petMgr()->addTempPet(petIds[i], levels[i]);
 	}
 	PetManager::petMgr()->setCurPets(petIds);
 	initPets();

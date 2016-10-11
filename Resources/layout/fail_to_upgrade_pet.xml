@@ -11,7 +11,7 @@
 	<image>
 		<id>2</id>
 		<x>146.89</x>
-		<y>156.79</y>
+		<y>164.81</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -30,7 +30,7 @@
 	<button>
 		<id>4</id>
 		<x>80.62</x>
-		<y>64.79</y>
+		<y>61.84</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -40,8 +40,8 @@
 	</button>
 	<button>
 		<id>5</id>
-		<x>212.52</x>
-		<y>65.00</y>
+		<x>213.58</x>
+		<y>62.05</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -51,17 +51,17 @@
 	</button>
 	<image>
 		<id>9</id>
-		<x>137.81</x>
-		<y>166.52</y>
+		<x>135.07</x>
+		<y>175.38</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>1.2s0</scale>
+		<scale>1.20</scale>
 		<path>pet_img/gou_hong.png</path>
 	</image>
 	<image>
 		<id>7</id>
-		<x>181.70</x>
-		<y>140.77</y>
+		<x>183.81</x>
+		<y>149.63</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -69,13 +69,21 @@
 	</image>
 	<image>
 		<id>8</id>
-		<x>179.80</x>
+		<x>186.76</x>
 		<y>205.35</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
 		<path>stage/dialog/pic_1_1.png</path>
 	</image>
-	
+	<image>
+		<id>10</id>
+		<x>148.78</x>
+		<y>104.68</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/dialog/pic_27.png</path>
+	</image>
 </layout>
 

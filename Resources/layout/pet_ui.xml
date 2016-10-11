@@ -182,5 +182,25 @@
 		<selected>pet/btn_1.png</selected>
 		<disabled>pet/btn_1.png</disabled>
 	</button>
+	<image>
+		<id>29</id>
+		<x>162.71</x>
+		<y>240.44</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+		<path>pet/ty_picture_9.png</path>
+	</image>
+	<imageNum>
+		<id>30</id>
+		<x>269.70</x>
+		<y>251.62</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>0.50</scale>
+		<amount>10</amount>
+		<num>15</num>
+		<path>num/ty_ziti1.png</path>
+	</imageNum>
 </layout>
 
