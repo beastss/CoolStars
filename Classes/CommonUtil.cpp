@@ -181,11 +181,18 @@ std::vector<GoodsData> CommonUtil::getGoodsDatas(const std::string &str)
 	return datas;
 }
 
-cocos2d::CCAction *CommonUtil::getRepeatScaleAction(float scale, float toScaleTime, float toNormalTime)
+cocos2d::CCAction *CommonUtil::getScaleAction(bool loop, float scale, float toScaleTime, float toNormalTime)
 {
 	auto scaleSmall = CCScaleTo::create(toScaleTime, scale);
 	auto scaleNormal = CCScaleTo::create(toNormalTime, 1.0f);
-
-	auto seq = CCRepeatForever::create(CCSequence::create(scaleSmall, scaleNormal, NULL));
+	CCAction *seq = NULL;
+	if (loop)
+	{
+		seq = CCRepeatForever::create(CCSequence::create(scaleSmall, scaleNormal, NULL));
+	}
+	else
+	{
+		seq = CCSequence::create(scaleSmall, scaleNormal, NULL);
+	}
 	return seq;
 }

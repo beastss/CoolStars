@@ -22,7 +22,7 @@ enum GuideStartAction
 	kGuideStart_ranking_in = 60,
 
 	kGuideStart_lottery_in = 70,
-	kGuideStart_lottery_use_all_keys,
+	kGuideStart_lottery_key_run_out,
 	kGuideStart_lottery_panel_move_done,
 
 	kGuideStart_pet_in = 80,

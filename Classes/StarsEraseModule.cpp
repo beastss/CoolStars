@@ -59,6 +59,10 @@ void StarsEraseModule::linkErase(const LogicGrid &grid)
 				m_runner->queueAction(DelayAction::withDelay(0.1f));
 			}
 		}
+		m_runner->queueAction(CallFuncAction::withFunctor([=]()
+		{
+			addLinkEraseBonus(count);
+		}));
 	}
 }
 void StarsEraseModule::addLinkEraseBonus(int num)

@@ -110,11 +110,26 @@ void LotteryNode::openReward(bool consume)
 
 	CCSprite *goods = dynamic_cast<CCSprite *>(m_goodsLayout->getChildById(1));
 	goods->initWithFile(resPath.c_str());
+	if (data.type == kLotteryPet)
+	{
+		goods->runAction(CommonUtil::getScaleAction(false));
+	}
 	m_goodsLayout->getChildById(2)->setVisible(false);
 	
 	m_goodsLayout->runAction(getRewardOutAction(goodsNum));
 
 	LotteryModel::theModel()->doLottery(data, consume);
+	m_panel->setTouchEnable(false);
+	auto func = CCFunctionAction::create([=]
+	{
+		int key = UserInfo::theInfo()->getKey();
+		if (key == 0)
+		{
+			GuideMgr::theMgr()->startGuide(kGuideStart_lottery_key_run_out);
+		}
+		m_panel->setTouchEnable(true);
+	});
+	runAction(CCSequence::create(CCDelayTime::create(1.5f), func, NULL));
 }
 
 CCAction *LotteryNode::getRewardOutAction(int num)
@@ -308,7 +323,7 @@ void LotteryScene::openAllBoxs()
 	int boxIds[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 	for (int i = 0; i < 9; ++i)
 	{
-		int id = boxIds[i];
+		int id = boxIds[i];;
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
 		{
 			auto box = dynamic_cast<EmptyBox *>(m_layout->getChildById(id));
@@ -391,4 +406,9 @@ void LotteryScene::runKeyMoveAction(cocos2d::CCPoint target, std::function<void(
 	});
 	spr->runAction(CCSequence::create(move, func, NULL));
 
+}
+
+void LotteryScene::setTouchEnable(bool enable)
+{ 
+	m_noTouchLayer->setCanTouch(enable);
 }

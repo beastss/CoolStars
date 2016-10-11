@@ -52,7 +52,7 @@ void PackageDialog::initLayout()
 
 	CCMenuItem *buyBtn = dynamic_cast<CCMenuItem *>(m_layout->getChildById(9));
 	buyBtn->setTarget(this, menu_selector(PackageDialog::onBuyBtnClicked));
-	buyBtn->runAction(CommonUtil::getRepeatScaleAction());
+	buyBtn->runAction(CommonUtil::getScaleAction());
 	
 	auto config = DataManagerSelf->getPackageConfig(m_type);
 

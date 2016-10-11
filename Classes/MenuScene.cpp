@@ -73,7 +73,7 @@ void MenuScene::initMainLayout()
 {
 	CCMenuItem * normalBtn= dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(6)));
 	normalBtn->setTarget(this, menu_selector(MenuScene::toNormalGame));
-	normalBtn->runAction(CommonUtil::getRepeatScaleAction());
+	normalBtn->runAction(CommonUtil::getScaleAction());
 
 	//CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
 	//treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
