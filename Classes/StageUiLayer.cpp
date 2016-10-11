@@ -728,18 +728,17 @@ void StageUiLayer::onPetChangeStep(int petId, int newSteps)
 void StageUiLayer::onAddPetEnergy(int fromPetId, int toPetId, int energy)
 {
 	auto fromPetIter = m_petViews.find(fromPetId);
-	auto toPetIter = m_petViews.find(fromPetId);
+	auto toPetIter = m_petViews.find(toPetId);
 	if (fromPetIter != m_petViews.end() && toPetIter != m_petViews.end())
 	{
 		static const float kDutation = 1.0f;
 
-		auto fromPet = toPetIter->second;
-		auto targetPos = fromPet->getParent()->convertToWorldSpace(fromPet->getPosition());
-		targetPos.y -= fromPet->getContentSize().height * 0.40f;;
+		auto fromPet = fromPetIter->second;
+		auto sourcePos = fromPet->getParent()->convertToWorldSpace(fromPet->getPosition());
+		sourcePos.y -= fromPet->getContentSize().height * 0.40f;;
 
 		auto toPet = toPetIter->second;
-		auto sourcePos = toPet->getParent()->convertToWorldSpace(toPet->getPosition());
-		sourcePos.y -= toPet->getContentSize().height * 0.40f;
+		auto targetPos = toPet->getParent()->convertToWorldSpace(toPet->getPosition());
 
 		CCNode *starImg = PetSkillIcon::create(fromPetId);
 		starImg->setPosition(sourcePos);
