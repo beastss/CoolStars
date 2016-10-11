@@ -187,7 +187,7 @@ void PreStagePetSlot::onSelectItemCallback(int index)
 		int oldPetId = m_curPetId;
 		m_curPetId = petId;
 		PreStageModel::theModel()->selectPet(petId, oldPetId);
-		GuideMgr::theMgr()->endGuide(kGuideEnd_preStage_select_pet, petId);
+		GuideMgr::theMgr()->endGuide(kGuideEnd_preStage_select_pet, function<void()>(), petId);
 	}
 }
 

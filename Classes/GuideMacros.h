@@ -17,6 +17,7 @@ enum GuideStartAction
 	kGuideStart_stage_in_pet_skill_state,
 	kGuideStart_stage_props_guide,
 	kGuideStart_stage_onRound_end,
+	kGuideStart_stage_try_pet_guide,
 
 	kGuideStart_ranking_in = 60,
 

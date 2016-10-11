@@ -97,12 +97,13 @@ bool StageUiLayer::init()
 	m_topUi->setMenuTouchPriority(kStageUiTouchPriority);
 	addChild(m_topUi);
 
+	m_noTouchLayer = NoTouchLayer::create();
+	addChild(m_noTouchLayer);
+
 	initTopUi();
 	initPets();
 	initBottomUi();
 	initGameStart();
-	m_noTouchLayer = NoTouchLayer::create();
-	addChild(m_noTouchLayer);
 
 	m_clock.setTickHandle(bind(&StageUiLayer::onTick, this, placeholders::_1));
     return true;
@@ -167,6 +168,7 @@ void StageUiLayer::initPets()
 	auto ids = PetManager::petMgr()->getCurPetIds();
 	assert(ids.size() <= 4);
 
+	m_noTouchLayer->setCanTouch(false, 3);
 	m_runner->queueAction(DelayAction::withDelay(1.0f));
 	for (size_t i = 0; i < ids.size(); ++i)
 	{
@@ -196,6 +198,10 @@ void StageUiLayer::initPets()
 		}));
 		m_runner->queueAction(DelayAction::withDelay(0.3f));
 	}
+	m_runner->queueAction(CallFuncAction::withFunctor([=]()
+	{
+		m_noTouchLayer->setCanTouch(true, 3);
+	}));
 }
 
 void StageUiLayer::bubbleFinished(cocos2d::extension::CCArmature *armature, cocos2d::extension::MovementEventType, const char *)
@@ -248,8 +254,8 @@ void StageUiLayer::onOneRoundEnd()
 {
 	m_noTouchLayer->setCanTouch(false, 1);
 	CCLog("onOneRoundEnd");
-	int steps =  StageDataMgr::theMgr()->getCurStep();
-	GuideMgr::theMgr()->startGuide(kGuideStart_stage_onRound_end, bind(&StageUiLayer::tryPets, this), steps);
+	int steps = StageDataMgr::theMgr()->getCurStep();
+	GuideMgr::theMgr()->startGuide(kGuideStart_stage_onRound_end, function<void()>(), steps);
 }
 
 void StageUiLayer::tryPets()
@@ -762,9 +768,10 @@ void StageUiLayer::onTouchEnable(bool canTouch)
 	m_noTouchLayer->setCanTouch(canTouch);
 }
 
-void StageUiLayer::onGuideViewRemoved()
+void StageUiLayer::onGuideViewRemoved(int guideId)
 {
-	GuideMgr::theMgr()->startGuide(kGuideStart_stage_props_guide, bind(&StageUiLayer::showPropsGuide, this));
+	GuideMgr::theMgr()->startGuide(kGuideStart_stage_props_guide, bind(&StageUiLayer::showPropsGuide, this), guideId);
+	GuideMgr::theMgr()->startGuide(kGuideStart_stage_try_pet_guide, bind(&StageUiLayer::tryPets, this), guideId);
 }
 
 void StageUiLayer::showPropsGuide()

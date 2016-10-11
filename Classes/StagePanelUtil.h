@@ -57,6 +57,7 @@ private:
 	FailToUpgradePetDialog(int usage):m_usage(usage){}
 	virtual bool init();
 	void onCancel(cocos2d::CCObject* pSender);
+	void onExit(cocos2d::CCObject* pSender);
 	void onToPetScene(cocos2d::CCObject* pSender);
 private:
 	int m_usage;

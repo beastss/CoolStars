@@ -171,6 +171,12 @@ bool FailToUpgradePetDialog::init()
 	addMaskLayer();
 	CCMenuItem *cancelBtn = dynamic_cast<CCMenuItem *>((layout->getChildById(4)));
 	cancelBtn->setTarget(this, menu_selector(FailToUpgradePetDialog::onCancel));
+	cancelBtn->setVisible(m_usage == kUsageStageFail);
+
+	CCMenuItem *exitBtn = dynamic_cast<CCMenuItem *>((layout->getChildById(11)));
+	exitBtn->setTarget(this, menu_selector(FailToUpgradePetDialog::onExit));
+	exitBtn->setVisible(m_usage == kUsageExitGame);
+
 	CCMenuItem *toPetSceneBtn = dynamic_cast<CCMenuItem *>((layout->getChildById(5)));
 	toPetSceneBtn->setTarget(this, menu_selector(FailToUpgradePetDialog::onToPetScene));
 
@@ -206,14 +212,7 @@ bool FailToUpgradePetDialog::init()
 void FailToUpgradePetDialog::onCancel(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	if (m_usage == kUsageExitGame)
-	{
-		MainScene::theScene()->exitGame();
-	}
-	else
-	{
-		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
-	}
+	MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
 	removeFromParent();
 }
 
@@ -228,5 +227,12 @@ void FailToUpgradePetDialog::onToPetScene(cocos2d::CCObject* pSender)
 	{
 		MainScene::theScene()->showPanel(kPetPanel, kPetSceneFromStageScene);
 	}
+	removeFromParent();
+}
+
+void FailToUpgradePetDialog::onExit(cocos2d::CCObject* pSender)
+{
+	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+	MainScene::theScene()->exitGame();
 	removeFromParent();
 }

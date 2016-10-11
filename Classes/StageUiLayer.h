@@ -53,7 +53,7 @@ public:
 	virtual void onExplodeGrid(const LogicGrid &grid);
 	virtual void onOneRoundBegan();
 	virtual void onOneRoundEnd();
-	virtual void onGuideViewRemoved();
+	virtual void onGuideViewRemoved(int guideId);
 	virtual void onLinkErase(int num);
 	virtual void onPetSpreadStar(int petId, const vector<LogicGrid> &grids, std::function<void()> callback);
 	virtual void onRedPackageBomb();

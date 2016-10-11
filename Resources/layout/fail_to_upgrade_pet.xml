@@ -85,5 +85,16 @@
 		<scale>1.00</scale>
 		<path>stage/dialog/pic_27.png</path>
 	</image>
+		<button>
+		<id>11</id>
+		<x>80.62</x>
+		<y>61.84</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>stage/dialog/btn_a.png</normal>
+		<selected>stage/dialog/btn_a.png</selected>
+		<disabled>stage/dialog/btn_a.png</disabled>
+	</button>
 </layout>
 

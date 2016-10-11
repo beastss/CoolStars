@@ -72,9 +72,9 @@ void StageLayersMgr::explodeGrid(const LogicGrid &grid)
 	NOTIFY_LAYERSS(onExplodeGrid, grid);
 }
 
-void StageLayersMgr::removeGuideView()
+void StageLayersMgr::removeGuideView(int guideId)
 {
-	NOTIFY_LAYERSS(onGuideViewRemoved);
+	NOTIFY_LAYERSS(onGuideViewRemoved, guideId);
 }
 
 void StageLayersMgr::linkErase(int num)

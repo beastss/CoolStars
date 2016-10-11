@@ -69,7 +69,7 @@ void GuideMgr::startGuide(int startAction, std::function<void()> callback, int p
 	}
 }
 
-void GuideMgr::endGuide(int endAction, int param)
+void GuideMgr::endGuide(int endAction, std::function<void()> callback, int param)
 {
 	if (!m_guideEnable) return;
 
@@ -79,6 +79,7 @@ void GuideMgr::endGuide(int endAction, int param)
 	if (config->endAction == endAction && config->endParam == param)
 	{
 		finishGuide();
+		if (callback) callback();
 	}
 }
 

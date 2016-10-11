@@ -36,7 +36,7 @@ void GuideView::onExit()
 {
 	CCNode::onExit();
 	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
-	StageLayersMgr::theMgr()->removeGuideView();
+	StageLayersMgr::theMgr()->removeGuideView(m_guideId);
 }
 
 bool GuideView::init()

@@ -11,7 +11,7 @@ public:
 	void init();
 
 	void startGuide(int startAction, std::function<void()> callback = std::function<void()>(), int param = 0);
-	void endGuide(int endAction, int param = 0);
+	void endGuide(int endAction, std::function<void()> callback = std::function<void()>(), int param = 0);
 
 	void setGuideEnable(bool enable);
 	void pauseGuide(bool pause){ m_pauseGuide = pause; }//用于运行在对引导的屏蔽

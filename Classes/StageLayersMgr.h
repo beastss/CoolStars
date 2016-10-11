@@ -18,7 +18,7 @@ struct IStageLayer
 	virtual void onEraseStarsStart(){}
 	virtual void onEraseStarsEnd(){}
 	virtual void onExplodeGrid(const LogicGrid &grid){}
-	virtual void onGuideViewRemoved(){}
+	virtual void onGuideViewRemoved(int guideId){}
 	virtual void onPetSpreadStar(int petId, const vector<LogicGrid> &grids, std::function<void()> callback){}
 	
 };
@@ -48,7 +48,7 @@ public:
 	void doubleScore();
 	void touchEnable(bool canTouch);
 	void explodeGrid(const LogicGrid &grid);
-	void removeGuideView();
+	void removeGuideView(int guideId);
 	void linkErase(int num);
 	void petSpreadStar(int petId, const vector<LogicGrid> &grids, function<void()> callback);
 private:
