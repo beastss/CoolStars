@@ -116,12 +116,12 @@ void StageUiLayer::initGameStart()
 	{
 		//如果上次是第一次失败，弹出提示框
 		auto dialog = FailHitDialog::create();
-		dialog->setHandle(bind(&StageUiLayer::showTargetPanel, this));
+		dialog->setHandle(bind(&StageUiLayer::showPropsPackage, this));
 		MainScene::theScene()->showDialog(dialog);
 	}
 	else
 	{
-		showTargetPanel();
+		showPropsPackage();
 	}
 }
 
@@ -268,6 +268,24 @@ void StageUiLayer::tryPets()
 	}
 	PetManager::petMgr()->setCurPets(petIds);
 	initPets();
+}
+
+void StageUiLayer::showPropsPackage()
+{
+	int stage = StageDataMgr::theMgr()->getTopStage();
+	//每三关弹出道具礼包
+	if (stage % 3 == 0)
+	{
+		auto dialog = PackageDialog::create(kPackageProps);
+		dialog->setCancelHandle(bind(&StageUiLayer::showTargetPanel, this));
+		dialog->setConfirmHandle(bind(&StageUiLayer::showTargetPanel, this));
+		MainScene::theScene()->showDialog(dialog);
+	}
+	else
+	{
+		showTargetPanel();
+	}
+
 }
 
 void StageUiLayer::showTargetPanel()

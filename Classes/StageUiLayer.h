@@ -33,7 +33,6 @@ public:
 	void initTopUi();
 	void initPets();
 	void initBottomUi();
-	void showTargetPanel();
 	std::unordered_map<int, cocos2d::CCPoint> getPetViewsInfo();
 	void gameOverSpreadStars(const GoodsData &data, const LogicGrid &targetGrid, std::function<void()> callback);
 public:
@@ -72,6 +71,8 @@ private:
 	void showPropsGuide();
 	void refreshRedPackage();
 	void tryPets();
+	void showTargetPanel();
+	void showPropsPackage();
 
 	void onPauseBtnClicked(CCObject *pSender);
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
