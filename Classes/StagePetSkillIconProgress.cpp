@@ -89,6 +89,7 @@ void StagePetSkillIconProgress::setPercentage(float value, bool withAction)
 	}
 	else
 	{
+		m_progress->stopAllActions();
 		m_progress->setPercentage(value);
 		m_layout->getChildById(3)->setVisible(pet->isEnergyFull());
 	}
