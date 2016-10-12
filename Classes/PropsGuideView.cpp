@@ -1,7 +1,20 @@
 #include "PropsGuideView.h"
 #include "CCFunctionAction.h"
+#include "CommonMacros.h"
 USING_NS_CC;
 using namespace std;
+
+void PropsGuideView::onEnter()
+{
+	CCNode::onEnter();
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kGuideTouchPriority, true);
+}
+
+void PropsGuideView::onExit()
+{
+	CCNode::onExit();
+	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+}
 
 bool PropsGuideView::init()
 {

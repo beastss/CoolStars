@@ -33,7 +33,6 @@ public: //对星星的操作接口
 	void initStarsData();
 	void removeStarNode(StarNode *node);
 	void genNewStars();
-	void initOneRound();
 	void preOneRound();//新回合的预处理
 	void endOneRound();
 	void addScore(int value);
@@ -58,7 +57,6 @@ private:
 	bool noStarsToErase();
 	void reOrderStars(int times);
 	bool checkGameOver();
-	void startOneRound();
 	void moveOneStep(bool addStep = true);
 private:
 	std::vector<StarNode *> m_starNodes;

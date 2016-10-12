@@ -720,6 +720,7 @@ void StageUiLayer::onPetChangeStep(int petId, int newSteps)
 		{
 			starImg->removeFromParent();
 			StageDataMgr::theMgr()->setCurStep(newSteps);
+			StarsController::theModel()->preOneRound();
 		});
 		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
 	}
@@ -749,6 +750,7 @@ void StageUiLayer::onAddPetEnergy(int fromPetId, int toPetId, int energy)
 		{
 			starImg->removeFromParent();
 			PetManager::petMgr()->addPetEnergy(toPetId, energy);
+			StarsController::theModel()->preOneRound();
 		});
 		starImg->runAction(CCSequence::create(CCEaseExponentialInOut::create(moveTo), CCDelayTime::create(0.5f), func, NULL));
 	}

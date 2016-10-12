@@ -207,43 +207,36 @@ void StarsController::reOrderStars(int times)
 	
 }
 
-void StarsController::initOneRound()
-{
-	if (!checkGameOver())
-	{
-		preOneRound();
-		StageDataMgr::theMgr()->newRound();
-	}
-}
-
 void StarsController::preOneRound()
 {
 	if (!PetManager::petMgr()->usePetSkill())
 	{
-		startOneRound();
+		if (!checkGameOver())
+		{
+			StageDataMgr::theMgr()->newRound();
+
+			m_starsBehavior.onOneRoundBegin();
+			//游戏中没有可消除的星星 则重排
+			if (noStarsToErase())
+			{
+				reOrderStars(0);
+			}
+
+			NOTIFY_VIEWS(onOneRoundBegan)
+		}
+		CCLOG("one round begin");
 	}
+	/*
 	else
 	{
+		CCLOG("use PetSkill");
 		m_runner->queueAction(DelayAction::withDelay(3.0f));
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
 		{
 			preOneRound();
 		}));
 	}
-}
-
-//玩家移动一步，新回合开始
-void StarsController::startOneRound()
-{
-	m_starsBehavior.onOneRoundBegin();
-	//游戏中没有可消除的星星 则重排
-	if (noStarsToErase())
-	{
-		reOrderStars(0);
-	}
-
-	//checkGameOver();
-	NOTIFY_VIEWS(onOneRoundBegan);
+	*/
 }
 
 void StarsController::endOneRound()

@@ -82,7 +82,7 @@ void StarViewNode::doMove(LogicGrid targetGrid, int direction)
 	m_runner->queueAction(CallFuncAction::withFunctor([=]
 	{
 		CCPoint pos = getPosByGrid(targetGrid);
-		CCLOG("count:%d", m_runner->count());
+		//CCLOG("count:%d", m_runner->count());
 		//移动的最后一个格子，播放弹一下的动画
 		if (m_runner->count() == 2)
 		{

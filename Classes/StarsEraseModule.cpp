@@ -157,7 +157,7 @@ void StarsEraseModule::newRound()
 		m_runner->queueAction(DelayAction::withDelay(0.5f));
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
 		{
-			StarsController::theModel()->initOneRound();
+			StarsController::theModel()->preOneRound();
 		}));
 	}
 }
