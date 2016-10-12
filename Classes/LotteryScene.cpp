@@ -112,7 +112,10 @@ void LotteryNode::openReward(bool consume)
 	goods->initWithFile(resPath.c_str());
 	if (data.type == kLotteryPet)
 	{
-		goods->runAction(CommonUtil::getScaleAction(false));
+		auto scaleSmall = CCScaleTo::create(0.3f, 2.0f);
+		auto scaleNormal = CCScaleTo::create(0.5f, 1.0f);
+		auto seq = CCSequence::create(scaleSmall, scaleNormal, NULL);
+		goods->runAction(seq);
 	}
 	m_goodsLayout->getChildById(2)->setVisible(false);
 	
