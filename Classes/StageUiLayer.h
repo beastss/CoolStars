@@ -79,7 +79,7 @@ private:
 	void playExplosionAction(cocos2d::CCPoint pos);
 	void removeExplosionAnimation(cocos2d::extension::CCArmature *, cocos2d::extension::MovementEventType, const char *);
 	void bubbleFinished(cocos2d::extension::CCArmature *, cocos2d::extension::MovementEventType, const char *);
-	const cocos2d::CCPoint &getStarPos(const LogicGrid &grid);
+	const cocos2d::CCPoint getStarPos(const LogicGrid &grid);
 
 	void onTick(float dt);
 private:

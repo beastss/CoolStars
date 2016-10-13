@@ -539,7 +539,7 @@ void StageUiLayer::onTargetPanelDone()
 	onScoreChanged();
 }
 
-const cocos2d::CCPoint &StageUiLayer::getStarPos(const LogicGrid &grid)
+const cocos2d::CCPoint StageUiLayer::getStarPos(const LogicGrid &grid)
 {
 	auto starsLayer = StageScene::theScene()->getStarsLayer();
 	CCPoint pos;
