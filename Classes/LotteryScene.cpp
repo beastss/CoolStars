@@ -122,7 +122,7 @@ void LotteryNode::openReward(bool consume)
 	m_goodsLayout->runAction(getRewardOutAction(goodsNum));
 
 	LotteryModel::theModel()->doLottery(data, consume);
-	m_panel->setTouchEnable(false);
+	m_panel->setTouchEnable(false, 1);
 	auto func = CCFunctionAction::create([=]
 	{
 		int key = UserInfo::theInfo()->getKey();
@@ -130,9 +130,10 @@ void LotteryNode::openReward(bool consume)
 		{
 			GuideMgr::theMgr()->startGuide(kGuideStart_lottery_key_run_out);
 		}
-		m_panel->setTouchEnable(true);
+		m_panel->setTouchEnable(true, 1);
 	});
-	runAction(CCSequence::create(CCDelayTime::create(1.5f), func, NULL));
+	int delayTime = data.type == kLotteryPet ? 1.0f : 0.5f;
+	runAction(CCSequence::create(CCDelayTime::create(delayTime), func, NULL));
 }
 
 CCAction *LotteryNode::getRewardOutAction(int num)
@@ -411,7 +412,7 @@ void LotteryScene::runKeyMoveAction(cocos2d::CCPoint target, std::function<void(
 
 }
 
-void LotteryScene::setTouchEnable(bool enable)
+void LotteryScene::setTouchEnable(bool enable, int tag)
 { 
-	m_noTouchLayer->setCanTouch(enable);
+	m_noTouchLayer->setCanTouch(enable, tag);
 }

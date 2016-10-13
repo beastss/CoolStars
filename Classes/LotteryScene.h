@@ -48,7 +48,7 @@ public:
 	static LotteryScene *create(int usage);
 	virtual bool init();
 	void runKeyMoveAction(cocos2d::CCPoint target, std::function<void()>callback);
-	void setTouchEnable(bool enable);
+	void setTouchEnable(bool enable, int tag = 0);
 private:
 	virtual void onEnter();
 	virtual void onExit();
