@@ -17,6 +17,7 @@ class StarsLayer
 public:
 	static StarsLayer *create();
 	void removeStar(StarViewNode *node);
+	cocos2d::CCPoint getStartWorldPos();
 private:
 	StarsLayer();
 	~StarsLayer();

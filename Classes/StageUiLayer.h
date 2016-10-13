@@ -94,8 +94,8 @@ private:
 	std::unordered_map<int , StagePetNode *>m_petViews;
 	RedPackageModule m_redPackage;
 	NoTouchLayer *m_noTouchLayer;
-	unordered_map<int, cocos2d::CCPoint> m_starsPos; //用于保存stars的位置
 	TickClock m_clock;
 	ActionRunner *m_runner;
+	cocos2d::CCPoint m_starStartPos;//星星左下角的初始位置
 };
 #endif // __PANELLLAYER_H__

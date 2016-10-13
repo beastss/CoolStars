@@ -244,3 +244,8 @@ CCPoint StarsLayer::getStartPos()
 	pos.y += (ROWS_SIZE - range.rows) * STAR_SIZE / 2.0f;
 	return pos;
 }
+
+cocos2d::CCPoint StarsLayer::getStartWorldPos()
+{
+	return convertToWorldSpace(getStartPos());
+}

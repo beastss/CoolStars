@@ -37,6 +37,7 @@
 #include "StarsEraseModule.h"
 #include "PreStagePetSlot.h"
 #include "ActionRunner.h"
+#include "StarsLayer.h"
 USING_NS_CC;
 using namespace std;
 using namespace CommonUtil;
@@ -524,18 +525,8 @@ void StageUiLayer::removeExplosionAnimation(cocos2d::extension::CCArmature *anim
 
 void StageUiLayer::onInitStarsDone()
 {
-	for (int row = 0; row < ROWS_SIZE; ++row)
-	{
-		for (int col = 0; col < COlUMNS_SIZE; ++col)
-		{
-			auto node = StarsController::theModel()->getStarNode(LogicGrid(col, row));
-			if (!node) continue;
-			auto view = node->getView();
-			auto pos = view->getParent()->convertToWorldSpace(view->getPosition());
-			int index = row * COlUMNS_SIZE + col;
-			m_starsPos[index] = (convertToNodeSpace(pos));
-		}
-	}
+	auto starsLayer = StageScene::theScene()->getStarsLayer();
+	m_starStartPos = starsLayer->getStartWorldPos();
 }
 
 void StageUiLayer::onTargetPanelDone()
@@ -550,8 +541,12 @@ void StageUiLayer::onTargetPanelDone()
 
 const cocos2d::CCPoint &StageUiLayer::getStarPos(const LogicGrid &grid)
 {
-	int index = grid.y * COlUMNS_SIZE + grid.x;
-	return m_starsPos[index];
+	auto starsLayer = StageScene::theScene()->getStarsLayer();
+	CCPoint pos;
+	pos.x = m_starStartPos.x + STAR_SIZE * (grid.x + 0.5f);
+	pos.y = m_starStartPos.y + STAR_SIZE * (grid.y + 0.5f);
+	//CCLOG("%d,%d:  %f, %f", grid.x, grid.y, pos.x, pos.y);
+	return convertToNodeSpace(pos);
 }
 
 void StageUiLayer::onExplodeGrid(const LogicGrid &grid)
