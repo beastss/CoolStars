@@ -22,6 +22,7 @@ private:
 	void progressTest();
 	void blinkAction();
 	void test();
+	void testSameDistancePos();
 private:
 	cocos2d::CCClippingNode *m_clippingNode;
 	cocos2d::CCSprite *m_spr;

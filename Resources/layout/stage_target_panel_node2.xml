@@ -1,0 +1,32 @@
+<layout width="336.000000" height="34.000000">
+	<image>
+		<id>1</id>
+		<x>166.52</x>
+		<y>17.94</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/ty_panel_5_1.png</path>
+	</image>
+	<image>
+		<id>2</id>
+		<x>55.93</x>
+		<y>17.30</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>stage/ui/game_picture_2.png</path>
+	</image>
+	<imageNum>
+		<id>3</id>
+		<x>188.89</x>
+		<y>16.67</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<amount>12</amount>
+		<num>120</num>
+		<path>num/ty_unmber_1.png</path>
+	</imageNum>
+</layout>
+

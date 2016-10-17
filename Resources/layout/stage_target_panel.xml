@@ -1,83 +1,53 @@
 <layout width="480.000000" height="250.000000">
 	<image>
-		<id>1</id>
-		<x>245.66</x>
-		<y>226.87</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>stage/ui/yxjm_mubiao2.png</path>
-	</image>
-	<image>
 		<id>2</id>
-		<x>147.74</x>
-		<y>114.81</y>
+		<x>247.56</x>
+		<y>123.03</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>stage/ui/game_picture_5.png</path>
+		<scale>1.30</scale>
+		<path>stage/ui/ty_panel_5.png</path>
 	</image>
 	<image>
-		<id>3</id>
-		<x>147.10</x>
-		<y>61.41</y>
+		<id>1</id>
+		<x>231.73</x>
+		<y>216.74</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>stage/ui/game_picture_5.png</path>
-	</image>
-	<image>
-		<id>4</id>
-		<x>147.52</x>
-		<y>13.93</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>stage/ui/game_picture_5.png</path>
+		<path>stage/ui/game_picture_9.png</path>
 	</image>
 	<emptyBox>
+		<id>4</id>
+		<x>84.84</x>
+		<y>143.31</y>
+		<anchorPtX>0.00</anchorPtX>
+		<anchorPtY>0.00</anchorPtY>
+		<scale>1.00</scale>
+	</emptyBox>
+	<emptyBox>
 		<id>5</id>
-		<x>218.64</x>
-		<y>105.74</y>
+		<x>85.04</x>
+		<y>102.78</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>6</id>
-		<x>218.43</x>
-		<y>53.82</y>
+		<x>85.89</x>
+		<y>58.89</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
 	<emptyBox>
 		<id>7</id>
-		<x>218.65</x>
-		<y>2.95</y>
+		<x>85.89</x>
+		<y>16.03</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
-	<image>
-		<id>8</id>
-		<x>148.79</x>
-		<y>175.80</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<path>stage/ui/game_picture_3.png</path>
-	</image>
-	<imageNum>
-		<id>10</id>
-		<x>245.87</x>
-		<y>175.59</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<amount>12</amount>
-		<num>120</num>
-		<path>num/ty_unmber_1.png</path>
-	</imageNum>
 </layout>
 

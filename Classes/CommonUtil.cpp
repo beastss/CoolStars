@@ -196,3 +196,29 @@ cocos2d::CCAction *CommonUtil::getScaleAction(bool loop, float scale, float toSc
 	}
 	return seq;
 }
+
+std::vector<cocos2d::CCPoint>CommonUtil::getSameDistancePos(cocos2d::CCPoint start, cocos2d::CCPoint end, int num)
+{
+	std::vector<cocos2d::CCPoint> v;
+	assert(num > 0);
+
+	if (num < 3)
+	{
+		CCPoint offset = ccpMult(ccpSub(end, start), 1.0f / (num + 1));
+		for (int i = 0; i < num; ++i)
+		{
+			v.push_back(ccpAdd(start, ccpMult(offset, i + 1)));
+		}
+	}
+	else
+	{
+		CCPoint offset = ccpMult(ccpSub(end, start), 1.0f / (num - 1));
+		v.push_back(start);
+		for (int i = 0; i < num - 2; ++i)
+		{
+			v.push_back(ccpAdd(start, ccpMult(offset, i + 1)));
+		}
+		v.push_back(end);
+	}
+	return v;
+}

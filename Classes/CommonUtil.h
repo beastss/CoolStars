@@ -23,6 +23,7 @@ namespace CommonUtil
 	cocos2d::CCMenuItemSprite *getScaleMenuItemSpr(std::string path);
 	std::vector<GoodsData> getGoodsDatas(const std::string &str);
 	cocos2d::CCAction *getScaleAction(bool loop = true, float scale = 0.8f, float toScaleTime = 0.6f, float toNormalTime = 0.4f);
+	std::vector<cocos2d::CCPoint>getSameDistancePos(cocos2d::CCPoint start, cocos2d::CCPoint end, int num);
 }
 
 #endif

@@ -42,24 +42,29 @@ void StageTargetPanel::initPanel()
 	m_layout->addChild(mask, -1);
 
 	auto target = StarsController::theModel()->getStageTarget();
-
-	CCLabelAtlas *score = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(10));
-	score->setString(CommonUtil::intToStr(target->getTargetScore()));
-
 	auto leftTarget = target->getEraseStarsLeft();
 	assert(leftTarget.size() <= 3);
-	for (int i = 0; i < 3; ++i)
-	{
-		m_layout->getChildById(2 + i)->setVisible(false);
-	}
+	auto vPos = CommonUtil::getSameDistancePos(m_layout->getChildById(4)->getPosition(), m_layout->getChildById(7)->getPosition(), leftTarget.size() + 1);
+
+	auto layout = UiLayout::create("layout/stage_target_panel_node2.xml");
+	CCLabelAtlas *score = dynamic_cast<CCLabelAtlas *>(layout->getChildById(3));
+	score->setString(CommonUtil::intToStr(target->getTargetScore()));
+	auto scoreBox = dynamic_cast<EmptyBox *>((m_layout->getChildById(4)));
+	scoreBox->setNode(layout);
+	scoreBox->setPosition(vPos[0]);
+	m_icons.push_back(score);
 
 	for (size_t i = 0; i < leftTarget.size(); ++i)
 	{
+		auto layout = UiLayout::create("layout/stage_target_panel_node.xml");
 		StageTargetView *view = StageTargetView::create(leftTarget[i]);
-		auto node = dynamic_cast<EmptyBox *>((m_layout->getChildById(5 + i)));
-		node->setNode(view);
+		auto box = dynamic_cast<EmptyBox *>((layout->getChildById(3)));
+		box->setNode(view);
+		m_icons.push_back(view);
 
-		m_layout->getChildById(2 + i)->setVisible(true);
+		auto node = dynamic_cast<EmptyBox *>((m_layout->getChildById(5 + i)));
+		node->setNode(layout);
+		node->setPosition(vPos[i + 1]);
 	}
 }
 
@@ -79,11 +84,11 @@ void StageTargetPanel::runBeganAction()
 
 void StageTargetPanel::runActionSeq()
 {
-	int widgetIds[] = { 10, 5, 6, 7 };
-	for (size_t i = 0; i < 4; ++i)
+	//int widgetIds[] = { 10, 5, 6, 7 };
+	for (size_t i = 0; i < m_icons.size(); ++i)
 	{
-		auto targetPos = convertToNodeSpace(m_pos[i]);
-		m_layout->getChildById(widgetIds[i])->runAction(CCEaseExponentialInOut::create(CCMoveTo::create(1.0f, targetPos)));
+		auto targetPos = m_icons[i]->getParent()->convertToNodeSpace(m_pos[i]);
+		m_icons[i]->runAction(CCEaseExponentialInOut::create(CCMoveTo::create(1.0f, targetPos)));
 	}
 
 	auto func = CCFunctionAction::create([=]()

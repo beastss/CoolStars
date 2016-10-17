@@ -21,5 +21,6 @@ private:
 private:
 	UiLayout *m_layout;
 	std::vector<cocos2d::CCPoint> m_pos;
+	std::vector<cocos2d::CCNode *> m_icons;
 };
 #endif

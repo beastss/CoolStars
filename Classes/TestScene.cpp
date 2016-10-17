@@ -9,6 +9,7 @@
 #include "TimeUtil.h"
 #include "SqliteHelper.h"
 #include <fstream>
+#include "CommonUtil.h"
 
 USING_NS_CC;
 
@@ -28,8 +29,30 @@ bool TestScene::init()
 	}
 	initPanel();
 	//test();
-	blinkAction();
+	//blinkAction();
+	testSameDistancePos();
 	return true;
+}
+
+void TestScene::testSameDistancePos()
+{
+	auto start = ccp(50, 150);
+	auto end = ccp(380, 150);
+	CCSprite *flag1 = CCSprite::create("pet/tips.png");
+	flag1->setPosition(start);
+	addChild(flag1);
+	CCSprite *flag2 = CCSprite::create("pet/tips.png");
+	flag2->setPosition(end);
+	addChild(flag2);
+
+	int num = 7;
+	auto vec = CommonUtil::getSameDistancePos(ccp(50, 200), ccp(380, 200), num);
+	for (int i = 0; i < num; ++i)
+	{
+		CCSprite *node = CCSprite::create("pet/tips.png");
+		node->setPosition(vec[i]);
+		addChild(node);
+	}
 }
 
 void TestScene::test()
