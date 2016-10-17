@@ -201,7 +201,10 @@ bool LotteryScene::init()
 	m_noTouchLayer = NoTouchLayer::create();
 	addChild(m_noTouchLayer);
 	GuideMgr::theMgr()->startGuide(kGuideStart_lottery_in, bind(&LotteryScene::hideBottomBtns, this));
-
+	if (m_usage == kLotterySceneFromPetScene)
+	{
+		GuideMgr::theMgr()->startGuide(kGuideStart_lottery_in_by_petScene);
+	}
 	return true;
 }
 
@@ -282,7 +285,7 @@ void LotteryScene::refreshUi()
 		m_layout->getChildById(20)->setVisible(hasPetToUpgrade && isShowUp);
 
 	}
-	else
+	else if (m_usage == kLotterySceneFromMenuScene)
 	{
 		m_bottomLayout->getChildById(1)->setVisible(false);
 	}
@@ -341,6 +344,7 @@ void LotteryScene::openAllBoxs()
 
 void LotteryScene::onStartBtnClicked(CCObject* pSender)
 {
+	GuideMgr::theMgr()->endGuide(kGuideEnd_lottery_click_start_game_btn);
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	MainScene::theScene()->showPanel(kPreStagePanel);
 }

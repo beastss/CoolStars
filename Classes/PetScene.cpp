@@ -280,6 +280,7 @@ void PetScene::onYellowPetBtnClicked(cocos2d::CCObject* pSender)
 
 void PetScene::onBackBtnClicked(cocos2d::CCObject* pSender)
 {
+	GuideMgr::theMgr()->endGuide(kGuideEnd_pet_back);
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 
 	switch (m_usage)
@@ -288,7 +289,7 @@ void PetScene::onBackBtnClicked(cocos2d::CCObject* pSender)
 		MainScene::theScene()->showPanel(kMainMenu);
 		break;
 	case kPetSceneFromLotteryScene:
-		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);
+		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromPetScene);
 		break;
 	case kPetSceneFromStageScene:
 		MainScene::theScene()->showPanel(kLotteryPanel, kLotterySceneFromStageScene);

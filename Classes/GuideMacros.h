@@ -25,6 +25,7 @@ enum GuideStartAction
 	kGuideStart_lottery_key_run_out,
 	kGuideStart_lottery_panel_move_done,
 	kGuideStart_lottery_open_box,
+	kGuideStart_lottery_in_by_petScene,
 
 	kGuideStart_pet_in = 80,
 	kGuideStart_pet_color_select,
@@ -57,10 +58,12 @@ enum GuideEndAction
 	kGuideEnd_lottery_in = 70,
 	kGuideEnd_lottery_click_pet_btn,
 	kGuideEnd_lottery_open_box,
+	kGuideEnd_lottery_click_start_game_btn,
 
 	kGuideEnd_pet_in = 80,
 	kGuideEnd_pet_color_select,
 	kGuideEnd_pet_upgrade,
+	kGuideEnd_pet_back,
 
 	kGuideEnd_guide_in = 90,
 	kGuideEnd_guide_click,

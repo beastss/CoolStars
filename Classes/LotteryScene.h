@@ -38,6 +38,7 @@ enum LotterySceneUsage
 {
 	kLotterySceneFromMenuScene,
 	kLotterySceneFromStageScene,
+	kLotterySceneFromPetScene,
 };
 
 class LotteryScene 
@@ -71,7 +72,7 @@ private:
 	UiLayout *m_bottomLayout;
 	TitlePanel *m_titlePanel;
 	static const int kRewardBoxNum = 9;
-	static const int kMinOpenBoxNum = 3;
+	static const int kMinOpenBoxNum = 1;
 	int m_openedBoxNum;//累计开过的箱子总数
 	int m_curOpenedNum;//当前九个箱子里开过的数目；
 	ActionRunner *m_runner;
