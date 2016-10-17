@@ -1,6 +1,6 @@
 #include "MyPurchase.h"
 #if  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID )
-#include "org_cocos2dx_lib_TemplateSdk.h"
+#include "org_cocos2dx_lib_GameBilling.h"
 #endif
 #include "ActionRunner.h"
 #include "DataManager.h"

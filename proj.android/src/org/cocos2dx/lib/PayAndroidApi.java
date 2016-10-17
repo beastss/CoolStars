@@ -22,7 +22,7 @@ public class PayAndroidApi {
 	public static Context mContext = null;// ¶¨Òåµ¥Àý
 	private static boolean mbDebug = true;
 	protected static Handler sMainThreadHandler = null;
-
+	private DongXinPush mPush = null;
 	public static Object rtnActivity() {
 		return actInstance;
 	}
@@ -40,12 +40,10 @@ public class PayAndroidApi {
 
 	private void init() {
 		sdkObj = new TemplateSdk(mContext);
-		new DongXinPush(mContext);
+		mPush = new DongXinPush(mContext);
 	}
 
-	int itemId = 0;
-	public void Purchase(int id) {
-		itemId = id;
+	public void Purchase(final int itemId) {
 		runOnMainThread(new Runnable() {
 			@Override
 			public void run() {
@@ -70,9 +68,7 @@ public class PayAndroidApi {
 		sMainThreadHandler.post(r);
 	}
 	
-	int toastIndex = 0;
-	public void showToast(int index) {
-		toastIndex = index;
+	public void showToast(final int toastIndex) {
 		runOnMainThread(new Runnable() {
 			@Override
 			public void run() {
@@ -82,6 +78,15 @@ public class PayAndroidApi {
 		});
 	}
 
+	public static void showToast(final String toastText){
+		runOnMainThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(mContext, toastText, Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+	
 	public void startStage(int stage)
 	{
 		Log.d(LOG_TAG, "startStage....");
@@ -118,16 +123,11 @@ public class PayAndroidApi {
 		UMGameAgent.use(name, 1 , 0);
 	}
 	
-	static boolean siIsForBusiness;
-	static public void setIsForBusiness(boolean forBusiness)
-	{
-		siIsForBusiness = forBusiness;
-	}
-	
 	public boolean isForBusiness()
 	{
-		return siIsForBusiness;
+		return mPush.isBusinessMode();
 	}
+	
 	public String getVerName() {
 		String version = "V1.0.0";
 		try {

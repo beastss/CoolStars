@@ -52,15 +52,21 @@ public class DongXinPush
 		switch (shangyongStatus) {
 		case DxConstants.SHANGYONG_DEFAULT:// 默认没有商用
 			Log.d("DxConstants", "shangyongStatus_no");
-			PayAndroidApi.setIsForBusiness(false);
 			break;
 		case DxConstants.SHANGYONG_OPEN:// 商用
 			Log.d("DxConstants", "shangyongStatus_yes");
-			PayAndroidApi.setIsForBusiness(true);
 			break;
 
 		default:
 			break;
 		}
+	}
+	
+	public boolean isBusinessMode()
+	{
+		//DxConstants.SHANGYONG_DEFAULT //-1 默认没有商用
+		//DxConstants.SHANGYONG_OPEN //0 商用
+		Log.d("DxConstants", "isBusinessMode: " + DxInitializer.CURRENT_SHANGYONG);
+		return DxInitializer.CURRENT_SHANGYONG == DxConstants.SHANGYONG_OPEN;
 	}
 }
