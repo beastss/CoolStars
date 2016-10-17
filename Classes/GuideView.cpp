@@ -166,14 +166,23 @@ void GuideView::initMask()
 	CCLayerColor *mask = CCLayerColor::create(ccc4(0, 0, 0, 175));
 	mask->setContentSize(winSize);
 
+	/*
 	CCLayerColor *stencil = CCLayerColor::create(ccc4(0, 0, 0, 255));
 	stencil->setContentSize(CCSize(1, 1));
 	stencil->setContentSize(m_targetRect.size);
+	stencil->setPosition(m_targetRect.origin);
+	*/
+	CCSprite *stencil = CCSprite::create("guide/mask.png");
+	auto size = stencil->getContentSize();
+	stencil->setScaleX(m_targetRect.size.width / size.width);
+	stencil->setScaleY(m_targetRect.size.height / size.height);
+	stencil->setAnchorPoint(ccp(0, 0));
 	stencil->setPosition(m_targetRect.origin);
 
 	auto clippingNode = CCClippingNode::create();
 	clippingNode->setStencil(stencil);
 	clippingNode->setInverted(true);
+	clippingNode->setAlphaThreshold(0);
 	clippingNode->addChild(mask);
 	addChild(clippingNode);
 }
