@@ -24,6 +24,7 @@ enum GuideStartAction
 	kGuideStart_lottery_in = 70,
 	kGuideStart_lottery_key_run_out,
 	kGuideStart_lottery_panel_move_done,
+	kGuideStart_lottery_open_box,
 
 	kGuideStart_pet_in = 80,
 	kGuideStart_pet_color_select,

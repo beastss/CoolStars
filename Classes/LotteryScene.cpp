@@ -125,11 +125,6 @@ void LotteryNode::openReward(bool consume)
 	m_panel->setTouchEnable(false, 1);
 	auto func = CCFunctionAction::create([=]
 	{
-		int key = UserInfo::theInfo()->getKey();
-		if (key == 0)
-		{
-			GuideMgr::theMgr()->startGuide(kGuideStart_lottery_key_run_out);
-		}
 		m_panel->setTouchEnable(true, 1);
 	});
 	int delayTime = data.type == kLotteryPet ? 1.0f : 0.5f;
@@ -198,6 +193,7 @@ bool LotteryScene::init()
 
 	m_bottomLayout = UiLayout::create("layout/pre_stage_bottom.xml");
 	addChild(m_bottomLayout, 1);
+	m_bottomLayout->setMenuTouchPriority(m_touchPriority);
 	initBottomLayout();
 
 	initPanel();
@@ -353,6 +349,8 @@ void LotteryScene::onOpenReward()
 {
 	m_openedBoxNum++;
 	m_curOpenedNum++;
+	GuideMgr::theMgr()->startGuide(kGuideStart_lottery_open_box, function<void()>(), m_openedBoxNum);
+
 	if (m_curOpenedNum >= kRewardBoxNum)
 	{
 		newRewardBoxs();
