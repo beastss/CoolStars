@@ -3,6 +3,7 @@
 #include "StarsController.h"
 #include "StarsEraseModule.h"
 #include "ActionRunner.h"
+#include "CCFunctionAction.h"
 USING_NS_CC;
 using namespace std;
 
@@ -79,6 +80,7 @@ void StarViewNode::doMove(LogicGrid targetGrid, int direction)
 	const float kDuration = kOneStepTime * step;
 	const int kFrames = kDuration / kInterval;
 
+	StarsController::theModel()->recordStarMoving(m_model);
 	m_runner->queueAction(CallFuncAction::withFunctor([=]
 	{
 		CCPoint pos = getPosByGrid(targetGrid);
@@ -91,7 +93,11 @@ void StarViewNode::doMove(LogicGrid targetGrid, int direction)
 			auto tempPos = ccp(pos.x + kOffset * vec[direction][0], pos.y + kOffset * vec[direction][1]);
 			CCMoveTo *moveTo1 = CCMoveTo::create(kDuration, tempPos);
 			CCMoveTo *moveTo2 = CCMoveTo::create(kOneStepTime * 0.4f, pos);
-			runAction(CCSequence::create(moveTo1, moveTo2, NULL));
+			auto func = CCFunctionAction::create([=]()
+			{
+				StarsController::theModel()->moveStarFinished(m_model);
+			});
+			runAction(CCSequence::create(moveTo1, moveTo2, func, NULL));
 		}
 		else
 		{

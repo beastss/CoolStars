@@ -307,3 +307,27 @@ vector<LogicGrid> StarsController::getEmptyGrids()
 	}
 	return grids;
 }
+
+void StarsController::recordStarMoving(StarNode *star)
+{
+	if (find(m_starNodes.begin(), m_starNodes.end(), star) != m_starNodes.end())
+	{
+		if (find(m_movingStars.begin(), m_movingStars.end(), star) == m_movingStars.end())
+		{
+			m_movingStars.push_back(star);
+		}
+	}
+}
+
+void StarsController::moveStarFinished(StarNode *star)
+{
+	auto iter = find(m_movingStars.begin(), m_movingStars.end(), star);
+	if (iter != m_movingStars.end())
+	{
+		m_movingStars.erase(iter);
+		if (m_movingStars.empty())
+		{
+			preOneRound();
+		}
+	}
+}

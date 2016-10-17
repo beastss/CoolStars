@@ -154,11 +154,14 @@ void StarsEraseModule::newRound()
 		//创建新的星星
 		m_starsNotErased = 0;
 		StarsController::theModel()->genNewStars();
+		/*将这步移到 StarsController::moveStarFinished
+
 		m_runner->queueAction(DelayAction::withDelay(0.5f));
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
 		{
 			StarsController::theModel()->preOneRound();
 		}));
+		*/
 	}
 }
 

@@ -44,6 +44,8 @@ public: //对星星的操作接口
 	void loadDesignatedStar(int starType, int color, int rounds);
 	void gameOver(bool isWon);
 	void onDesignatedStarChanged(int starType, int color, int rounds);
+	void recordStarMoving(StarNode *star);
+	void moveStarFinished(StarNode *star);
 public:
 	StageTarget *getStageTarget(){ return &m_target; }
 public:
@@ -61,6 +63,7 @@ private:
 private:
 	std::vector<StarNode *> m_starNodes;
 	std::vector<IStarsControlView *> m_views;
+	std::vector<StarNode *>m_movingStars;
 	StageTarget m_target;
 	StarsLoader m_starsLoader;
 	StarsBehavior m_starsBehavior;
