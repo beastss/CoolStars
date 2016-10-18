@@ -65,7 +65,7 @@
 	</image>
 	<emptyBox>
 		<id>18</id>
-		<x>40.00</x>
+		<x>42.00</x>
 		<y>196.52</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
@@ -73,7 +73,7 @@
 	</emptyBox>
 	<emptyBox>
 		<id>19</id>
-		<x>86.52</x>
+		<x>89.00</x>
 		<y>196.52</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
@@ -81,7 +81,7 @@
 	</emptyBox>
 	<emptyBox>
 		<id>20</id>
-		<x>134.00</x>
+		<x>136.00</x>
 		<y>196.52</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>
