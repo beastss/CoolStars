@@ -37,7 +37,7 @@ void StageTargetView::onExit()
 bool StageTargetView::init()
 {
 	m_layout = UiLayout::create("layout/stage_target.xml");
-	m_layout->setScale(0.7f);
+	m_layout->setScale(0.65f);
 	setContentSize(m_layout->boundingBox().size);
 	addChild(m_layout);
 	initLayout();

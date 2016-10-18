@@ -36,10 +36,12 @@ bool StageTargetPanel::init()
 
 void StageTargetPanel::initPanel()
 {
+	/* ºÚÉ«µ×Í¼
 	CCLayerColor *mask = CCLayerColor::create(ccc4(0, 0, 0, 175));
 	auto size = getContentSize();
 	mask->setContentSize(size);
 	m_layout->addChild(mask, -1);
+	*/
 
 	auto target = StarsController::theModel()->getStageTarget();
 	auto leftTarget = target->getEraseStarsLeft();
