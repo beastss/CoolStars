@@ -660,7 +660,7 @@ void StageUiLayer::onPetSpreadStar(int petId, const vector<LogicGrid> &grids, fu
 	auto iter = m_petViews.find(petId);
 	if (iter != m_petViews.end())
 	{
-		static const float kDutation = 1.0f;
+		static const float kDutation = 0.5f;
 
 		for (size_t i = 0; i < grids.size(); ++i)
 		{
@@ -692,7 +692,7 @@ void StageUiLayer::onRedPackageBomb()
 	auto grids = StageOp->getRandomColorGrids(1);
 	if (grids.empty()) return;
 
-	static const float kDutation = 1.0f;
+	static const float kDutation = 0.5f;
 	auto starNode = StarsController::theModel()->getStarNode(grids[0]);
 	auto starView = starNode->getView();
 	auto targetPos = starView->getParent()->convertToWorldSpace(starView->getPosition());
@@ -716,7 +716,7 @@ void StageUiLayer::onPetChangeStep(int petId, int newSteps)
 	auto iter = m_petViews.find(petId);
 	if (iter != m_petViews.end())
 	{
-		static const float kDutation = 1.0f;
+		static const float kDutation = 0.5f;
 		auto stepNum = m_topUi->getChildById(17);
 		auto targetPos = stepNum->getParent()->convertToWorldSpace(stepNum->getPosition());
 
@@ -745,7 +745,7 @@ void StageUiLayer::onAddPetEnergy(int fromPetId, int toPetId, int energy)
 	auto toPetIter = m_petViews.find(toPetId);
 	if (fromPetIter != m_petViews.end() && toPetIter != m_petViews.end())
 	{
-		static const float kDutation = 1.0f;
+		static const float kDutation = 0.5f;
 
 		auto fromPet = fromPetIter->second;
 		auto sourcePos = fromPet->getParent()->convertToWorldSpace(fromPet->getPosition());

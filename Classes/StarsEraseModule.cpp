@@ -209,7 +209,7 @@ void ScaleEarseRunner::runErase()
 			}
 			eraseStars(grids, isCenter);
 		}));
-		m_runner->queueAction(DelayAction::withDelay(0.4f));
+		m_runner->queueAction(DelayAction::withDelay(0.2f));
 	}
 
 	m_runner->queueAction(CallFuncAction::withFunctor(bind(&StarsEraseModule::onScaleEraseDone, StarsEraseModule::theModel(), this)));

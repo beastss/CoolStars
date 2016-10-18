@@ -76,7 +76,7 @@ void StarViewNode::doMove(LogicGrid targetGrid, int direction)
 	//计算到达目标相差的格子数
 	int step = max(abs(targetGrid.x - oldGrid.x), abs(targetGrid.y - oldGrid.y));
 	const float kInterval = CCDirector::sharedDirector()->getAnimationInterval();
-	const float kOneStepTime = 0.1f;
+	const float kOneStepTime = 0.05f;
 	const float kDuration = kOneStepTime * step;
 	const int kFrames = kDuration / kInterval;
 

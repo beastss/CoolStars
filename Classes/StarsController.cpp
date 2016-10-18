@@ -128,6 +128,7 @@ void StarsController::genNewStars()
 	auto_ptr<StarsMover> starsMover(StarsMover::fatory());
 	starsMover->moveStars();
 	starsMover->genStars();
+	refreshMovingState();
 }
 
 void StarsController::addView(IStarsControlView *view)
@@ -325,9 +326,14 @@ void StarsController::moveStarFinished(StarNode *star)
 	if (iter != m_movingStars.end())
 	{
 		m_movingStars.erase(iter);
-		if (m_movingStars.empty())
-		{
-			preOneRound();
-		}
+		refreshMovingState();
+	}
+}
+
+void StarsController::refreshMovingState()
+{
+	if (m_movingStars.empty())
+	{
+		preOneRound();
 	}
 }

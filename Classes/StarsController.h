@@ -60,6 +60,7 @@ private:
 	void reOrderStars(int times);
 	bool checkGameOver();
 	void moveOneStep(bool addStep = true);
+	void refreshMovingState();
 private:
 	std::vector<StarNode *> m_starNodes;
 	std::vector<IStarsControlView *> m_views;
