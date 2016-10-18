@@ -47,5 +47,14 @@
 		<anchorPtY>0.00</anchorPtY>
 		<scale>1.00</scale>
 	</emptyBox>
+	<label>
+		<id>7</id>
+		<x>158.71</x>
+		<y>120.93</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<text>名字</text>
+	</label>
 </layout>
 

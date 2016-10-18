@@ -33,6 +33,11 @@ static char getRandomLetter()
 	return letter;
 }
 
+std::string RankingModel::getRandomCHName()
+{
+	return DataManagerSelf->getRandomRankingName();
+}
+
 string RankingModel::getRandomName()
 {
 	string name;

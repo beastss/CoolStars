@@ -38,6 +38,7 @@ public:
 	void init();
 
 	std::string getRandomName();
+	std::string getRandomCHName();
 	bool isValidName(std::string name);
 	
 	bool alreadyOpenRanking(){ return m_alreadyOpenRanking; }

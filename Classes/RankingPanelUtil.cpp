@@ -19,9 +19,10 @@ bool RankingNameInputPanel::init()
 	initLayout();
 	addChild(m_layout);
 
-	initEditBox();
+	//initEditBox();²»ÊäÈëÃû×Ö
 	setContentSize(m_layout->getContentSize());
 	addMaskLayer();
+	onGenRandomName(NULL);
 	return true;
 }
 
@@ -32,6 +33,8 @@ void RankingNameInputPanel::initLayout()
 
 	CCMenuItem *genNameBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(3)));
 	genNameBtn->setTarget(this, menu_selector(RankingNameInputPanel::onGenRandomName));
+
+	m_nameLabel = dynamic_cast<CCLabelTTF *>((m_layout->getChildById(7)));
 }
 
 void RankingNameInputPanel::initEditBox()
@@ -50,13 +53,14 @@ void RankingNameInputPanel::initEditBox()
 
 void RankingNameInputPanel::refreshName(std::string name)
 {
-	m_editBox->setText(name.c_str());
+	//m_editBox->setText(name.c_str());
+	m_nameLabel->setString(name.c_str());
 }
 
 void RankingNameInputPanel::onGenRandomName(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	string name = RankingModel::theModel()->getRandomName();
+	string name = RankingModel::theModel()->getRandomCHName();
 	refreshName(name);
 }
 
@@ -64,6 +68,13 @@ void RankingNameInputPanel::onGenRandomName(cocos2d::CCObject* pSender)
 void RankingNameInputPanel::onConfirm(cocos2d::CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+	string name = m_nameLabel->getString();
+	RankingModel::theModel()->initFirstOpenRanking(name);
+	removeFromParent();
+	MainScene::theScene()->showPanel(kRankingPanel);
+
+
+	/*
 	string name = m_editBox->getText();
 	if (RankingModel::theModel()->isValidName(name))
 	{
@@ -75,6 +86,7 @@ void RankingNameInputPanel::onConfirm(cocos2d::CCObject* pSender)
 	{
 		CCMessageBox("invalid name", "title");
 	}
+	*/
 
 }
 

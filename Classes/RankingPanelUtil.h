@@ -30,6 +30,7 @@ private:
 private:
 	UiLayout *m_layout;
 	cocos2d::extension::CCEditBox *m_editBox;
+	cocos2d::CCLabelTTF *m_nameLabel;
 };
 
 class RankingNode

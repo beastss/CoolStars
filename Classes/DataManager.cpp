@@ -497,6 +497,12 @@ const RankingConfig &DataManager::getRankingConfig(int id)
 	return m_rankingConfig[id - 1];
 }
 
+std::string DataManager::getRandomRankingName()
+{
+	int index = CommonUtil::getRandomValue(0, m_rankingConfig.size() - 1);
+	return m_rankingConfig[index].name;
+}
+
 const std::vector<RankingConfig> &DataManager::getRankingConfigs()
 {
 	return m_rankingConfig;

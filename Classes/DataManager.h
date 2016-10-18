@@ -72,6 +72,7 @@ public:
 	void loadRankingConfig();
 	const std::vector<RankingConfig> &getRankingConfigs();
 	const RankingConfig &getRankingConfig(int id);
+	std::string getRandomRankingName();
 
 	void loadShopConfig();
 	const ShopConfig &getShopConfig(int id);
