@@ -57,11 +57,11 @@ mkdir "$APP_ANDROID_ROOT"/assets
 for file in "$APP_ROOT"/Resources/*
 do
 if [ -d "$file" ]; then
-    cp -rf "$file" "$APP_ANDROID_ROOT"/assets
+    cp -rfp "$file" "$APP_ANDROID_ROOT"/assets
 fi
 
 if [ -f "$file" ]; then
-    cp "$file" "$APP_ANDROID_ROOT"/assets
+    cp -p "$file" "$APP_ANDROID_ROOT"/assets
 fi
 done
 
@@ -82,11 +82,23 @@ fi
 for file in "$APP_ANDROID_ROOT"/third_libs/*
 do
 if [ -d "$file" ]; then
-    cp -rf "$file" "$APP_ANDROID_ROOT"/libs
+    cp -rfp "$file" "$APP_ANDROID_ROOT"/libs
 fi
 
 if [ -f "$file" ]; then
-    cp "$file" "$APP_ANDROID_ROOT"/libs
+    cp -p "$file" "$APP_ANDROID_ROOT"/libs
+fi
+done
+
+# copy third_assets
+for file in "$APP_ANDROID_ROOT"/third_assets/*
+do
+if [ -d "$file" ]; then
+    cp -rfp "$file" "$APP_ANDROID_ROOT"/assets
+fi
+
+if [ -f "$file" ]; then
+    cp -p "$file" "$APP_ANDROID_ROOT"/assets
 fi
 done
 
