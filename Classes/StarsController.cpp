@@ -73,7 +73,7 @@ void StarsController::resetStage(int gameType)
 	m_starNodes.clear();
 	m_target.init();
 	m_starsLoader.init();
-	
+	m_movingStars.clear();
 }
 
 StarNode *StarsController::getStarNode(const LogicGrid &grid)
