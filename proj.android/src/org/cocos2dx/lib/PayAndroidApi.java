@@ -32,10 +32,10 @@ public class PayAndroidApi {
 	public PayAndroidApi(Context context) {
 		mContext = context;
 		actInstance = this;
-		init();
 		if (null == sMainThreadHandler) {
 			sMainThreadHandler = new Handler();
 		}
+		init();
 	}
 
 	private void init() {
