@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.dongxin.kxcwx.test2"
       android:versionCode="1"
-      android:versionName="1.0.0">
+      android:versionName="1.0.1">
 
     <uses-sdk android:minSdkVersion="8"/>
     <uses-feature android:glEsVersion="0x00020000" />
@@ -41,7 +41,7 @@
 
         <!-- youmeng -->
         <meta-data android:value="579069d1e0f55a65e40002a3" android:name="UMENG_APPKEY"/>
-		<meta-data android:value="kxcwx_mubao" android:name="UMENG_CHANNEL"/>
+		<meta-data android:value="kxcwx_test2_mm" android:name="UMENG_CHANNEL"/>
         
     </application>
     <supports-screens android:largeScreens="true"
