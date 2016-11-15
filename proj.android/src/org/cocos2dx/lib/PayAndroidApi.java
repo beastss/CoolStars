@@ -39,7 +39,7 @@ public class PayAndroidApi {
 	}
 
 	private void init() {
-		sdkObj = new TemplateSdk(mContext);
+		sdkObj = new MMSdk(mContext);
 		mPush = new DongXinPush(mContext);
 	}
 
