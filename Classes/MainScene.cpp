@@ -214,8 +214,8 @@ void MainScene::onGuideBtnClicked(cocos2d::CCObject* pSender)
 
 void MainScene::showInitialUi()
 {
-	auto dialog = PackageDialog::create(kPackageDiamond);
-	showDialog(dialog);
+	//auto dialog = PackageDialog::create(kPackageDiamond);
+	//showDialog(dialog);
 	/*
 	//·ÏÆú¹¦ÄÜ
 	if(RankingOpponent::theOpponent()->needUpdate())
