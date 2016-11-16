@@ -220,6 +220,7 @@ void StageOperator::gameOverRandomReplace()
 void StageOperator::loadDesignatedStar(int color, int rounds)
 {
 	StarsController::theModel()->loadDesignatedStar(kColorStar, color, rounds);
+	StarsController::theModel()->preOneRound();
 }
 
 std::vector<LogicGrid> StageOperator::getRandomColorGrids(int num, bool hasExceptColor, int exceptColor)
