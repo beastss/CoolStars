@@ -435,6 +435,10 @@ void StageUiLayer::onRunOutSteps()
 	{
 		StarsController::theModel()->gameOver(false);
 	});
+	dialog->setConfirmHandle([=]()
+	{
+		StarsController::theModel()->preOneRound();
+	});
 }
 
 void StageUiLayer::onGameWin()
