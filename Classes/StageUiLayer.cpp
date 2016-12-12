@@ -833,6 +833,7 @@ void StageUiLayer::onScoreDouble()
 	addChild(spr);
 	auto func = CCFunctionAction::create([=]()
 	{
+		StarsController::theModel()->preOneRound();
 		spr->removeAllChildren();
 	});
 	spr->runAction(CCSequence::create(CCFadeIn::create(0.5f), CCDelayTime::create(1.0f), CCFadeOut::create(0.6f), func, NULL));
