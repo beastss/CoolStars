@@ -65,6 +65,7 @@ PropManager *PropManager::propMgr()
 
 void PropManager::usePropBomb(int starType, const LogicGrid &grid)
 {
+	StarsController::theModel()->endOneRound(false);
 	if (starType == kBomb)
 	{
 		StarsEraseModule::theModel()->scaleErase(grid, COlUMNS_SIZE, ROWS_SIZE);
@@ -87,6 +88,7 @@ void PropManager::usePropBrush(const LogicGrid &grid, int color)
 
 void PropManager::usePropReorder()
 {
+	StarsController::theModel()->endOneRound(false);
 	StageOp->reOrderStars();
 	usePropItem(kPropReorder);
 }

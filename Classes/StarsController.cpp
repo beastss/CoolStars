@@ -105,6 +105,8 @@ void StarsController::removeStarNode(StarNode *node)
 		delete *iter;
 		m_starNodes.erase(iter);
 		NOTIFY_VIEWS(onStarRemove);
+
+		moveStarFinished(node);//在移动中消除，也算移动成功
 	}
 }
 
@@ -146,14 +148,6 @@ void StarsController::removeView(IStarsControlView *view)
 	if (iter != m_views.end())
 	{
 		m_views.erase(iter);
-	}
-}
-
-void StarsController::moveOneStep(bool addStep)
-{
-	if (addStep)
-	{
-		StageDataMgr::theMgr()->addStep();
 	}
 }
 
@@ -240,9 +234,13 @@ void StarsController::preOneRound()
 	*/
 }
 
-void StarsController::endOneRound()
+void StarsController::endOneRound(bool addStep)
 {
-	moveOneStep();
+	if (addStep)
+	{
+		StageDataMgr::theMgr()->addStep();
+	}
+
 	m_starsLoader.onOneRoundEnd();
 	NOTIFY_VIEWS(onOneRoundEnd);
 }

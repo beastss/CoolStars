@@ -34,7 +34,7 @@ public: //对星星的操作接口
 	void removeStarNode(StarNode *node);
 	void genNewStars();
 	void preOneRound();//新回合的预处理
-	void endOneRound();
+	void endOneRound(bool addStep = true);
 	void addScore(int value);
 	void replaceStar(const StarAttr &attr);
 	StarNode *genNextStar(const LogicGrid &grid);
@@ -59,7 +59,6 @@ private:
 	bool noStarsToErase();
 	void reOrderStars(int times);
 	bool checkGameOver();
-	void moveOneStep(bool addStep = true);
 	void refreshMovingState();
 private:
 	std::vector<StarNode *> m_starNodes;
