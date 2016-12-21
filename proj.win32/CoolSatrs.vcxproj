@@ -140,6 +140,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\CCFunctionAction.cpp" />
     <ClCompile Include="..\Classes\CCUserDefaultEx.cpp" />
     <ClCompile Include="..\Classes\CommonUtil.cpp" />
+    <ClCompile Include="..\Classes\DailyLoginModel.cpp" />
+    <ClCompile Include="..\Classes\DailyLoginPanel.cpp" />
     <ClCompile Include="..\Classes\DataCheck.cpp" />
     <ClCompile Include="..\Classes\DataManager.cpp" />
     <ClCompile Include="..\Classes\EmptyBox.cpp" />
@@ -159,6 +161,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\GuideMgr.cpp" />
     <ClCompile Include="..\Classes\GuideView.cpp" />
     <ClCompile Include="..\Classes\HelpPanel.cpp" />
+    <ClCompile Include="..\Classes\InputPad.cpp" />
     <ClCompile Include="..\Classes\KeyPadWatcher.cpp" />
     <ClCompile Include="..\Classes\ListPetView.cpp" />
     <ClCompile Include="..\Classes\ListSlideView.cpp" />
@@ -181,6 +184,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\PetScene.cpp" />
     <ClCompile Include="..\Classes\PetSceneMoveHelper.cpp" />
     <ClCompile Include="..\Classes\PetSkill.cpp" />
+    <ClCompile Include="..\Classes\PetUpgradeTips.cpp" />
     <ClCompile Include="..\Classes\PetView.cpp" />
     <ClCompile Include="..\Classes\PreStageModel.cpp" />
     <ClCompile Include="..\Classes\PreStagePetSlot.cpp" />
@@ -195,6 +199,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\RedPackageDialog.cpp" />
     <ClCompile Include="..\Classes\RedPackageModule.cpp" />
     <ClCompile Include="..\Classes\ScaleDialog.cpp" />
+    <ClCompile Include="..\Classes\SensitiveWords.cpp" />
     <ClCompile Include="..\Classes\SettingBtnsHelper.cpp" />
     <ClCompile Include="..\Classes\ShopModel.cpp" />
     <ClCompile Include="..\Classes\ShopScene.cpp" />
@@ -232,6 +237,18 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClCompile Include="..\Classes\TimeUtil.cpp" />
     <ClCompile Include="..\Classes\TitlePanel.cpp" />
     <ClCompile Include="..\Classes\TouchNode.cpp" />
+    <ClCompile Include="..\Classes\TreasureSkipStageDialog.cpp" />
+    <ClCompile Include="..\Classes\TreasureStageDataMgr.cpp" />
+    <ClCompile Include="..\Classes\TreasureStageModel.cpp" />
+    <ClCompile Include="..\Classes\TreasureStageNotifier.cpp" />
+    <ClCompile Include="..\Classes\TreasureStageResultDialog.cpp" />
+    <ClCompile Include="..\Classes\TreasureStageScene.cpp" />
+    <ClCompile Include="..\Classes\TreasureStageState.cpp" />
+    <ClCompile Include="..\Classes\TreasureStageTargetPanel.cpp" />
+    <ClCompile Include="..\Classes\TreasureStarData.cpp" />
+    <ClCompile Include="..\Classes\TreasureStarsLayer.cpp" />
+    <ClCompile Include="..\Classes\TreasureStarView.cpp" />
+    <ClCompile Include="..\Classes\TreasurePauseDialog.cpp" />
     <ClCompile Include="..\Classes\UiLayout.cpp" />
     <ClCompile Include="..\Classes\UserInfo.cpp" />
     <ClCompile Include="..\Classes\ViewUtil.cpp" />
@@ -251,6 +268,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\CommonMacros.h" />
     <ClInclude Include="..\Classes\CommonUtil.h" />
     <ClInclude Include="..\Classes\ConfData.h" />
+    <ClInclude Include="..\Classes\DailyLoginModel.h" />
+    <ClInclude Include="..\Classes\DailyLoginPanel.h" />
     <ClInclude Include="..\Classes\DataCheck.h" />
     <ClInclude Include="..\Classes\DataConfig.h" />
     <ClInclude Include="..\Classes\DataManager.h" />
@@ -272,6 +291,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\GuideMgr.h" />
     <ClInclude Include="..\Classes\GuideView.h" />
     <ClInclude Include="..\Classes\HelpPanel.h" />
+    <ClInclude Include="..\Classes\InputPad.h" />
     <ClInclude Include="..\Classes\KeyPadWatcher.h" />
     <ClInclude Include="..\Classes\ListPetView.h" />
     <ClInclude Include="..\Classes\ListSlideView.h" />
@@ -295,6 +315,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\PetScene.h" />
     <ClInclude Include="..\Classes\PetSceneMoveHelper.h" />
     <ClInclude Include="..\Classes\PetSkill.h" />
+    <ClInclude Include="..\Classes\PetUpgradeTips.h" />
     <ClInclude Include="..\Classes\PetView.h" />
     <ClInclude Include="..\Classes\PreStageModel.h" />
     <ClInclude Include="..\Classes\PreStagePetSlot.h" />
@@ -313,6 +334,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\RedPackageDialog.h" />
     <ClInclude Include="..\Classes\RedPackageModule.h" />
     <ClInclude Include="..\Classes\ScaleDialog.h" />
+    <ClInclude Include="..\Classes\SensitiveWords.h" />
     <ClInclude Include="..\Classes\SettingBtnsHelper.h" />
     <ClInclude Include="..\Classes\ShopModel.h" />
     <ClInclude Include="..\Classes\ShopScene.h" />
@@ -350,6 +372,19 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\Classes\TimeUtil.h" />
     <ClInclude Include="..\Classes\TitlePanel.h" />
     <ClInclude Include="..\Classes\TouchNode.h" />
+    <ClInclude Include="..\Classes\TreasureSkipStageDialog.h" />
+    <ClInclude Include="..\Classes\TreasureStageDataMgr.h" />
+    <ClInclude Include="..\Classes\TreasureStageMacro.h" />
+    <ClInclude Include="..\Classes\TreasureStageModel.h" />
+    <ClInclude Include="..\Classes\TreasureStageNotifier.h" />
+    <ClInclude Include="..\Classes\TreasureStageResultDialog.h" />
+    <ClInclude Include="..\Classes\TreasureStageScene.h" />
+    <ClInclude Include="..\Classes\TreasureStageState.h" />
+    <ClInclude Include="..\Classes\TreasureStageTargetPanel.h" />
+    <ClInclude Include="..\Classes\TreasureStarData.h" />
+    <ClInclude Include="..\Classes\TreasureStarsLayer.h" />
+    <ClInclude Include="..\Classes\TreasureStarView.h" />
+    <ClInclude Include="..\Classes\TreasurePauseDialog.h" />
     <ClInclude Include="..\Classes\UiLayout.h" />
     <ClInclude Include="..\Classes\UserInfo.h" />
     <ClInclude Include="..\Classes\ViewUtil.h" />

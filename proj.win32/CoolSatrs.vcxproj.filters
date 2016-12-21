@@ -64,6 +64,18 @@
     <Filter Include="Thief">
       <UniqueIdentifier>{652e61ab-1900-493b-b10d-abb7c97dee0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Daily">
+      <UniqueIdentifier>{2fcf0d81-55f5-4e6e-b99c-ba58c889e515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TreasureStage">
+      <UniqueIdentifier>{2092cae0-e119-4f16-a17a-05f493e2897c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TreasureStage\model">
+      <UniqueIdentifier>{d56b9438-2c43-4671-941b-5bd81ea1d02c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TreasureStage\view">
+      <UniqueIdentifier>{6fbbf93a-50d8-4551-bc9e-e1e5d8b1e3cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -383,6 +395,57 @@
     </ClCompile>
     <ClCompile Include="..\Classes\StarBkGrid.cpp">
       <Filter>GameStage\StageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SensitiveWords.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InputPad.cpp">
+      <Filter>Utils\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStageDataMgr.cpp">
+      <Filter>TreasureStage\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStageModel.cpp">
+      <Filter>TreasureStage\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStarData.cpp">
+      <Filter>TreasureStage\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStageState.cpp">
+      <Filter>TreasureStage\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStageScene.cpp">
+      <Filter>TreasureStage\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStarsLayer.cpp">
+      <Filter>TreasureStage\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStarView.cpp">
+      <Filter>TreasureStage\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStageNotifier.cpp">
+      <Filter>TreasureStage\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStageResultDialog.cpp">
+      <Filter>TreasureStage\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PetUpgradeTips.cpp">
+      <Filter>Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureStageTargetPanel.cpp">
+      <Filter>TreasureStage\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DailyLoginPanel.cpp">
+      <Filter>Daily</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DailyLoginModel.cpp">
+      <Filter>Daily</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasurePauseDialog.cpp">
+      <Filter>TreasureStage\view</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TreasureSkipStageDialog.cpp">
+      <Filter>TreasureStage\view</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -733,6 +796,60 @@
     </ClInclude>
     <ClInclude Include="..\Classes\StarBkGrid.h">
       <Filter>GameStage\StageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SensitiveWords.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InputPad.h">
+      <Filter>Utils\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStageDataMgr.h">
+      <Filter>TreasureStage\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStageMacro.h">
+      <Filter>TreasureStage\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStageModel.h">
+      <Filter>TreasureStage\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStarData.h">
+      <Filter>TreasureStage\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStageState.h">
+      <Filter>TreasureStage\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStageScene.h">
+      <Filter>TreasureStage\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStarsLayer.h">
+      <Filter>TreasureStage\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStarView.h">
+      <Filter>TreasureStage\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStageNotifier.h">
+      <Filter>TreasureStage\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStageResultDialog.h">
+      <Filter>TreasureStage\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PetUpgradeTips.h">
+      <Filter>Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureStageTargetPanel.h">
+      <Filter>TreasureStage\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DailyLoginPanel.h">
+      <Filter>Daily</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DailyLoginModel.h">
+      <Filter>Daily</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasurePauseDialog.h">
+      <Filter>TreasureStage\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureSkipStageDialog.h">
+      <Filter>TreasureStage\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
