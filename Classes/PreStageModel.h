@@ -23,6 +23,7 @@ public:
 	void init();
 private:
 	std::vector<int> m_selectedPets;
+	std::vector<int> m_canSelectPets;
 	std::vector<IPreStageView *>m_views;
 };
 #endif

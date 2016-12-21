@@ -204,34 +204,18 @@ void StarsController::reOrderStars(int times)
 
 void StarsController::preOneRound()
 {
-	if (!PetManager::petMgr()->usePetSkill())
+	if (!checkGameOver() && !PetManager::petMgr()->usePetSkill())
 	{
-		if (!checkGameOver())
+		StageDataMgr::theMgr()->newRound();
+		m_starsBehavior.onOneRoundBegin();
+		//游戏中没有可消除的星星 则重排
+		if (noStarsToErase())
 		{
-			StageDataMgr::theMgr()->newRound();
-
-			m_starsBehavior.onOneRoundBegin();
-			//游戏中没有可消除的星星 则重排
-			if (noStarsToErase())
-			{
-				reOrderStars(0);
-			}
-
-			NOTIFY_VIEWS(onOneRoundBegan)
+			reOrderStars(0);
 		}
-		CCLOG("one round begin");
+
+		NOTIFY_VIEWS(onOneRoundBegan)
 	}
-	/*
-	else
-	{
-		CCLOG("use PetSkill");
-		m_runner->queueAction(DelayAction::withDelay(3.0f));
-		m_runner->queueAction(CallFuncAction::withFunctor([=]()
-		{
-			preOneRound();
-		}));
-	}
-	*/
 }
 
 void StarsController::endOneRound(bool addStep)

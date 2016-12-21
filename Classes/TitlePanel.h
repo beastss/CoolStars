@@ -40,10 +40,11 @@ private:
 
 	void onBackHomeBtnClicked(cocos2d::CCObject* pSender);
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+	void addTips(int value, cocos2d::CCPoint pos, int tag);
 private:
-	virtual void onDiamondChanged();
-	virtual void onFoodChanged();
-	virtual void onStrengthChanged();
+	virtual void onDiamondChanged(int oldValue, int newValue);
+	virtual void onFoodChanged(int oldValue, int newValue);
+	virtual void onStrengthChanged(int oldValue, int newValue);
 	virtual void onThiefShowUp();
 	virtual void onStrengthLeftTimeChanged(int leftSecs);
 	virtual void onThiefDisappear();

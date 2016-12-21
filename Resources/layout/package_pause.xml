@@ -15,7 +15,7 @@
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
-		<path>package/text/props.png</path>
+		<path>package/text/props_business.png</path>
 	</image>
 	<animation>
 		<id>7</id>
@@ -29,8 +29,8 @@
 	</animation>
 	<button>
 		<id>3</id>
-		<x>54.67</x>
-		<y>63.69</y>
+		<x>229.42</x>
+		<y>53</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -39,31 +39,9 @@
 		<disabled>package/cancel_check.png</disabled>
 	</button>
 	<button>
-		<id>4</id>
-		<x>111.86</x>
-		<y>64.32</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<normal>package/lb_anniu3.png</normal>
-		<selected>package/lb_anniu3.png</selected>
-		<disabled>package/lb_anniu3.png</disabled>
-	</button>
-	<button>
-		<id>8</id>
-		<x>111.86</x>
-		<y>64.32</y>
-		<anchorPtX>0.50</anchorPtX>
-		<anchorPtY>0.50</anchorPtY>
-		<scale>1.00</scale>
-		<normal>package/lb_anniu5.png</normal>
-		<selected>package/lb_anniu5.png</selected>
-		<disabled>package/lb_anniu5.png</disabled>
-	</button>
-	<button>
 		<id>5</id>
-		<x>178.36</x>
-		<y>64.75</y>
+		<x>81.49</x>
+		<y>53</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -73,8 +51,8 @@
 	</button>
 	<button>
 		<id>6</id>
-		<x>243.33</x>
-		<y>65.81</y>
+		<x>154.48</x>
+		<y>53</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>

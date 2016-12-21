@@ -10,17 +10,26 @@
 	</image>
 	<image>
 		<id>2</id>
-		<x>121.35</x>
-		<y>161.67</y>
+		<x>116.50</x>
+		<y>179.61</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
 		<path>ranking/qm_logo.png</path>
 	</image>
+	<image>
+		<id>8</id>
+		<x>171.80</x>
+		<y>120.47</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>0.70</scale>
+		<path>ranking/phb_zj.png</path>
+	</image>
 	<button>
 		<id>3</id>
-		<x>239.75</x>
-		<y>58.88</y>
+		<x>243.76</x>
+		<y>54.87</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -30,8 +39,8 @@
 	</button>
 	<button>
 		<id>4</id>
-		<x>115.02</x>
-		<y>59.73</y>
+		<x>101.09</x>
+		<y>55.72</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>

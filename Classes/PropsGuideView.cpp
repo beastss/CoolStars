@@ -73,5 +73,21 @@ void PropsGuideView::toPropsItem()
 		removeFromParentAndCleanup(true);
 	});
 
-	runAction(CCSequence::create(CCDelayTime::create(3.0f), func, NULL));
+	runAction(CCSequence::create(CCDelayTime::create(4.0f), func, NULL));
+
+	
+	for (size_t i = 0; i < m_pos.size(); ++i)
+	{
+		CCSprite *fingerSpr = CCSprite::create("guide/xszt_shouzi_2.png");
+		fingerSpr->setAnchorPoint(ccp(1, 0));
+		auto oldPos = ccpAdd(m_pos[i], ccp(-50, 30));;
+		auto newPos = ccpAdd(oldPos, ccp(-30, 30));
+		fingerSpr->setPosition(oldPos);
+		fingerSpr->runAction(CCRepeatForever::create(
+			CCSequence::create(
+			CCMoveTo::create(0.3f, newPos),
+			CCMoveTo::create(0.3f, oldPos), NULL)));
+		addChild(fingerSpr);
+	}
+	
 }

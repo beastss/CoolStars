@@ -2,6 +2,9 @@
 #define __TESTSCENE_H__
 
 #include "cocos2d.h"
+
+class InputPad;
+
 class TestScene : public cocos2d::CCLayer
 {
 public:
@@ -23,9 +26,12 @@ private:
 	void blinkAction();
 	void test();
 	void testSameDistancePos();
+	void sensitiveWordsTest();
+	void inputPadTest();
 private:
 	cocos2d::CCClippingNode *m_clippingNode;
 	cocos2d::CCSprite *m_spr;
+	InputPad *m_inputPad;
 };
 
 

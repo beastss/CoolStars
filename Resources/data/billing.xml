@@ -1,11 +1,11 @@
 ﻿<billing>
-<item name="200钻石" desc="200钻石" canRepeatedBuy="1" cost="2" code="30000979228501"/>
-<item name="960钻石" desc="960钻石" canRepeatedBuy="1" cost="8" code="30000979228502"/>
-<item name="2250钻石" desc="2250钻石" canRepeatedBuy="1" cost="15" code="30000979228503"/>
-<item name="3600钻石" desc="3600钻石" canRepeatedBuy="1" cost="20" code="30000979228504"/>
-<item name="6000钻石" desc="6000钻石" canRepeatedBuy="1" cost="30" code="30000979228505"/>
-<item name="道具礼包" desc="炸弹10个、刷子10个、转换10个" canRepeatedBuy="1" cost="30" code="30000979228506"/>
-<item name="接着玩" desc="添加5步" canRepeatedBuy="1" cost="2" code="30000979228507"/>
-<item name="新手宠物包" desc="获得1级的紫猴" canRepeatedBuy="0" cost="0.1" code="30000979228508"/>
-<item name="一键开箱" desc="一键开启9个宝箱" canRepeatedBuy="0" cost="6" code="30000979228509"/>
+<item name="200钻石" desc="200钻石" canRepeatedBuy="1" cost="2" mmCode="30000979228501" dianXinCode="TOOL1" liantongCode="001"/>
+<item name="960钻石" desc="960钻石" canRepeatedBuy="1" cost="8" mmCode="30000979228502" dianXinCode="TOOL2" liantongCode="002"/>
+<item name="2250钻石" desc="2250钻石" canRepeatedBuy="1" cost="15" mmCode="30000979228503" dianXinCode="TOOL3" liantongCode="003"/>
+<item name="3600钻石" desc="3600钻石" canRepeatedBuy="1" cost="20" mmCode="30000979228504" dianXinCode="TOOL4" liantongCode="004"/>
+<item name="6000钻石" desc="6000钻石" canRepeatedBuy="1" cost="30" mmCode="30000979228505" dianXinCode="TOOL5" liantongCode="005"/>
+<item name="道具礼包" desc="炸弹10个、刷子10个、转换10个" canRepeatedBuy="1" cost="20" mmCode="30000979228510" dianXinCode="TOOL10" liantongCode="011"/>
+<item name="接着玩" desc="添加5步" canRepeatedBuy="1" cost="2" mmCode="30000979228507" dianXinCode="TOOL9" liantongCode="007"/>
+<item name="新手宠物包" desc="获得1级的紫猴" canRepeatedBuy="0" cost="0.1" mmCode="30000979228508" dianXinCode="TOOL7" liantongCode="008"/>
+<item name="一键开箱" desc="一键开启9个宝箱" canRepeatedBuy="0" cost="8" mmCode="30000979228511" dianXinCode="TOOL11" liantongCode="010"/>
 </billing>

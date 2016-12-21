@@ -55,6 +55,19 @@ void SoundMgr::playEffect(int effectType)
 	}
 }
 
+void SoundMgr::pause()
+{
+	SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+}
+
+void SoundMgr::resume()
+{
+	if (!m_isMute)
+	{
+		SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+	}
+}
+
 void SoundMgr::setMute( bool mute )
 {
 	if (mute)

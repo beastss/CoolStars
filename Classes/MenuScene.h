@@ -30,6 +30,7 @@ private:
 	void toRankPanel(cocos2d::CCObject* pSender);
 	void toPackagePanel(cocos2d::CCObject* pSender);
 	void toShopPanel(cocos2d::CCObject* pSender);
+	void toDailyLoginPanel(cocos2d::CCObject* pSender);
 private:
 	void justShowNormalGameBtn();
 	void refreshPetTips();

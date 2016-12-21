@@ -56,6 +56,7 @@ public:
 	void loadPetResConfig();
 	const PetResConfig &getPetResConfig(int petId);
 	vector<int> getOpeningPetIds();
+	vector<int> getStagePetIds(bool normalStage);
 
 	void loadPetColorConfig();
 	const PetColorConfig &getPetColorConfig(int color);
@@ -106,6 +107,9 @@ public:
 	void loadSound();
 	const SoundConfig &getSoundConfig();
 
+	void loadDailyLoginConfig();
+	const DailyLoginConfig &getDailyLoginConfig(int days);
+
 	std::string getText(std::string tag);
 private:
 	vector<StageConfig> m_stagesConfig;
@@ -131,6 +135,7 @@ private:
 	vector<EraseBonus> m_eraseBonusConfig;
 	SoundConfig m_soundConfig;
 	vector<GameWinBonusConfig> m_gameWinBonusConfig;
+	vector<DailyLoginConfig> m_dailyLoginConfig;
 };
 
 #endif

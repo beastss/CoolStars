@@ -26,6 +26,8 @@ public:
 	void playEffect(int effectType);
 	void setMute(bool mute);
 	bool isMute();
+	void pause();
+	void resume();
 private:
 	SoundMgr() : m_isMute(true){}
 	~SoundMgr();

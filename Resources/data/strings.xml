@@ -4,5 +4,7 @@
 <dict>
   <key>no_link_stars</key>
   <string>没有可消除的星星</string>
+   <key>erase_scores</key>
+  <string>%d连消 %d分</string>
 </dict>
 </plist>

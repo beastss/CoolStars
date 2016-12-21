@@ -5,16 +5,13 @@ class GameBackEndState
 {
 public:
 	static GameBackEndState *theModel();
-	void setBusinessMode(bool isBusinessMode){ m_isBusinessMode = isBusinessMode; }
-	bool isBusinessMode(){ return m_isBusinessMode; }
+	bool isBusinessMode();
 
 	void recordStageStart();
 	void recordStageEnd(bool win);	
 
-	void init();
 private:
 	GameBackEndState();
 private:
-	bool m_isBusinessMode;
 };
 #endif

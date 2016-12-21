@@ -10,6 +10,8 @@
 #include "SqliteHelper.h"
 #include <fstream>
 #include "CommonUtil.h"
+#include "SensitiveWords.h"
+#include "InputPad.h"
 
 USING_NS_CC;
 
@@ -30,8 +32,24 @@ bool TestScene::init()
 	initPanel();
 	//test();
 	//blinkAction();
-	testSameDistancePos();
+	//testSameDistancePos();
+	//sensitiveWordsTest();
+	inputPadTest();
 	return true;
+}
+
+void TestScene::sensitiveWordsTest()
+{
+	string text = DataManagerSelf->getRankingConfig(2).name;
+	SensitiveWords::theModel()->isSensitiveWord(text);
+}
+
+void TestScene::inputPadTest()
+{
+	m_inputPad = InputPad::create("ranking/phb_bieren.png", -100);
+	m_inputPad->setPosition(ccp(200, 200));
+	m_inputPad->setLengthLimit(4);
+	addChild(m_inputPad);
 }
 
 void TestScene::testSameDistancePos()
@@ -143,9 +161,6 @@ void TestScene::animationTest2()
 	ani->setPosition(ccp(100, 100));
 	ani->setScale(0.2f);
 	addChild(ani, 10);
-
-
-	
 }
 
 void TestScene::imageNumtest()
@@ -188,6 +203,9 @@ void TestScene::listViewTest()
 
 void TestScene::initPanel()
 {
+	auto bk = CCLayerColor::create(ccc4(155, 155, 155, 255));
+	addChild(bk);
+
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
 		"main_menu/zcd_anniu5.png",
@@ -261,9 +279,8 @@ void TestScene::printDBInfos()
 
 void TestScene::testCallback(CCObject* pSender)
 {
-	//m_spr->stopAllActions();
-	//m_spr->runAction(CCEaseExponentialOut::create(CCMoveTo::create(1.0f, ccp(200, 600))));
-	//m_spr->runAction(CCMoveTo::create(0.5, ccp(300, 200)));
+	bool sensitiveWord = SensitiveWords::theModel()->isSensitiveWord(m_inputPad->getText());
+	CCLOG("sensitive words: %s", sensitiveWord ? "true" : "false");
 }
 
 

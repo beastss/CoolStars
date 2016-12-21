@@ -32,6 +32,8 @@ enum GuideStartAction
 	kGuideStart_pet_upgrade,
 
 	kGuideStart_guide_in = 90,
+
+	kGuideStart_treasure_in = 100,
 };
 
 enum GuideEndAction

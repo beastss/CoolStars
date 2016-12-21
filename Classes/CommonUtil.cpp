@@ -81,7 +81,7 @@ int CommonUtil::getRandomValue(int begin, int end)
 int CommonUtil::getResultByPercent(const std::vector<float> &percents)
 {
 	assert(!percents.empty());
-	float result = getRandomValue(1, 10000) / 100;
+	float result = getRandomValue(1, 10000) / 100.0f;
 	float curPercent = 0;
 	for (int i = 0; i < percents.size(); ++i)
 	{
@@ -222,3 +222,13 @@ std::vector<cocos2d::CCPoint>CommonUtil::getSameDistancePos(cocos2d::CCPoint sta
 	}
 	return v;
 }
+
+cocos2d::CCAction *CommonUtil::getRepeatScaleAction(float scale, float toScaleTime, float toNormalTime)
+{
+	auto scaleSmall = CCScaleTo::create(toScaleTime, scale);
+	auto scaleNormal = CCScaleTo::create(toNormalTime, 1.0f);
+
+	auto seq = CCRepeatForever::create(CCSequence::create(scaleSmall, scaleNormal, NULL));
+	return seq;
+}
+

@@ -21,6 +21,7 @@
 #include "PetScene.h"
 #include "ActionRunner.h"
 #include "NoTouchLayer.h"
+#include "GameBackEndState.h"
 
 USING_NS_CC;
 using namespace std;
@@ -55,38 +56,39 @@ bool LotteryNode::onTouchBegan(cocos2d::CCPoint pt, bool isInside)
 {
 	if (isInside && !m_isOpened)
 	{
-		int key = UserInfo::theInfo()->getKey();
-		int cost = DataManagerSelf->getSystemConfig().diamondsForOneKey;
-		if (key <= 0 && !UserInfo::theInfo()->hasEnoughDiamond(cost))
+		if (!LotteryModel::theModel()->canOpenOneBox())
 		{
 			MainScene::theScene()->showDialog(PackageDialog::create(kPackageDiamond));
 			MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
 		}
 		else
 		{
-			handleTouch();
+			auto data = LotteryModel::theModel()->buyOneBox();
+			openBox(data);
 		}
 	}
 	return isInside;
 }
 
-void LotteryNode::handleTouch(bool consume)
+void LotteryNode::openBox(const LotteryData data)
 {
+	LotteryModel::theModel()->getReward(data);
+	m_panel->startOpenBox();
+
 	m_isOpened = true;
 	auto pos = getParent()->convertToWorldSpace(getPosition());
 	auto size = getContentSize();
 	pos = ccpAdd(pos, ccpMult(size, 0.5f));
-	m_panel->runKeyMoveAction(pos, bind(&LotteryNode::openReward, this, consume));
+	m_panel->runKeyMoveAction(pos, bind(&LotteryNode::showReward, this, data));
 	GuideMgr::theMgr()->endGuide(kGuideEnd_lottery_open_box);
 }
 
-void LotteryNode::openReward(bool consume)
+void LotteryNode::showReward(const LotteryData data)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
 	m_layout->getChildById(1)->setVisible(false);
 	m_layout->getChildById(2)->setVisible(true);
 
-	auto data = LotteryModel::theModel()->getLotteryResult();
 	string resPath;
 	int goodsNum = 0;
 	if (data.type == kLotteryPet)
@@ -120,12 +122,11 @@ void LotteryNode::openReward(bool consume)
 	m_goodsLayout->getChildById(2)->setVisible(false);
 	
 	m_goodsLayout->runAction(getRewardOutAction(goodsNum));
-
-	LotteryModel::theModel()->doLottery(data, consume);
-	m_panel->setTouchEnable(false, 1);
+	//LotteryModel::theModel()->getReward(data);
+	//m_panel->startOpenBox();
 	auto func = CCFunctionAction::create([=]
 	{
-		m_panel->setTouchEnable(true, 1);
+		m_panel->endOpenBox();
 	});
 	int delayTime = data.type == kLotteryPet ? 1.0f : 0.5f;
 	runAction(CCSequence::create(CCDelayTime::create(delayTime), func, NULL));
@@ -156,6 +157,7 @@ LotteryScene *LotteryScene::create(int usage)
 LotteryScene::LotteryScene(int usage)
 : m_openedBoxNum(0)
 , m_curOpenedNum(0)
+, m_isOpeningAllBox(false)
 {
 	setUsage(usage);
 	m_runner = ActionRunner::create();
@@ -233,8 +235,11 @@ void LotteryScene::initLayout()
 	CCMenuItem * toPetSceneBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(16)));
 	toPetSceneBtn->setTarget(this, menu_selector(LotteryScene::toPetScene));
 
-	CCMenuItem * openAllBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(21)));
+	bool isBusiness = GameBackEndState::theModel()->isBusinessMode();
+	CCMenuItem * openAllBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(isBusiness ? 21 : 23)));
 	openAllBtn->setTarget(this, menu_selector(LotteryScene::onOpenAllBoxesBtnClicked));
+	m_layout->getChildById(21)->setVisible(isBusiness);
+	m_layout->getChildById(23)->setVisible(!isBusiness);
 	
 	int boxIds[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 	for (int i = 0; i < 9; ++i)
@@ -253,6 +258,11 @@ void LotteryScene::initLayout()
 	m_layout->getChildById(20)->setZOrder(2);
 	m_layout->getChildById(20)->setVisible(hasPetToUpgrade);
 
+	if (!isBusiness)
+	{
+		auto costNum = dynamic_cast<CCSprite *>(m_layout->getChildById(22));
+		costNum->initWithFile("lottery/pic_9.png");
+	}
 	onKeyChanged();
 }
 
@@ -284,6 +294,9 @@ void LotteryScene::refreshUi()
 		bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
 		m_layout->getChildById(20)->setVisible(hasPetToUpgrade && isShowUp);
 
+		bool isBusiness = GameBackEndState::theModel()->isBusinessMode();
+		m_layout->getChildById(23)->setVisible(!isBusiness && isShowUp);
+
 	}
 	else if (m_usage == kLotterySceneFromMenuScene)
 	{
@@ -308,37 +321,40 @@ void LotteryScene::toPetScene(CCObject* pSender)
 
 void LotteryScene::onOpenAllBoxesBtnClicked(cocos2d::CCObject* pSender)
 {
-	const int kOpenAllBoxesPurchaseId = 9;//¼Æ·Ñµãid
-	MyPurchase::sharedPurchase()->buyItem(kOpenAllBoxesPurchaseId, bind(&LotteryScene::openAllBoxs, this));
+	LotteryModel::theModel()->buyAllBox(bind(&LotteryScene::openAllBoxs, this, placeholders::_1));
 }
 
-void LotteryScene::openAllBoxs()
+void LotteryScene::openAllBoxs(std::vector<LotteryData> datas)
 {
 	m_runner->clear();
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+
 	m_noTouchLayer->setCanTouch(false);
+	m_isOpeningAllBox = true;
+
 	if (m_curOpenedNum != 0)
 	{
-		newRewardBoxs();
+		newRewardBoxs(false);
 		m_runner->queueAction(DelayAction::withDelay(3.0f));
 	}
 
 	int boxIds[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 	for (int i = 0; i < 9; ++i)
 	{
-		int id = boxIds[i];;
+		int id = boxIds[i];
+	//remove
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
 		{
 			auto box = dynamic_cast<EmptyBox *>(m_layout->getChildById(id));
 			auto node = dynamic_cast<LotteryNode *>(box->getNode());
-			node->handleTouch(false);
+			node->openBox(datas[i]);
 		}));
 		m_runner->queueAction(DelayAction::withDelay(0.5f));
 	}
 
 	m_runner->queueAction(CallFuncAction::withFunctor([=]()
 	{
-		m_noTouchLayer->setCanTouch(true);
+		m_isOpeningAllBox = false;
 	}));
 }
 
@@ -357,12 +373,12 @@ void LotteryScene::onOpenReward()
 
 	if (m_curOpenedNum >= kRewardBoxNum)
 	{
-		newRewardBoxs();
+		newRewardBoxs(true);
 	}
 	refreshUi();
 }
 
-void LotteryScene::newRewardBoxs()
+void LotteryScene::newRewardBoxs(bool enableTouch)
 {
 	m_curOpenedNum = 0;
 	const float kMoveTime = 0.5f;
@@ -376,7 +392,9 @@ void LotteryScene::newRewardBoxs()
 	auto removeFunc = CCFunctionAction::create([=]()
 	{
 		removeChild(m_layout, true);
+		stopAllActions();
 		initPanel();
+		m_noTouchLayer->setCanTouch(enableTouch);
 	});
 	runAction(CCSequence::create(CCDelayTime::create(0.5f), moveUpFunc, CCDelayTime::create(kMoveTime), removeFunc, NULL));
 }
@@ -402,7 +420,7 @@ void LotteryScene::runKeyMoveAction(cocos2d::CCPoint target, std::function<void(
 	auto sourcePos = convertToNodeSpace(m_layout->convertToWorldSpace(m_layout->getChildById(4)->getPosition()));
 	auto targetPos = convertToNodeSpace(target);
 	auto spr = CCSprite::create("lottery/cjjm_yaoshi.png");
-	addChild(spr);
+	m_layout->addChild(spr);
 	spr->setPosition(sourcePos);
 	auto move = CCEaseExponentialInOut::create(CCMoveTo::create(0.3f, targetPos));
 	auto func = CCFunctionAction::create([=]()
@@ -414,7 +432,15 @@ void LotteryScene::runKeyMoveAction(cocos2d::CCPoint target, std::function<void(
 
 }
 
-void LotteryScene::setTouchEnable(bool enable, int tag)
-{ 
-	m_noTouchLayer->setCanTouch(enable, tag);
+void LotteryScene::startOpenBox()
+{
+	m_noTouchLayer->setCanTouch(false);
+}
+
+void LotteryScene::endOpenBox()
+{
+	if (!m_isOpeningAllBox)
+	{
+		m_noTouchLayer->setCanTouch(true);
+	}
 }

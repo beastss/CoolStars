@@ -32,6 +32,7 @@ void UserInfo::loadUserInfo()
 	m_firstPlayTime = atoi(data[7]);
 	m_lastLoginInTime = atoi(data[8]);
 	m_lastSaveStrengthTime = atoi(data[9]);
+	m_loginDays = atoi(data[10]);
 }
 
 void UserInfo::init()
@@ -43,6 +44,7 @@ void UserInfo::init()
 		setFirstPlay(false);
 		saveFirstPlayTime();
 	}
+	login();
 	saveCurLoginInTime();
 
 	m_clock.setTickHandle(bind(&UserInfo::onTick, this, placeholders::_1));
@@ -58,7 +60,8 @@ void UserInfo::onTick(float dt)
 		int strengthAdd = (curTime - m_lastSaveStrengthTime) / secsInOneStrength;
 		if (strengthAdd > 0)
 		{
-			setStrength(m_strength + strengthAdd);
+			int newStrength = min(m_strength + strengthAdd, getMaxStrength());
+			setStrength(newStrength);
 		}
 
 		secsLeft = secsInOneStrength - ((curTime - m_lastSaveStrengthTime) % secsInOneStrength);
@@ -68,6 +71,7 @@ void UserInfo::onTick(float dt)
 
 void UserInfo::setDiamond(int value)
 { 
+	int oldDiamond = m_diamond;
 	m_diamond = max(0, value); 
 
 	SqliteHelper sqlHelper(DB_SAVING);
@@ -75,7 +79,7 @@ void UserInfo::setDiamond(int value)
 	sprintf(str, "update save_user_info set %s = '%d' where id = 1;", "diamond", m_diamond);
 	sqlHelper.executeSql(str);
 
-	NOTIFY_VIEWS(onDiamondChanged);
+	NOTIFY_VIEWS(onDiamondChanged, oldDiamond, m_diamond);
 }
 
 bool UserInfo::consumeDiamond(int value)
@@ -93,6 +97,7 @@ bool UserInfo::hasEnoughDiamond(int value)
 
 void UserInfo::setFood(int value)
 {
+	int oldFood = m_food;
 	m_food = max(0, value);
 	
 	SqliteHelper sqlHelper(DB_SAVING);
@@ -100,11 +105,12 @@ void UserInfo::setFood(int value)
 	sprintf(str, "update save_user_info set %s = '%d' where id = 1;", "food", m_food);
 	sqlHelper.executeSql(str);
 
-	NOTIFY_VIEWS(onFoodChanged);
+	NOTIFY_VIEWS(onFoodChanged, oldFood, m_food);
 }
 
 void UserInfo::setStrength(int value)
 {
+	int oldStrength = m_strength;
 	int maxStrength = DataManagerSelf->getSystemConfig().strengthMax;
 	m_strength = max(0, value);
 
@@ -114,7 +120,7 @@ void UserInfo::setStrength(int value)
 	sprintf(str, "update save_user_info set %s = '%d', %s = '%d' where id = 1;", "strength", m_strength, "strength_last_save_time", m_lastSaveStrengthTime);
 	sqlHelper.executeSql(str);
 
-	NOTIFY_VIEWS(onStrengthChanged);
+	NOTIFY_VIEWS(onStrengthChanged, oldStrength, m_strength);
 }
 
 int UserInfo::getMaxStrength()
@@ -204,6 +210,31 @@ void UserInfo::saveCurLoginInTime()
 	sqlHelper.executeSql(str);
 }
 
+void UserInfo::login()
+{
+	int curTime = time_util::getCurTime();
+	auto curData = time_util::getDate(curTime);
+	auto lastLoginInDate = time_util::getDate(m_lastLoginInTime);
+
+	m_isFirstPlayToday = !(curData.tm_year == lastLoginInDate.tm_year
+		&& curData.tm_mon == lastLoginInDate.tm_mon
+		&& curData.tm_mday == lastLoginInDate.tm_mday);
+
+	if (m_isFirstPlayToday)
+	{
+		m_loginDays++;
+		SqliteHelper sqlHelper(DB_SAVING);
+		char str[100] = { 0 };
+		sprintf(str, "update save_user_info set %s = '%d' where id = 1;", "login_days", m_loginDays);
+		sqlHelper.executeSql(str);
+	}
+}
+
+int UserInfo::getCurLoginDays()
+{
+	return m_loginDays;
+}
+
 void UserInfo::addView(IUserInfoView *view)
 {
 	auto iter = find(m_views.begin(), m_views.end(), view);
@@ -224,13 +255,7 @@ void UserInfo::removeView(IUserInfoView *view)
 
 bool UserInfo::isFirstLoginToday()
 {
-	int curTime = time_util::getCurTime();
-	auto curData = time_util::getDate(curTime);
-	auto lastLoginInDate = time_util::getDate(m_lastLoginInTime);
-
-	return !(curData->tm_year == lastLoginInDate->tm_year
-		&& curData->tm_mon == lastLoginInDate->tm_mon
-		&& curData->tm_mday == lastLoginInDate->tm_mday);
+	return m_isFirstPlayToday;
 }
 
 int UserInfo::getDaysFromFirstPlay()

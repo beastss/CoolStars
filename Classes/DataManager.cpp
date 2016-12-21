@@ -41,6 +41,7 @@ void DataManager::LoadData()
 	loadPurchase();
 	loadSound();
 	loadGameWinBonusConfig();
+	loadDailyLoginConfig();
 }
 
 void DataManager::loadStarsConfig()
@@ -124,7 +125,8 @@ void DataManager::loadPetCommonConfig()
 		config.skillTarget = atoi(data[5]);
 		config.skillDescRes = data[6];
 		config.diamondCost = atoi(data[7]);
-		config.desc = data[8];
+		config.lotteryWeight = atoi(data[8]);
+		config.desc = data[9];
 		m_petCommonConfig.push_back(config);
 	}
 }
@@ -153,7 +155,8 @@ void DataManager::loadPetResConfig()
 		config.petAnimationRes = data[5];
 		config.petNameRes = data[6];
 		config.isOpening = atoi(data[7]) == 1;
-		config.name = data[8];
+		config.normalStage = atoi(data[8]) == 1;
+		config.name = data[9];
 		m_petResConfig.push_back(config);
 	}
 	sort(m_petResConfig.begin(), m_petResConfig.end(), [=](PetResConfig config1, PetResConfig config2)->bool
@@ -173,6 +176,25 @@ vector<int> DataManager::getOpeningPetIds()
 		}
 	}
 	return petsId;
+}
+
+vector<int> DataManager::getStagePetIds(bool normalStage)
+{
+	auto openingPets = getOpeningPetIds();
+	vector<int> ids;
+	for (size_t i = 0; i < openingPets.size(); ++i)
+	{
+		int petId = openingPets[i];
+		if (normalStage && getPetResConfig(petId).normalStage)
+		{
+			ids.push_back(petId);
+		}
+		if (!normalStage && !getPetResConfig(petId).normalStage)
+		{
+			ids.push_back(petId);
+		}
+	}
+	return ids;
 }
 
 const PetResConfig &DataManager::getPetResConfig(int petId)
@@ -762,4 +784,27 @@ string DataManager::getText(string tag)
 	CCDictionary* pDict = CCDictionary::createWithContentsOfFile(tbPath.c_str());
 	auto value = pDict->valueForKey(tag)->getCString();
 	return value;
+}
+
+void DataManager::loadDailyLoginConfig()
+{
+	SqliteHelper sqlHelper(DB_CONFIG);
+	auto result = sqlHelper.readRecord("select * from daily_login");
+
+	for (int i = 0; i < result.size(); ++i)
+	{
+		auto data = result[i];
+		DailyLoginConfig config;
+		config.id = atoi(data[0]);
+		config.goods = getGoodsDatas(data[1])[0];
+		config.rewardPath = data[2];
+		config.dayLabelPath = data[3];
+		m_dailyLoginConfig.push_back(config);
+	}
+}
+
+const DailyLoginConfig &DataManager::getDailyLoginConfig(int days)
+{
+	assert(days > 0 && days <= m_purchaseConfig.size());
+	return m_dailyLoginConfig[days - 1];
 }

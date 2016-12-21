@@ -7,7 +7,7 @@
 namespace time_util
 {
 	int getCurTime();
-	struct tm *getDate(time_t time);
+	struct tm getDate(time_t time);
 }
 
 #endif

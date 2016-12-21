@@ -6,7 +6,7 @@ struct LogicGrid
 {
 	int x;
 	int y;
-	LogicGrid(int x = 0, int y = 0) : x(x), y(y){}
+	LogicGrid(int _x = 0, int _y = 0) : x(_x), y(_y){}
 	void reset(){ x = -1; y = -1; }
 	//*
 	bool operator == (const LogicGrid &grid)const
@@ -22,6 +22,13 @@ struct LogicGrid
 		LogicGrid temp;
 		temp.x = x + grid.x;
 		temp.y = y + grid.y;
+		return temp;
+	}
+	LogicGrid operator - (const LogicGrid &grid)const
+	{
+		LogicGrid temp;
+		temp.x = x - grid.x;
+		temp.y = y - grid.y;
 		return temp;
 	}
 };

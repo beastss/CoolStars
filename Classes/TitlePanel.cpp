@@ -147,25 +147,46 @@ void TitlePanel::setUiVisible(int who, bool isVisible)
 	}
 }
 
-void TitlePanel::onDiamondChanged()
+void TitlePanel::addTips(int value, cocos2d::CCPoint pos, int tag)
+{
+	m_topLayout->removeChildByTag(tag);
+
+	string path = value >= 0 ? "num/number_15.png" : "num/number_16.png";
+	char text[100] = { 0 };
+	sprintf(text, value >= 0 ? ":%d" : ";%d", abs(value));
+	int amount = 12;
+	auto size = CCSprite::create(path.c_str())->getContentSize();
+	CCLabelAtlas *offsetTips = CCLabelAtlas::create(text, path.c_str(), size.width / amount, size.height, '0');
+	offsetTips->setAnchorPoint(ccp(0.5f, 0.5f));
+	offsetTips->setScale(0.8f);
+	offsetTips->setPosition(pos);
+	m_topLayout->addChild(offsetTips, 1, tag);
+	auto seq = CCSequence::create(CCMoveBy::create(0.3f, ccp(0, size.height * 0.7f * (value >= 0 ? 1 : -1))), CCDelayTime::create(1.5f), CCRemoveSelf::create(), NULL);
+	offsetTips->runAction(seq);
+}
+
+void TitlePanel::onDiamondChanged(int oldValue, int newValue)
 {
 	CCLabelAtlas *diamondNum = dynamic_cast<CCLabelAtlas *>(m_topLayout->getChildById(18));
-	diamondNum->setString(intToStr(UserInfo::theInfo()->getDiamond()));
+	diamondNum->setString(intToStr(newValue));
 	diamondNum->runAction(getScaleAction());
+	int tag = newValue >= oldValue ? 101 : 102;
+	addTips(newValue - oldValue, diamondNum->getPosition(), tag);
 }
 
-void TitlePanel::onFoodChanged()
+void TitlePanel::onFoodChanged(int oldValue, int newValue)
 {
 	CCLabelAtlas *foodNum = dynamic_cast<CCLabelAtlas *>(m_topLayout->getChildById(17));
-	foodNum->setString(intToStr(UserInfo::theInfo()->getFood()));
+	foodNum->setString(intToStr(newValue));
 	foodNum->runAction(getScaleAction());
-
+	int tag = newValue >= oldValue ? 201 : 202;
+	addTips(newValue - oldValue, foodNum->getPosition(), tag);
 }
 
-void TitlePanel::onStrengthChanged()
+void TitlePanel::onStrengthChanged(int oldValue, int newValue)
 {
 	CCLabelAtlas *strengthNum = dynamic_cast<CCLabelAtlas *>(m_topLayout->getChildById(16));
-	strengthNum->setString(intToStr(UserInfo::theInfo()->getStrength()));
+	strengthNum->setString(intToStr(newValue));
 	strengthNum->runAction(getScaleAction());
 }
 

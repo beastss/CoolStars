@@ -8,7 +8,6 @@
 		<scale>1.00</scale>
 		<path>stage/game_fail/sbjm_bj.jpg</path>
 	</image>
-	
 	<image>
 		<id>4</id>
 		<x>233.63</x>
@@ -47,8 +46,8 @@
 	</image>
 	<image>
 		<id>6</id>
-		<x>94.13</x>
-		<y>522.98</y>
+		<x>89.90</x>
+		<y>552.11</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -74,8 +73,8 @@
 	</image>
 	<image>
 		<id>11</id>
-		<x>343.37</x>
-		<y>341.47</y>
+		<x>340.00</x>
+		<y>345.00</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -83,8 +82,8 @@
 	</image>
 	<image>
 		<id>12</id>
-		<x>140.77</x>
-		<y>343.16</y>
+		<x>140.00</x>
+		<y>345.00</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -93,7 +92,7 @@
 	<image>
 		<id>13</id>
 		<x>62.89</x>
-		<y>468.95</y>
+		<y>500.00</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -101,8 +100,8 @@
 	</image>
 	<image>
 		<id>14</id>
-		<x>176.85</x>
-		<y>469.99</y>
+		<x>175.79</x>
+		<y>500.00</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -111,7 +110,7 @@
 	<image>
 		<id>15</id>
 		<x>295.25</x>
-		<y>470.84</y>
+		<y>500.00</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -120,7 +119,7 @@
 	<image>
 		<id>16</id>
 		<x>413.01</x>
-		<y>471.90</y>
+		<y>500.00</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -139,8 +138,8 @@
 	</button>
 	<button>
 		<id>19</id>
-		<x>430.14</x>
-		<y>535.19</y>
+		<x>429.08</x>
+		<y>561.15</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -233,8 +232,8 @@
 	</image>
 	<image>
 		<id>29</id>
-		<x>175.61</x>
-		<y>267.59</y>
+		<x>184.47</x>
+		<y>271.60</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
@@ -264,7 +263,7 @@
 	</imageNum>
 	<imageNum>
 		<id>32</id>
-		<x>216.53</x>
+		<x>218.43</x>
 		<y>247.74</y>
 		<anchorPtX>0.00</anchorPtX>
 		<anchorPtY>0.00</anchorPtY>

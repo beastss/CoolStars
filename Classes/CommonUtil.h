@@ -14,16 +14,17 @@ namespace CommonUtil
 	int getRandomValue(int begin, int end);
 	bool floatEqual(float v1, float v2);
 	std::vector<int> buildRandomSequence(int length);
-	int getResultByPercent(const std::vector<float> &percents);
+	int getResultByPercent(const std::vector<float> &percents);//percent单位是%
 	bool isSelected(int percent);
 
-	std::vector<int> getDifference(std::vector<int> v1, std::vector<int> v2);
+	std::vector<int> getDifference(std::vector<int> v1, std::vector<int> v2);//差集
 	
 	cocos2d::CCAnimate *getFrameAnimation(std::string pathFormat, int num, float duration);
 	cocos2d::CCMenuItemSprite *getScaleMenuItemSpr(std::string path);
 	std::vector<GoodsData> getGoodsDatas(const std::string &str);
 	cocos2d::CCAction *getScaleAction(bool loop = true, float scale = 0.8f, float toScaleTime = 0.6f, float toNormalTime = 0.4f);
 	std::vector<cocos2d::CCPoint>getSameDistancePos(cocos2d::CCPoint start, cocos2d::CCPoint end, int num);
+	cocos2d::CCAction *getRepeatScaleAction(float scale = 0.8f, float toScaleTime = 0.6f, float toNormalTime = 0.4f);
 }
 
 #endif

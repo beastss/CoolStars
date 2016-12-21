@@ -181,3 +181,21 @@ void StagePetNode::onUsePetSkill(int petId)
 {
 	playHappyAction(false);
 }
+
+void StagePetNode::setIconVisible(bool visible)
+{
+	m_skillIcon->setVisible(visible);
+
+	float petImgY = m_layout->getChildById(4)->getPositionY();
+	if (visible)
+	{
+		m_layout->getChildById(6)->setPositionY(petImgY - 110);
+		m_layout->getChildById(7)->setPositionY(petImgY - 110);
+	}
+	else
+	{
+		m_layout->getChildById(6)->setPositionY(petImgY - 70);
+		m_layout->getChildById(7)->setPositionY(petImgY - 70);
+	}
+
+}

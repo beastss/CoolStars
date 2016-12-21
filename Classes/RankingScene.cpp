@@ -13,6 +13,7 @@
 #include "MainScene.h"
 #include "ActionRunner.h"
 #include "NoTouchLayer.h"
+#include "EmptyBox.h"
 
 USING_NS_CC;
 using namespace std;
@@ -62,12 +63,12 @@ bool RankingScene::init()
 
 void RankingScene::initLayout()
 {
-	auto pos = m_layout->getChildById(7)->getPosition();
 	m_rankList = ListSlideView::create(ccp(356, 400));
-	addChild(m_rankList);
-	m_rankList->setAnchorPoint(ccp(0, 1));
-	m_rankList->setPosition(pos);
+	m_rankList->setAnchorPoint(ccp(0, 0));
 	m_rankList->setSpacing(10);
+
+	EmptyBox *box = dynamic_cast<EmptyBox *>(m_layout->getChildById(7));
+	box->setNode(m_rankList);
 
 	initWaitingLayer();
 	addRankingNodes();

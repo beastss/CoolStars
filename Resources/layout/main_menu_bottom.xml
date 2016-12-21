@@ -43,7 +43,6 @@
 		<selected>main_menu/zcd_logo1.png</selected>
 		<disabled>main_menu/zcd_logo1.png</disabled>
 	</button>
-
 	<button>
 		<id>6</id>
 		<x>158.01</x>
@@ -97,5 +96,16 @@
 		<scale>1.00</scale>
 		<path>pet/tips.png</path>
 	</image>
+	<button>
+		<id>11</id>
+		<x>422.52</x>
+		<y>140.87</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>main_menu/icon_1.png</normal>
+		<selected>main_menu/icon_1.png</selected>
+		<disabled>main_menu/icon_1.png</disabled>
+	</button>
 </layout>
 

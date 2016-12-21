@@ -35,7 +35,9 @@ PackageDialog::PackageDialog(int type)
 
 bool PackageDialog::init()
 {
-	m_layout = UiLayout::create("layout/package_common.xml");
+	bool isBusiness = GameBackEndState::theModel()->isBusinessMode();
+	string xmlPath = isBusiness ? "layout/package_common.xml" : "layout/package_common_before_business.xml";
+	m_layout = UiLayout::create(xmlPath.c_str());
 	m_layout->setMenuTouchPriority(m_touchPriority);
 	addChild(m_layout);
 	initLayout();
@@ -47,27 +49,66 @@ bool PackageDialog::init()
 
 void PackageDialog::initLayout()
 {
+	bool isBusiness = GameBackEndState::theModel()->isBusinessMode();
+
 	CCMenuItem *cancelBtn = dynamic_cast<CCMenuItem *>(m_layout->getChildById(10));
 	cancelBtn->setTarget(this, menu_selector(PackageDialog::onCancelBtnClicked));
 
-	CCMenuItem *buyBtn = dynamic_cast<CCMenuItem *>(m_layout->getChildById(9));
-	buyBtn->setTarget(this, menu_selector(PackageDialog::onBuyBtnClicked));
-	buyBtn->runAction(CommonUtil::getScaleAction());
-	
 	auto config = DataManagerSelf->getPackageConfig(m_type);
 
 	CCSprite *text = dynamic_cast<CCSprite *>((m_layout->getChildById(2)));
-	text->initWithFile(config.textPath.c_str());
-	
+	string textPic = config.textPath;
+	if (isBusiness)
+	{
+		auto subStr = textPic.substr(0, textPic.find("."));
+		textPic = subStr + "_business.png";
+	}
+	text->initWithFile(textPic.c_str());
 	m_layout->getChildById(4)->setVisible(false);
+
 	CCSprite *fingerSpr = dynamic_cast<CCSprite *>(m_layout->getChildById(3));
 	auto oldPos = fingerSpr->getPosition();
 	auto newPos = m_layout->getChildById(4)->getPosition();
 	fingerSpr->setZOrder(2);
 	fingerSpr->runAction(CCRepeatForever::create(
 		CCSequence::create(
-		CCMoveTo::create(0.3f, newPos), 
+		CCMoveTo::create(0.3f, newPos),
 		CCMoveTo::create(0.3f, oldPos), NULL)));
+
+	if (!isBusiness)
+	{
+		string picPath;
+		switch (m_type)
+		{
+		case kPackageDiamond:
+			picPath = "package/buy_btns/btn_2.png";
+			break;
+		case kPackageStep:
+			picPath = "package/buy_btns/btn_3.png";
+			break;
+		case kPackageProps:
+			picPath = "package/buy_btns/btn_2.png";
+			break;
+		case kPackagePetFirstGet:
+			picPath = "package/buy_btns/btn_1.png";
+			break;
+		}
+		if (!picPath.empty())
+		{
+			auto pos = m_layout->getChildById(9)->getPosition();
+			auto btn = m_layout->addBtn(9, picPath);
+			btn->setPosition(pos);
+		}
+	}
+	else
+	{
+		m_layout->getChildById(6)->setVisible(m_type != kPackagePetFirstGet);
+		m_layout->getChildById(7)->setVisible(m_type == kPackagePetFirstGet);
+	}
+
+	CCMenuItem *buyBtn = dynamic_cast<CCMenuItem *>(m_layout->getChildById(9));
+	buyBtn->setTarget(this, menu_selector(PackageDialog::onBuyBtnClicked));
+	buyBtn->runAction(CommonUtil::getRepeatScaleAction());
 }
 
 void PackageDialog::onCancelBtnClicked(cocos2d::CCObject* pSender)

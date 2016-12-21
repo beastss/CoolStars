@@ -14,9 +14,9 @@ public:
 protected:
 	ScaleDialog();
 	void runScale();
-private:
 	virtual void onEnter();
 	virtual void onExit();
+private:
 	void closeCallback(cocos2d::CCObject *pSender);
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 protected:

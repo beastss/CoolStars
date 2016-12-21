@@ -19,6 +19,7 @@
 #include "GameDataAnalysis.h"
 #include "LotteryScene.h"
 #include "CCFunctionAction.h"
+#include "PetUpgradeTips.h"
 
 USING_NS_CC;
 using namespace std;
@@ -43,12 +44,16 @@ void PetScene::onEnter()
 {
 	CCNode::onEnter();
 	PetManager::petMgr()->addView(this);
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, m_touchPriority, true);
+
 }
 
 void PetScene::onExit()
 {
 	CCNode::onExit();
 	PetManager::petMgr()->removeView(this);
+	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+
 }
 
 bool PetScene::init()
@@ -99,7 +104,7 @@ bool PetScene::init()
 	addChild(m_redPointLayer);
 	handleColorBtnClicked(s_curPetColor);
 
-	GuideMgr::theMgr()->startGuide(kGuideStart_pet_in, bind(&PetScene::toGuidePage, this));
+	runUpgradeGuide();
 	return true;
 }
 
@@ -120,11 +125,15 @@ void PetScene::initMainLayout()
 	CCMenuItem *packageBuyBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(28)));
 	packageBuyBtn->setTarget(this, menu_selector(PetScene::onBuyBtnClicked));
 
+	CCMenuItem *upgradeTipsBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(31)));
+	upgradeTipsBtn->setTarget(this, menu_selector(PetScene::onOpenUpgradeTipsBtnClicked));
+
 	CCPoint leftmost = m_mainLayout->getChildById(19)->getPosition();
 	CCPoint center = m_mainLayout->getChildById(10)->getPosition();
 	CCPoint rightmost = m_mainLayout->getChildById(20)->getPosition();
 	m_moveHelper.init(leftmost, center, rightmost);
 
+	m_mainLayout->getChildById(32)->runAction(CommonUtil::getScaleAction(true, 1.3f));
 }
 
 void PetScene::initBottomLayout()
@@ -214,7 +223,7 @@ void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 		MainScene::theScene()->showDialog(dialog);
 		MyPurchase::sharedPurchase()->showToast(kToastTextNotEnoughDiamond);
 	}
-
+	/*当初防止多次连续点击升级导致弹出礼包，卡住引导，现在没有这个硬性引导了
 	auto btn = dynamic_cast<CCMenuItem *>(pSender);
 	btn->setEnabled(false);
 	auto func = CCFunctionAction::create([=]()
@@ -222,6 +231,7 @@ void PetScene::onUpgradeBtnClicked(cocos2d::CCObject* pSender)
 		btn->setEnabled(true);
 	});
 	btn->runAction(CCSequence::create(CCDelayTime::create(0.7f), func, NULL));
+	*/
 }
 
 void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
@@ -251,6 +261,11 @@ void PetScene::onBuyBtnClicked(cocos2d::CCObject* pSender)
 		}
 	}
 	refreshUi();
+}
+
+void PetScene::onOpenUpgradeTipsBtnClicked(cocos2d::CCObject* pSender)
+{
+	//auto dialog = PetUpgradeTips::create();
 }
 
 void PetScene::onGreenPetBtnClicked(cocos2d::CCObject* pSender)
@@ -367,6 +382,8 @@ void PetScene::refreshUi()
 
 		CCLabelAtlas *skillEnergy = dynamic_cast<CCLabelAtlas *>(m_mainLayout->getChildById(30));
 		skillEnergy->setString(CommonUtil::intToStr(data.maxEnergy));
+		m_mainLayout->getChildById(30)->setVisible(data.maxEnergy != 0);
+		m_mainLayout->getChildById(29)->setVisible(data.maxEnergy != 0);
 
 		auto skillIcon = PetSkillIcon::create(petId);
 		EmptyBox *skillIconBox = dynamic_cast<EmptyBox *>(m_mainLayout->getChildById(24));
@@ -459,7 +476,7 @@ void PetScene::refreshArrows()
 	m_mainLayout->getChildById(5)->setVisible(m_curColorPetIndex < size - 1);
 }
 
-void PetScene::onNewPetAdd()
+void PetScene::onNewPetAdd(int petId)
 {
 	initColorPets();
 	refreshUi();
@@ -569,7 +586,54 @@ void PetScene::refrshRedPoint()
 	}
 }
 
+void PetScene::runUpgradeGuide()
+{
+	GuideMgr::theMgr()->startGuide(kGuideStart_pet_in, bind(&PetScene::toGuidePage, this));
+
+	if (!m_colorPets[s_curPetColor].empty())
+	{
+		int petId = m_colorPets[kColorRed][m_curColorPetIndex];
+		auto pet = PetManager::petMgr()->getPetById(petId);
+		if (pet->getPetData().level > 1)//如果升过级则不需要升级引导
+		{
+			GuideMgr::theMgr()->endGuide(kGuideEnd_pet_upgrade);
+		}
+	}
+}
+
 void PetScene::toGuidePage()
 {
 	handleColorBtnClicked(kColorRed);
+	
+}
+
+bool PetScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+	auto pt = m_mainLayout->convertToNodeSpace(pTouch->getLocation());
+	auto rect = m_mainLayout->getChildById(31)->boundingBox();
+	if (rect.containsPoint(pt))
+	{
+		int petId = m_colorPets[s_curPetColor][m_curColorPetIndex];
+		auto tips = PetUpgradeTips::create(petId);
+		tips->setAnchorPoint(ccp(0, 1));
+		tips->setPosition(pt);
+		m_mainLayout->addChild(tips, 1, -102);
+		return true;
+	}
+	return false;
+}
+
+void PetScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+{
+	auto pt = m_mainLayout->convertToNodeSpace(pTouch->getLocation());
+	auto rect = m_mainLayout->getChildById(31)->boundingBox();
+	if (!rect.containsPoint(pt))
+	{
+		m_mainLayout->removeChildByTag(-102);
+	}
+}
+
+void PetScene::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
+{
+	m_mainLayout->removeChildByTag(-102);
 }

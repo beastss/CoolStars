@@ -11,6 +11,7 @@ public:
 	static UiLayout *create(const char *xmlPath);
 	void setMenuTouchPriority(int touchPriority);
 	cocos2d::CCNode *getChildById(int id);
+	cocos2d::CCNode *addBtn(int id, std::string path);
 private:
 	UiLayout(const char *xmlPath);
 	virtual bool init();

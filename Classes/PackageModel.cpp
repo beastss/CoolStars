@@ -62,7 +62,8 @@ bool PackageModel::canBuyPetPackage()
 	
 	int minStage = DataManagerSelf->getSystemConfig().packagePetStage;
 	int topStage = StageDataMgr::theMgr()->getTopStage();
-	return !ownThisPet && minStage <= topStage;
+	//return !ownThisPet && minStage <= topStage;
+	return !ownThisPet;
 
 }
 

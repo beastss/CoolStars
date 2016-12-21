@@ -13,7 +13,8 @@
 #include "StageDataMgr.h"
 #include "ThiefModel.h"
 #include "SqliteHelper.h"
-#include "GameBackEndState.h"
+#include "TreasureStageDataMgr.h"
+#include "DailyLoginModel.h"
 
 static bool isFileExist(const char* pFileName)
 {
@@ -54,6 +55,7 @@ void GameDataPreLoader::copySqlFiles()
 	files.push_back(DB_CONFIG);
 	files.push_back(DB_SAVING);
 	files.push_back(DB_STAGE);
+	files.push_back(DB_TREASURE_STAGE);
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)//Android下需要复制数据文件
 	//检查数据库文件是否已经提取
@@ -86,7 +88,7 @@ void GameDataPreLoader::LoadGameConfigs()
 	check.checkDataBase();
 
 	DataManagerSelf->LoadData();
-
+	TreasureStageDataMgrSelf->loadData();
 }
 
 void GameDataPreLoader::intModels()
@@ -100,5 +102,5 @@ void GameDataPreLoader::intModels()
 	GuideMgr::theMgr()->init();
 	RankingModel::theModel()->init();
 	ThiefModel::theModel()->init();
-	GameBackEndState::theModel()->init();
+	DailyLoginModel::theModel()->init();
 }

@@ -22,6 +22,10 @@
 #include "PackageModel.h"
 #include "ViewUtil.h"
 #include "AnnouncementLayer.h"
+#include "GameBackEndState.h"
+#include "TreasureStageScene.h"
+#include "DailyLoginModel.h"
+#include "DailyLoginPanel.h"
 
 USING_NS_CC;
 using namespace std;
@@ -159,6 +163,9 @@ void MainScene::showPanel(int panelId, int usage, bool closeBehind)
 	case kStageWinPanel:
 		panel = GameWinLayer::create();
 		break;
+	case kTreasureStagePanel:
+		panel = TreasureStageScene::create();
+		break;
 	default:
 		assert(false && "no this panelId");
 		break;
@@ -166,9 +173,12 @@ void MainScene::showPanel(int panelId, int usage, bool closeBehind)
 	addUiPanel(panel, closeBehind);
 }
 
-void MainScene::showDialog(ScaleDialog *dialog)
+void MainScene::showDialog(ScaleDialog *dialog, bool removeOthers)
 {
-	m_dialogLayer->removeAllChildren();
+	if (removeOthers)
+	{
+		m_dialogLayer->removeAllChildren();
+	}
 
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	dialog->setAnchorPoint(ccp(0.5f, 0.5f));
@@ -214,8 +224,21 @@ void MainScene::onGuideBtnClicked(cocos2d::CCObject* pSender)
 
 void MainScene::showInitialUi()
 {
-	//auto dialog = PackageDialog::create(kPackageDiamond);
-	//showDialog(dialog);
+	bool showUpDailyLoginPanel = DailyLoginModel::theModel()->hasRewad();
+	if (showUpDailyLoginPanel)
+	{
+		auto dialog = DailyLoginPanel::create();
+		showDialog(dialog);
+		return;
+	}
+
+	bool isBusinessMode = GameBackEndState::theModel()->isBusinessMode();
+	if (isBusinessMode)
+	{
+		auto dialog = PackageDialog::create(kPackageDiamond);
+		showDialog(dialog);
+	}
+
 	/*
 	//·ÏÆú¹¦ÄÜ
 	if(RankingOpponent::theOpponent()->needUpdate())

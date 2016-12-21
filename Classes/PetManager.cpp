@@ -49,6 +49,21 @@ vector<int> PetManager::getOwnedPetIds()
 	return ids;
 }
 
+std::vector<int> PetManager::getOwnedStagePetIds(bool normalStage)
+{
+	auto stagePetIds = DataManagerSelf->getStagePetIds(normalStage);
+	vector<int> ids;
+	for (size_t i = 0; i < stagePetIds.size(); ++i)
+	{
+		int petId = stagePetIds[i];
+		if (ownedThisPet(petId))
+		{
+			ids.push_back(petId);
+		}
+	}
+	return ids;
+}
+
 vector<int> PetManager::getNotOwnedPetIds()
 {
 	vector<int> ids;
@@ -79,7 +94,7 @@ void PetManager::addNewPet(int petId)
 		if (!ownedThisPet(petId))
 		{
 			pet->getThisNewPet();
-			NOTIFY_VIEWS(onNewPetAdd);
+			NOTIFY_VIEWS(onNewPetAdd, petId);
 		}
 	}
 }

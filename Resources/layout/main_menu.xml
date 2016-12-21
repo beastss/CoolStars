@@ -10,14 +10,25 @@
 	</image>
 	<button>
 		<id>6</id>
-		<x>233.96</x>
-		<y>242.24</y>
+		<x>239.03</x>
+		<y>355.99</y>
 		<anchorPtX>0.50</anchorPtX>
 		<anchorPtY>0.50</anchorPtY>
 		<scale>1.00</scale>
 		<normal>main_menu/btn_2.png</normal>
 		<selected>main_menu/btn_2.png</selected>
 		<disabled>main_menu/btn_2.png</disabled>
+	</button>
+	<button>
+		<id>7</id>
+		<x>240.09</x>
+		<y>230.21</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>main_menu/btn_4.png</normal>
+		<selected>main_menu/btn_4.png</selected>
+		<disabled>main_menu/btn_4.png</disabled>
 	</button>
 	<button>
 		<id>5</id>

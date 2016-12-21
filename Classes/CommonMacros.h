@@ -54,6 +54,7 @@ enum PanelId
 	kStageView,
 	kStageFailPanel,
 	kStageWinPanel,
+	kTreasureStagePanel,
 };
 
 enum GameType

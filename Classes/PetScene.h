@@ -17,6 +17,7 @@ enum PetSceneUsage
 class PetScene 
 	: public BasePanel
 	, public IPetView
+	, public cocos2d::CCTouchDelegate
 {
 public:
 	static PetScene *create(int usage);
@@ -41,6 +42,7 @@ private:
 	void onRigthPetBtnClicked(cocos2d::CCObject* pSender);
 	void onUpgradeBtnClicked(cocos2d::CCObject* pSender);
 	void onBuyBtnClicked(cocos2d::CCObject* pSender);
+	void onOpenUpgradeTipsBtnClicked(cocos2d::CCObject* pSender);
 
 	void onBackBtnClicked(cocos2d::CCObject* pSender);
 	void onGreenPetBtnClicked(cocos2d::CCObject* pSender);
@@ -51,9 +53,13 @@ private:
 	void handleColorBtnClicked(int color);
 
 	virtual void onBackKeyTouched();
+	void runUpgradeGuide();
 	void toGuidePage();
 private:
-	virtual void onNewPetAdd();
+	virtual void onNewPetAdd(int petId);
+	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+	virtual void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+	virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 private:
 	enum
 	{

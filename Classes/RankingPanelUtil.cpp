@@ -35,6 +35,7 @@ void RankingNameInputPanel::initLayout()
 	genNameBtn->setTarget(this, menu_selector(RankingNameInputPanel::onGenRandomName));
 
 	m_nameLabel = dynamic_cast<CCLabelTTF *>((m_layout->getChildById(7)));
+	m_nameLabel->setColor(ccc3(41, 106, 152));
 }
 
 void RankingNameInputPanel::initEditBox()
@@ -139,6 +140,10 @@ bool RankingNode::init()
 
 	CCLabelTTF *name = dynamic_cast<CCLabelTTF *>(m_layout->getChildById(5));
 	name->setString(m_data.name.c_str());
+	if (m_data.type == kPlayer)
+	{
+		name->setColor(ccc3(41, 106, 152));
+	}
 
 	CCLabelAtlas *rank = dynamic_cast<CCLabelAtlas *>(m_layout->getChildById(7));
 	rank->setString(intToStr(m_rank));

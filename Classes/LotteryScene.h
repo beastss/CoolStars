@@ -5,6 +5,7 @@
 #include "TouchNode.h"
 #include <functional>
 #include "UserInfo.h"
+#include "LotteryModel.h"
 
 class UiLayout;
 class TitlePanel;
@@ -19,11 +20,11 @@ public:
 	static LotteryNode *create(int touchPriority, LotteryScene *panel);
 	void setHandle(std::function<void()> handle){ m_handle = handle; }
 	bool isOpened();
-	void handleTouch(bool consume = true);
+	void openBox(const LotteryData data);
 private:
 	virtual bool init();
 	LotteryNode(int touchPriority, LotteryScene *panel);
-	void openReward(bool consume);
+	void showReward(const LotteryData data);
 	bool onTouchBegan(cocos2d::CCPoint pt, bool isInside);
 	cocos2d::CCAction *getRewardOutAction(int num);
 private:
@@ -49,7 +50,10 @@ public:
 	static LotteryScene *create(int usage);
 	virtual bool init();
 	void runKeyMoveAction(cocos2d::CCPoint target, std::function<void()>callback);
-	void setTouchEnable(bool enable, int tag = 0);
+	void startOpenBox();
+	void endOpenBox();
+
+	//void setTouchEnable(bool enable, int tag = 0);
 private:
 	virtual void onEnter();
 	virtual void onExit();
@@ -59,10 +63,10 @@ private:
 	void initLayout();
 	void initBottomLayout();
 	void refreshUi();
-	void newRewardBoxs();
+	void newRewardBoxs(bool enableTouch);
 	void toPetScene(cocos2d::CCObject* pSender);
 	void onOpenAllBoxesBtnClicked(cocos2d::CCObject* pSender);
-	void openAllBoxs();
+	void openAllBoxs(std::vector<LotteryData> datas);
 	void onStartBtnClicked(cocos2d::CCObject* pSender);
 	void onOpenReward();
 	virtual void onKeyChanged();
@@ -77,5 +81,13 @@ private:
 	int m_curOpenedNum;//当前九个箱子里开过的数目；
 	ActionRunner *m_runner;
 	NoTouchLayer *m_noTouchLayer;
+	bool m_isOpeningAllBox;
+private:
+	enum
+	{
+		kStateNormal,
+		kStateOpenOneBox,
+		kStateOpenAllBox,
+	};
 };
 #endif

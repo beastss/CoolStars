@@ -153,10 +153,6 @@ int PreStagePetSlot::getIndexByPetId(int petId)
 
 void PreStagePetSlot::refreshList()
 {
-	if (m_curPetId == 31)
-	{
-		int i = 100;
-	}
 	auto petMgr = PetManager::petMgr();
 	auto ids = PreStageModel::theModel()->getPetsCanSelect(m_curPetId);
 	m_listView->clear();
@@ -178,8 +174,12 @@ void PreStagePetSlot::onSelectItemCallback(int index)
 	PreStagePetSlotNode *node = dynamic_cast<PreStagePetSlotNode *>(m_listView->getNode(index));
 	int petId = node->getPetId();
 
-	CCSprite *slotBg = dynamic_cast<CCSprite *>(m_layout->getChildById(1));
-	slotBg->initWithFile(node->getBgPath().c_str());
+	auto bgPath = node->getBgPath();
+	if (!bgPath.empty())
+	{
+		CCSprite *slotBg = dynamic_cast<CCSprite *>(m_layout->getChildById(1));
+		slotBg->initWithFile(bgPath.c_str());
+	}
 
 	if (m_curPetId != petId)
 	{

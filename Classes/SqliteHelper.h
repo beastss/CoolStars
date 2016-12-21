@@ -13,10 +13,12 @@
 #define DB_CONFIG "data/config.db"
 #define DB_SAVING "data/saving.db"
 #define DB_STAGE "data/stage.db"
+#define DB_TREASURE_STAGE "data/treasure_stage.db"
 #else
 #define DB_CONFIG "config.db"
 #define DB_SAVING "saving.db"
 #define DB_STAGE "stage.db"
+#define DB_TREASURE_STAGE "treasure_stage.db"
 #endif
 
 //对于同一个数据库， 尽量保持只有一个

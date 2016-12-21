@@ -9,7 +9,7 @@ class PetEntity;
 struct IPetView
 {
 	virtual void onPetEnergyChanged(int petId, int oldEnergy, int newEnergy){}
-	virtual void onNewPetAdd(){}
+	virtual void onNewPetAdd(int petId){}
 	virtual void onUsePetSkill(int petId){}
 };
 
@@ -19,8 +19,9 @@ public:
 	static PetManager *petMgr();
 	void init();
 	PetEntity *getPetById(int id);
-	std::vector<int> getOwnedPetIds();
+	std::vector<int> getOwnedPetIds();//包括普通关卡宠物和休闲模式宠物
 	std::vector<int> getNotOwnedPetIds();
+	std::vector<int> getOwnedStagePetIds(bool normalStage);
 	int getMaxPetsAmount(){ return m_pets.size(); }
 	bool ownedThisPet(int id);
 	void addNewPet(int petId);

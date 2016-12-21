@@ -1,6 +1,6 @@
 <layout width="480.000000" height="864.000000">
 	<button>
-		<id>5</id>
+		<id>6</id>
 		<x>451.35</x>
 		<y>453.91</y>
 		<anchorPtX>0.50</anchorPtX>
@@ -11,7 +11,7 @@
 		<disabled>pet/cwjm_jianhao2.png</disabled>
 	</button>
 	<button>
-		<id>6</id>
+		<id>5</id>
 		<x>34.10</x>
 		<y>458.36</y>
 		<anchorPtX>0.50</anchorPtX>
@@ -136,10 +136,10 @@
 	</emptyBox>
 	<image>
 		<id>22</id>
-		<x>164.61</x>
-		<y>270.33</y>
+		<x>163.55</x>
+		<y>296.29</y>
 		<anchorPtX>0.00</anchorPtX>
-		<anchorPtY>0.00</anchorPtY>
+		<anchorPtY>1.00</anchorPtY>
 		<scale>1.00</scale>
 		<path>pet/cwjm_jinengmiaoshu11.png</path>
 	</image>
@@ -202,5 +202,27 @@
 		<num>15</num>
 		<path>num/ty_ziti1.png</path>
 	</imageNum>
+	<button>
+		<id>31</id>
+		<x>63.11</x>
+		<y>709.10</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>pet/upgrade/sign_2.png</normal>
+		<selected>pet/upgrade/sign_2.png</selected>
+		<disabled>pet/upgrade/sign_2.png</disabled>
+	</button>
+	<button>
+		<id>32</id>
+		<x>63.11</x>
+		<y>709.10</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<normal>pet/upgrade/sign_2.png</normal>
+		<selected>pet/upgrade/sign_2.png</selected>
+		<disabled>pet/upgrade/sign_2.png</disabled>
+	</button>
 </layout>
 

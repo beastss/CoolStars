@@ -222,3 +222,25 @@ CCNode *UiLayout::getChildById(int id)
 	}
 
 }
+
+CCNode *UiLayout::addBtn(int id, std::string path)
+{
+	//选中状态直接使用放大的正常图片
+	auto normalSpr = CCSprite::create(path.c_str());
+	auto selectedSpr = CCSprite::create(path.c_str());
+	float selectedScale = 1.1f;
+	selectedSpr->setScale(selectedScale);
+
+	CCMenuItemSprite* imageItem = CCMenuItemSprite::create(normalSpr, selectedSpr, this, NULL);
+	selectedSpr->setAnchorPoint(ccp((selectedScale - 1.0f) / 2, (selectedScale - 1.0f) / 2));
+
+	auto node = getChildById(id);
+	if (node)
+	{
+		node->removeFromParent();
+	}
+	m_menu->addChild(imageItem);
+	m_menuItems[id] = imageItem;
+	return imageItem;
+}
+

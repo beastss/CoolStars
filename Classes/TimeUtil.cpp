@@ -15,11 +15,11 @@ int time_util::getCurTime()
 	return int(timep);
 }
 
-tm *time_util::getDate(time_t time)
+tm time_util::getDate(time_t time)
 {
 	tm *t = NULL;
 	t = localtime(&time);
 	t->tm_year = t->tm_year + 1900;
 	t->tm_mon = t->tm_mon + 1;
-	return t;
+	return *t;
 }

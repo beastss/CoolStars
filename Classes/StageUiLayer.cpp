@@ -191,6 +191,7 @@ void StageUiLayer::initPets()
 		m_runner->queueAction(CallFuncAction::withFunctor([=]()
 		{
 			StagePetNode *petNode = StagePetNode::create(petId, kStageUiTouchPriority);
+			petNode->setScale(0.7f);
 			petNode->setTouchHandle(bind(&StageUiLayer::handlePetClicked, this, placeholders::_1));
 			auto node = dynamic_cast<EmptyBox *>((m_topUi->getChildById(uiId)));
 			node->setNode(petNode);

@@ -20,6 +20,8 @@ void HelpPanel::initLayout()
 {
 	CCMenuItem *confirmBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(3)));
 	confirmBtn->setTarget(this, menu_selector(HelpPanel::onConfirmBtnClicked));
+
+	m_layout->getChildById(5)->setVisible(false);
 }
 
 void HelpPanel::onConfirmBtnClicked(cocos2d::CCObject* pSender)

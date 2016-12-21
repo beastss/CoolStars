@@ -21,7 +21,7 @@ public:
 	bool init();
 
 	void showPanel(int panelId, int usage = 0, bool closeBehind = true);
-	void showDialog(ScaleDialog *dialog);
+	void showDialog(ScaleDialog *dialog, bool removeOthers = true);
 	void removeDialog(ScaleDialog *dialog){}
 	void showGuideView(int guideId);
 	void removeGuideView();

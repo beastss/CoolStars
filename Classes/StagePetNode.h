@@ -24,6 +24,7 @@ public:
 	void setTouchHandle(std::function<void(int)> handle){ m_touchHandle = handle; }
 	int getColor();
 	void playHappyAction(bool loop);
+	void setIconVisible(bool visible);
 private:
 	StagePetNode(int petId, int touchPriority);
 	virtual void onEnter();

@@ -5,9 +5,9 @@
 #include "GameClock.h"
 struct IUserInfoView
 {
-	virtual void onDiamondChanged(){}
-	virtual void onFoodChanged(){}
-	virtual void onStrengthChanged(){}
+	virtual void onDiamondChanged(int oldValue, int newValue){}
+	virtual void onFoodChanged(int oldValue, int newValue){}
+	virtual void onStrengthChanged(int oldValue, int newValue){}
 	virtual void onRuneStoneChanged(){}
 	virtual void onKeyChanged(){}
 	virtual void onStrengthLeftTimeChanged(int leftSecs){}
@@ -55,9 +55,11 @@ public:
 	void saveCurLoginInTime();
 	int getLastLoginInTime(){ return m_lastLoginInTime; }
 	bool isFirstLoginToday();
+	int getCurLoginDays();
 private:
 	UserInfo(){}
 	void onTick(float dt);
+	void login();
 private:
 	int m_diamond;
 	int m_food;
@@ -68,7 +70,9 @@ private:
 	bool m_isFirstPlay;
 	int m_firstPlayTime;
 	int m_lastLoginInTime;
+	bool m_isFirstPlayToday;
 	int m_lastSaveStrengthTime;
+	int m_loginDays;
 
 	std::vector<IUserInfoView *>m_views;
 	TickClock m_clock;

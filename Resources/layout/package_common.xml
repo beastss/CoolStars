@@ -27,6 +27,16 @@
 		<path>guide/hou2_hong/hou2_hong.ExportJson</path>
 		<movement>0</movement>
 	</animation>
+		<animation>
+		<id>7</id>
+		<x>238.45</x>
+		<y>93.65</y>
+		<anchorPtX>0.50</anchorPtX>
+		<anchorPtY>0.50</anchorPtY>
+		<scale>1.00</scale>
+		<path>guide/hou2_zhi/hou2_zhi.ExportJson</path>
+		<movement>0</movement>
+	</animation>
 	<button>
 		<id>9</id>
 		<x>235.96</x>

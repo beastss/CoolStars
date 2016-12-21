@@ -23,6 +23,9 @@
 #include "CommonUtil.h"
 #include "EmptyBox.h"
 #include "StagePanelUtil.h"
+#include "DailyLoginPanel.h"
+#include "DailyLoginModel.h"
+#include "TreasureStageModel.h"
 
 USING_NS_CC;
 using namespace std;
@@ -75,12 +78,12 @@ void MenuScene::initMainLayout()
 	normalBtn->setTarget(this, menu_selector(MenuScene::toNormalGame));
 	normalBtn->runAction(CommonUtil::getScaleAction());
 
-	//CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
-	//treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
+	CCMenuItem *treasureBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(7)));
+	treasureBtn->setTarget(this, menu_selector(MenuScene::toTreasureGame));
+	treasureBtn->setVisible(TreasureStageModel::theModel()->isOpening());
 
 	CCMenuItem *packageBtn = dynamic_cast<CCMenuItem *>((m_mainLayout->getChildById(5)));
 	packageBtn->setTarget(this, menu_selector(MenuScene::toPackagePanel));
-
 }
 
 void MenuScene::initBottomLayout()
@@ -111,6 +114,9 @@ void MenuScene::initBottomLayout()
 	CCMenuItem *toPetBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(9)));
 	toPetBtn->setTarget(this, menu_selector(MenuScene::toPetPanel));
 
+	CCMenuItem *toDailyLoginBtn = dynamic_cast<CCMenuItem *>((m_bottomLayout->getChildById(11)));
+	toDailyLoginBtn->setTarget(this, menu_selector(MenuScene::toDailyLoginPanel));
+
 	bool isMute = SoundMgr::theMgr()->isMute();
 	if (isMute)
 	{
@@ -135,7 +141,7 @@ void MenuScene::toNormalGame(CCObject* pSender)
 void MenuScene::toTreasureGame(CCObject* pSender)
 {
 	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
-	MainScene::theScene()->showPanel(kPreStagePanel, kTreasureType);
+	MainScene::theScene()->showPanel(kTreasureStagePanel);
 }
 
 void MenuScene::drawLottery(cocos2d::CCObject* pSender)
@@ -213,12 +219,20 @@ void MenuScene::toShopPanel(cocos2d::CCObject* pSender)
 	MainScene::theScene()->showPanel(kShopPanel);
 }
 
+void MenuScene::toDailyLoginPanel(cocos2d::CCObject* pSender)
+{
+	SoundMgr::theMgr()->playEffect(kEffectMusicButton);
+	auto dialog = DailyLoginPanel::create();
+	MainScene::theScene()->showDialog(dialog);
+}
+
 void MenuScene::justShowNormalGameBtn()
 {
 	m_bottomLayout->setVisible(false);
 	//m_mainLayout->getChildById(6)->setPosition(m_mainLayout->getChildById(7)->getPosition());
 	//m_mainLayout->getChildById(7)->setVisible(false);
 	m_mainLayout->getChildById(5)->setVisible(false);
+	m_mainLayout->getChildById(7)->setVisible(false);
 }
 
 void MenuScene::refreshPetTips()
@@ -226,7 +240,6 @@ void MenuScene::refreshPetTips()
 	bool hasPetToUpgrade = PetManager::petMgr()->hasPetToUpgrade();
 	m_bottomLayout->getChildById(10)->setVisible(hasPetToUpgrade);
 	m_bottomLayout->getChildById(10)->setZOrder(2);
-
 }
 
 void MenuScene::onBackKeyTouched()

@@ -31,6 +31,7 @@ struct PetCommonConfig
 	int maxLevel;
 	std::string skillDescRes;
 	int diamondCost;
+	int lotteryWeight;
 	string desc;
 };
 
@@ -44,6 +45,7 @@ struct PetResConfig
 	string petAnimationRes;
 	string petNameRes;
 	bool isOpening;
+	bool normalStage;
 	string name;
 };
 
@@ -237,6 +239,14 @@ struct SoundConfig
 	std::string button;
 	std::string bomb;
 	std::string starErase;
+};
+
+struct DailyLoginConfig
+{
+	int id;
+	GoodsData goods;
+	std::string rewardPath;
+	std::string dayLabelPath;
 };
 
 struct EraseBonus

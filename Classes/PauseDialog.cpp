@@ -16,7 +16,9 @@ PauseDialog::PauseDialog(void)
 
 bool PauseDialog::init()
 {
-	m_layout = UiLayout::create("layout/package_pause.xml");
+	bool isBusiness = GameBackEndState::theModel()->isBusinessMode();
+	string xmlPath = isBusiness ? "layout/package_pause.xml" : "layout/package_pause_before_business.xml";
+	m_layout = UiLayout::create(xmlPath.c_str());
 	
 	setContentSize(m_layout->getContentSize());
 	addMaskLayer();
@@ -30,11 +32,11 @@ void PauseDialog::initLayout()
 	CCMenuItem *resumeBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(3)));
 	resumeBtn->setTarget(this, menu_selector(PauseDialog::onResume));
 
-	CCMenuItem *toMuteBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(4)));
-	toMuteBtn->setTarget(this, menu_selector(PauseDialog::onMute));
+	//CCMenuItem *toMuteBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(4)));
+	//toMuteBtn->setTarget(this, menu_selector(PauseDialog::onMute));
 	
-	CCMenuItem *toSoundBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(8)));
-	toSoundBtn->setTarget(this, menu_selector(PauseDialog::onSound));
+	//CCMenuItem *toSoundBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(8)));
+	//toSoundBtn->setTarget(this, menu_selector(PauseDialog::onSound));
 
 	CCMenuItem *backBtn = dynamic_cast<CCMenuItem *>((m_layout->getChildById(5)));
 	backBtn->setTarget(this, menu_selector(PauseDialog::onBackHome));
@@ -53,6 +55,7 @@ void PauseDialog::onResume(CCObject* pSender)
 
 void PauseDialog::setMute(bool isMute)
 {
+	return;
 	SoundMgr::theMgr()->setMute(isMute);
 	m_layout->getChildById(4)->setVisible(!isMute);
 	m_layout->getChildById(8)->setVisible(isMute);

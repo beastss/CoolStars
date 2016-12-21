@@ -31,13 +31,12 @@ void PreStageModel::selectPet(int newPetId, int oldPetId)
 
 std::vector<int> PreStageModel::getPetsCanSelect(int curPetId)
 {
-	auto ids = PetManager::petMgr()->getOwnedPetIds();
 
-	vector<int> diff(ids.size());
-	sort(ids.begin(), ids.end());
+	vector<int> diff(m_canSelectPets.size());
+	sort(m_canSelectPets.begin(), m_canSelectPets.end());
 	sort(m_selectedPets.begin(), m_selectedPets.end());
 
-	auto iter = set_difference(ids.begin(), ids.end(), m_selectedPets.begin(), m_selectedPets.end(), diff.begin());
+	auto iter = set_difference(m_canSelectPets.begin(), m_canSelectPets.end(), m_selectedPets.begin(), m_selectedPets.end(), diff.begin());
 	
 	//添加当前petid 和 缺省不存在宠物的petid 
 	vector<int> result(diff.begin(), iter);
@@ -80,5 +79,6 @@ void PreStageModel::confirmCurPets()
 void PreStageModel::init()
 {
 	m_selectedPets.clear();
+	m_canSelectPets = PetManager::petMgr()->getOwnedStagePetIds(true);
 }
 

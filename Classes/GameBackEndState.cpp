@@ -7,7 +7,6 @@
 using namespace std;
 
 GameBackEndState::GameBackEndState()
-: m_isBusinessMode(false)
 {
 
 }
@@ -68,8 +67,9 @@ void GameBackEndState::recordStageEnd(bool win)
 #endif
 }
 
-void GameBackEndState::init()
+bool GameBackEndState::isBusinessMode()
 {
+	bool isBusinessMode = true;
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
 	const char* funstr = "org/cocos2dx/lib/PayAndroidApi";
 	JniMethodInfo minfo;
@@ -87,7 +87,8 @@ void GameBackEndState::init()
 		"isForBusiness",
 		"()Z");
 	if (isHave) {
-		m_isBusinessMode = minfo.env->CallBooleanMethod(jobj, minfo.methodID);
+		isBusinessMode = minfo.env->CallBooleanMethod(jobj, minfo.methodID);
 	}
 #endif
+	return isBusinessMode;
 }
